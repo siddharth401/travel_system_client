@@ -1,0 +1,141 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a>{{'お気に入り一覧'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+                    <div id="plan" class="mypage__body__section">
+                        <h2 class="mypage__body__title--02">{{'旅プランのお気に入り' | ttrans}}</h2>
+                        <div class="mypage__body__block">
+                            <div class="content-list">
+                                <ul class="content-list__wrap" *ngIf="plan_favorites">
+                                    <li class="content-list__item" *ngFor="let plan of plan_favorites.data">
+                                        <div>
+                                            <div class="content-list__photo">
+                                                <a [routerLink]="['/'+app.language + '/tour/detail/'+plan.plan_id]">
+                                                    <figure class="content-list__cover"><img [attr.src]="plan.images[0] ? app.constant.FILE_URL+plan.images[0] : '/assets/top/img/noimage_200x200.png'" alt=""></figure>
+                                                </a>
+                                                <a [routerLink]="['/'+app.language + '/guide/detail/'+plan.member_id]">
+                                                    <figure class="content-list__person"><img [attr.src]="plan.avatar ? app.constant.FILE_URL+plan.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></figure>
+                                                </a>
+                                            </div>
+                                            <div class="content-list__body">
+                                                <ul class="category" *ngIf="plan.categories">
+                                                    <li *ngFor="let category of plan.categories">
+                                                        <a [routerLink]='["/" + app.language + "/search/category-" + category.prefix]' style="background: #7cb342">{{category.name}}</a>
+                                                    </li>
+                                                </ul>
+                                                <h4 class="content-list__title">
+                                                    <a [routerLink]='["/" + app.language + "/tour/detail/" + plan.plan_id]' data-toggle="tooltip" title="{{plan.proposal_title}}">{{plan.proposal_title}}</a>
+                                                </h4>
+                                                <div class="content-list__utility">
+                                                    <p class="price" >¥{{plan.price | numberFormat}}／{{'人'|ttrans}}</p>
+                                                    <div class="content-list__flex">
+                                                        <top-star class="star" [point]="plan.rating"></top-star>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <favorites-layout-loadmore [data]="plan_favorites" [url]="'mypage/plan_favorites'"></favorites-layout-loadmore>
+                        </div>
+                    </div>
+
+                    <div id="request" class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'旅リクエストのお気に入り' | ttrans}}</h2>
+
+                        <div class="mypage__body__block">
+                            <ul class="request-lineup__list" *ngIf="request_favorites">
+                                <li *ngFor="let request of request_favorites.data">
+                                    <div class="request-lineup__head">
+                                        <ul class="pref-list" *ngIf="request.city">
+                                            <li><a [routerLink]='["/" + app.language + "/request/search/city-" + request.city.prefix]'>{{request.city.name}}</a></li>
+                                        </ul>
+                                        <p class="request-time" *ngIf="request.date_plan">{{request.date_plan | datex: "YYYY/MM/DD"}}</p>
+                                    </div>
+                                    <div class="request-lineup__body">
+                                        <ul class="category" *ngIf="request.categories">
+                                            <li *ngFor="let category of request.categories"><a [routerLink]='["/" + app.language + "/request/search/category-" + category.prefix]' style="background: #7cb342">{{category.name}}</a></li>
+                                        </ul>
+                                        <div class="request-lineup__flex">
+                                            <div class="request-lineup__photo">
+                                                <a [routerLink]='["/" + app.language + "/request/detail/" + request.id]'><img [attr.src]="request.members.avatar ? app.constant.FILE_URL+request.members.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></a>
+                                            </div>
+                                            <div class="request-lineup__text">
+                                                <h3 class="request-lineup__title"><a [routerLink]='["/" + app.language + "/request/detail/" + request.id]' data-toggle="tooltip" title="{{request.title}}">{{request.title}}</a></h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="request-lineup__foot">
+                                        <a [routerLink]='["/" + app.language + "/request/detail/" + request.id]'>
+                                            <div>
+                                                <figure *ngIf="request.language"><img [attr.src]="request.language.icon ? app.constant.FILE_URL+request.language.icon : '/assets/top/img/noimage_200x200.png'" alt="" width="38" /></figure>
+                                                <p>{{request.num_people}}{{'人'|ttrans}}</p>
+                                            </div>
+                                            <div>
+                                                <p *ngIf="request.desire_price > 0" class="request-lineup__info--01" >¥{{request.desire_price | numberFormat}}／{{'人'|ttrans}}</p>
+                                                <p *ngIf="request.desire_price == 0"class="request-lineup__info--01" >¥{{request.desire_price}}／{{'人'|ttrans}}</p>
+                                                <p class="request-lineup__info--02">{{request.plan_hour|formatHour}}h／{{'F36_所要時間' | ttrans}}</p>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                           <favorites-layout-loadmore [data]="request_favorites" [url]="'mypage/request_favorites'"></favorites-layout-loadmore>
+                        </div>
+                    </div>
+
+                    <div id="guide" class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'旅ガイドのお気に入り' | ttrans}}</h2>
+
+                        <div class="mypage__body__block">
+                            <div class="content-list content-list--guide">
+                                <ul class="content-list__wrap" *ngIf="member_favorites">
+                                    <li class="content-list__item" *ngFor="let member of member_favorites.data">
+                                        <div>
+                                            <div class="content-list__photo">
+                                                <a [routerLink]='["/" + app.language + "/guide/detail/" + member.id]'>
+                                                    <figure class="content-list__person">
+                                                        <img class="content-list__person__img" [attr.src]="member.avatar ? app.constant.FILE_URL+member.avatar : '/assets/top/img/noimage_200x200.png'" alt="" height="170px">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <div class="content-list__body">
+                                                <h4 class="content-list__title">
+                                                    <a [routerLink]='["/" + app.language + "/guide/detail/" + member.id]' data-toggle="tooltip" title="{{member.name}}">{{member.name}}</a>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <favorites-layout-loadmore [data]="member_favorites" [url]="'mypage/member_favorites'"></favorites-layout-loadmore>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

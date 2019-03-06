@@ -1,0 +1,42 @@
+@import "foundation/_mixin.scss";
+@import "foundation/_setting.scss";
+.guide{
+	&__visual{
+		background: url(/img/visual_guide.png) no-repeat center top;
+		background-size: cover;
+	}
+}
+.review__head{
+	.guide-score--start{
+		margin-left: 20px;
+		.content-list__score{
+			li{
+				@include font-size(14,14);
+			}
+		}
+	}
+}
+
+.guide-detail{
+	&__section{
+		.guide-score{
+			p{
+				@include font-size(14,14);
+				color: #222;
+				margin-left: 5px;
+			}
+		}
+	}
+}
+
+.guide-plans{
+	margin-bottom: 80px;
+	.content-list__wrap{
+		.content-list__item{
+			margin: 0 25px 25px 0px;
+			&:nth-child(3n){
+				margin-right: 0;
+			}
+		}
+	}
+}

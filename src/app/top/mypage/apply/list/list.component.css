@@ -1,0 +1,33 @@
+table tr td a{
+    color: blue;
+}
+.cursor-default{
+    cursor: default;
+}
+.mypage__body__table__name {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.mypage__body__table-compact .btn__mypage{
+    width: 118px;
+    min-width: 118px;
+    padding: 10px 5px;
+}
+.btn-container{
+    width: 118px;
+}
+@media (max-width:767px) {
+    .mypage__body__table__name{
+        max-width: 100%;
+    }
+    .btn-container{
+        width: auto;
+    }
+    .mypage__body i.ct.ct-none{
+        text-align: left;
+        width: auto;
+    }
+}
+

@@ -1,0 +1,102 @@
+
+table.table tbody tr td {
+    line-height: 30px !important;
+    text-align: center;
+}
+table tr th .arrow {
+    border: solid 6px transparent;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    float: right;
+}
+table tr th .arrow.asc {
+    border-bottom-color: #333;
+    margin-top: 0px;
+}
+table tr th .arrow.desc {
+    border-top-color: #333;
+    margin-top: 6px;
+}
+table tr th {
+    cursor: pointer;
+    text-align: center;
+}
+.help-block {
+    color: #b94a48;
+}
+.page-footer {
+    position: absolute !important;
+}
+
+#main {
+    min-height: 0;
+    padding-bottom: inherit;
+}
+
+
+/* Admin custom image browser { */
+.superbox {
+    max-height: 300px;
+    width: 100%;
+    overflow: auto;
+    padding-top: 5px;
+}
+
+.superbox-list
+{
+    border: solid 3px transparent;
+    width: 13.5%;
+    padding: 0;
+}
+
+.superbox-list.selected  .superbox-img {
+    opacity: 0.5;
+}
+
+.superbox-list.selected {
+    border: solid 3px #66afe9;
+    border-radius: 2px;
+}
+
+#file-browser .description {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+/* Admin custom image browser } */
+
+.thead-table th{
+    background-color: #3276b1;
+}
+.thead-table th a{
+    color: #fff;
+}
+.table-scroll {
+    overflow-x: scroll;
+}
+nav ul ul li>a{
+    padding-left: 30px;
+}
+.minified .minifyme{
+    margin-top: 50px;
+}
+.ui-datepicker {
+    width: 239px;
+    z-index: 50 !important;
+}
+.page-title span {
+    vertical-align: 0px;
+}
+.ui-icon {
+    width: 32px;
+    margin-left: -16px !important;
+    text-indent: -9999px !important;
+}
+.button-orange{
+    background-color: #ff9800!important;
+    border-color: #fff;
+}
+.pre-text{
+    font-family: “ヒラギノ角ゴ Pro W3”, “Hiragino Kaku Gothic Pro”, メイリオ, Meiryo, Osaka, “ＭＳ Ｐゴシック“, “MS PGothic”, sans-serif;
+    margin-bottom: 0px;
+}

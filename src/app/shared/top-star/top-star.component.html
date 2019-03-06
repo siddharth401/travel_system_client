@@ -1,0 +1,26 @@
+<ul class="content-list__score star-style__list" *ngIf="point == null">
+    <li>
+        <i  class="fa fa-star-o" aria-hidden="true"></i>
+    </li>
+    <li>
+        <i  class="fa fa-star-o" aria-hidden="true"></i>
+    </li>
+    <li>
+        <i  class="fa fa-star-o" aria-hidden="true"></i>
+    </li>
+    <li>
+        <i  class="fa fa-star-o" aria-hidden="true"></i>
+    </li>
+    <li>
+        <i  class="fa fa-star-o" aria-hidden="true"></i>
+    </li>
+</ul>
+<ul class="content-list__score star-style__list" *ngIf="point != null">
+    <li *ngFor=" let item of rating(point)">
+        <i *ngIf="item.key == 1" class="fa fa-star is-active" aria-hidden="true"></i>
+        <i *ngIf="item.key == 0" class="fa fa-star-o" aria-hidden="true"></i>
+        <i *ngIf="item.key == 2" class="fa fa-star-half-o is-active" aria-hidden="true"></i>
+    </li>
+</ul>
+<p class="content-list__numb" *ngIf="point">{{point | number:'1.1-2'}}</p>
+<p class="content-list__numb" *ngIf="point == null">0.0</p>

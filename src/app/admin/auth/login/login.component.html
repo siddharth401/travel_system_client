@@ -1,0 +1,66 @@
+<header id="header" style="background: linear-gradient(to left,#3a3633 93%,#2a2725 100%) !important;">
+  <div id="logo-group">
+        <span id="logo">
+            <img src="assets/top/img/logo.png" alt="">
+        </span>
+  </div>
+
+  <!-- multiple lang dropdown : find all flags in the flags page -->
+  <sa-language-selector></sa-language-selector>
+  <!-- end multiple lang -->
+</header>
+
+<div id="main" role="main" class="animated fadeInDown">
+  <div id="content" class="container page-login">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="jarviswidget">
+          <header role="heading">
+            <span class="widget-icon"></span>
+            <h2>{{'Login'|trans}}</h2>
+          </header>
+          <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+              <form [formGroup]="form" class="form-horizontal" (ngSubmit)="login()">
+                <fieldset>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Username'|trans}}</label>
+                    <div class="col-md-10">
+                      <input type="text" formControlName="username" placeholder="{{'Username'|trans}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Password'|trans}}</label>
+                    <div class="col-md-10">
+                      <input type="password" formControlName="password" placeholder="{{'Password'|trans}}" class="form-control">
+                      <small class="msg_err" *ngIf="error.message">{{error.message|trans}}</small>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                      <button class="btn btn-primary" type="submit">{{'Login'|trans}}</button>
+                    </div>
+                  </div>
+
+                  <div class="row form-group">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                      <a [routerLink]='["/admin/auth/forgot-password"]'> {{'Forgot your password ?'|trans}} </a>
+                    </div>
+                    <label class="col-md-3 control-label"></label>
+                  </div>
+
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+    </div>
+  </div>
+</div>

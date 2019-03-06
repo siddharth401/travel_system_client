@@ -1,0 +1,14 @@
+.btn--primary{
+    cursor: default !important;
+}
+.mypage__body__title__td {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mypage__body__title__td a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

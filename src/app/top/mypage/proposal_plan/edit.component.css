@@ -1,0 +1,95 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.list-item {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.list-item li {
+    padding: 0 20px;
+    position: relative;
+    counter-increment:section;
+}
+.list-item li:before {
+    content: "/";
+    position: absolute;
+    top:0;
+    left: -11px;
+}
+
+.list-item li:first-child:before {
+    content: none;
+}
+.list-item li:after {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border:1px solid;
+    content:""counter(section);
+    text-align: center;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.inner-form {
+    margin-bottom: 25px;
+}
+#plan-location-pref {
+    margin-bottom: 0;
+}
+.inner-form__msg {
+    margin-bottom: 0 !important;
+}
+.inner-form__msg .mypage__body__float--left {
+    float: none !important;
+}
+.inner-form__msg .msg_err {
+    margin-bottom: 0 !important;
+}
+.mypage__body__title {
+    word-break: break-all;
+}
+.inner-form__msg .mypage__body__float--left {
+    margin: 5px 0;
+}
+.form-set--textarea {
+    width: 100%;
+}
+
+.mypage__body__float--left .form-set--inline{
+    width:80px;
+}
+.mypage__body__float--left .form-set--inline input{
+    padding:0 10px;
+}
+.mypage__body__float--left .form-set--inline #plan-price{
+    width:80px;
+}
+.mypage__body__float--left .form-set--inline #plan-number{
+    width:80px;
+}
+.mypage__body__float--left .form-set--inline #plan-total{
+    width:150px;
+}
+
+.mypage__body__table-normal tr > th{
+    width: 130px;
+}
+
+@media (max-width:767px) {
+    .mypage__body__table-normal tr > th {
+        width: 100%;
+    }
+}

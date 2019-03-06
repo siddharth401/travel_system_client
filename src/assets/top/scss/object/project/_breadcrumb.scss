@@ -1,0 +1,53 @@
+.breadcrumb{
+	background: #fafafa;
+	&__list{
+		width: $base_width;
+		margin: 0 auto 40px;
+		@include flexbox(flex-start,flex-start);
+		padding: 15px 0;
+		@include for-size(phone-only) {
+			margin: 0 0px;
+			padding: 10px;
+		}
+		li{
+			position: relative;
+			a{
+				color: #484848;
+				@include font-size(13,13);
+				text-decoration: none;
+				&:hover{
+					@include opacity(.7);
+				}
+				@include for-size(phone-only) {
+					@include font-size(10,10);
+				}
+			}
+		}
+		li+li{
+			padding-left: 30px;
+			@include for-size(phone-only) {
+				padding-left: 15px;
+			}
+			&:before {
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 10px;
+				width: 7px;
+				height: 7px;
+				margin-top: -4px;
+				border-top: solid 1px #484848;
+				border-right: solid 1px #484848;
+				-webkit-transform: rotate(45deg);
+				transform: rotate(45deg);
+				content: "";
+				@include for-size(phone-only) {
+					left: 5px;
+					width: 4px;
+					height: 4px;
+					margin-top: -0px;
+				}
+			}
+		}
+	}
+}

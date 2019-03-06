@@ -1,0 +1,7 @@
+.btn--secondary {
+    width: 350px;
+}
+.content-list__flex .star {
+    display: flex;
+    align-items: baseline;
+}

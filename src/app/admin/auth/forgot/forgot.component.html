@@ -1,0 +1,42 @@
+<header id="header" class="animated fadeInDown">
+
+  <div id="logo-group">
+    <span id="logo"> <img src="assets/top/img/logo.png" alt="SmartAdmin"> </span>
+  </div>
+
+</header>
+<div id="main" role="main" class="animated fadeInDown">
+
+  <div class="container" style="display: flex; justify-content: center;">
+
+    <div id="content" class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+      <div class="well no-padding">
+        <form id="login-form" class="smart-form client-form">
+          <header>
+            {{'Forgot Password'|trans}}
+          </header>
+
+          <fieldset>
+
+            <section>
+              <label class="label">{{'Enter your email address'|trans}}</label>
+              <label class="input"> <i class="icon-append fa fa-envelope"></i>
+                <input type="email" name="email">
+                <b class="tooltip tooltip-top-right"><i class="fa fa-envelope txt-color-teal"></i>{{'Enter your email address'|trans}}</b></label>
+                {{'Please enter your registered email address and press the send button. We will send you a confirmation email with the URL for password resetting'|trans}}
+            </section>
+
+          </fieldset>
+          <footer>
+            <button (click)="submit($event)" class="btn btn-primary">{{'Reset Password'|trans}}</button>
+            <a class="btn btn-default" [routerLink]='["/admin/auth/login"]' type="button">{{'Cancel'|trans}}</a>
+          </footer>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

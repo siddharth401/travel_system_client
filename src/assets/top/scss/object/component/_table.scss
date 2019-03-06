@@ -1,0 +1,42 @@
+.table{
+	&--default{
+		@include for-size(phone-only) {
+			border-bottom: 1px solid #ccc;
+		}
+		tbody{
+			tr{
+				th{
+					background: #f0f0f0;
+					width: 40%;
+					padding: 20px;
+					font-weight: bold;
+					text-align: left;
+					vertical-align: middle;
+					border: 1px solid #ccc;
+					@include for-size(phone-only) {
+						padding: 10px;
+						@include font-size(14,24);
+						width: 100%;
+						display: block;
+						box-sizing: border-box;
+					}
+				}
+				td{
+					padding: 20px;
+					vertical-align: middle;
+					border: 1px solid #ccc;
+					@include font-size(16,28);
+					@include for-size(phone-only) {
+						width: 100%;
+						display: block;
+						box-sizing: border-box;
+						padding: 10px;
+						border-top: none;
+						border-bottom: none;
+						@include font-size(14,24);
+					}
+				}
+			}
+		}
+	}
+}

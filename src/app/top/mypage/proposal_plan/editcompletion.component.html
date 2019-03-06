@@ -1,0 +1,60 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/proposal_plan']">{{'F62_提案プラン一覧'|ttrans}}</a></li>
+                <li><span >{{'F66_再プラン提案完了'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'F66_提案プラン再提出完了'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title" style="word-break: break-all">{{titleRequest}}</h3>
+
+                        <div class="mypage__body__block">
+
+                            <div class="mypage__body__block__caution">
+
+                                <h4 *ngIf="language_id == this.app.constant.JA_LANGUAGE_ID" class="mypage__body__block__caution__title">{{username?username:'F66_ユーザー'|ttrans}}{{'様のリクエストに'}}<br>{{'提案プランを再提出いたしました。'}}</h4>
+                                <h4 *ngIf="language_id != this.app.constant.JA_LANGUAGE_ID" class="mypage__body__block__caution__title">{{'You sent your new proposal to '}}{{username?username+"'s":"requester"}} {{'request.'}}</h4>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/proposal_plan/detail/'+plan_id]" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F65_提案プラン詳細へ戻る'|ttrans}}</a>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

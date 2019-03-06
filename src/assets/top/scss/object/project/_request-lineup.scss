@@ -1,0 +1,121 @@
+.request-lineup{
+	padding: 0 0px;
+	box-sizing: border-box;
+	@include for-size(phone-only) {
+		padding: 0 20px;
+	}
+	&__list{
+		@include for-size(tablet-portrait-up) {
+			@include flexbox(flex-start,stretch);
+			margin-bottom: 50px;
+		}
+		@include for-size(phone-only) {
+			flex-direction: column;
+			margin-bottom: 25px;
+		}
+		>li{
+			padding: 20px;
+			box-sizing: border-box;
+			margin: 0 25px 25px 0;
+			background: #fff;
+			border: 1px solid #ccc;
+			@include border-radius(3px);
+			@include for-size(tablet-portrait-up) {
+				width: 280px;
+			}
+			@include for-size(phone-only) {
+				margin: 0 0px 20px 0;
+			}
+			&:nth-child(4n){margin-right: 0;}
+		}
+	}
+	&__head{
+		padding-bottom: 15px;
+		border-bottom: 1px solid #ccc;
+		box-sizing: border-box;
+		@include flexbox(flex-start,center);
+		.request-time{
+			margin-left: auto;
+			@include font-size(13,13);
+		}
+	}
+	&__body{
+		padding: 15px 0px;
+		border-bottom: 1px solid #ccc;
+	}
+	&__flex{
+		@include flexbox(flex-start,center);
+	}
+	&__photo{
+		width: 60px;
+		height: 60px;
+		margin-right: 20px;
+		a{
+			img{
+				width: 60px;
+				height: 60px;
+				object-fit:cover;
+				@include border-radius(50%);
+			}
+			&:hover{
+				@include opacity(.7);
+			}
+		}
+	}
+	&__text{
+		width: calc( 100% - 80px );
+	}
+	&__title{
+		a{
+			color: #484848;
+			text-decoration: none;
+			@include font-size(16,20);
+			color: #333;
+			font-weight: bold;
+			overflow : hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			&:hover{
+				color: $accent_color;
+			}
+			@include for-size(phone-only) {
+				@include font-size(13,20);
+			}
+		}
+	}
+	&__foot{
+		padding: 15px 0 0;
+		a{
+			@include flexbox(flex-start,center);
+			text-decoration: none;
+			color: #333;
+			>div{
+				&:first-child{
+					@include flexbox(flex-start,center);
+					figure{
+						margin-right: 10px;
+					}
+					p{
+						@include font-size(16,16);
+					}
+				}
+				&:last-child{
+					margin-left: auto;
+					text-align: right;
+				}
+			}
+		}
+	}
+	&__info{
+		&--01{
+			font-weight: bold;
+			@include font-size(18,18);
+		}
+		&--02{
+			margin-top: 5px;
+			@include font-size(14,14);
+		}
+	}
+}

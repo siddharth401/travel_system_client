@@ -1,0 +1,56 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/mypage/profile"]'>{{'プロフィール'|ttrans}}</a></li>
+                <li><a>{{'F42_メールアドレス変更完了'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'F42_F43_メールアドレス変更完了'|ttrans}}</h2>
+
+                        <div class="mypage__body__block">
+
+                            <div class="mypage__body__block__caution">
+
+                                <h3 class="mypage__body__block__caution__title">{{'F42_F43_メールアドレスの変更が完了しました。'|ttrans}}</h3>
+
+                            </div>
+
+                            <div class="form-set__button">
+                                <a  [routerLink]='["/" + app.language + "/mypage/profile"]' class="btn--primary">{{'プロフィールへ戻る'|ttrans}}</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]='["/" + app.language + "/mypage"]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'マイページへ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

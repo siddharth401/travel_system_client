@@ -1,0 +1,107 @@
+.star-rating{
+    color: #f9a825;
+    font-size: 14px;
+}
+.rating-value {
+    border: none;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 3px;
+}
+.rating-value input{
+    font-size: 2.0rem;
+}
+.form-set__button input{
+    text-align: center;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+    text-align: left;
+}
+.u-text-center .msg_err{
+    text-align: center;
+    padding-top: 10px;
+}
+
+.modal-dialog {
+    display: none;
+}
+.modal-content {
+    top:45%;
+}
+
+.modal-body__content {
+    padding:20px 10px;
+    border:1px solid #ccc;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    line-height: 20px;
+}
+.modal-footer__text {
+    margin-top: 15px;
+}
+.modal-title {
+    text-align: center;
+    padding: 20px;
+}
+.modal-body__p {
+    margin: 5px 0;
+}
+.location-style {
+    display: flex;
+    justify-content: space-between;
+}
+.location-style a {
+    display: inline-block;
+    padding: 12px;
+    text-align: center;
+}
+.rating-point{
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 3px;
+}
+.disabled{
+    background: transparent !important;
+    cursor: not-allowed;
+}
+.border_top{
+    border-top: 0px !important;
+}
+.mypage__style {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.mypage__style p {
+    margin-right: 10px;
+    width: 80%;
+}
+.mypage__style a {
+    padding: 10px 30px;
+}
+.mypage__style .mypage__body {
+    width: 20%;
+}
+.button-location span{
+    display: block;
+}
+.button-location a {
+    text-align: center;
+    float: right;
+    padding: 10px;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+.mypage__body__title a {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+.mypage__body__title a:hover {
+    color: #00a699;
+}

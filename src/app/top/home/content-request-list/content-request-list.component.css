@@ -1,0 +1,13 @@
+.btn--secondary {
+    width: 305px;
+}
+.request-lineup__foot a {
+    display: block !important;
+}
+.request-lineup__foot a div:last-child {
+    text-align: left !important;
+    margin: 0 !important;
+}
+.request-lineup__info--01 {
+    margin: 10px 0;
+}

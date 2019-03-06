@@ -1,0 +1,90 @@
+@import "foundation/_mixin.scss";
+@import "foundation/_setting.scss";
+.reservation{
+	&__visual{
+		background: url(/img/visual_reservation.png) no-repeat center top;
+		background-size: cover;
+	}
+	.content__body{
+		>p{
+			margin-bottom: 40px;
+			@include for-size(phone-only) {
+				@include font-size(12,20);
+				margin-bottom: 10px;
+			}
+		}
+	}
+}
+
+
+
+.guide{
+	margin-bottom: 40px;
+	@include flexbox(flex-start,center);
+	@include for-size(phone-only) {
+		margin-bottom: 0px;
+		flex-direction: row;
+	}
+	&__photo{
+		@include for-size(phone-only) {
+			margin-right: 10px;
+		}
+	}
+	&__head{
+		border-bottom: none;
+		@include for-size(phone-only) {
+			margin-bottom: 0;
+			padding-bottom: 0;
+		}
+		.guide-score{
+			margin-top: 20px;
+			@include for-size(phone-only) {
+				margin-top: 10px;
+			}
+			ul{
+				margin-right: 10px;
+			}
+			li,p{
+				@include font-size(14,14);
+			}
+		}
+	}
+}
+
+
+.plan-detail{
+	@include for-size(phone-only) {
+		padding: 0;
+		margin: 0;
+	}
+	&__table{
+		margin-bottom: 20px;
+	}
+}
+
+.content__foot{
+	border-top: 1px solid #ccc;
+	padding-top: 40px;
+	@include for-size(phone-only) {
+		padding-top: 20px;
+	}
+}
+
+#user-name{ width: 475px;}
+#user-contry-num{width: 75px;}
+#user-tel{width: 375px;}
+#user-mail{width: 475px;}
+#user-pref{width: 200px; margin-bottom: 20px;}
+#user-lang{width: 200px;}
+#user-address{width: 100%;box-sizing: border-box;}
+@include for-size(phone-only) {
+	#user-name{ width: 100%; box-sizing: border-box;}
+	#user-contry-num{width: 20%; box-sizing: border-box;}
+	#user-tel{width: 78%; box-sizing: border-box;}
+	#user-mail{width: 100%; box-sizing: border-box;}
+	#user-pref{width: 100%; margin-bottom: 10px; box-sizing: border-box;}
+	#user-lang{width: 100%; box-sizing: border-box;}
+	#user-address{width: 100%;box-sizing: border-box; margin-bottom: 10px;}
+}
+
+

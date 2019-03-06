@@ -1,0 +1,181 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Test'|trans, (fb.isNew?'Add':'Edit')|trans]" icon="gears" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+
+  <section id="widget-grid" class="">
+    <div class="row">
+      <article class="col-sm-12">
+        <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" role="widget">
+          <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+              <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a>
+            </div>
+            <span class="widget-icon"> <i class="fa fa-pencil-square-o"></i> </span>
+            <h2>{{'Test'|trans}}</h2>
+          </header>
+
+          <div role="content">
+            <div class="jarviswidget-editbox">
+            </div>
+            <div class="widget-body">
+              <form [formGroup]="fb.form" class="form-horizontal" (ngSubmit)="save(true)">
+                <fieldset>
+                  <legend>Basic information</legend>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Name'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <input formControlName="name" placeholder="{{'Name'|trans}}"  type="text" class="form-control" autocomplete="false">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Description'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <textarea formControlName="description" class="form-control"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Image'|trans}}</label>
+                    <div class="col-md-10">
+                      <sa-file-upload fieldName="test_field_image" filePath="{{fb.form.get('image').value}}" extensions="jpg|jpeg|png" size="5120" ></sa-file-upload>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Avatar'|trans}}</label>
+                    <div class="col-md-10">
+                      <sa-input-browser>
+                        <input class="form-control" formControlName="avatar" type="text" readonly />
+                      </sa-input-browser>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Content'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <textarea formControlName="content_en"  class="form-control"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Test type'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <select formControlName="tmp_test_type_id" class="form-control">
+                        <option *ngFor="let item of listTestType|list:('Select type'|trans)" [value]="item.key" [selected]="item.key==''" >{{item.value|trans}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Active'|trans}}</label>
+                    <div class="checkbox col-md-1">
+                      <label>
+                        <input type="checkbox" formControlName="active" class="checkbox style-0" />
+                        <span></span>
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Type has many items</legend>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Test items'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <div *ngIf="fb.form.value.tmp_test_items.length > 0">
+                        <div formArrayName="tmp_test_items">
+                          <div *ngFor="let item of fb.form.controls.tmp_test_items.controls; let i = index;">
+                            <div [formGroupName]="i" class="form-group">
+                              <div [formGroup]="fb.form.controls.tmp_test_items.controls[i]">
+                                <label class="col-md-1 control-label text-left">{{i+1}} <span class="text-danger">*</span></label>
+                                <div class="col-md-6">
+                                  <input formControlName="name" type="text" placeholder="{{'Name'|trans}}" class="form-control" />
+                                </div>
+                                <div class="col-md-3">
+                                  <input formControlName="number" type="text" placeholder="{{'Number'|trans}}" class="form-control" />
+                                </div>
+                                <div class="col-md-1">
+                                  <div class="checkbox col-md-1">
+                                    <label>
+                                      <input type="checkbox" formControlName="active" class="checkbox style-0" />
+                                      <span></span>
+                                    </label>
+                                  </div>
+                                </div>
+                                <div class="col-md-1">
+                                  <i class="fa fa-trash-o btn btn-danger" (click)="fb.removeItem('tmp_test_items',i)" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-1 control-label text-left">
+                          <i class="fa fa-plus btn btn-default" (click)="fb.addItem('tmp_test_items')" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <a class="btn btn-default" [routerLink]='["/admin/tmp-test"]' type="button">{{'Cancel'|trans}}</a>
+                      <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{'Submit'|trans}}</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+
+<div class="modal fade" id="formConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-2 control-label"><strong>{{'Name'|trans}}</strong></label>
+            <div class="col-md-10">{{fb.form.get('name').value}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-2 control-label"><strong>{{'Avatar'|trans}}</strong></label>
+            <div class="col-md-10">{{fb.form.get('avatar').value}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-2 control-label"><strong>{{'Active'|trans}}</strong></label>
+            <div class="col-md-10">{{app.constant.Active[fb.form.get('active').value]}}</div>
+          </div>
+        </div>
+          <div class="row">
+              <div class="form-group">
+                  <label class="col-md-2 control-label"><strong>{{'Image'|trans}}</strong></label>
+                  <div class="col-md-4">
+                      <sa-file-upload fieldName="test_field_image" confirm="1" filePath="{{fb.form.get('image').value}}" ></sa-file-upload>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+        <button type="button" class="btn btn-primary" (click)="save()"><i class="fa fa-check"></i> {{'Confirm'|trans}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<sa-file-browser></sa-file-browser>

@@ -1,0 +1,176 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}} </a></li>
+                <li><a>{{'マイページ'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+                <div class="mypage__body mypage--top">
+                    <div class="mypage__body__section" *ngIf="app.curMember">
+                        <div class="mypage__body__block" *ngIf="app.curMember.type == app.constant.MEMBER_USER">
+                            <h2 class="mypage__body__title--02 mypage__body__align--center">{{'旅ユーザー活動状況'|ttrans}}</h2>
+                            <div class="box-wrap">
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'承認待ちの旅プラン'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_member.booking_waiting > 0"  class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} 件</span>
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_member.booking_waiting == 0"  class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_waiting  == 0"  class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_waiting == 1"  class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_waiting > 1"   class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} items</span>
+                                    </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'実施前'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_member.booking_exist == 0"  class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} 件</span>
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_member.booking_exist > 0"  class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_exist == 0" class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_exist == 1"  class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_exist > 1"  class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} items</span>
+                                    </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'実施後未処理'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                       <span *ngIf="language_id == app.constant.TRUE" class="box-wrap__button {{app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_confirm_execute}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_confirm_execute < 2" class="box-wrap__button {{app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_confirm_execute}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_confirm_execute > 1" class="box-wrap__button {{app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_confirm_execute}} items</span>
+
+
+                                    </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'口コミ未登録'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_member.booking_request_review > 0"  class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} 件</span>
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_member.booking_request_review == 0"  class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_request_review == 0" class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_request_review == 1"  class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_request_review > 1"  class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} items</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mypage__body__block" *ngIf="app.curMember.type == app.constant.MEMBER_GUIDER">
+                            <h2 class="mypage__body__title--02 mypage__body__align--center">{{'旅ユーザー活動状況'|ttrans}}</h2>
+                            <div class="box-wrap">
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'承認待ちの旅プラン'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE" class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_waiting < 2" class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_waiting > 1" class="box-wrap__button {{app.number_on_header.booking_member.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_waiting}} items</span>
+
+                                    </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'実施前'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE" class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_exist < 2" class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_exist > 1" class="box-wrap__button {{app.number_on_header.booking_member.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_exist}} items</span>
+                                    </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'実施後未処理'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE" class="box-wrap__button {{app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_confirm_execute}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_confirm_execute < 2" class="box-wrap__button {{app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_confirm_execute}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_confirm_execute > 1" class="box-wrap__button {{app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_confirm_execute}} items</span>
+
+                                                                           </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'口コミ未登録'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE" class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_request_review < 2" class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_member.booking_request_review > 1" class="box-wrap__button {{app.number_on_header.booking_member.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_member.booking_request_review}} items</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mypage__body__block" *ngIf="app.curMember.type == app.constant.MEMBER_GUIDER">
+                            <h2 class="mypage__body__title--02 mypage__body__align--center">{{'旅ガイド活動状況'|ttrans}}</h2>
+                            <div class="box-wrap">
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'承認待ちの旅プラン'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_guide.booking_waiting == 0"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_waiting}} 件</span>
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_guide.booking_waiting > 0"   class="box-wrap__button {{app.number_on_header.booking_guide.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_waiting}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_waiting == 0"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_waiting}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_waiting == 1"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_waiting}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_waiting > 1" class="box-wrap__button {{app.number_on_header.booking_guide.booking_waiting == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_waiting}} items</span>
+
+                                    </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'実施前'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_guide.booking_exist > 0" class="box-wrap__button {{app.number_on_header.booking_guide.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_exist}} 件</span>
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_guide.booking_exist == 0"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_exist}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_exist == 0"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_exist}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_exist == 1"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_exist}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_exist > 1" class="box-wrap__button {{app.number_on_header.booking_guide.booking_exist == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_exist}} items</span>
+                                    </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'実施後未処理'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE" class="box-wrap__button {{app.number_on_header.booking_guide.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_confirm_execute}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_confirm_execute < 2" class="box-wrap__button {{app.number_on_header.booking_guide.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_confirm_execute}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_confirm_execute > 1" class="box-wrap__button {{app.number_on_header.booking_guide.booking_confirm_execute == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_confirm_execute}} items</span>
+
+                                                                            </div>
+                                </div>
+                                <div class="box-wrap__item">
+                                    <div class="box-wrap__head">
+                                        <p class="box-wrap__label">{{'口コミ未登録'|ttrans}}</p>
+                                    </div>
+                                    <div class="box-wrap__body">
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_guide.booking_request_review > 0"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_request_review}} 件</span>
+                                        <span *ngIf="language_id == app.constant.TRUE && app.number_on_header.booking_guide.booking_request_review == 0"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_request_review}} 件</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_request_review == 0"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_request_review}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_request_review == 1"  class="box-wrap__button {{app.number_on_header.booking_guide.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_request_review}} item</span>
+                                        <span *ngIf="language_id != app.constant.TRUE && app.number_on_header.booking_guide.booking_request_review > 1"   class="box-wrap__button {{app.number_on_header.booking_guide.booking_request_review == 0 ? 'box-wrap__button--disabled' : 'box-wrap__button--active '}}">{{app.number_on_header.booking_guide.booking_request_review}} items</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

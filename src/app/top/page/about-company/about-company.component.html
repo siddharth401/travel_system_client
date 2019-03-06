@@ -1,0 +1,111 @@
+<div id="sb-site">
+    <section class="company page-content outer">
+        <div class="company__visual page-content__visual">
+            <h2 *ngIf="app.language == app.constant.DEFAULT_LANGUAGE_URL" class="page-content__title"> 運営会社</h2>
+            <h2 *ngIf="app.language != app.constant.DEFAULT_LANGUAGE_URL" class="page-content__title"> Operating company</h2>
+        </div>
+        <!--/.search__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list" *ngIf="app.language == app.constant.DEFAULT_LANGUAGE_URL">
+                <li><a href="/">マッチングガイドTOP</a></li>
+                <li><a href="/company/">運営会社</a></li>
+            </ul>
+            <ul class="breadcrumb__list" *ngIf="app.language != app.constant.DEFAULT_LANGUAGE_URL">
+                <li><a href="/">Matching guide TOP</a></li>
+                <li><a href="/company/">About us</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="outer__inner">
+            <div class="container">
+                <table class="table table--default">
+                    <tbody *ngIf="app.language == app.constant.DEFAULT_LANGUAGE_URL">
+                        <tr>
+                            <th>会社名</th>
+                            <td>株式会社平成エンタープライズ</td>
+                        </tr>
+                        <tr>
+                            <th>設立年月日</th>
+                            <td>1992年（平成4年）12月11日</td>
+                        </tr>
+                        <tr>
+                            <th>事業内容</th>
+                            <td>貸切観光バス・送迎バス・乗合バス・福祉リフトバス・旅行業・自動車整備業・フィットネスクラブ事業・通所介護事業・宿泊業</td>
+                        </tr>
+                        <tr>
+                            <th>許可等</th>
+                            <td>一般貸切 No.関自旅1第1871号<br />旅行業 No.埼玉第2-839号<br />一般乗合 No.関自旅1第774号</td>
+                        </tr>
+                        <tr>
+                            <th>加盟団体</th>
+                            <td>一般社団法人 全国旅行業協会<br />公益社団法人 日本バス協会<br />一般社団法人 埼玉県バス協会<br />一般社団法人 東京バス協会<br />一般社団法人 大阪バス協会<br />一般社団法人 神奈川バス協会<br />中華人民共和国訪日団体観光客受入旅行会社連絡協議会<br />一般社団法人 アジアインバウンド観光振興会（AISO）</td>
+                        </tr>
+                        <tr>
+                            <th>代表取締役</th>
+                            <td>田倉　貴弥</td>
+                        </tr>
+                        <tr>
+                            <th>従業員数</th>
+                            <td>800名</td>
+                        </tr>
+                        <tr>
+                            <th>資本金</th>
+                            <td>7,600万円</td>
+                        </tr>
+                        <tr>
+                            <th>本社所在地</th>
+                            <td>〒354-0015<br />埼玉県富士見市東みずほ台1-4-5 グランシャリオ201・202号<br />TEL：049-253-7777（代） FAX：049-253-7880</td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="app.language != app.constant.DEFAULT_LANGUAGE_URL">
+                        <tr>
+                            <th>Company name</th>
+                            <td>HEISEI ENTERPRISE,Inc.</td>
+                        </tr>
+                        <tr>
+                            <th>Establishment date</th>
+                            <td>December 11, 1992</td>
+                        </tr>
+                        <tr>
+                            <th>Description of business</th>
+                            <td>Charter bus service, pickup bus service, motor bus service, kneeling bus service, travel agency, vehicle maintenance, fitness club, daycare, hospitality</td>
+                        </tr>
+                        <tr>
+                            <th>Licenses</th>
+                            <td>General charter service license No. 1-1871<br /> Travel industry license No. 2-839<br />General passenger transportation license No. 1-74</td>
+                        </tr>
+                        <tr>
+                            <th>Association memberships</th>
+                            <td>
+                                All Nippon Travel Agents Association (ANTA)<br/>
+                                Nihon Bus Association<br/>
+                                Saitama Bus Association<br/>
+                                Tokyo Bus Association<br/>
+                                Osaka Bus Association<br/>
+                                Kanagawa Bus Association<br/>
+                                Japan Council of Travel Agents for Chinese Visitors<br/>
+                                AISO ( Asia Inbound Sightseeing Organization)<br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Representative Director</th>
+                            <td>Kimi Takura</td>
+                        </tr>
+                        <tr>
+                            <th>Number of employees</th>
+                            <td>800</td>
+                        </tr>
+                        <tr>
+                            <th>Capital</th>
+                            <td>76,000,000 Yen</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>〒354-0015<br />201-202 Grand Chariot, 1-4-5 Hogashi Mizuhodai, Fujimi City, Saitama, JAPAN <br />TEL：049-253-7777 FAX：049-253-7880</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

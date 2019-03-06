@@ -1,0 +1,22 @@
+.btn--primary, .search-content__button{
+    text-align: center;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.modal {
+    background: url("../../../../assets/top/img/bg_modal.png");
+    background-size: cover;
+}
+.style-login {
+    position: relative;
+}
+.style-login a {
+    color:#000;
+    position: absolute;
+    top:18px;
+    right: 20px;
+}

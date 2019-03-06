@@ -1,0 +1,67 @@
+.cancel_status {
+    color: red;
+}
+.btn-approve {
+    background-color: #74c149 ;
+    color: #fff;
+    border-radius: 8px;
+}
+.btn-reset {
+    background-color: #d0d0d0 ;
+    color: #fff;
+    border-radius: 8px;
+}
+.date-from-to {
+    text-align: center;
+}
+.checkbox-status{
+    margin-right: 10px;
+}
+.title{
+    background-color: #3276b1;
+    color: #fff;
+    font-size: 18px;
+    padding: 5px 20px;
+    display: inline-block;
+}
+.thead-table th{
+    background-color: #3276b1;
+}
+.thead-table th a{
+    color: #fff;
+}
+.div-status{
+    width: 120px;
+    float: left;
+}
+.ngx-datepicker-calendar-container {
+    z-index: 999;
+}
+.num_comments{
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    line-height: 18px;
+    margin:auto;
+    margin-top: 8px;
+}
+.zero_num_comments{
+    background-color: grey;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    line-height: 18px;
+    margin:auto;
+    margin-top: 8px;
+}
+.form-group--input .control-label {
+    padding-top:2px;
+}
+tr td span{
+    display: block;
+}

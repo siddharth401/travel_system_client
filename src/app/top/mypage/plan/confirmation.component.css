@@ -1,0 +1,108 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.list-item {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.list-item li {
+    padding: 2px 20px 2px 25px;
+    position: relative;
+    counter-increment:section;
+}
+.list-item li:before {
+    content: "/";
+    position: absolute;
+    top:2px;
+    right: 8px;
+}
+
+.list-item li:last-child:before {
+    content: none;
+}
+.list-item li:after {
+    width: auto;
+    min-width: 8px;
+    padding: 0 2px;
+    height: 12px;
+    border-radius: 12px;
+    border:1px solid;
+    content:""counter(section);
+    text-align: center;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    top:2px;
+}
+
+.list-category {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.list-category li {
+    display: inline;
+    padding: 0 5px;
+    position: relative;
+}
+.list-category li:before {
+    content: ",";
+    position: absolute;
+    top:0;
+    right: 0;
+}
+.list-category li:first-child {
+    padding-left: 0;
+}
+.list-category li:last-child:before {
+    content: none;
+}
+.show-image{
+    padding: 0;
+}
+.form-content__form-table th {
+    padding: 20px 0 !important;
+    vertical-align: middle !important;
+}
+.form-content__form-table td {
+    padding: 0 !important;
+    word-break: break-all;
+}
+.form-content__form-table p {
+    padding: 0 !important;
+}
+.mypage__body__block {
+    margin-top: 0!important;
+}
+.pre-text{
+    white-space: pre-wrap;
+    /*font-size: 14px;*/
+    line-height: 24px;
+}
+.pre-text--padding {
+    padding: 12px 0;
+}
+.form-content__form-table__title {
+    padding: 10px 0;
+}
+.form-content__form-table tr th {
+    white-space: pre-wrap;
+    padding-right: 10px !important;
+}
+@media (max-width: 767px){
+    .mypage__body .form-content__form-table > tbody > tr > td {
+        padding: 10px 0 !important;
+    }
+    .mypage__body .form-content__form-table > tbody > tr > th{
+        padding: 10px !important;
+    }
+}
+

@@ -1,0 +1,12 @@
+.favorite__text {
+  color: #222;
+  text-decoration: none;
+}
+
+.favorite--active {
+  color: #eb6877;
+}
+
+.favorite--inactive {
+  color: #999;
+}

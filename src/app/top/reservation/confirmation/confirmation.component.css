@@ -1,0 +1,69 @@
+.languageSupport {
+    padding-top: 10px;
+}
+.star {
+    display: flex;
+}
+.content__body__pre {
+    white-space: pre-wrap;
+    line-height: 22px;
+}
+.plan-detail__table th {
+    min-width: 150px;
+}
+.form-content__form-table--02 th {
+    padding-right: 10px;
+    white-space: normal;
+    line-height: 18px;
+}
+.content__foot {
+    padding-top: 40px;
+    border-top:1px solid #ccc;
+}
+.guide {
+    margin-bottom: 40px;
+}
+@media (max-width: 767px) {
+    .guide {
+        margin-bottom: 0px;
+        flex-direction: row;
+    }
+    .guide__photo {
+        margin-right: 10px;
+    }
+    .guide__head {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border: 0;
+    }
+    .plan-detail {
+        padding: 0;
+        margin: 0;
+    }
+    .plan-detail__table th {
+        min-width: 80px;
+        white-space: normal;
+    }
+    .plan-reserve__table tbody td {
+        padding: 10px 3px;
+    }
+}
+.plan-reserve__table tbody td span {
+    word-break: break-all;
+    font-size: 2rem;
+    font-size: 20px;
+}
+.plan-reserve__table tbody td {
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+@media (max-width: 767px) {
+    .plan-reserve__table tbody td span {
+        font-size: 1.6rem;
+        font-size: 16px;
+    }
+    .plan-reserve__table tbody td {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+}

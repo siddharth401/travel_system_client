@@ -1,0 +1,14 @@
+<section class="modal">
+    <div class="add">
+        <div class="modal__head">
+            <a [routerLink]="['/']"><h1 class="modal__logo"><img src="assets/top/img/logo_ico.png" alt="サイトロゴ" /></h1></a>
+        </div>
+        <div class="modal__body">
+            <h2 class="modal__title">{{'F10_パスワード再設定'|ttrans}}</h2>
+            <div class="modal__inner">
+                <p>{{'パスワードをご登録のアドレスに'|ttrans}}<br />{{'再設定用のお知らせをお送りしました'|ttrans}}</p>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="cboxClose" (click)="btnClose()">close</button>
+</section>

@@ -1,0 +1,56 @@
+.date_actual{
+    margin-right: 20px;
+}
+.cancel_status{
+    color: red;
+}
+.btn-cancel {
+    background-color: red;
+    color: #fff;
+    border-radius: 8px;
+}
+.btn-approve {
+    background-color: #74c149 ;
+    color: #fff;
+    border-radius: 8px;
+}
+.btn-back{
+    background-color: dimgrey;
+    border-radius: 8px;
+    color: #fff;
+}
+.bottom-information-message {
+    width: 70%;
+    border-bottom: 1px solid #ccc;
+    margin-left: 113px;
+}
+.text-status {
+    width: 245px;
+    float: left;
+    padding-right: 7px;
+}
+.list-suggesstions {
+    text-align: left;
+    background-color: #eee;
+    height: 30px;
+    margin-top: 30px;
+    padding-top: 10px;
+}
+.list-suggesstions span{
+
+}
+table thead tr{
+    background-color: #e6f2ff;
+    color: #333;
+}
+.margin-right-text{
+    margin-right: 20px;
+}
+.div-deadline {
+    display: flex;
+    align-items: center;
+}
+.padding-top {
+    padding-top: 7px;
+    display: block;
+}

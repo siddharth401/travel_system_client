@@ -1,0 +1,199 @@
+#sb-site {
+    z-index: inherit;
+}
+.list-item {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.list-item li {
+    padding: 0 20px;
+    position: relative;
+    counter-increment:section;
+}
+.list-item li:before {
+    content: "/";
+    position: absolute;
+    top:0;
+    left: -11px;
+}
+
+.list-item li:first-child:before {
+    content: none;
+}
+.list-item li:after {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border:1px solid;
+    content:""counter(section);
+    text-align: center;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+}
+.mypage__body__table-compact td a {
+    word-break: break-all;
+}
+
+.list--style {
+    max-width: 200px;
+    overflow: hidden;
+}
+.list--style a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+.list--style span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+
+
+#sb-site {
+    z-index: inherit;
+}
+.modal-dialog {
+    display: none;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(43, 46, 56, 0.9);
+    z-index: 9999;
+}
+
+.modal-content {
+    width: 50vw;
+    background: #fff;
+    position:fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 15px;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+@media (max-width: 767px) {
+    .modal-content {
+        width: 70vw;
+        max-height: 350px;
+    }
+}
+.modal-header {
+    position: relative;
+}
+.modal-header button {
+    position: absolute;
+    top: -9px;
+    right: -7px;
+    border: none;
+    background: no-repeat;
+    font-size: 20px;
+    cursor: pointer;
+}
+.modal-header button:hover {
+    color:#f00;
+}
+.modal-footer {
+    margin-top: 15px;
+    text-align: center;
+}
+.modal-footer button {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+    color: #333;
+    cursor: pointer;
+}
+.modal-footer .submit {
+    background: #66bb6a;
+    color:#fff;
+    margin-top: 10px;
+    display: inline-block;
+    overflow: visible;
+    min-width: 110px;
+    padding: 12px 0;
+    border: none;
+}
+.modal-footer .close {
+    background: #C20F16;
+    color:#fff;
+    border-color:#C20F16;
+}
+.modal-body {
+    margin: 10px 0;
+    padding: 10px;
+}
+.modal-body__text {
+    word-break: break-all;
+    line-height: 18px;
+}
+.modal-footer__text {
+    text-align: center;
+}
+.mypage__body__textarea {
+    font-size: 1.4rem ! important;
+    font-size: 14px;
+    font-family: "Hiragino Kaku Gothic Pro", sans-serif;
+    width: 100%;
+    border:1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.modal-title {
+    text-align: center;
+}
+/*.msg_err {*/
+    /*display: block;*/
+    /*margin-top: 5px;*/
+    /*margin-bottom: 10px;*/
+    /*color: #b94a48;*/
+/*}*/
+.btn__inner {
+    display: flex;
+    justify-content: center;
+}
+.submit {
+    font-size: 1.6rem;
+}
+.cancel {
+    margin-top: 10px;
+    display: inline-block;
+    background: #ef5350 !important;
+    padding: 10px !important;
+    border: none !important;
+    color: #fff !important;
+    min-width: 110px;
+    font-size: 1.6rem;
+    margin-right: 3px;
+}
+
+.modal-dialog-history .modal-content{
+    top:45% !important;
+}
+.mypage__body__table-normal p {
+    word-break: break-all;
+}
+
+.pre-text{
+    white-space: pre-wrap;
+    /*font-size: 14px;*/
+    line-height: 24px;
+}
+@media (max-width: 767px) {
+    .mypage__body__section {
+        margin-top: 0;
+    }
+    .mypage__body__title--box-shoulder {
+        position: relative;
+        text-align: center;
+    }
+}

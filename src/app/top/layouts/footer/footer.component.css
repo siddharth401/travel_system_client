@@ -1,0 +1,28 @@
+.footer__list--02 dd {
+    margin: 0 20px 0px 0;
+}
+@media (max-width: 767px) {
+    .footer__list--02 dd {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+        width: 49%;
+        border-right: 1px solid rgba(255, 255, 255, 0.3);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        margin-right: 0 !important;
+    }
+    .footer__list--02 dd:nth-child(2n) {
+        border-right:0;
+    }
+}
+.footer__list--02 {
+    margin-bottom: 20px;
+}
+dl:last-child .footer__list--02 {
+    margin-bottom: 0;
+}
+.footer__list__a {
+    color: #fff;
+    text-decoration: none;
+}

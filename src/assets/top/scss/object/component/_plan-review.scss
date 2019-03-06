@@ -1,0 +1,86 @@
+.plan-review{
+	&__list{
+		>li{
+			margin-bottom: 30px;
+			@include for-size(phone-only) {
+				margin-bottom: 20px;
+			}
+		}
+	}
+	&__head{
+		@include flexbox(flex-start,flex-end);
+		padding-bottom: 15px;
+		border-bottom: 1px solid #ccc;
+		@include for-size(phone-only) {
+			padding-bottom: 5px;
+			@include flexbox(flex-start,center);
+		}
+	}
+	&__photo{
+		width: 69px;
+		margin-right: 20px;
+		img{
+			width: 69px;
+			height: 69px;
+			object-fit:cover;
+			@include border-radius(50%);
+			vertical-align: bottom;
+		}
+		@include for-size(phone-only) {
+			width: 49px;
+			margin-right: 10px;
+			img{
+				width: 49px;
+				height: 49px;
+			}
+		}
+	}
+	&__info{}
+	&__name{
+		margin-bottom: 10px;
+		@include font-size(24,24);
+		color: #333;
+		@include for-size(phone-only) {
+			margin-bottom: 0px;
+		}
+		span{
+			@include font-size(14,14);
+		}
+	}
+	&__date{
+		@include font-size(14,14);
+		@include for-size(phone-only) {
+			display: none;
+		}
+	}
+	&__score{
+		margin-left: auto;
+		@include flexbox(flex-start,flex-end);
+		@include for-size(phone-only) {
+			display: none;
+		}
+		.content-list__score{
+			li{
+				@include font-size(14,14);
+			}
+		}
+		p{
+			@include font-size(14,14);
+		}
+	}
+	&__body{
+		padding-top: 15px;
+		@include for-size(phone-only) {
+			padding-top: 10px;
+		}
+		p{
+			@include font-size(14,24);
+			@include for-size(phone-only) {
+				@include font-size(12,20);
+			}
+			a{
+				color: $accent_color;
+			}
+		}
+	}
+}

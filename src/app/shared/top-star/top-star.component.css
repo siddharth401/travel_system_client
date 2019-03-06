@@ -1,0 +1,21 @@
+.guide-score--start {
+    margin-top: 6px;
+    margin-left: 15px;
+}
+.content-list__numb {
+    font-size: 1.2rem;
+    line-height: 2.28571 !important;
+}
+.star-style {
+    display: flex;
+}
+
+p.content-list__numb {
+    font-size: 1.2rem
+}
+.content-list__score li i.is-active {
+    color: #f9a825;
+}
+.content-list__score li {
+    line-height: 2.28571 !important;
+}

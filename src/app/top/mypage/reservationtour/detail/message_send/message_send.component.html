@@ -1,0 +1,55 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/' + app.language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + app.language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + app.language + '/mypage/reservationtour']">{{'プラン予約一覧'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + app.language + '/mypage/reservationtour/detail/' + booking_id]">{{'旅プラン予約詳細'|ttrans}}</a></li>
+                <li>{{'F22_メッセージ送信完了'|ttrans}}</li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'問合せメッセージ送信完了'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title">{{booking_name|ttrans}}</h3>
+
+                        <div class="mypage__body__block">
+
+                            <div class="mypage__body__block__caution">
+
+                                <h4 class="mypage__body__block__caution__title">{{'メッセージが送信されました。'|ttrans}}</h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]='["/" + language + "/mypage/reservationtour/detail/" + booking_id]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'予約詳細へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

@@ -1,0 +1,48 @@
+<section class="search-content">
+    <div class="search-content__head">
+        <h2 class="search-content__title">{{'旅行先から探す'|ttrans}}</h2>
+    </div>
+    <div class="search-content__body">
+        <select name="search-area" id="search-area" class="easy-select">
+            <option value="" selected>{{'旅先はどちらですか？'|ttrans}}</option>
+            <option *ngFor="let item of listPrefecture" [value]="item.prefix" [selected]="item.prefix==''">{{item.name}}</option>
+        </select>
+    </div>
+</section>
+<section class="search-content">
+    <div class="search-content__head">
+        <h2 class="search-content__title">{{'日付'|ttrans}}</h2>
+    </div>
+    <div class="search-content__body">
+        <div class="custom-form">
+            <input id="input-date" type="text" placeholder="{{'日付'|ttrans}}" class="custom-form__input">
+        </div>
+    </div>
+</section>
+<section class="search-content">
+    <div class="search-content__head">
+        <h2 class="search-content__title">{{'カテゴリー絞り込み'|ttrans}}</h2>
+    </div>
+    <div class="search-content__body">
+        <ul class="search-content__wrap">
+            <li *ngFor="let item of listCategory">
+                <div>
+                    <input type="checkbox" name="category" value="{{item.prefix}}"  id="{{item.prefix}}" />
+                    <label [for]="item.prefix" class="checkbox">{{item.name}}</label>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<section class="search-content">
+    <div class="search-content__head">
+        <h2 class="search-content__title">{{'対応言語'|ttrans}}</h2>
+    </div>
+    <div class="search-content__body">
+        <select name="search-area" id="search-language" class="easy-select">
+            <option value="">{{'対応言語'|ttrans}}</option>
+            <option *ngFor="let item of languageSupport" [value]="item.prefix" [selected]="item.prefix==''">{{item.name}}</option>
+        </select>
+    </div>
+</section>
+<button type="button" id="search-tour" class="search-content__button" (click)="searchTour()">{{'検索'|ttrans}}</button>

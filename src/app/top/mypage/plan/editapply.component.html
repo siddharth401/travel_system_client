@@ -1,0 +1,59 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/plan']">{{'F47_旅プラン一覧'|ttrans}}</a></li>
+                <li *ngIf="language_id == app.constant.TRUE"><a [routerLink]="['/'+languageName+'/mypage/plan/edit/'+plan_id]">{{proposal_title}}{{' '}}{{'修正'|ttrans}}</a></li>
+                <li *ngIf="language_id != app.constant.TRUE"><a [routerLink]="['/'+languageName+'/mypage/plan/edit/'+plan_id]">{{'The modification of the travel plan'}}</a></li>
+
+                <li><span  >{{'F54_修正申請完了'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'旅プラン修正申請'|ttrans}}</h2>
+
+                        <div class="mypage__body__block">
+
+                            <div class="mypage__body__block__caution">
+
+                                <h3 class="mypage__body__block__caution__title">{{'作成したプラン修正しを運営事務局へ申請いたしました。'|ttrans}}</h3>
+
+                                <p class="mypage__body__block__caution__text">{{'承認作業には、２・３営業日頂いておりますので少々お待ちください。'|ttrans}}<br>{{'また、修正内容が反映されるのは承認されてからとなります。'|ttrans}}<br>{{'現在、予約されているプランは現在のプランでの予約となります'|ttrans}}</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/plan']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'作成したプラン一覧へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

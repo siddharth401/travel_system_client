@@ -1,0 +1,227 @@
+<div id="sb-site">
+    <section class="giude-detail page-content outer">
+        <div class="guide-detail__visual page-content__visual"
+             style="background: url(assets/top/img/visual_guide_detail.png)">
+            <h2 class="page-content__title">{{'旅ガイド詳細'|ttrans}}</h2>
+        </div>
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a href="/">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/guide"]'>{{'旅ガイド一覧'|ttrans}}</a></li>
+                <li><a>{{data.guider.nick_name}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="outer__inner" *ngIf="data">
+            <div class="container">
+                <div class="container__sub--primary">
+                    <div class="guide-prof">
+                        <div class="guide-prof__photo">
+                            <figure>
+                                <img [attr.src]="data.guider.avatar ? app.constant.FILE_URL+data.guider.avatar : '/assets/top/img/noimage_200x200.png'" alt="">
+                                <figcaption *ngIf="data.guider.created_at"><span>{{'登録日' | ttrans}}</span>{{data.guider.created_at | datex :'YYYY/MM/DD'}}</figcaption>
+                            </figure>
+                        </div>
+                        <div class="guide-prof__comfirmation">
+                            <table class="comfirmation-list">
+                                <thead>
+                                <tr>
+                                    <th>{{'認証項目'|ttrans}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="content__flex">
+                                            <div class="comfirmation-list__item">
+                                                <p class="label">{{'メールアドレス' | ttrans}}</p>
+                                                <p class="certification">{{'認証済み' | ttrans}}</p>
+                                            </div>
+                                            <div [ngClass]="data.guider.email ? 'comfirmation-list__check' : 'comfirmation-list__check--disabled'">
+                                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="content__flex">
+                                            <div class="comfirmation-list__item">
+                                                <p class="label">Facebook</p>
+                                                <p class="certification">{{'認証済み' | ttrans}}</p>
+                                            </div>
+                                            <div [ngClass]="data.guider.fb ? 'comfirmation-list__check' : 'comfirmation-list__check--disabled'">
+                                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="content__flex">
+                                            <div class="comfirmation-list__item">
+                                                <p class="label">{{'電話番号'|ttrans}}</p>
+                                                <p class="certification">{{'認証済み'|ttrans}}</p>
+                                            </div>
+                                            <div [ngClass]="data.guider.phone ? 'comfirmation-list__check' : 'comfirmation-list__check--disabled'">
+                                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="container__main">
+                    <section class="guide-detail__section">
+                        <div class="guide-detail__head">
+                            <h3 class="guide-detail__name">{{data.guider.nick_name}}</h3>
+                            <div class="guide-score">
+                                <top-star class="star-right" [point]="data.guider.guider_ranking"></top-star>
+                            </div>
+                            <div class="favorite">
+                                <a (click)="favories()" class="favorite__text" *ngIf="data.guider.is_favorite == 0">
+                                    {{'お気に入り保存'|ttrans}}
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </a>
+                                <a (click)="favories()" class="favorite__text" *ngIf="data.guider.is_favorite != 0">
+                                    {{'F09_お気に入り済み'|ttrans}}
+                                    <i class="fa fa-heart fa-red" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="guide-detail__body">
+                            <div class="guide-detail__lead">
+                                <pre class="guide-detail__lead__pre" *ngIf="data.guider.introduce_plan">{{data.guider.introduce_plan}}</pre>
+                            </div>
+                            <table class="plan-detail__table">
+                                <tbody>
+                                <tr>
+                                    <th>{{'対応言語'|ttrans}}</th>
+                                    <td>
+                                        <ul class="flag-list--01" *ngIf="data.guider.languages">
+                                            <li *ngFor="let item of data.guider.languages">
+                                                <img [attr.src]="item.icon ? app.constant.FILE_URL+item.icon : '/assets/top/img/noimage.png'" alt="">
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'対応地域'|ttrans}}</th>
+                                    <td *ngIf="data.guider.member_places">
+                                        <div class="list__city">
+                                            <p *ngFor="let city of data.guider.member_places">{{city.city_name}}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'得意カテゴリ' | ttrans}}</th>
+                                    <td>
+                                        <ul class="category">
+                                            <li *ngFor="let category of data.guider.categories"><a [routerLink]='["/" + language + "/search/category-" + category.prefix]' style="background: #7cb342">{{category.name}}</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!--/.guide-detail__section -->
+                    <section class="guide-plans">
+                        <div class="container__head">
+                            <h3 class="container__title">{{'旅プラン一覧'|ttrans}}</h3>
+                        </div>
+                        <div class="container__body" *ngIf="data.tours.data">
+                            <div class="content-list">
+                                <ul class="content-list__wrap">
+                                    <li *ngFor="let item of data.tours.data" class="content-list__item">
+                                    <div>
+                                    <div class="content-list__photo">
+                                    <!--<a [routerLink]="['/'+language + '/tour/detail/'+item.id]">-->
+                                        <!--<figure class="content-list__cover" ><img [attr.src]="item.imagePlan ? app.constant.FILE_URL+item.imagePlan : '/assets/top/img/noimage_200x200.png'"  alt=""></figure>-->
+                                    <!--</a>-->
+                                        <a [routerLink]="['/'+language + '/tour/detail/'+item.id]">
+                                            <figure class="content-list__cover"><img [attr.src]="item.imagePlan ? app.constant.FILE_URL+item.imagePlan : '/assets/top/img/noimage_200x200.png'" alt=""></figure>
+                                        </a>
+                                    <a>
+                                        <figure class="content-list__person"><img [attr.src]="data.guider.avatar ? app.constant.FILE_URL+data.guider.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></figure>
+                                    </a>
+                                    </div>
+                                    <div class="content-list__body">
+                                    <ul class="category">
+                                    <li *ngFor="let category of item.categories"><a [routerLink]='["/" + language + "/search/category-" + category.prefix]' style="background: #7cb342 ">{{category.name}}</a></li>
+                                    <!--<li><a href="#" style="background: #64b5f6 ">XXX体験</a></li>-->
+                                    </ul>
+                                    <h3 class="content-list__title">
+                                    <a [routerLink]="['/'+language + '/tour/detail/'+item.id]" data-toggle="tooltip" title="{{item.proposal_title}}">{{item.proposal_title}}</a>
+                                    </h3>
+                                    <div class="content-list__utility">
+                                    <div class="content-list__flex">
+                                        <p class="price" *ngIf="item.price">{{'¥'|ttrans}}{{item.price}}／{{'人'|ttrans}}</p>
+                                        <p class="time">{{item.time_request}}h／{{'所要時間'|ttrans}}</p>
+                                    </div>
+                                        <div class="content-list__flex">
+                                            <top-star class="star-right" [point]="item.plan_ranking"></top-star>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="container__foot" *ngIf="data.tours.last_page > data.tours.current_page">
+                            <a href="javascript:void(0);" class="btn--default" (click)="loadMoreTour()">{{'もっと見る'|ttrans}}</a>
+                        </div>
+                    </section>
+                    <!--/.guide-plans -->
+                    <section class="guide-reviews plan-review">
+                        <div class="container__head">
+                            <h3 style="display:inherit;" class="container__title">{{'レビュー'|ttrans}}
+                            <p style="margin-top: 0px;margin-left: 20px;" class="content__num"><span>{{reviews.total}}</span> {{'件'|ttrans}}</p>
+                            </h3>
+                        </div>
+                        <div class="container__body">
+                            <ul class="plan-review__list" *ngIf="reviews">
+                                <li *ngFor="let item of reviews.data">
+                                    <div class="plan-review__head">
+                                        <div class="plan-review__photo">
+                                            <img width="200" height="200"
+                                                 [attr.src]="item.avatar ? app.constant.FILE_URL+item.avatar : '/assets/top/img/noimage_200x200.png'"
+                                                 alt="">
+                                        </div>
+                                        <div class="plan-review__info">
+                                            <p class="plan-review__name"><span>{{'旅ユーザー' | ttrans}}：</span>{{item.nick_name}}</p>
+                                            <p class="plan-review__date" *ngIf="item.created_at">{{'F07_投稿日' | ttrans}}：{{item.created_at | datex : 'YYYY/MM/DD'}}</p>
+                                        </div>
+                                        <div class="plan-review__score">
+                                            <top-star class="star-right" [point]="item.point"></top-star>
+                                        </div>
+                                    </div>
+                                    <top-see-full [content]="item.content" [id]="item.id"></top-see-full>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="container__foot" *ngIf="reviews.last_page > reviews.current_page">
+                            <a href="javascript:void(0);" class="btn--default" (click)="loadMoreReview()">{{'もっと見る'|ttrans}}</a>
+                        </div>
+                    </section>
+                    <!--/.guide-reviews -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.request-list outer content -->
+</div>
+<div class="fixed-area is-sp">
+    <div class="favorite">
+        <a *ngIf="data.guider.is_favorite == 0" href="javascript:void(0);"  class="btn--favorite sp-favorite {{data.guider.is_favorite == 0 ? '' : 'favorite--active'}}" (click)="favories()">
+            {{'お気に入り保存'|ttrans}}<i class="fa fa-heart " aria-hidden="true"></i>
+        </a>
+        <a *ngIf="data.guider.is_favorite != 0" href="javascript:void(0);"  class="btn--favorite sp-favorite {{data.guider.is_favorite == 0 ? '' : 'favorite--active'}}" (click)="favories()">
+            {{'F09_お気に入り済み'|ttrans}}<i class="fa fa-heart " aria-hidden="true"></i>
+        </a>
+    </div>
+</div>

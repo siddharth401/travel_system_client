@@ -1,0 +1,134 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.list-item {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.list-item li {
+    padding: 0 20px;
+    position: relative;
+    counter-increment:section;
+}
+.list-item li:before {
+    content: "/";
+    position: absolute;
+    top:0;
+    left: -11px;
+}
+
+.list-item li:first-child:before {
+    content: none;
+}
+.list-item li:after {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border:1px solid;
+    content:""counter(section);
+    text-align: center;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+}
+.inner-form {
+    margin-bottom: 25px;
+}
+.inner-form .err-select {
+    float: none !important;
+}
+.err-select {
+    margin-bottom: 0;
+}
+.list--style {
+    max-width: 200px;
+    overflow: hidden;
+}
+.list--style span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+.list--style a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+.form-set__input.is-required {
+    background: #f9fbe7;
+}
+.form-set__select.is-required {
+    background: #f9fbe7;
+}
+@media (max-width: 767px) {
+    .checkbox {
+        white-space: normal;
+    }
+}
+.form-set__country {
+    display: flex;
+}
+@media (max-width: 767px) {
+    .form-set__country {
+        display: block;
+    }
+}
+.form-set__country {
+    display: flex !important;
+}
+.form-set__country__item {
+    width: auto;
+}
+.form-set__country__item:last-child {
+    margin-left: 10px;
+}
+@media (max-width: 767px) {
+    .form-set__country {
+        display: block !important;
+    }
+    .form-set__country__item:last-child {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+@media (max-width: 767px) {
+    .reservation .content__body table.form-content__form-table tbody > tr:last-of-type > th {
+        padding-bottom: 10px !important;
+    }
+}
+.fieldset-inner fieldset:last-child {
+    margin-bottom: 0;
+}
+.reservation-textarea{
+    resize: none;
+    height: 300px;
+    width: 100%;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #484848;
+    line-height: 24px;
+    font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+.plan-reserve__title, .plan-reserve__body{
+    word-break: break-all;
+}
+.plan-reserve__content .page-content__container{
+    height: 200px;
+    overflow-y: scroll;
+}
+.page-content__container{
+    margin-bottom: 0px;
+}
+
+ul{
+    font-size: 14px;
+}

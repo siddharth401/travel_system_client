@@ -1,0 +1,148 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage/reservationtour"]'>{{'プラン予約一覧'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage/reservationtour/detail/" + booking_id]'>{{'旅プラン予約詳細'|ttrans}}</a></li>
+                <li><a>{{'口コミ入力'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content" *ngIf="review">
+                <top-mypage-head></top-mypage-head>
+                <div class="mypage__body">
+                    <div class="mypage__body__section">
+                        <h2 class="mypage__body__title--02">{{'口コミ投稿'|ttrans}}</h2>
+                        <h3 class="mypage__body__title">{{review.proposal_title}}</h3>
+                        <div class="mypage__body__frame mypage__body__frame--s">
+                            <div class="mypage__body__block">
+                                <p class="mypage__body__text--date">{{'予約日'|ttrans}}：{{review.booking_created_at|datex:'YYYY/MM/DD A hh:mm'}}</p>
+                                <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="col" nowrap>{{'ステータス'|ttrans}}</th>
+                                        <td><p>{{'口コミ登録'|ttrans}}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" nowrap>{{'実施日'|ttrans}}</th>
+                                        <td><p>{{review.date_actual|datex: "YYYY/MM/DD"}}（{{date_str|ttrans}}）</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" nowrap>{{'集合場所'|ttrans}}</th>
+                                        <td>
+                                            <p class="button-location">
+                                                <span>{{review.address_meeting}}</span>
+                                                <a class="btn--primary btn__mypage btn__mypage--map btn__mypage--icon" href="{{addressMap}}" target="_blank">{{'地図表示'|ttrans}}</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mypage__body__block">
+                                <div class="mypage__body__box">
+                                    <p class="mypage__body__text">{{'以下の口コミの評価と口コミ内容をご記入ください。'|ttrans}}</p>
+                                </div>
+                                <div class="mypage__body__block__post ">
+                                    <div class="mypage__body__block__post__score {{disabled == true ? 'disabled' : ''}}">
+                                        <div class="guide-score star-rating" *ngIf="listPoin">
+                                            <div class="star-rating__item" *ngFor=" let item of listPoin; let i=index">
+                                                <span *ngIf="item.key" class="fa fa-star" (click)="vote(i)"></span>
+                                                <span *ngIf="!item.key" class="fa fa-star-o" (click)="vote(i)"></span>
+                                            </div>
+                                            <p *ngIf="!data.point" class="rating-point">{{'0' | number:'1.1-2'}}</p>
+                                            <p *ngIf="data.point" class="rating-point">{{data.point | number:'1.1-2'}}</p>
+                                        </div>
+                                    </div>
+                                    <small class="msg_err" *ngIf="error.point">{{error.point[0]|ttrans}}</small>
+                                    <textarea [disabled]="disabled" [(ngModel)]="data.content" name="content" placeholder="{{'例）口コミ内容を記載して下さい。'|ttrans}}">{{data.content}}</textarea>
+                                    <small class="msg_err" *ngIf="error.content">{{error.content[0]|ttrans}}</small>
+                                </div>
+                                <h4 *ngIf="disabled == false" class="mypage__body__title--04">{{'口コミ規定'|ttrans}}</h4>
+                                <div *ngIf="disabled == false" class="mypage__body__text--scroll">
+                                    <dl *ngIf="app.language == ''" class="condition__list">
+                                        <dt><dfn>口コミのガイドライン</dfn></dt>
+                                        <dd><p>健全なコミュニティサイト運営のためのルールとして、口コミを投稿する際に遵守いただく事項につき本ガイドラインを規定させていただきました。ユーザーの皆様には、本ガイドラインの遵守にご協力いただきますよう、よろしくお願いいたします。</p></dd>
+                                        <dt><dfn>未成年に有害な内容でないこと</dfn></dt>
+                                        <dd><p>安全な家族で楽しめる環境を保つため、誹謗中傷や下品な言葉を含む口コミは受け付けておりません。 また、わいせつな表現、ヘイト スピーチ、根拠のない偏見、脅迫、個人に対する中傷を含む口コミも掲載できません。 PG-13 (13 歳未満の鑑賞には保護者の同意が必要) の基準を守りましょう。 現地法に反する薬物の使用を助長する、またはそれについて説明する口コミなど、違法な活動について述べた口コミは削除されます。口コミを掲載するには、投稿する旅行者が 13 歳以上である必要があります。</p></dd>
+                                        <dt><dfn>旅行者の参考になること</dfn></dt>
+                                        <dd><p>旅行者が参考にできる口コミを投稿しましょう。旅行者があなたの口コミを読む目的は、施設でどのような体験をしたかを知るためであることを忘れないでください。 そのため、個人に対する侮辱的な言葉遣いや中傷、政治、倫理、宗教、社会的問題に関する個人的な意見は含めないでください。 マッチングガイドは、人種、性別、宗教、性的嗜好、国籍に基づいて個人やグループに対する不寛容を助長する口コミの掲載を許可しません。</p></dd>
+                                        <dt><dfn>公平であること</dfn></dt>
+                                        <dd><p>最も旅行者の役に立つのは公平なアドバイスを提供する口コミです。 個人法人を問わず、施設の関係者が自施設や競合施設の口コミを投稿することはできません。 掲載施設を脅迫する意図で投稿された口コミは掲載されません。 不正またはマッチングガイドの投稿ガイドラインを満たしていないと思われる口コミを見つけた場合は、各口コミの下部にある [この口コミを通報する] の機能をご利用ください。</p></dd>
+                                        <dt><dfn>実際の体験に基づいていること</dfn></dt>
+                                        <dd><p>マッチングガイドコミュニティが求めているのはあなたの体験です。 伝聞や噂、他の情報元からの引用を口コミに含めないでください。 旅行中の実際の体験に基づいた口コミのみを投稿し、口コミには必ず十分な詳細を含めて他の旅行者がそのアドバイスを参考にできるようしてください。</p></dd>
+                                        <dt><dfn>オリジナルの内容であること</dfn></dt>
+                                        <dd><p>一番よいと思う、的確なアドバイスをご自分の言葉でお書きください。 口コミはオリジナルの内容にする必要があります。他の情報元からの大幅な引用は認められません。 他の Web サイト、口コミ、メール、印刷物からの盗用が見られる口コミは削除されます。</p></dd>
+                                        <dt><dfn>営利的でないこと</dfn></dt>
+                                        <dd><p>口コミは仲間の旅行者にアドバイスを提供するためのものであり、サービスや施設を宣伝するためのものではありません。 営利的、宣伝的な内容は一切含めないでください。 プレゼント、サービス、金銭などの個人的利益と引き換えに投稿された口コミは削除されます。 マッチングガイドは理由を問わず、特定の内容の掲載を拒否する権利を有します。 外部サイトへのリンクを載せた口コミは掲載できません。</p></dd>
+                                        <dt><dfn>個人情報に配慮していること</dfn></dt>
+                                        <dd><p>マッチングガイドは、ユーザーおよび掲載施設のプライバシーを尊重しています。 旅行の体験をお寄せいただく際は、個人情報や機密情報 (部屋の暗証番号やパスワードなど) を一切含めないようご注意ください。 クレジットカード番号、ロイヤルティ カード番号、その他個人の財務情報を含む口コミは削除されます。 投稿者自身の情報であるか他者の情報であるかを問いません。 サイトに名前を掲載することは認められていますが、リクエストがあれば姓は削除いたします。 口コミの対象となっている施設の従業員やオーナーの姓についても同様です。</p></dd>
+                                        <dt><dfn>読みやすいこと</dfn></dt>
+                                        <dd><p>口コミを書く言語の正しいつづりを使用し、口コミの読みにくさの原因となる機械翻訳の利用を避けて、他の旅行者があなたの口コミを最大限に活用できるようにしましょう。 HTML タグの使用はできません。すべて大文字の用語や隠語の過度の使用は避けてください。 最小文字数を満たしてください。他の旅行者の参考にならない内容は避け、旅行の詳細をご記入ください。</p></dd>
+                                    </dl>
+                                    <dl *ngIf="app.language != ''" class="condition__list">
+                                        <dt><dfn>Guidelines for writing reviews</dfn></dt>
+                                        <dd><p>For a smooth management of our website, we have stipulated the following guidelines to keep in mind while posting a review. We appreciate your patience and time taken to read the following. </p></dd>
+                                        <dt><dfn>Family-Friendly</dfn></dt>
+                                        <dd><p>To maintain a safe, family-friendly environment, we don’t allow profanity or vulgarities in reviews. We also reject reviews that include sexually explicit comments, hate speech, prejudiced language, threats, or personal insults. So keep it PG-13! Any reviews that describe reviewer participation in illegal activities, including those that advocate or describe drug use in defiance of local laws, will be removed. We only publish reviews submitted by travelers 13 or older.</p></dd>
+                                        <dt><dfn>Relevant to Travelers</dfn></dt>
+                                        <dd><p>Keep your reviews relevant and helpful to travelers – keep in mind they are reading your review to understand what an experience with the business might be like. For this reason, please don’t include personally insulting language, smear campaigns, or any personal opinions about politics, ethics, religion or wider social issues. Matching Guide does not allow reviews that promote intolerance for individuals or groups of people based on their race, gender, religion, sexual preference, or nationality. </p></dd>
+                                        <dt><dfn>Unbiased</dfn></dt>
+                                        <dd><p>Reviews are most helpful when they provide unbiased advice. We don't allow individuals or entities who own or are affiliated with a property to publish reviews of their business or competing establishments. Reviews submitted in an attempt to blackmail a listing will not be published. </p></dd>
+                                        <dt><dfn>Helpful, First-Hand</dfn></dt>
+                                        <dd><p>Our community wants to hear about your experience. This means no second-hand information, rumors, or quotations from other sources in your review. Please, only provide reviews based on substantial experiences you’ve had and be sure to include enough detail in your review that other travelers will find your advice helpful.</p></dd>
+                                        <dt><dfn>Original</dfn></dt>
+                                        <dd><p>Give us your best, most accurate advice — just make sure it’s yours! Reviews should contain original content and no extensive quoted material from other sources. Any review content plagiarized from other websites, reviewers, emails, or printed materials will be removed.</p></dd>
+                                        <dt><dfn>Non-commercial</dfn></dt>
+                                        <dd><p>Reviews are designed to provide advice to your fellow travelers, not to advertise a service or business. Please don’t include commercial or promotional content of any kind. Reviews that are being offered in exchange for personal gain, such as gifts, services, or money, will be removed. We reserve the right to reject specific content for any reason. We do not allow reviews that contain links to external websites.</p></dd>
+                                        <dt><dfn>Respectful of Private Information</dfn></dt>
+                                        <dd><p>We respect your privacy and the privacy of the businesses we list. We want you to tell us all about your experience, but please keep personal or exclusive information to yourself, such as door codes or passwords of any kind. Any reviews containing personal financial information, including credit card numbers, loyalty rewards numbers, or other financial information will also be removed. This includes both the reviewer’s information and the information of others. We allow names to be published to our site; however, we will remove last names upon request.This includes the last names of employees or owners associated with the property you are reviewing. </p></dd>
+                                        <dt><dfn>Easy to Read</dfn></dt>
+                                        <dd><p>Help other travelers get the most out of your review by using the correct alphabet for your language and avoiding machine translations that make your review hard to read. Please don't use HTML tags, excessive ALL CAPS, or slang. We have a required character count — fill up the space with details about your trip and avoid content that is not helpful to travelers.</p></dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mypage__body__block" *ngIf="disabled == false">
+                            <div class="form-set__checks u-text-center">
+                                <input type="checkbox" name="check-privacy" value="" checked="" (change)="checkChecked()" id="check-privacy">
+                                <label for="check-privacy" class="checkbox">{{'「口コミ規定」に同意する'|ttrans}}</label>
+                                <small *ngIf="checked" class="msg_err">{{checked}}</small>
+                            </div>
+                            <div class="form-set__button">
+                                <input type="submit" (click)="confirmSave()" id="click-modal" class="btn--primary" value="{{'口コミ登録確認'|ttrans}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mypage__foot {{disabled == true ? 'border_top' : ''}}">
+                    <a [routerLink]='["/" + languageName + "/mypage/reservationtour/detail/" + booking_id]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'予約詳細へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+     <!--Modal content-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'口コミ内容'|ttrans}}</h4>
+                <button type="button" class="btn btn-default close" (click)="close_modal()" id="close_modal" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-body__p">{{'評価'|ttrans}}:<span class="modal-body__span">{{data.point | number:'1.1-2'}}</span></p>
+                <pre class="modal-body__content">{{data.content}}</pre>
+            </div>
+            <div class="modal-footer">
+                <p class="modal-footer__text">{{'上記の内容で口コミ登録をしますが大丈夫ですか？'|ttrans}}</p><br>
+                <button type="submit" class="submit" data-dismiss="modal" (click)="save_data()">{{'メッセージ送信確認'|ttrans}}</button>
+            </div>
+        </div>
+    </div>
+</div>

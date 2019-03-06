@@ -1,0 +1,19 @@
+<ul class="header-dropdown-list hidden-xs ng-cloak">
+  <li class="dropdown">
+  <div class="click"  (click)="showSelect()">
+      <a class="dropdown-toggle">
+          <img src="assets/admin/img/blank.gif" class="flag flag-{{currentLanguage.key}}" alt="{{currentLanguage.alt}}"> <span> {{currentLanguage.title}} </span>
+          <i class="fa fa-angle-down"></i>
+      </a>
+  </div>
+    <ul *ngIf="showselectlanguage" class="dropdown-menu pull-right">
+      <li [class.active]="language==currentLanguage"
+          *ngFor="let language of languages">
+        <a (click)="setLanguage(language)" class="dropdown-item" >
+            <img src="assets/admin/img/blank.gif" class="flag flag-{{language.key}}" alt="{{language.alt}}"> {{language.title}}
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>
+

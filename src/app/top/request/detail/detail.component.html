@@ -1,0 +1,218 @@
+<section class="request-detail page-content outer" *ngIf="request_detail">
+    <div class="request-detail__visual page-content__visual" style="background: url(assets/top/img/visual_request-detail.png);">
+        <h2 class="word-break page-content__title">{{'旅リクエスト詳細'|ttrans}}</h2>
+    </div>
+    <!--/.search__visual -->
+    <div class="breadcrumb">
+        <ul class="breadcrumb__list">
+            <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+            <li><a [routerLink]='["/" + language + "/request/search"]'>{{'旅のリクエスト一覧'|ttrans}}</a></li>
+            <li><a>{{request_detail.request_info.title}}</a></li>
+        </ul>
+    </div>
+    <!--/.breadcrumb -->
+    <div class="outer__inner">
+        <section class="request-detail__section">
+            <div class="request-detail__person">
+                <div class="request-detail__photo">
+                    <img [attr.src]="request_detail.request_info.avatar ? app.constant.FILE_URL+request_detail.request_info.avatar : '/assets/top/img/noimage_200x200.png'" alt="avatar">
+                    <p class="request-detail__name">{{request_detail.request_info.name}}</p>
+                </div>
+                <div class="request-detail__info">
+                    <div class="request-detail__flex">
+                        <ul class="pref-list">
+                            <li><a *ngIf="request_detail.request_info.city" [routerLink]="['/'+ language + '/request/search/city-'+request_detail.request_info.city.prefix]">{{request_detail.request_info.city.name}}</a></li>
+                        </ul>
+                        <ul class="category" *ngIf="request_detail.request_info.categories">
+                                <li *ngFor="let item of request_detail.request_info.categories">
+                                    <a [routerLink]="['/' + language + '/request/search/category-' + item.prefix]" style="background: #7cb342">{{item.name}}</a>
+                                </li>
+                            </ul>
+                        <div class="btn--favorite favorite favorite-style">
+                            <a (click)="favories()" class="favorite__text" *ngIf="request_detail.request_info.is_favorite != 0">
+                                {{'F12_お気に入り済み'|ttrans}}
+                                <i class="fa fa-heart fa-red" aria-hidden="true"></i>
+                            </a>
+                            <a (click)="favories()" class="favorite__text" *ngIf="request_detail.request_info.is_favorite == 0">
+                                    {{'F12_お気に入り保存'|ttrans}}
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="request-detail__body">
+                        <h3 class="word-break request-detail__title">{{'旅リクエストの'|ttrans}}{{request_detail.request_info.title}}</h3>
+                        <table class="request-detail__table">
+                            <tbody>
+                            <tr>
+                                <th>{{'実施希望日'|ttrans}}</th>
+                                <td><span *ngIf="request_detail.request_info.date_plan">{{request_detail.request_info.date_plan|datex: "YYYY/MM/DD"}}</span>（{{date_plan_str|ttrans}}）</td>
+                                <th>{{'募集期限'|ttrans}}</th>
+                                <td><span *ngIf="request_detail.request_info.date_end">{{request_detail.request_info.date_end|datex: "YYYY/MM/DD"}}</span>（{{date_end_str|ttrans}}）</td>
+                            </tr>
+                            <tr>
+                                <th>{{'人数'|ttrans}}</th>
+                                <td>{{request_detail.request_info.num_people}} {{'名'|ttrans}}</td>
+                                <th>{{'希望金額'|ttrans}}</th>
+                                <td class="presented-plan__price"><span>{{'¥'|ttrans}}</span><span>{{request_detail.request_info.desire_price|numberFormat}}</span>/1{{'人'|ttrans}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{'開始時間'|ttrans}}</th>
+                                <td>{{time_start_hour}}:{{time_start_min}}</td>
+                                <th>{{'実施時間'|ttrans}}</th>
+                                <td>{{request_detail.request_info.plan_hour|formatHour}}h</td>
+                            </tr>
+                            <tr>
+                                <th>{{'対応言語'|ttrans}}</th>
+                                <td><span *ngIf="listLanguage && listLanguage[request_detail.request_info.support_language_id]">{{listLanguage[request_detail.request_info.support_language_id]|ttrans}}</span></td>
+                                <th>{{'作成日'|ttrans}}</th>
+                                <td>{{request_detail.request_info.created_at|datex: "YYYY/MM/DD"}} ({{created_at_str|ttrans}})</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="request-detail__section">
+            <h3 class="word-break request-detail__sub-title">{{'私について'|ttrans}}</h3>
+            <pre class="word-break pre-text">{{request_detail.request_info.introduce}}</pre>
+        </section>
+        <section class="request-detail__section">
+            <h3 class="word-break request-detail__sub-title">{{'ガイド依頼内容'|ttrans}}</h3>
+            <pre class="word-break pre-text">{{request_detail.request_info.desc}}</pre>
+        </section>
+    </div>
+    <div class="btn-block" *ngIf="curMember && curMember.type == app.constant.MEMBER_GUIDER
+    && request_detail.request_info.can_create_teian == true && request_detail.request_info.member_id != curMember.id
+    && request_detail.request_info.status == app.constant.RECRUITING_REQUEST">
+        <a [routerLink]='["/" + language + "/suggestion/plan/add/" + request_detail.request_info.id]' class="btn--primary btn--edit-01">{{'提案プランを作る'|ttrans}}</a>
+    </div>
+    <div class="btn-block" *ngIf="curMember && curMember.type == app.constant.MEMBER_GUIDER &&
+    (request_detail.request_info.status == app.constant.CANCEL
+    || request_detail.request_info.status == app.constant.IMPLEMENT_WAITING
+    || request_detail.request_info.status == app.constant.REQUEST_CLOSED
+    || request_detail.request_info.status == app.constant.IMPLEMENTED
+    || request_detail.request_info.status == app.constant.UNDER_NEGOTIATION)">
+        <a class="btn--primary btn--edit-01 disabled-button">{{'募集終了'|ttrans}}</a>
+    </div>
+    <div class="btn-block" *ngIf="!curMember &&
+    (request_detail.request_info.status == app.constant.CANCEL
+    || request_detail.request_info.status == app.constant.IMPLEMENT_WAITING
+    || request_detail.request_info.status == app.constant.REQUEST_CLOSED
+    || request_detail.request_info.status == app.constant.IMPLEMENTED
+    || request_detail.request_info.status == app.constant.UNDER_NEGOTIATION)">
+        <a class="btn--primary btn--edit-01 disabled-button">{{'募集終了'|ttrans}}</a>
+    </div>
+    <div class="btn-block" *ngIf="!curMember && request_detail.request_info.status == app.constant.RECRUITING_REQUEST">
+        <a [routerLink]='["/" + language + "/member/login"]' [queryParams]="{is_page:app.constant.REQUEST_DETAIL, id:request_detail.request_info.id,member_id:request_detail.request_info.member_id}" class="btn--primary btn--edit-01">{{'提案プランを作る'|ttrans}}</a>
+    </div>
+    <section class="presented-plan outer content" *ngIf="request_detail.suggestions_request.total > 0">
+        <div class="outer__inner">
+            <div class="content__head">
+                <h2 class="word-break content__title">{{'現在の提案プラン'|ttrans}}</h2>
+            </div>
+            <div class="content__body">
+                <ul class="presented-plan__list">
+                    <li *ngFor="let item of request_detail.suggestions_request.data">
+                        <div class="presented-plan__flex">
+                            <div *ngIf="item.members" class="presented-plan__photo"><img [attr.src]="item.members.avatar ? app.constant.FILE_URL+item.members.avatar : '/assets/top/img/noimage_200x200.png'" alt="{{item.members.nick_name}}"></div>
+                            <div class="presented-plan__text">
+                                <div class="presented-plan__head" *ngIf="item.members">
+                                    <div>
+                                        <p class="guide-name"><span>{{'旅ガイド'|ttrans}}：</span><a [routerLink]='["/" + language + "/guide/detail/" + item.members.id]'>{{item.members.nick_name}}</a></p>
+                                    </div>
+                                    <div class="guide-score">
+                                        <top-star class="star" [point]="item.members.guider_ranking"></top-star>
+                                    </div>
+                                </div>
+                                <div class="presented-plan__body">
+                                    <h3 class="word-break presented-plan__title" *ngIf="item.plan_translates">{{item.plan_translates[0].proposal_title}}</h3>
+                                    <p class="presented-plan__price">{{'希望金額'|ttrans}}：<span>{{'¥'|ttrans}}</span><span>{{item.price|numberFormat}}</span>/1{{'人'|ttrans}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="presented-plan__foot content__foot" *ngIf="request_detail.suggestions_request.current_page < request_detail.suggestions_request.last_page">
+                <a href="javascript:void (0);" (click)="loadMore();" class="btn--default">{{'もっとみる'|ttrans}}</a>
+            </div>
+        </div>
+    </section>
+    <!-- /.presented-plan -->
+    <div class="btn-block" *ngIf="curMember && curMember.type == app.constant.MEMBER_GUIDER
+    && request_detail.request_info.can_create_teian == true && request_detail.suggestions_request.total > 0 && request_detail.request_info.member_id != curMember.id
+    && request_detail.request_info.status == app.constant.RECRUITING_REQUEST">
+        <a [routerLink]='["/" + language + "/suggestion/plan/add/" + request_detail.request_info.id]' class="btn--primary btn--edit-01">{{'提案プランを作る'|ttrans}}</a>
+    </div>
+    <div class="btn-block" *ngIf="curMember && curMember.type == app.constant.MEMBER_GUIDER && request_detail.suggestions_request.total > 0
+    && (request_detail.request_info.status == app.constant.CANCEL|| request_detail.request_info.status == app.constant.IMPLEMENT_WAITING
+    || request_detail.request_info.status == app.constant.REQUEST_CLOSED
+    || request_detail.request_info.status == app.constant.IMPLEMENTED
+    || request_detail.request_info.status == app.constant.UNDER_NEGOTIATION)">
+        <a class="btn--primary btn--edit-01 disabled-button">{{'募集終了'|ttrans}}</a>
+    </div>
+    <div class="btn-block" *ngIf="!curMember && request_detail.suggestions_request.total > 0
+    && (request_detail.request_info.status == app.constant.CANCEL|| request_detail.request_info.status == app.constant.IMPLEMENT_WAITING
+    || request_detail.request_info.status == app.constant.REQUEST_CLOSED
+    || request_detail.request_info.status == app.constant.IMPLEMENTED
+    || request_detail.request_info.status == app.constant.UNDER_NEGOTIATION)">
+        <a class="btn--primary btn--edit-01 disabled-button">{{'募集終了'|ttrans}}</a>
+    </div>
+    <div class="btn-block" *ngIf="!curMember && request_detail.request_info.can_create_teian == true && request_detail.suggestions_request.total > 0
+    && (request_detail.request_info.status == app.constant.RECRUITING_REQUEST || request_detail.request_info.status == app.constant.UNDER_NEGOTIATION)">
+        <a [routerLink]='["/" + language + "/member/login"]' class="btn--primary btn--edit-01">{{'提案プランを作る'|ttrans}}</a>
+    </div>
+</section>
+<section class="content__aside" *ngIf="request_detail && request_detail.similarity_requests.length > 0">
+    <div class="outer__inner">
+        <h2 class="content__title--02">{{'類似の旅リクエスト'|ttrans}}</h2>
+        <div class="content-list">
+            <ul class="request-lineup__list" *ngIf="similarity_requests">
+                <li *ngFor="let item of similarity_requests">
+                    <div class="request-lineup__head">
+                        <ul class="pref-list">
+                            <li><a *ngIf="item.city" [routerLink]='["/" + app.language + "/request/search/city-" + item.city.prefix]'>{{item.city.name}}</a></li>
+                        </ul>
+                        <p class="request-time">{{item.date_plan|datex: "YYYY/MM/DD"}}</p>
+                    </div>
+                    <div class="request-lineup__body">
+                        <div class="request-lineup__flex">
+                            <div class="request-lineup__photo">
+                                <a [routerLink]='["/" + app.language + "/request/detail/" + item.id]'><img [attr.src]="item.members && item.members.avatar ? app.constant.FILE_URL+item.members.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></a>
+                            </div>
+                            <div class="request-lineup__text">
+                                <h3 class="word-break request-lineup__title">
+                                    <a class="word-break" *ngIf="app.language == app.constant.DEFAULT_LANGUAGE_URL" href="{{app.constant.BASE_WEB+'request/detail/'+item.id}}" data-toggle="tooltip" title="{{item.title}}">{{item.title}}</a>
+                                    <a class="word-break" *ngIf="app.language != app.constant.DEFAULT_LANGUAGE_URL" href="{{app.constant.BASE_WEB+app.language+'/request/detail/'+item.id}}" data-toggle="tooltip" title="{{item.title}}">{{item.title}}</a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="request-lineup__foot">
+                        <ul class="category" *ngIf="item.categories">
+                            <li *ngFor="let item of item.categories">
+                                <a href="{{app.constant.BASE_WEB+app.language+'/request/search/category-'+item.prefix}}" style="background: #7cb342">{{item.name}}</a>
+                            </li>
+                        </ul>
+                        <a href="{{app.constant.BASE_WEB+app.language+'/request/detail/'+item.id}}">
+                            <div>
+                                <figure><img [attr.src]="item.language_support && item.language_support.icon ? app.constant.FILE_URL+item.language_support.icon : '/assets/top/img/flag03.svg'" width="38" /></figure>
+                                <p>{{item.num_people}}{{'人'|ttrans}}</p>
+                            </div>
+                            <div>
+                                <p class="request-lineup__info--01">¥{{item.desire_price|numberFormat}}／{{'人'|ttrans}}</p>
+                                <p class="request-lineup__info--02">{{item.plan_hour|formatHour}}h{{'／所要時間'|ttrans}}</p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content__foot" *ngIf="request_detail && request_detail.similarity_requests.length > 4">
+            <a [routerLink]='["/" + language + "/request/search"]' class="content__foot__btn btn--default">{{'旅リクエスト一覧へ戻る'|ttrans}}</a>
+        </div>
+    </div>
+
+</section>

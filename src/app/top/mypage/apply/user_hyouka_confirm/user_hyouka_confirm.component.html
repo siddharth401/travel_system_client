@@ -1,0 +1,52 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage/apply"]'>{{'F57_応募一覧'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage/apply/detail/"+booking_id]'>{{'F57_応募詳細'|ttrans}}</a></li>
+                <li><a>{{'ユーザー評価完了'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'旅ユーザー評価'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title">{{title_plan}}</h3>
+
+                        <div class="mypage__body__block">
+
+                            <div class="mypage__body__block__caution">
+
+                                <h4 class="mypage__body__block__caution__title">{{'旅ユーザーの評価が完了しました。'|ttrans}}</h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+                <div class="mypage__foot">
+                    <a  [routerLink]='["/" + app.language + "/mypage/apply/detail/"+booking_id]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F60_応募詳細へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

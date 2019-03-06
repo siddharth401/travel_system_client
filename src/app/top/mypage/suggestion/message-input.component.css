@@ -1,0 +1,110 @@
+#sb-site {
+    z-index: inherit;
+}
+.modal-dialog {
+    display: none;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(43, 46, 56, 0.9);
+    z-index: 9999;
+}
+
+.modal-content {
+    width: 50vw;
+    background: #fff;
+    position:fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 15px;
+}
+@media (max-width: 767px) {
+    .modal-content {
+        width: 70vw;
+    }
+}
+
+.modal-header {
+    position: relative;
+}
+.modal-header button {
+    position: absolute;
+    top: -9px;
+    right: -7px;
+    border: none;
+    background: no-repeat;
+    font-size: 20px;
+    cursor: pointer;
+}
+.modal-header button:hover {
+    color:#f00;
+}
+.modal-footer {
+    margin-top: 15px;
+    text-align: center;
+}
+.modal-footer button {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+    color: #333;
+    cursor: pointer;
+}
+.modal-footer .submit {
+    background: #66bb6a;
+    color:#fff;
+    margin-top: 10px;
+    display: inline-block;
+    overflow: visible;
+    min-width: 110px;
+    padding: 12px;
+    border: none;
+}
+.modal-footer .close {
+    background: #C20F16;
+    color:#fff;
+    border-color:#C20F16;
+}
+.modal-body {
+    margin: 10px 0;
+    padding: 10px;
+}
+.modal-body__text {
+    word-break: break-all;
+    line-height: 18px;
+}
+.modal-footer__text {
+    text-align: center;
+}
+.mypage__body__textarea {
+    font-size: 1.4rem ! important;
+    font-size: 14px;
+    font-family: "Hiragino Kaku Gothic Pro", sans-serif;
+    width: 100%;
+    border:1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    max-height: 300px;
+}
+.modal-title {
+    text-align: center;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.pre-text{
+    white-space: pre-wrap;
+    /*font-size: 14px;*/
+    line-height: 24px;
+    word-break: break-all;
+}
+textarea {
+    word-break: break-all;
+    overflow-x: hidden;
+}

@@ -1,0 +1,99 @@
+<div id="sb-site">
+    <section class="suggest page-content outer">
+        <div style="background: url(assets/top/img/visual_suggest.png);" class="suggest__visual page-content__visual" >
+            <h2 class="page-content__title">{{'F15_提案プラン作成完了'|ttrans}}</h2>
+        </div>
+        <!--/.search__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><span >{{'F15_提案プラン作成完了'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+
+        <nav class="suggest__flow flow-content">
+            <ul class="flow-content__list">
+                <li class="flow-content__item">{{'提案プラン作成'|ttrans}}</li>
+                <li class="flow-content__item">{{'提案プラン確認'|ttrans}}</li>
+                <li class="flow-content__item flow-content__item--current--last">{{'提案プラン作成完了'|ttrans}}</li>
+            </ul>
+        </nav>
+        <!-- /.reservation__flow flow-content -->
+        <!--<section class="page-content outer">-->
+            <!--<div class="outer__inner">-->
+                <!--<div class="suggest__box">-->
+                    <!--<div class="suggest__head">-->
+                        <!--<h2 class="plan-reserve__title">{{title}}</h2>-->
+                    <!--</div>-->
+                    <!--<div class="suggest__body">-->
+
+                        <!--<div class="suggest__thanks">-->
+                            <!--<p class="suggest__thanks-title">{{'この度は、お客様へのご提案をありがとうございます。'|ttrans}}</p>-->
+                            <!--<p class="suggest__text">{{'ユーザー名様より、お問い合わせがある場合がございますので'|ttrans}}-->
+                                <!--{{'その際には、ご対応お願いいたします。'|ttrans}}</p>-->
+                            <!--<div class="suggest__note">-->
+                                <!--<div class="suggest__note-head">-->
+                                    <!--<p class="suggest__note-title">{{'注意事項'|ttrans}}</p>-->
+                                <!--</div>-->
+                                <!--<div class="suggest__note-body">-->
+                                    <!--&lt;!&ndash;<ul class="suggest__note-list">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<li><a href="javascript:void(0);">{{'こちらの二つの内容をおねがいします'|ttrans}}</a></li>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<li><a href="javascript:void(0);">{{'こちらの二つの内容をおねがいします'|ttrans}}</a></li>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="suggest__foot">-->
+                    <!--<a [routerLink]="['/'+languageName+'/mypage/proposal_plan']" class="btn&#45;&#45;default">{{'提案プラン一覧へ'|ttrans}}</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <section class="page-content outer">
+            <div class="outer__inner">
+                <div class="suggest__box">
+                    <div class="suggest__head">
+                        <h2 class="word-break plan-reserve__title">{{title}}</h2>
+                    </div>
+                    <div class="suggest__body">
+
+                        <div class="suggest__thanks">
+                            <p class="suggest__thanks-title">{{'この度は、お客様へのご提案をありがとうございます。'|ttrans}}</p>
+                            <p class="suggest__text">{{'ユーザーより、お問い合わせがある場合がございますので その際には、ご対応お願いいたします。'|ttrans}}</p>
+                            <div class="suggest__note">
+                                <div class="suggest__note-head">
+                                    <p class="suggest__note-title">{{'注意事項'|ttrans}}</p>
+                                </div>
+                                <div class="suggest__note-body">
+                                    <ul class="suggest__note-list">
+                                        <li>
+                                            <div class="suggest__label">{{'ご案内が通った場合'|ttrans}}</div>
+                                            <p>{{'マイページよりご確認ください。'|ttrans}}<br />{{'また内容不明な部分などがありましたら、'|ttrans}}<br />{{'マイページより旅ユーザーとご相談ください。'|ttrans}}</p>
+                                        </li>
+                                        <li>
+                                            <div class="suggest__label">{{'ご提案が通らなった場合'|ttrans}}</div>
+                                            <p>{{'マイページより再度ご提案することが可能です。'|ttrans}}<br />{{'もし他で成立している場合は、'|ttrans}} {{'旅リクエストからご提案できる他のリクエストをお探しください。'|ttrans}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="suggest__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/proposal_plan']" class="btn--default">{{'提案プラン一覧へ'|ttrans}}</a>
+                </div>
+            </div>
+        </section>
+        <!-- /.plan-reserve page-content outer -->
+        <div class="content--02 outer">
+            <div class="outer__inner">
+                <a [routerLink]="['/']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'サイトＴＯＰに戻る'|ttrans}}</a>
+            </div>
+        </div>
+
+    </section>
+    <!--#include virtual="/inc/footer.html" -->
+</div>

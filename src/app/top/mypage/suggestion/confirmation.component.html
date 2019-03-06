@@ -1,0 +1,173 @@
+<div id="sb-site" *ngIf="plan_suggest">
+        <section class="reservation page-content outer">
+            <div style="background: url(assets/top/img/visual_suggest.png);" class="reservation__visual page-content__visual">
+                <h2 class="page-content__title">{{'提案プラン予約確認'|ttrans}}</h2>
+            </div>
+            <!--/.search__visual -->
+            <div class="breadcrumb">
+                <ul class="breadcrumb__list">
+                    <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage/request']">{{'F30_F35_旅のリクエスト一覧'|ttrans}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage/request/detail/'+request.id]">{{request.title}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage/suggestion/detail/'+plan_suggest.id]">{{plan_suggest.proposal_title}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage/suggestion/reservation']">{{'F30_F35_提案プラン予約入力'|ttrans}}</a></li>
+                    <li><span >{{'F32_提案プラン予約確認'|ttrans}}</span></li>
+                </ul>
+            </div>
+            <!--/.breadcrumb -->
+
+            <nav class="reservation__flow flow-content">
+                <ul class="flow-content__list">
+                    <li class="flow-content__item">{{'F31_予約者情報入力'|ttrans}}</li>
+                    <li class="flow-content__item flow-content__item--current">{{'F31_予約者情報確認'|ttrans}}</li>
+                    <li class="flow-content__item">{{'F31_カード決済'|ttrans}}</li>
+                    <li class="flow-content__item">{{'F31_旅プラン予約完了'|ttrans}}</li>
+                </ul>
+            </nav>
+            <!-- /.reservation__flow flow-content -->
+            <form action="">
+                <section class="plan-reserve page-content outer">
+                    <div class="outer__inner">
+                        <div class="plan-reserve__box">
+                            <div class="plan-reserve__head">
+                                <h2 class="plan-reserve__title">{{plan_suggest.proposal_title}}</h2>
+                            </div>
+                            <div class="plan-reserve__body">
+                                <table class="mypage__body__table-normal">
+                                    <tbody>
+                                    <tr>
+                                        <th>{{'提案NO'|ttrans}}</th>
+                                        <td><p>{{request_id*1|addFixedId: 'R'}}-{{plan_suggest.id*1|addFixedId: ''}}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'旅ガイド'|ttrans}}</th>
+                                        <td><p>{{plan_suggest.guider_name}}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'提案内容'|ttrans}}</th>
+                                        <td><pre class="word-break pre-text">{{plan_suggest.content}}</pre></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'実施日'|ttrans}}</th>
+                                        <td *ngIf="year"><p>{{year}}{{'/'|ttrans}}{{month}}{{'/'|ttrans}}{{day}} ({{weekday|ttrans}})</p></td>
+                                        <td *ngIf="!year"><p></p></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'F30_F35_所要時間'|ttrans}}</th>
+                                        <td ><p>{{plan_suggest.time_request|formatHour}}h</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'F30_F35_開始時間'|ttrans}}</th>
+                                        <td>
+                                            <ul>
+                                                <li *ngFor="let item of plan_suggest.time_start">{{item}}</li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'料金'|ttrans}}</th>
+                                        <td><p>{{'¥'|ttrans}}{{plan_suggest.price * detailSuggestPlan.request_num_people|numberFormat}} （{{'単価'|ttrans}} {{'¥'|ttrans}}{{plan_suggest.price|numberFormat}} × {{detailSuggestPlan.request_num_people}} {{'F30_F35_人'|ttrans}}）</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{'集合場所'|ttrans}}</th>
+                                        <td><p>{{detailSuggestPlan.prefecture}} {{plan_suggest.address_meeting}}</p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="form-content content outer">
+                    <div class="outer__inner">
+                        <div class="content__head">
+                            <h3 class="content__title">{{'予約代表者情報'|ttrans}}</h3>
+                        </div>
+                        <div class="content__body mypage__body">
+                            <table class="form-content__form-table form-content__form-table--border">
+                                <tbody>
+                                <tr>
+                                    <th class="mypage__body__table__title">{{'F31_名前'|ttrans}}</th>
+                                    <td>
+                                        <p class="form-content__form-table__name">{{data.formMember.name}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'性別'|ttrans}}</th>
+                                    <td>
+                                        <p>{{app.constant.User.gender[data.formMember.gender*1] | ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'連絡先'|ttrans}}</th>
+                                    <td>
+                                        <p>{{app.constant.CountryCallingCodes[data.phone_num]}}  {{data.phone_tel}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'メールアドレス'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.formMember.email}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'国'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.country_name}}</p>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="data.formMember.prefecture_id != ''">
+                                    <th>{{'住所'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.listPrefecture[data.formMember.prefecture_id*1]}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'住所'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.formMember.address}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'話せる言語'|ttrans}}</th>
+                                    <td>
+                                        <ul class="list-item">
+                                            <li *ngFor="let item of languages.language">{{data.listLanguage[item.language_id]|ttrans}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'メルマガ'|ttrans}}</th>
+                                    <td>
+                                        <p>{{app.constant.Mail_magazine_option[data.formMember.mail_magazine_option*1]|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'メールアドレス２'|ttrans}}</th>
+                                    <td>
+                                        {{data.formMember.customer_email}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'登録更新'|ttrans}}</th>
+                                    <td>
+                                        <span *ngIf="data.formMember.is_update_profile == app.constant.TRUE">{{'する'|ttrans}}</span>
+                                        <span *ngIf="data.formMember.is_update_profile == app.constant.FALSE">{{'しない'|ttrans}}</span>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-set__button">
+                                <input type="submit" class="btn--primary" value="{{'F32_決済へ進む'|ttrans}}" (click)="payment()"/>
+                            </div>
+                        </div>
+                        <div class="content__foot">
+                            <a  [routerLink]="['/'+languageName+'/mypage/suggestion/reservation']"class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'提案プラン予約情報入力へ戻る'|ttrans}}</a>
+                        </div>
+                    </div>
+                </section>
+            </form>
+        </section>
+        <!--#include virtual="/inc/footer.html" -->
+</div>

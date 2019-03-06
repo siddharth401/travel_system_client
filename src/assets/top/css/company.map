@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../scss/company.css",
+	"sources": [
+		"../scss/company.scss",
+		"../scss/foundation/_mixin.scss",
+		"../scss/foundation/_setting.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "ACAA;;;;mDAImD;AASnD;;;;mDAImD;AAsBnD;;;;mDAImD;AAQnD;;;;mDAImD;AAOnD;;;;mDAImD;AA6BnD;;;;mDAImD;AAOnD;;;;mDAImD;AASnD;;;;mDAImD;AAkBnD;;;;mDAImD;AASnD;;;;mDAImD;AA4BnD;;;;mDAImD;AD1LjD,gBAAgB,CAAR;EACR,UAAU,EAAE,8BAAG,CAA4B,SAAS,CAAC,MAAM,CAAC,GAAG;CADtD;;AAGV,QAAQ,CAAC,KAAK,CAAT;EACJ,aAAa,EECD,IAAI;CFFX",
+	"names": []
+}

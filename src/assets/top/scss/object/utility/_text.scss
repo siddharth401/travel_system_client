@@ -1,0 +1,41 @@
+/*
+
+	FONT FAMILY
+
+*******************************************************/
+
+.u-text-en{font-family: $font_family_en !important;}
+.u-text-en-02{font-family: $font_family_en_robot !important;}
+.u-text-jp{font-family: $font_family_jp !important;}
+
+/*
+
+	FONT STYLE
+
+*******************************************************/
+.u-text-italic{font-style: italic !important;}
+.u-text-strong{font-weight: bold !important;}
+
+
+/*
+
+	TEXT COLOR
+
+*******************************************************/
+.u-text-01{color: $font_color !important;}
+.u-text-02{color: $accent_color !important;}
+.u-text-03{color: #fff !important;}
+
+
+/*
+
+	TEXT SIZE
+
+*******************************************************/
+.u-text-xsmall{@include font-size(10);}
+.u-text-small{@include font-size(12);}
+.u-text-medium{@include font-size(14);}
+.u-text-large{@include font-size(18);}
+.u-text-xlarge{@include font-size(20);}
+.u-text-xxlarge{@include font-size(24);}
+.u-text-xxxlarge{@include font-size(28);}

@@ -1,0 +1,114 @@
+.inputupload__member {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: #fff;
+    text-align: center;
+}
+.icon-camera {
+    width: 90px;
+    height: 90px;
+    opacity: 0;
+    cursor: pointer;
+}
+.inputupload__member .fa-camera:before {
+    position: absolute;
+    top: 0;
+    left: 24px;
+    color: #fff;
+    font-size: 4rem;
+}
+@media (max-width: 767px){
+    .inputupload__member .fa-camera:before {
+        top: 20px;
+        left: 35px;
+        font-size: 2rem;
+    }
+}
+.inputUpload__style{
+    left: unset;
+    right: 20px;
+    z-index: 100;
+    bottom: 140px;
+}
+.inputupload__overlay {
+    background: rgba(0, 0, 0, 0.75);
+    height: 100%;
+    visibility: hidden;
+}
+.inputupload__overlay label {
+    position: absolute;
+    top: 50%;
+    margin-top: -45px;
+    left: 50%;
+    margin-left: -45px;
+}
+.inputupload__member:hover .inputupload__overlay {
+    visibility: visible;
+}
+.inputupload__text {
+    position: absolute;
+    top: 50%;
+    padding: 0 10px;
+    width: 90%;
+    margin-top: 17px;
+    font-size: 1.4rem;
+}
+@media (max-width: 767px){
+    .inputupload__text {;
+        margin-top: 1px;
+        font-size: 1.2rem;
+        margin-left: -5px;
+    }
+}
+.mypage__head-bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+}
+.mypage__cover-btn {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #fff;
+    color: #fff;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1;
+    padding: 5px 2px;
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 176px;
+    height: 21px;
+}
+.mypage__cover-btn:before {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+}
+.btn-upload {
+    opacity: 0;
+    position: relative;
+    z-index: 10;
+}
+.mypage-upload__text {
+    position: absolute;
+    top: 9px;
+    left: 33px;
+}
+.note {
+    margin: -10px 0 18px;
+    line-height: 20px;
+}
+.inputupload .input-upload {
+    max-width: 250px;
+}
+@media (max-width: 767px) {
+    .inputupload .input-upload {
+        max-width: 100%;
+    }
+}

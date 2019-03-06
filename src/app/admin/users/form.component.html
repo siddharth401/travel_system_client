@@ -1,0 +1,129 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[['Manager management'|trans], ['Admin list'|trans, '/admin/user/list'], [(fb.isNew?'New admin':'Admin details')|trans]]" icon="users" class="col-md-12"></sa-big-breadcrumbs>
+  </div>
+
+  <section id="widget-grid" class="">
+    <div class="row">
+      <article class="col-sm-12">
+        <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" role="widget">
+          <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+              <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a>
+            </div>
+            <span class="widget-icon"> <i class="fa fa-pencil-square-o"></i> </span>
+            <h2 *ngIf="!fb.isNew">{{'Admin details'|trans}}</h2>
+            <h2 *ngIf="fb.isNew">{{'New admin'|trans}}</h2>
+          </header>
+
+          <div role="content">
+            <div class="jarviswidget-editbox">
+            </div>
+            <div class="widget-body">
+              <form [formGroup]="fb.form" class="form-horizontal" (ngSubmit)="save(true)">
+                <fieldset>
+                  <div class="form-group" *ngIf="!fb.isNew">
+                    <label class="col-md-2 control-label">{{'NO'|trans}}</label>
+                    <div class="col-md-10"><label style="padding-left: 20px;" class="control-label"> {{fb.form.value['id']}}</label></div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Username'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <input *ngIf="fb.isNew" type="text" formControlName="username" placeholder="{{'Username'|trans}}" class="form-control" autocomplete="false">
+                      <input *ngIf="!fb.isNew" type="text" formControlName="username" placeholder="{{'Username'|trans}}" class="form-control" autocomplete="false" readonly="'readonly'">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Password'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <input type="password" formControlName="password" placeholder="{{'●●●●●●'|trans}}" class="form-control" />
+                      <small class="help-block">{{'The length of password is into from 4 to 8 characters'|trans}}</small>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Email'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <input type="text" formControlName="email" placeholder="{{'Email'|trans}}" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Admin name'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10 text-left">
+                      <input type="text" formControlName="name" placeholder="{{'Admin name'|trans}}" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Active'|trans}}</label>
+                    <div class="col-md-2 text-left">
+                      <select formControlName="active" class="form-control">
+                        <option *ngFor="let item of app.constant.Active|list" [value]="item.key" [selected]="item.key==1" >{{item.value|trans}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-12">
+                       <a class="btn btn-default" [routerLink]='["/admin/user"]' type="button">{{'Cancel'|trans}}</a>
+                      <button class="btn btn-primary" type="submit"><i class="fa"></i> {{'Confirm'|trans}}</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+
+<div class="modal fade" id="formConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+            <div class="form-group">
+              <label class="col-md-3 control-label"><strong>{{'Username'|trans}}</strong></label>
+              <div class="col-md-9">{{fb.form.get('username').value}}</div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-3 control-label"><strong>{{'Password'|trans}}</strong></label>
+            <div class="col-md-9">
+              ●●●●●●
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-3 control-label"><strong>{{'Email'|trans}}</strong></label>
+            <div class="col-md-9">{{fb.form.get('email').value}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-3 control-label"><strong>{{'Admin name'|trans}}</strong></label>
+            <div class="col-md-9">{{fb.form.get('name').value}}</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-3 control-label"><strong>{{'Active'|trans}}</strong></label>
+            <div class="col-md-9">{{app.constant.Active[fb.form.get('active').value]|trans}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+        <button type="button" class="btn btn-primary" (click)="save()"><i class="fa"></i> {{'Submit'|trans}}</button>
+      </div>
+    </div>
+  </div>
+</div>

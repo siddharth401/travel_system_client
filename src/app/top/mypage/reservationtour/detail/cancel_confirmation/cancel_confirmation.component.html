@@ -1,0 +1,208 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/' + language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + language + '/mypage/reservationtour']">{{'プラン予約一覧'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + language + '/mypage/reservationtour/detail/' + booking_id]">{{'旅プラン予約詳細'|ttrans}}</a></li>
+                <li>{{'旅プランキャンセル確認'|ttrans}}</li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'キャンセル確認'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title">
+                            <a target="_blank" [routerLink]='["/" + app.language + "/tour/detail/" + data.booking.plan_id]'>{{data.booking.name}}</a>
+                        </h3>
+
+                        <div class="mypage__body__block__caution">
+
+                            <h4 class="mypage__body__block__caution__title">{{'本当にキャンセルしますか？'|ttrans}}</h4>
+
+                            <p class="mypage__body__block__caution__text">{{'キャンセルすると、予約を戻せなくなりますのでご注意ください。'|ttrans}}</p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__block">
+
+                            <p class="mypage__body__text--date">{{'予約日'|ttrans}}：<span *ngIf="data.booking.created_at">{{data.booking.created_at|datex: "YYYY/MM/DD HH:mm:ss"}}</span></p>
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">{{'ステータス'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="data.booking.status == app.constant.REQUESTING_GUIDER">{{'リクエスト未確定'|ttrans}}</p>
+                                        <p *ngIf="data.booking.status == app.constant.AFTER_EXECUTE
+                                        && data.booking.notify_one_day == false">{{'実施前'|ttrans}}</p>
+                                        <p *ngIf="(data.booking.status == app.constant.AFTER_EXECUTE
+                                        || data.booking.status == app.constant.REQUEST_REVIEW)
+                                        && data.booking.notify_one_day == true
+                                        && data.booking.guider_status_not_go == app.constant.FALSE
+                                        && data.booking.traveler_status_go == app.constant.FALSE">{{'F57_実施承認'|ttrans}}</p>
+                                        <p *ngIf="(data.booking.status == app.constant.AFTER_EXECUTE
+                                        || data.booking.status == app.constant.REQUEST_REVIEW)
+                                        && data.booking.traveler_status_go == app.constant.TRUE
+                                        && data.booking.guider_status_not_go == app.constant.FALSE">{{'F18_口コミ登録'|ttrans}}</p>
+                                        <p *ngIf="data.booking.status == app.constant.REVIEWED" >{{'口コミ済み'|ttrans}}</p>
+                                        <p *ngIf="data.booking.status == app.constant.CANCEL">{{'キャンセル'|ttrans}}</p>
+                                        <p *ngIf="data.booking.status != app.constant.REVIEWED && data.booking.guider_status_not_go == app.constant.TRUE" >{{'F56_実施後キャンセル'|ttrans}}</p>
+                                        <p *ngIf="data.booking.status == app.constant.CANCEL && data.booking.guider_reason_cancel" class="guider-reason-cancel">{{data.booking.guider_reason_cancel}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'実施日'|ttrans}}</th>
+                                    <td><p *ngIf="data.booking.date_actual">{{data.booking.date_actual|datex: "YYYY/MM/DD"}}（{{date_actual_str|ttrans}}）</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'開始時間'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="data.booking.date_actual">{{data.booking.date_actual|datex: "HH:mm"}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'集合場所'|ttrans}}</th>
+                                    <td><p class="button-location">
+                                        <span>{{data.booking.address}}</span>
+                                        <button type="button" class="btn--primary btn__mypage btn__mypage--map btn__mypage--icon" onClick="submit();">{{'地図表示'|ttrans}}</button>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'人数'|ttrans}}</th>
+                                    <td><p>{{data.booking.number_people}}{{'人'|ttrans}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'単価'|ttrans}}</th>
+                                    <td><p *ngIf="data.booking.amount/data.booking.number_people">￥{{data.booking.amount/data.booking.number_people|numberFormat}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'合計料金'|ttrans}}</th>
+                                    <td><p *ngIf="data.booking.amount">￥{{data.booking.amount|numberFormat}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'キャンセル率'|ttrans}}</th>
+                                    <td><p *ngIf="data.booking.amount">{{data.cancel_rate}}％</p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <p class="mypage__body__text--caution">{{'キャンセルすると、以下のキャンセル料金が発生します。返金は予約時にご使用になったカードへ返金されます。'|ttrans}}</p>
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal" *ngIf="data.amount">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">{{'キャンセル料'|ttrans}}</th>
+                                    <td>
+                                        <p>
+                                            <span *ngIf="data.amount.system_receive">￥{{data.amount.system_receive|numberFormat}}</span>
+                                            <span *ngIf="!data.amount.system_receive">￥0</span>
+                                        </p>
+                                    </td>
+                                    <th scope="col">{{'返金額'|ttrans}}</th>
+                                    <td>
+                                        <p>
+                                            <span *ngIf="data.amount.user_receive">￥{{data.amount.user_receive|numberFormat}}</span>
+                                            <span *ngIf="!data.amount.user_receive">￥0</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <p class="mypage__body__text--caution">{{'キャンセルポリシーは以下の通りとなります。'|ttrans}}</p>
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal mypage__body__table-normal--half" *ngIf="data.commission">
+                                <tbody>
+                                    <tr>
+                                        <th scope="col" class="mypage__body__align--left">{{'実施日から'|ttrans}}</th>
+                                        <th scope="col" class="mypage__body__align--left">{{'日前から'|ttrans}}</th>
+                                        <th scope="col">{{'キャンセル料'|ttrans}}</th>
+                                    </tr>
+                                    <tr *ngFor="let item of data.commission[0]">
+                                        <td *ngIf="item.from_day && item.to_day"><p>{{'{0}実施日から'|ttrans_replace:item.from_day}}</p></td>
+                                        <td *ngIf="item.from_day && item.to_day"><p>{{'{0}日前から'|ttrans_replace:item.to_day}}</p></td>
+                                        <td class="mypage__body__align--center" *ngIf="item.from_day && item.to_day"><p>{{item.cancel_rate}}％</p></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2"><p>{{'当日'|ttrans}}</p></td>
+                                        <td class="mypage__body__align--center"><p>100％</p></td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="data.commission && data.commission.length == 0">
+                                    <tr>
+                                        <th scope="col" class="mypage__body__align--left">{{'実施日から'|ttrans}}</th>
+                                        <th scope="col" class="mypage__body__align--left">{{'日前から'|ttrans}}</th>
+                                        <th scope="col">{{'キャンセル料'|ttrans}}</th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">{{'データがございません'|ttrans}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div  *ngIf="data.booking.status == app.constant.REQUESTING_GUIDER || data.booking.status == app.constant.GUIDER_APPROVED || data.booking.status == app.constant.AFTER_EXECUTE">
+                                <div class="mypage__body__frame">
+
+                                    <h4 class="mypage__body__title--04">{{'キャンセル規定'|ttrans}}</h4>
+                                    <p class="mypage__body__text" *ngIf="app.language != 'en'">
+                                        ※返金手数料はお客様のご負担になりますのでご了承ください。<br/>
+                                        ※キャンセル可能期間については、日本時間で計算されます。<br/>
+
+                                        ＜キャンセル方法＞<br/>
+                                        マイページから、該当のプランの「詳細」ボタンを押し、ページ下部にある「キャンセルする」ボタンからキャンセルをすることができます。予約リクエストする際には、必ずキャンセル規定をご確認ください。
+                                    </p>
+
+                                    <p class="mypage__body__text" *ngIf="app.language == 'en'">
+                                        ※ Please understand that refund fee will be borne by the customer.<br/>
+                                        ※ Cancellation period is calculated in Japan time (JST).<br/>
+
+                                        ＜Cancellation method＞<br/>
+                                            From “My Page”, you will see a "cancel" button at the bottom of the page. Please click on it to cancel. Be sure to check the cancellation policy while making a reservation request.
+                                    </p>
+
+                                </div>
+                                <div class="form-set__checks u-text-center">
+                                    <input type="checkbox" name="check-privacy" value="カテゴリー" checked="" id="check-privacy">
+                                    <label for="check-privacy" class="checkbox">{{'「キャンセル規定」に同意する'|ttrans}}</label>
+                                    <small class="msg_err" *ngIf="error && error['is_agree_conditions']">{{error['is_agree_conditions']|ttrans}}</small>
+                                </div>
+
+                                <div class="form-set__button">
+                                    <input (click)="cancelCompletation(data.booking.id)" type="submit" class="btn--primary" value="{{'キャンセル確定'|ttrans}}">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]='["/" + language + "/mypage/reservationtour/detail/" + data.booking.id]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'プラン詳細へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+@import "foundation/_mixin.scss";
+@import "foundation/_setting.scss";
+
+.company{
+	&__visual{
+		background: url(../img/visual_company.png) no-repeat center top;
+	}
+	table{
+		margin-bottom: $base_margin;
+	}
+}

@@ -1,0 +1,27 @@
+html{font-size: 62.5%;}
+body{
+	min-width: $base_width;
+	@include font-size(16,16);
+	color: #484848;
+	font-family: $font_family_jp;
+	@include for-size(phone-only){
+		min-width:100%;
+	}
+}
+
+.is-pc{
+	@include for-size(tablet-portrait-up){
+		display: block;
+	}
+	@include for-size(phone-only){
+		display: none;
+	}
+}
+.is-sp{
+	@include for-size(tablet-portrait-up){
+		display: none;
+	}
+	@include for-size(phone-only){
+		display: block;
+	}
+}

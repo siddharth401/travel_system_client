@@ -1,0 +1,132 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/' + app.language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + app.language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + app.language + '/mypage/request/add']">{{'旅のリクエスト作成'|ttrans}}</a></li>
+                <li>{{'旅のリクエスト作成確認'|ttrans}}</li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section" *ngIf="request">
+
+                        <h2 class="mypage__body__title--02">{{'旅リクエスト作成確認'|ttrans}}</h2>
+
+                        <div class="mypage__body__block">
+
+                            <table class="form-content__form-table form-content__form-table--border">
+                                <tbody>
+                                <tr>
+                                    <th>{{'旅リクエストタイトル'|ttrans}}</th>
+                                    <td class="padding-top">
+                                        <p>{{request.title}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F26_実施希望日'|ttrans}}</th>
+                                    <td>
+                                        <p>{{request.date_plan|datex: "YYYY/MM/DD"}}（{{date_plan_str|ttrans}}）</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'開始時間'|ttrans}}</th>
+                                    <td>
+                                        <p>{{request.hour}}:{{request.minute}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'実施時間'|ttrans}}</th>
+                                    <td>
+                                        <p>{{request.plan_hour|formatHour}}h</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'希望場所'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="listCountryFrontendList">{{listCountryFrontendList[request.country_id]}}　<small *ngIf="cities">{{cities[request.city_id]}}</small></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'カテゴリー'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="request.categories.length > 0 && categories">
+                                            <small *ngFor="let item of request.categories"  style="margin-right: 30px;">{{categories[item]}}</small>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'人数'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="app.language == app.constant.DEFAULT_LANGUAGE_URL">{{request.num_people}}{{'人'|ttrans}}</p>
+                                        <p *ngIf="app.language != app.constant.DEFAULT_LANGUAGE_URL">{{request.num_people}} {{'人'|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'希望金額'|ttrans}}</th>
+                                    <td class="style-span">
+                                        <span>{{'単価'|ttrans}}</span>
+                                        <span>{{'¥'|ttrans}}</span>
+                                        <span class="is-strong" *ngIf="request.desire_price">{{request.desire_price|numberFormat}}</span>
+                                        <span> × </span>
+                                        <span>{{'人数'|ttrans}}</span>
+                                        <span class="is-strong">{{request.num_people}}</span>
+                                        <span>{{'名'|ttrans}} = </span>
+                                        <span>{{'合計'|ttrans}}</span>
+                                        <span>{{'¥'|ttrans}}</span>
+                                        <span class="is-emphasis" *ngIf="request.desire_price*request.num_people">{{request.desire_price*request.num_people|numberFormat}}</span>
+                                        <span class="is-emphasis" *ngIf="request.desire_price == 0 || request.num_people == 0">0</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'対応言語'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="listLanguage && listLanguage[request.support_language_id]">{{listLanguage[request.support_language_id]|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅リクエスト内容'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{request.desc}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'募集期日'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="request.date_end">{{request.date_end|datex: "YYYY/MM/DD"}}（{{date_end_str|ttrans}}）</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-set__button" (click)="completationData(true)">
+                                <input type="submit" class="btn--primary" value="{{'作成'|ttrans}}" [disabled]="isDisabled">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]='["/" + app.language + "/mypage/request/add"]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'リクエスト作成へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

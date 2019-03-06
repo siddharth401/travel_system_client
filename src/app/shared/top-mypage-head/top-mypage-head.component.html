@@ -1,0 +1,41 @@
+<div class="mypage__head">
+    <div class="mypage__head">
+        <div class="mypage__avator" id="avatar_member">
+            <img
+                 [attr.src]="listMember && listMember.avatar ? app.constant.FILE_URL+listMember.avatar : '/assets/top/img/noimage_200x200.png'"
+                 alt="">
+            <sa-file-upload [front]="2" fieldName="avatar" extensions="jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF"  size="5120"
+                            id="avatar"></sa-file-upload>
+        </div>
+        <sa-file-upload [front]="3" fieldName="banner" extensions="jpg|jpeg|png|JPG|JPEG|PNG"  size="5120"
+                        id="banner"></sa-file-upload>
+        <div class="mypage__head-bg" id="banner_member">
+            <img [attr.src]="listMember && listMember.banner ? app.constant.FILE_URL+listMember.banner : '/assets/top/img/cover.png'"
+                 alt="">
+        </div>
+    </div>
+    <div class="mypage__head__belt user-info">
+        <p class="user-info__name" *ngIf="listMember.name">
+            <span *ngIf="listMember.type == app.constant.MEMBER_USER">{{'旅ユーザー'|ttrans}}：</span>
+            <span class="guide-user" *ngIf="listMember.type == app.constant.MEMBER_GUIDER">{{'旅ガイド'|ttrans}}：</span>
+            <a (click)="updateProfile()" class="user-info__name__link"> {{listMember.name}}</a>
+        </p>
+        <p class="user-info__name" *ngIf="!listMember.name">
+            <span *ngIf="listMember.type == app.constant.MEMBER_USER">{{'旅ユーザー'|ttrans}}：</span>
+            <span class="guide-user" *ngIf="listMember.type == app.constant.MEMBER_GUIDER">{{'旅ガイド'|ttrans}}：</span>
+            <a class="user-info__name__link" href="javascript:void(0);" *ngIf="listMember.type == app.constant.MEMBER_USER" (click)="updateProfile()">{{'ゲスト様'|ttrans}}</a>
+            <a class="user-info__name__link" href="javascript:void(0);" *ngIf="listMember.type == app.constant.MEMBER_GUIDER" (click)="updateProfile()">{{'ガイド様'|ttrans}}</a>
+        </p>
+        <div class="guide-score">
+            <top-star class="star-style" [point]="listMember.guider_ranking"></top-star>
+        </div>
+        <div class="user-info__button">
+            <button *ngIf="mail_completation == -1" type="button" class="btn--default btn--default-style" (click)="updateProfile()">{{'プロフィールを編集'|ttrans}}</button>
+            <button *ngIf="mail_completation > 1 && listMember.approve_guide == app.constant.MEMBER_IS_USER || listMember.approve_guide == app.constant.MEMBER_NOT_CARD" type="button" class="btn--default btn-red" (click)="resum()">{{'本人書類申請未'|ttrans}}</button>
+            <button *ngIf="mail_completation > 1 && listMember.approve_guide == app.constant.MEMBER_NOT_CONFIRM" type="button" class="btn--default btn-blue" (click)="resum()">{{'本人書類承認待ち'|ttrans}}</button>
+            <button *ngIf="mail_completation > 1 && listMember.approve_guide == app.constant.MEMBER_REJECT" type="button" class="btn--default btn-yellow" (click)="resum()">{{'本人書類再提出必要'|ttrans}}</button>
+            <button *ngIf="mail_completation > 1 && listMember.approve_guide == app.constant.MEMBER_RECEIVED" type="button" class="btn--default btn-status" (click)="resum()">{{'本人書類承認済'|ttrans}}</button>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a>{{'メッセージBOX'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'メッセージ一覧'|ttrans}}</h2>
+
+                        <div class="mypage__body__block">
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{{'受信日時'|ttrans}}</th>
+                                    <th scope="col">{{'メッセージ'|ttrans}}</th>
+                                </tr>
+                                </thead>
+                                <tbody *ngIf="data && data.length > 0">
+                                    <tr *ngFor="let item of data">
+                                        <td>{{item.created_at}}</td>
+                                        <!--<td><p><a href="javascript:void(0)" (click)="readMessage(item.id,item.screen)">{{item.sender_name}}{{'様よりメッセージが届きました。'|ttrans}}<i class="ct" *ngIf="item.is_read == 0">NEW</i></a></p></td>-->
+                                        <td *ngIf="item.gender != this.app.constant.MEMBER_GUIDER"><p><a href="javascript:void(0)" (click)="readMessage(item.id,item.screen)">{{'{0}{1}様よりメッセージが届きました。'|ttrans_replace : item.sender_name : '' : ''}}<i class="ct" *ngIf="item.is_read == 0">NEW</i></a></p></td>
+                                        <td *ngIf="item.gender == this.app.constant.MEMBER_GUIDER"><p><a href="javascript:void(0)" (click)="readMessage(item.id,item.screen)">{{'{0}{2}様よりメッセージが届きました。'|ttrans_replace : item.sender_name : '' : ''}}<i class="ct" *ngIf="item.is_read == 0">NEW</i></a></p></td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="data && data.length == 0">
+                                <tr>
+                                    <td class="not-data" colspan="3">{{'データがございません'|ttrans}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

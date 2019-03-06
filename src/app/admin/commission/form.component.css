@@ -1,0 +1,73 @@
+
+.date-time {
+    display: flex;
+    align-items: center;
+}
+
+.date-time .control-label {
+    padding: 0;
+    width: 140px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.margin-right {
+    margin-right: 15px;
+}
+
+.btn-danger {
+    background-color: #a90329;
+    border-color: #900323;
+}
+
+.icon-button__red {
+    background: #a90329;
+}
+
+.text {
+    width: 125px;
+}
+
+.widt-col {
+    width: 136px;
+    padding: 0;
+    padding-right: 10px;
+}
+
+.title-date {
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin: 0;
+    margin-top: 30px;
+}
+
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #737373;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.msg_err {
+    color: #b94a48
+}
+.form-group{
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.form__input {
+    padding: 0;
+}
+.form__label label {
+    text-align: left;
+    line-height: 32px;
+}

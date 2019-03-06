@@ -1,0 +1,65 @@
+<div class="slidemenu slidemenu-left sb-slidebar sb-left">
+    <ul class="slidemenu__list" *ngIf="!curMember">
+        <li><a [routerLink]='["/" + app.language + "/member/login"]'  class="btnCboxIframe cboxElement">{{'ログイン'|ttrans}}</a></li>
+        <li><a [routerLink]='["/" + app.language + "/member/add"]' class="btnCboxIframe cboxElement">{{'新規登録'|ttrans}}</a></li>
+        <li><a [routerLink]='["/" + app.language + "/usage"]'>{{'利用方法'|ttrans}}</a></li>
+    </ul>
+    <ul class="slidemenu__list" *ngIf="curMember">
+        <li class="header__parent" *ngIf="!curMember.type || curMember.type == app.constant.MEMBER_USER">
+            <div class="user-menu" (click)="addClassIsActive()">
+                <p class="user-menu__thumb"><img class="user-menu__thumb__img" [attr.src]="number_on_header.avatar ? app.constant.FILE_URL+number_on_header.avatar : '/assets/top/img/noimage_200x200.png'" alt="{{curMember.name}}"></p>
+                <a class="user-menu__name">
+                    <span *ngIf="app.language != 'en' && curMember.name">{{'ようこそ'}}{{curMember.name}}{{'様'}}</span>
+                    <span *ngIf="app.language == 'en' && curMember.name && curMember.gender == app.constant.Female">{{'Welcome Ms '}}{{curMember.name}}</span>
+                    <span *ngIf="app.language == 'en' && curMember.name && curMember.gender != app.constant.Female">{{'Welcome Mr '}}{{curMember.name}}</span>
+                    <span *ngIf="!curMember.name">{{'ようこそ ゲスト様'|ttrans}}</span>
+                </a>
+            </div>
+            <ul class="header__child">
+                <li class="sb-left"><a [routerLink]='["/" + app.language + "/mypage"]'>{{'マイページ'|ttrans}}</a></li>
+                <li (click)="removeOverlay()"><a [routerLink]='["/" + app.language + "/mypage/messagebox"]'>{{'メッセージ一覧'|ttrans}}<span class="header__number">{{number_on_header.count_unread}}</span></a></li>
+                <li (click)="removeOverlay()"><a [routerLink]='["/" + app.language + "/mypage/favorites"]'>{{'お気に入り'|ttrans}}<span class="header__number">{{number_on_header.count_favourites}}</span></a></li>
+                <li (click)="removeOverlay()"><a [routerLink]='["/" + app.language + "/mypage/reservationtour"]'>{{'予約したプラン'|ttrans}}<span class="header__number">{{number_on_header.count_bookings}}</span></a></li>
+                <li (click)="removeOverlay()"><a [routerLink]='["/" + app.language + "/mypage/request/add"]'>{{'F01_リクエスト作成'|ttrans}}<span class="header__number">{{number_on_header.count_requests}}</span></a></li>
+                <li (click)="removeOverlay()"><a [routerLink]='["/" + app.language + "/member/logout"]'>{{'ログアウト'|ttrans}}</a></li>
+            </ul>
+        </li>
+        <li class="header__parent" *ngIf="curMember.type == app.constant.MEMBER_GUIDER">
+            <div class="user-menu" (click)="addClassIsActive()">
+                <p class="user-menu__thumb"><img class="user-menu__thumb__img" [attr.src]="number_on_header.avatar ? app.constant.FILE_URL+number_on_header.avatar : '/assets/top/img/noimage_200x200.png'" alt="{{curMember.name}}"></p>
+                <a class="user-menu__name">
+                    <span *ngIf="app.language != 'en' && curMember.name">{{'ようこそ'}}{{curMember.name}}{{'様'}}</span>
+                    <span *ngIf="app.language == 'en' && curMember.name && curMember.gender == app.constant.Female">{{'Welcome Ms '}}{{curMember.name}}</span>
+                    <span *ngIf="app.language == 'en' && curMember.name && curMember.gender != app.constant.Female">{{'Welcome Mr '}}{{curMember.name}}</span>
+                    <span *ngIf="!curMember.name">{{'ようこそ　ガイド様'|ttrans}}</span>
+                </a>
+            </div>
+            <ul class="header__child">
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/mypage"]'>{{'マイページ'|ttrans}}</a></li>
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/mypage/messagebox"]'>{{'メッセージ一覧'|ttrans}}<span class="header__number">{{number_on_header.count_unread}}</span></a></li>
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/mypage/favorites"]'>{{'お気に入り'|ttrans}}<span class="header__number">{{number_on_header.count_favourites}}</span></a></li>
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/mypage/reservationtour"]'>{{'予約したプラン'|ttrans}}<span class="header__number">{{number_on_header.count_bookings}}</span></a></li>
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/mypage/plan/create"]'>{{'旅プランを作成'|ttrans}}<span class="header__number">{{number_on_header.count_plans}}</span></a></li>
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/mypage/request/add"]'>{{'F01_リクエスト作成'|ttrans}}<span class="header__number">{{number_on_header.count_requests}}</span></a></li>
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/mypage/profile"]'>{{'ガイド管理画面'|ttrans}}</a></li>
+                <li (click)="removeOverlay()"><a  [routerLink]='["/" + app.language + "/member/logout"]'>{{'ログアウト'|ttrans}}</a></li>
+            </ul>
+        </li>
+        <li>
+            <a [routerLink]='["/" + app.language + "/mypage/messagebox"]'>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span class="email-box">{{number_on_header.count_unread}}</span>
+            </a>
+        </li>
+
+        <li><a [routerLink]='["/" + app.language + "/usage"]'>{{'利用方法'|ttrans}}</a></li>
+    </ul>
+    <div class="custom-form">
+        <select #selectElem name="selsect-language" id="selsect-language" class="language__select" (change)="setLanguage(selectElem.value)" [disabled]="app.is_disabled_language">
+            <option *ngFor="let language of languages" [value]="language.key" [id]="language.id" [selected]="app.language == language.key">
+                {{language.title}}
+            </option>
+        </select>
+    </div>
+
+</div>

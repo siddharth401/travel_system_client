@@ -1,0 +1,10 @@
+<div class="breadcrumb">
+    <ul class="breadcrumb__list" *ngIf="!option || option.length <= 0 && !last">
+        <li><a [routerLink]='["/"]'>{{'マッチングガイドTOP'|ttrans}}</a></li>
+    </ul>
+    <ul class="breadcrumb__list" *ngIf="last">
+        <li><a [routerLink]='["/"]'>{{'マッチングガイドTOP'|ttrans}}</a></li>
+        <li *ngFor="let item of option"><a [routerLink]="search(item[1])">{{item[0]}}</a></li>
+        <li>{{last}}</li>
+    </ul>
+</div>

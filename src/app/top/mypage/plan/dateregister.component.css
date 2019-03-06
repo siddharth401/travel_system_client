@@ -1,0 +1,135 @@
+.table-inner {
+    padding-bottom: 20px;
+    overflow-x: scroll;
+}
+.table-calendar{
+    border: 1px solid #ddd;
+}
+.day_of_week{
+    background-color:#00a699 !important;
+    color: #fff;
+}
+.table-calendar tr th {
+    width: 100px;
+}
+.table-calendar thead tr th{
+    background: #eee;
+    font-size: 1.6rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.table-calendar tbody tr th{
+    background: #eee;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.table-calendar tbody tr td{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.actived {
+    background: #00a699;
+    color: #fff;
+}
+.disabled {
+    display: none;
+}
+.modal-dialog {
+    display: none;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+.modal-content {
+    width: 50vw;
+    background: #fff;
+    position:fixed;
+    top:45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 15px 20px;
+}
+@media (max-width: 767px) {
+    .modal-content {
+        width: 70vw;
+    }
+}
+.modal-header {
+    position: relative;
+}
+.modal-header button {
+    position: absolute;
+    top: -9px;
+    right: -7px;
+    border: none;
+    background: no-repeat;
+    font-size: 20px;
+    cursor: pointer;
+}
+.modal-header button:hover {
+    color:#f00;
+}
+.modal-footer {
+    margin-top: 10px;
+    text-align: center;
+}
+.modal-footer button {
+    background: none;
+    border: 1px solid #ccc;
+    padding: 7px 12px;
+    color: #333;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+.modal-footer .submit {
+    background: #00a300;
+    color:#fff;
+    border-color:#00a300;
+    margin-right: 10px;
+    opacity: 0.8;
+}
+.modal-footer .close {
+    background: #C20F16;
+    color:#fff;
+    border-color:#C20F16;
+}
+.modal-body__content {
+    padding:20px 10px;
+    border:1px solid #333;
+}
+.modal-footer__text {
+    margin-top: 15px;
+}
+.modal-title {
+    padding: 20px;
+}
+.modal-body__p {
+    margin: 5px 0;
+}
+.breadcrumb__list__item {
+     max-width: 300px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+ }
+.calendar__text {
+    display: flex;
+    margin-bottom: 10px;
+}
+.calendar__text span {
+    display: block;
+}
+.calendar__text span:last-child {
+    text-align: center;
+    width: calc(100% - 70px);
+    text-align: center;
+    line-height: 20px;
+}
+.mypage__body__table-normal tr > td p{
+    word-break: break-all;
+}

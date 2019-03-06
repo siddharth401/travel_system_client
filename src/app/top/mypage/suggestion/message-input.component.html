@@ -1,0 +1,161 @@
+    <div id="sb-site">
+        <div class="mypage">
+            <div class="breadcrumb mypage__breadcrumb">
+                <i></i>
+                <ul class="breadcrumb__list">
+                    <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage/request']">{{'F30_F35_旅のリクエスト一覧'|ttrans}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage/request/detail/'+request_id]">{{request_title}}</a></li>
+                    <li *ngIf="language_id == app.constant.TRUE"><a [routerLink]="['/'+languageName+'/mypage/suggestion/detail/'+plan_id]">{{plan_title}}{{'の内容確認'}}</a></li>
+                    <li *ngIf="language_id != app.constant.TRUE"class="list--style"><span style="font-size: 1.3rem;">{{'The confirmation of'}} {{plan_title}}</span></li>
+                    <li><span >{{'F34_メッセージ入力'|ttrans}}</span></li>
+                </ul>
+
+
+                <!--ガイドマッチングTOP 　＞　マイページTOP 　＞ 旅のリクエスト一覧　＞ 旅のリクエスト詳細　＞　提案プランタイトルの内容確認　＞ メッセージ入力-->
+            </div>
+            <!--/.breadcrumb -->
+            <div class="mypage__container mypage__flex">
+                <top-mypage-menu></top-mypage-menu>
+
+                <div class="mypage__content">
+                    <top-mypage-head></top-mypage-head>
+
+
+                    <div class="mypage__body">
+
+
+
+                        <div class="mypage__body__section">
+
+                            <h2 class="mypage__body__title--02">{{'問合せ履歴'|ttrans}}</h2>
+
+                            <h3 class="word-break mypage__body__title">{{plan_title}}</h3>
+
+                            <ul class="mypage__body__tab__list">
+                                <li><a [routerLink]='["/"+languageName+"/mypage/suggestion/detail/"+plan_id]'>{{'予約詳細'|ttrans}}</a></li>
+                                <li><a href="javascript:void(0);" class="is-current">{{'問合せ履歴'|ttrans}}</a></li>
+                            </ul>
+
+                            <div class="mypage__body__block">
+
+                                <div class="mypage__body__block__post">
+
+                                    <textarea name="" class="mypage__body__textarea" id="messcontent" placeholder="{{'例）問合せ内容を記載して下さい。'|ttrans}}"></textarea>
+                                    <small class="msg_err" *ngIf="error != '' ">{{error|ttrans}}</small>
+                                    <br>
+                                    <button type="button" class="btn--primary btn__mypage" (click)="confirmSave()">{{'メッセージ送信確認'|ttrans}}</button>
+
+                                </div>
+
+                            </div>
+
+                            <!--Guider-->
+
+                            <div *ngIf="currentGuider && currentGuider.type == 2" class="dialogue__container">
+                                <ul class="dialogue__list" *ngFor="let item of listMessage.data">
+                                    <li *ngIf="item.type == 1" class="dialogue__attr--user">
+                                        <div class="dialogue__photo"><img [attr.src]="item.avatar ? app.constant.FILE_URL+item.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                        <div class="dialogue__text">
+                                            <div class="dialogue__head">
+                                                <p *ngIf="item.name" class="mypage__body__title--06">{{item.name}}</p>
+                                            </div>
+                                            <div class="dialogue__body dialogue__body__attr--user">
+                                                <pre class="pre-text" *ngIf="item.content">{{item.content}}</pre>
+                                            </div>
+                                            <div class="dialogue__foot dialogue__foot__attr--user">
+                                                <p *ngIf="item.created_at" class="guide-date">{{item.created_at | datex: 'YYYY/MM/DD A hh:mm' }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="item.type == 2" class="dialogue__attr--guide">
+                                        <div class="dialogue__photo"><img [attr.src]="item.avatar ? app.constant.FILE_URL+item.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                        <div class="dialogue__text">
+                                            <div class="dialogue__head">
+                                                <p *ngIf="item.name"class="mypage__body__title--06">{{item.name}}</p>
+                                            </div>
+                                            <div class="dialogue__body dialogue__body__attr--guide">
+                                                <pre class="pre-text" *ngIf="item.content">{{item.content}}</pre>
+                                            </div>
+                                            <div class="dialogue__foot dialogue__foot__attr--guide">
+                                                <p *ngIf="item.created_at" class="guide-date">{{item.created_at | datex: 'YYYY/MM/DD A hh:mm'}}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!--Member-->
+                            <div *ngIf="currentGuider && currentGuider.type == 1" class="dialogue__container">
+                                <ul *ngFor="let item of listMessage.data"class="dialogue__list">
+                                    <li *ngIf="item.type == 2" class="dialogue__attr--user">
+                                        <div class="dialogue__photo"><img [attr.src]="item.avatar ? app.constant.FILE_URL+item.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                        <div class="dialogue__text">
+                                            <div class="dialogue__head">
+                                                <p *ngIf="item.name" class="mypage__body__title--06">{{item.name}}</p>
+                                            </div>
+                                            <div class="dialogue__body dialogue__body__attr--user">
+                                                <pre class="pre-text" *ngIf="item.content">{{item.content}}</pre>
+                                            </div>
+                                            <div class="dialogue__foot dialogue__foot__attr--user">
+                                                <p *ngIf="item.created_at" class="guide-date">{{item.created_at | datex: 'YYYY/MM/DD A hh:mm'}}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="item.type == 1"class="dialogue__attr--guide">
+                                        <div class="dialogue__photo"><img [attr.src]="item.avatar ? app.constant.FILE_URL+item.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                        <div class="dialogue__text">
+                                            <div class="dialogue__head">
+                                                <p *ngIf="item.name" class="mypage__body__title--06">{{item.name}}</p>
+                                            </div>
+                                            <div class="dialogue__body dialogue__body__attr--guide">
+                                                <pre class="pre-text" *ngIf="item.content">{{item.content}}</pre>
+                                            </div>
+                                            <div class="dialogue__foot dialogue__foot__attr--guide">
+                                                <p *ngIf="item.created_at" class="guide-date">{{item.created_at | datex: 'YYYY/MM/DD A hh:mm'}}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+                            <div class="mypage__body__block">
+
+                                <p><a *ngIf="listMessage.current_page < listMessage.last_page" href="javascript:void(0);" class="content-list__button btn--default" (click)="loadMore()">{{'もっと見る'|ttrans}}</a></p>
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="mypage__foot">
+                            <a  [routerLink]="['/'+languageName+'/mypage/request']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'リクエスト一覧へ戻る'|ttrans}}</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{'メッセージ文'|ttrans}}</h4>
+                    <button type="button" class="btn btn-default close" (click)="close_modal()" id="close_modal" data-dismiss="modal">x</button>
+                </div>
+                <div class="modal-body">
+                    <pre class="mypage__body__textarea modal-body__text pre-text"></pre>
+                    <!--<textarea name="" disabled class="mypage__body__textarea modal-body__text" rows="8" ></textarea>-->
+                </div>
+                <div class="modal-footer">
+                    <p class="modal-footer__text">{{'上記のメッセージを送信しますが、宜しいですか？'|ttrans}}</p>
+                    <button class="submit" data-dismiss="modal" (click)="saveMessage()">{{'メッセージ送信'|ttrans}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+

@@ -1,0 +1,77 @@
+<div class="mypage">
+    <div class="breadcrumb mypage__breadcrumb">
+        <i></i>
+        <ul class="breadcrumb__list">
+            <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+            <li><a [routerLink]="['/' + language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+            <li>{{'F57_応募一覧'|ttrans}}</li>
+        </ul>
+    </div>
+    <!--/.breadcrumb -->
+    <div class="mypage__container mypage__flex">
+
+        <top-mypage-menu></top-mypage-menu>
+        <div class="mypage__content">
+            <top-mypage-head></top-mypage-head>
+
+            <div class="mypage__body">
+
+
+
+                <div class="mypage__body__section">
+
+                    <h2 class="mypage__body__title--02">{{'応募一覧'|ttrans}}</h2>
+
+                    <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-compact">
+                        <thead>
+                        <tr>
+                            <th scope="col">{{'予約日'|ttrans}}</th>
+                            <th scope="col">{{'予約番号'|ttrans}}</th>
+                            <th scope="col">{{'実施日'|ttrans}}</th>
+                            <th scope="col">{{'プランID'|ttrans}}</th>
+                            <th scope="col">{{'旅ユーザー'|ttrans}}</th>
+                            <th scope="col">{{'人数'|ttrans}}</th>
+                            <th scope="col">{{'F56_金額'|ttrans}}</th>
+                            <th scope="col">{{'ステータス'|ttrans}}</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="applies && applies.total > 0">
+                            <tr *ngFor="let item of applies.data; let key = index">
+                                <td data-title="{{'予約日'|ttrans}}" class="mypage__body__table-compact__txt"><span *ngIf="item.created_at">{{item.created_at|datex: "YYYY/MM/DD"}}</span></td>
+                                <td data-title="{{'予約番号'|ttrans}}" class="mypage__body__table-compact__txt"><span *ngIf="item.id"><a [routerLink]='["/" + language + "/mypage/apply/detail/" + item.id]' data-toggle="tooltip" title="{{item.id|addFixedId: 'Y'}}">{{item.id|addFixedId: 'Y'}}</a></span></td>
+                                <td data-title="{{'実施日'|ttrans}}"><span *ngIf="item.date_actual">{{item.date_actual|datex: "YYYY/MM/DD"}}</span></td>
+                                <td data-title="{{'プランID'|ttrans}}"><span *ngIf="item.plan_id">{{item.plan_id|addFixedId: 'P'}}</span></td>
+                                <td data-title="{{'旅ユーザー'|ttrans}}" class="mypage__body__table__name">{{item.user_name}}</td>
+                                <td data-title="{{'人数'|ttrans}}" class="mypage__body__align--center mypage__body__table-compact__txt"><i class="ct ct-none">{{item.number_people}}</i></td>
+                                <td data-title="{{'F56_金額'|ttrans}}" class="mypage__body__align--center" nowrap><span *ngIf="item.amount">￥{{item.amount|numberFormat}}</span></td>
+                                <td data-title="{{'ステータス'|ttrans}}" class="btn-container">
+                                    <button *ngIf="item.status == app.constant.REQUESTING_GUIDER" type="button" class="btn--primary btn__mypage cursor-default">{{'F57_リクエスト承認'|ttrans}}</button>
+                                    <button *ngIf="item.status == app.constant.AFTER_EXECUTE && item.notify_one_day == false" type="button" class="btn--primary btn__mypage btn__mypage--off btn__mypage--icon cursor-default">{{'実施前'|ttrans}}</button>
+                                    <button *ngIf="item.status == app.constant.AFTER_EXECUTE && item.notify_one_day == true && item.guider_status_go == app.constant.FALSE && item.traveler_status_not_go == app.constant.FALSE" type="button" class="btn--primary btn__mypage cursor-default">{{'F57_実施承認'|ttrans}}</button>
+                                    <button *ngIf="(item.status == app.constant.AFTER_EXECUTE && item.notify_one_day == true && item.guider_status_go == app.constant.TRUE && item.traveler_status_not_go == app.constant.FALSE)  || item.status == app.constant.REQUEST_REVIEW" type="button" class="btn--primary btn__mypage cursor-default">{{'F56_評価登録'|ttrans}}</button>
+                                    <button *ngIf="item.status == app.constant.REVIEWED" type="button" class="btn--primary btn__mypage btn__mypage--off btn__mypage--icon cursor-default">{{'F56_評価済み'|ttrans}}</button>
+                                    <button *ngIf="item.status == app.constant.CANCEL" type="button" class="btn--primary btn__mypage btn__mypage--cancel btn__mypage--icon cursor-default">{{'F56_キャンセル'|ttrans}}</button>
+                                    <button *ngIf="item.status == app.constant.AFTER_EXECUTE && item.traveler_status_not_go == app.constant.TRUE && item.notify_one_day == true" type="button" class="btn--primary btn__mypage btn__mypage--icon cursor-default">{{'F56_実施後キャンセル'|ttrans}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="applies && applies.total == 0">
+                        <tr>
+                            <td class="not-data" colspan="8">{{'データがございません'|ttrans}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <layout-loadmore  *ngIf="applies && applies.last_page > applies.current_page" [data]="applies" [url]="'mypage/apply'"></layout-loadmore>
+
+                </div>
+
+
+
+            </div>
+            <div class="mypage__foot">
+                <a [routerLink]='["/" + language + "/mypage"]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'マイページへ戻る'|ttrans}}</a>
+            </div>
+        </div>
+    </div>
+</div>

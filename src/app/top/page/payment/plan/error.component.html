@@ -1,0 +1,71 @@
+
+<div id="sb-site">
+    <section class="reservation page-content outer form-end">
+        <div style="background: url(assets/top/img/visual_suggest.png);" class="reservation__visual page-content__visual">
+            <h2 class="page-content__title">{{'旅プラン予約不可'|ttrans}}</h2>
+        </div>
+        <!--/.search__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+app.language+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <!--<li><a [routerLink]="['/'+app.language+'/mypage/request']">{{'F30_F35_旅のリクエスト一覧'|ttrans}}</a></li>-->
+                <!--<li><a [routerLink]="['/'+app.language+'/mypage/request/detail/'+request_id]">{{request_title}}</a></li>-->
+                <li><a [routerLink]="['/'+app.language+'/tour/detail/'+plan_id]">{{plan_title}}</a></li>
+                <li><span style="font-size: 1.3rem;">{{'旅プラン予約不可'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+
+        <nav class="reservation__flow flow-content">
+            <ul class="flow-content__list">
+                <li class="flow-content__item">{{'F31_予約者情報入力'|ttrans}}</li>
+                <li class="flow-content__item">{{'F31_予約者情報確認'|ttrans}}</li>
+                <li class="flow-content__item">{{'F31_カード決済'|ttrans}}</li>
+                <li class="flow-content__item flow-content__item--current">{{'旅プラン予約不可'|ttrans}}</li>
+            </ul>
+        </nav>
+        <!-- /.reservation__flow flow-content -->
+        <section class="plan-reserve page-content outer">
+            <div class="outer__inner">
+                <div class="plan-reserve__box">
+                    <div class="plan-reserve__head">
+                        <h2 *ngIf="plan_title" class="plan-reserve__title">{{plan_title}}</h2>
+                    </div>
+                    <div class="plan-reserve__body">
+
+                        <div class="plan-reserve__thanks">
+                            <p class="plan-reserve__thanks-title">
+                                {{'この度は、旅プランお申込みありがとうございました。'|ttrans}}<br />
+                                {{'旅プランのリクエストのお申込みが出来ませんでした。'|ttrans}}
+                            </p>
+                            <p  class="plan-reserve__text">{{'日程・時間を再度選び直すか、別の体験をお選びください。'|ttrans}}</p>
+                            <!--<p *ngIf="booking_teian_plan == true" class="plan-reserve__thanks-title">-->
+                                <!--{{'この度は、マッチングガイドのご利用ありがとうござます。'|ttrans}}<br />-->
+                                <!--{{'決済は失敗しましたのでもう一度チェックしてもらえませんか。'|ttrans}}-->
+                            <!--</p>-->
+                            <!--<p *ngIf="booking_teian_plan == true" class="plan-reserve__text">{{'日程・時間を再度選び直すか、別の体験をお選びください。'|ttrans}}</p>-->
+
+
+                            <div class="plan-reserve__contact">
+                                <a [routerLink]='["/" + app.language + "/tour/detail/" + plan_id]' class="btn--primary">{{'旅プラン詳細へ戻る'|ttrans}}</a>
+                                <!--<a *ngIf="booking_teian_plan == true" [routerLink]='["/" + app.language + "/mypage/suggestion/detail/" + plan_id]' class="btn&#45;&#45;primary">{{'提案プラン内容確認'|ttrans}}</a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.plan-reserve page-content outer -->
+
+        <div class="content--02 outer">
+            <div class="outer__inner">
+                <a [routerLink]='["/" + app.language]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F06_サイトＴＯＰに戻る'|ttrans}}</a>
+            </div>
+        </div>
+
+
+
+    </section>
+    <!--#include virtual="/inc/footer.html" -->
+</div>

@@ -1,0 +1,51 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="[['HOME'|trans]]" icon="home" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div  class="well">
+                <h3 class="well__title">{{'Approval guider list'|trans}}</h3>
+                <div class="well-main" *ngIf="contentGuider != []">
+                    <ul class="well__list">
+                        <li class="well__list__item" *ngFor="let item of contentGuider">
+                            <p class="well__list__date"><span *ngIf="item.created_at">{{item.created_at|datex: 'YYYY/MM/DD'}}</span></p>
+                            <div class="well__list__text">
+                                <p><span class="well__list__text--red" *ngIf="app.curLang == 'jp'">{{item.name}}</span>{{'Request for approval of an identity confirmation has been received from '|trans}} <span class="well__list__text--red" *ngIf="app.curLang == 'us'">{{item.name}}</span></p>
+                                <a [routerLink]='["/admin/members/form/",item.id]' class="well__list__link">{{'Detail'|trans}}</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="well__list__text" *ngIf="counterGuider && length_list_guider">
+                        <a (click)="loadMoreDataGuider(listGuiderApproval)" class="well__list__link" *ngIf="counterGuider < length_list_guider">{{'See more'|trans}}</a>
+                    </div>
+                </div>
+                <div class="well-main" *ngIf="!contentGuider[0]">
+                    <p>{{'No data'|trans}}</p>
+                </div>
+                <h3 class="well__title">{{'Approval reviews list'|trans}}</h3>
+                <div class="well-main" *ngIf="listReviews.total > 0">
+                    <ul class="well__list">
+                        <li class="well__list__item" *ngFor="let item of listReviews.data">
+                            <p class="well__list__date"><span *ngIf="item.created_at">{{item.created_at|datex: 'YYYY/MM/DD'}}</span></p>
+                            <div class="well__list__text">
+                                <p>
+                                    <span class="well__list__text--red" *ngIf="app.curLang == 'jp' && item.member_id && listMembers && listMembers[item.member_id]">{{listMembers[item.member_id]}}</span>
+                                    {{'we have received an approval review booking from '|trans}}
+                                    <span class="well__list__text--red" *ngIf="app.curLang != 'jp' && item.member_id && listMembers && listMembers[item.member_id]">{{listMembers[item.member_id]}}</span>
+                                </p>
+                                <a [routerLink]='["/admin/booking/form/",item.booking_id]' class="well__list__link">{{'Detail'|trans}}</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="well__list__text" *ngIf="listReviews.last_page > listReviews.current_page">
+                        <a (click)="loadMoreReviews()" class="well__list__link">{{'See more'|trans}}</a>
+                    </div>
+                </div>
+                <div class="well-main" *ngIf="listReviews.total == 0">
+                    <p>{{'No data'|trans}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

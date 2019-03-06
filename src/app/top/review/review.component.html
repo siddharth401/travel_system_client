@@ -1,0 +1,49 @@
+<section class="review page-content outer" *ngIf="reviews">
+    <div class="review__visual page-content__visual">
+        <h2 class="page-content__title">{{'旅ユーザーからの口コミ一覧'|ttrans}}</h2>
+    </div>
+    <div class="breadcrumb">
+        <ul class="breadcrumb__list">
+            <li><a [routerLink]='["/"]'>{{'マッチングガイドTOP'|ttrans}}</a></li>
+            <li><a>{{'旅ユーザーの口コミ一覧'|ttrans}}</a></li>
+        </ul>
+    </div>
+    <!--/.breadcrumb -->
+    <div class="content-wrap">
+        <div class="content__head">
+            <h3 class="content__title">{{'旅プランに寄せられたお客様からの口コミ一覧'|ttrans}}</h3>
+            <p class="content__num"><span>{{reviews.total}}</span>{{'F07_件'|ttrans}}</p>
+        </div>
+        <div class="content__body">
+            <div class="review__container outer__inner">
+                <ul class="review__list">
+                    <li *ngFor="let item of reviews.data">
+                        <div class="review__flex">
+                            <div class="review__photo">
+                                <img [attr.src]="item.member_avatar ? app.constant.FILE_URL+item.member_avatar : '/assets/top/img/noimage_200x200.png'" alt="">
+                                <p class="guide-name">{{item.member_name}}</p>
+                            </div>
+                            <div class="review__text">
+                                <div class="review__head">
+                                    <div>
+                                        <p class="guide-date" *ngIf="item.date_review">{{'F07_投稿日'|ttrans}}：<span *ngIf="app.language == app.constant.DEFAULT_LANGUAGE_URL">{{item.date_review|datex: "YYYY年MM月DD日"}}</span><span *ngIf="app.language != app.constant.DEFAULT_LANGUAGE_URL">{{item.date_review|datex: "YYYY/MM/DD"}}</span></p>
+                                        <h4 class="guide-plan-title"><a [routerLink]='["/" + app.language + "/tour/detail/" + item.plan_id]'>{{item.plan_title}}</a></h4>
+                                        <div class="flex-content">
+                                            <p class="guide-name" *ngIf="item.host_plan_nick_name"><span>{{'F07_ガイド'|ttrans}}：</span><a [routerLink]='["/" + app.language + "/guide/detail/" + item.host_plan_id]'>{{item.host_plan_nick_name}}</a></p>
+                                            <div class="guide-score">
+                                                <top-star class="star" [point]="item.plan_point"></top-star>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <top-see-full [content]="item.review_content" [id]="item.review_id"></top-see-full>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <layout-loadmore [data]="reviews" [url]="'reviews'"></layout-loadmore>
+    </div>
+</section>
+<!-- /.request-list outer content -->

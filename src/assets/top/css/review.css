@@ -1,0 +1,71 @@
+/*
+
+	font settings
+
+**************************************************/
+/*
+
+	view port settings
+
+**************************************************/
+/*
+
+	boxsizing settings
+
+**************************************************/
+/*
+
+	opacity settings
+
+**************************************************/
+/*
+
+	border-radius settings
+
+**************************************************/
+/*
+
+	drop shadow settings
+
+**************************************************/
+/*
+
+	vertical align setting
+
+**************************************************/
+/*
+
+	table layout setting
+
+**************************************************/
+/*
+
+	flexbox layout setting
+
+**************************************************/
+/*
+
+	scaling img
+
+**************************************************/
+/*
+
+	clearfix
+
+**************************************************/
+.review__visual {
+  background: url(../img/visual_reviw.png) no-repeat center top;
+  background-size: cover;
+}
+
+.review .guide-score {
+  margin-left: 20px;
+}
+
+.review .guide-score .content-list__score li {
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/*# sourceMappingURL=../css/review.map */

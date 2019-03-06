@@ -1,0 +1,25 @@
+.category{
+	letter-spacing: -.4em;
+	font-size: 0;
+	li{
+		letter-spacing: normal;
+		display: inline-block;
+		margin: 0 5px 5px 0;
+		a{
+			@include border-radius(3px);
+			min-width: 80px;
+			display: block;
+			padding: 5px 0px;
+			color: #fff;
+			text-decoration: none;
+			@include font-size(12,12);
+			text-align: center;
+			@include for-size(phone-only) {
+				@include font-size(10,10);
+			}
+			&:hover{
+				@include opacity(.7);
+			}
+		}
+	}
+}

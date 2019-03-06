@@ -1,0 +1,19 @@
+		.pref-list{
+			@include flexbox(flex-start,flex-start);
+			li{
+				a{
+					@include font-size(12,12);
+					display: block;
+					padding: 5px 0;
+					text-align: center;
+					min-width: 60px;
+					color: #fff;
+					text-decoration: none;
+					background: $accent_color;
+					@include border-radius(3px);
+					@include for-size(phone-only) {
+						@include font-size(10,10);
+					}
+				}
+			}
+		}

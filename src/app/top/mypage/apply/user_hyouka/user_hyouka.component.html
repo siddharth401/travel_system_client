@@ -1,0 +1,108 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage/apply"]'>{{'F57_応募一覧'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + languageName + "/mypage/apply/detail/" + booking_id]'>{{'F57_応募詳細'|ttrans}}</a></li>
+                <li><a>{{'旅ユーザー評価'|ttrans}}</a></li>
+                <!--<li><a>{{'F60_ユーザー評価'|ttrans}}</a></li>-->
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+                <div class="mypage__body" *ngIf="review">
+                    <div class="mypage__body__section">
+                        <h2 class="mypage__body__title--02">{{'旅ユーザー評価' | ttrans}}</h2>
+                        <!--<h3 class="mypage__body__title">{{review.proposal_title }}</h3>-->
+                        <h3 class="mypage__body__title"><a target="_blank" [routerLink]='["/" + app.language + "/tour/detail/" + review.plan_id]'>{{review.proposal_title}}</a></h3>
+
+                        <div class="mypage__body__frame mypage__body__frame--s">
+                            <div class="mypage__body__block">
+                                <p class="mypage__body__text--date">{{'予約日' | ttrans}}：{{review.booking.created_at|datex:'YYYY/MM/DD A hh:mm:ss'}}</p>
+                                <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="col" nowrap>{{'ステータス' | ttrans}}</th>
+                                        <td><p>{{'評価登録' | ttrans}}</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" nowrap>{{'実施日' | ttrans}}</th>
+                                        <td><p *ngIf="review.booking.date_actual">{{review.booking.date_actual | datex : "YYYY/MM/DD"}}（{{weekday_booking_date_actual | ttrans}}）</p></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col" nowrap>{{'集合場所' | ttrans}}</th>
+                                        <td>
+                                            <p class="button-location">
+                                                <span>{{review.address_meeting}}</span>
+                                                <a class="btn--primary btn__mypage btn__mypage--map btn__mypage--icon"
+                                                   href="{{addressMap}}" target="_blank">{{'地図表示' | ttrans}}</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mypage__body__block">
+                                <div class="mypage__body__box">
+                                    <p class="mypage__body__text">{{'旅ユーザーについて評価をご協力お願いできますと幸いです。'|ttrans}}<br>{{'こちらの評価については、運営事務局側のみで利用となりますので、ご利用者様へ通知するものではありません。'|ttrans}}</p>
+                                </div>
+                                <div class="mypage__body__block__post ">
+                                    <!--<div class="mypage__body__block__post__score">-->
+                                        <!--<div class="guide-score star-rating">-->
+                                            <!--<div *ngFor=" let item of listPoin; let i=index">-->
+                                                <!--<span *ngIf="item.key" class="fa fa-star" (click)="vote(i)"></span>-->
+                                                <!--<span *ngIf="!item.key" class="fa fa-star-o" (click)="vote(i)"></span>-->
+                                            <!--</div>-->
+                                            <!--<p *ngIf="data.point" class="rating-point">{{data.point | number:'1.1-2'}}</p>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--<small class="msg_err" *ngIf="error.point">{{error.point[0]|ttrans}}</small>-->
+                                    <textarea  *ngIf="check_review == true" disabled [(ngModel)]="data.content" name="content" id="content" placeholder="{{'例）旅ユーザー評価を記載して下さい。'|ttrans}}">{{data.content}}</textarea>
+                                    <textarea  *ngIf="check_review == false"  [(ngModel)]="data.content" name="content" id="content" placeholder="{{'例）旅ユーザー評価を記載して下さい。'|ttrans}}">{{data.content}}</textarea>
+                                    <small class="msg_err" *ngIf="error.content">{{error.content[0]|ttrans}}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mypage__body__block">
+                            <div class="form-set__button">
+                                <input type="submit" *ngIf="check_review == false" (click)="confirmSave(true)" id="click-modal" class="btn--primary" value="{{'旅ユーザー評価'|ttrans}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+app.language+'/mypage/apply/detail/'+booking_id]" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F60_応募詳細へ戻る' | ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Modal content-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'旅ユーザー評価'|ttrans}}</h4>
+                <button type="button" class="btn btn-default close" (click)="close_modal()" id="close_modal" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <!--<p class="modal-body__p">評価:<span class="modal-body__span">{{data.point | number:'1.1-2'}}</span></p>-->
+                <!--<div class="modal-body__content">-->
+                    <!--{{data.content}}-->
+                <!--</div>-->
+                <!--<p class="modal-body__p">評価:<span class="modal-body__span">{{data.point | number:'1.1-2'}}</span></p>-->
+                <pre class="modal-body__content">{{data.content}}</pre>
+            </div>
+            <div class="modal-footer">
+                <p class="modal-footer__text">{{'上記のメッセージを送信しますが、宜しいですか？'|ttrans}}</p><br>
+                <button type="submit" class="submit" data-dismiss="modal" (click)="save_data()">{{'メッセージ送信確認'|ttrans}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

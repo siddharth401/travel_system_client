@@ -1,0 +1,122 @@
+<aside id="left-panel">
+
+  <!-- User info -->
+  <sa-login-info></sa-login-info>
+  <!-- end user info -->
+
+  <nav>
+    <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+    Please note that these links work a bit different than
+    traditional href="" links. See documentation for details.
+    -->
+
+    <ul saSmartMenu>
+      <li routerLinkActive="active">
+        <a routerLink="/admin/home"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'HOME'|trans}}</span></a>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">{{'Manager management'|trans}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/user/list" title="{{'Admin list'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Admin list'|trans}}</span></a>
+          </li>
+          <li  routerLinkActive="active">
+            <a routerLink="/admin/user/form" title="{{'New admin'|trans}}">
+              <i class="fa fa-lg fa-fw fa-plus-square-o"></i>
+              <span class="menu-item-parent">{{'New admin'|trans}}</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-plus-square"></i> <span class="menu-item-parent">{{'Booking management'|trans}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/booking" title="{{'Booking list'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Booking list'|trans}}</span></a>
+          </li>
+          <li  routerLinkActive="active">
+            <a routerLink="/admin/requests" title="{{'Request list'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Request list'|trans}}</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-align-justify"></i> <span class="menu-item-parent">{{'Travel plan management'|trans}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/plan/list" title="{{'Travel plan list'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Travel plan list'|trans}}</span></a>
+          </li>
+          <li  routerLinkActive="active">
+            <a routerLink="/admin/plan/form" title="{{'New travel plan'|trans}}">
+              <i class="fa fa-lg fa-fw fa-plus-square-o"></i>
+              <span class="menu-item-parent">{{'New travel plan'|trans}}</span></a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw  fa-user"></i> <span class="menu-item-parent">{{'Member management'|trans}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/members/" title="{{'Member list'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Member list'|trans}}</span></a>
+          </li>
+          <!--<li  routerLinkActive="active">-->
+            <!--<a routerLink="/admin/member/form" title="{{'New member'|trans}}">-->
+              <!--<i class="fa fa-lg fa-fw fa-plus-square-o"></i>-->
+              <!--<span class="menu-item-parent">{{'New member'|trans}}</span></a>-->
+          <!--</li>-->
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-gear"></i> <span class="menu-item-parent">{{'Master management'|trans}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/language" title="{{'Language management'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Language management'|trans}}</span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/category" title="{{'Category management'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Category management'|trans}}</span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/country" title="{{'Country management'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Country management'|trans}}</span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/prefecture" title="{{'Prefecture management'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Prefecture management'|trans}}</span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/city" title="{{'City management'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'City management'|trans}}</span></a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/admin/commission/form" title="{{'Commission setting'|trans}}">
+              <i class="fa fa-lg fa-fw fa-list"></i>
+              <span class="menu-item-parent">{{'Commission setting'|trans}}</span></a>
+          </li>
+        </ul>
+      </li>
+      <li class="top-menu-invisible" routerLinkActive="active">
+        <a (click)="logout()" title="{{'Logout'|trans}}" data-action="userLogout">
+          <i class="fa fa-lg fa-fw fa-sign-out"></i> <span class="menu-item-parent">{{'Logout'|trans}}</span></a>
+      </li>
+
+    </ul>
+  </nav>
+
+  <sa-minify-menu></sa-minify-menu>
+
+</aside>

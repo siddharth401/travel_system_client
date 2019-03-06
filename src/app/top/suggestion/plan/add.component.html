@@ -1,0 +1,1060 @@
+<div id="sb-site">
+    <section class="suggest page-content outer">
+        <div  style="background: url(assets/top/img/visual_suggest.png);"class="suggest__visual page-content__visual">
+            <h2 class="page-content__title">{{'提案プラン作成'|ttrans}}</h2>
+        </div>
+        <!--/.suggest__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/request/search']">{{'旅のリクエスト一覧'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/request/detail/'+request.id]">{{request.title}}</a></li>
+                <li><span >{{'F13_提案プラン作成'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+
+        <nav class="suggest__flow flow-content">
+            <ul class="flow-content__list">
+                <li class="flow-content__item flow-content__item--current">{{'提案プラン作成'|ttrans}}</li>
+                <li class="flow-content__item">{{'提案プラン確認'|ttrans}}</li>
+                <li class="flow-content__item">{{'提案プラン作成完了'|ttrans}}</li>
+            </ul>
+        </nav>
+        <!-- /.suggest__flow flow-content -->
+
+        <section class="request-detail__section suggest__section outer">
+            <div class="request-detail__person outer__inner">
+                <div class="request-detail__photo">
+                    <img src="{{member.avatar ? app.constant.FILE_URL+member.avatar : '/assets/top/img/noimage_200x200.png'}}" alt="" width="200" height="200">
+                    <p class="request-detail__name">{{member.name}}</p>
+                </div>
+                <div class="request-detail__info">
+                    <div class="request-detail__flex">
+                        <ul class="pref-list">
+                            <li *ngIf="city_name"><a href="javascript:void(0);">{{city_name}}</a></li>
+                        </ul>
+                        <ul class="category">
+                            <li *ngFor="let item of category"><a href="javascript:void(0);" style="background: #7cb342">{{item.name}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="request-detail__body">
+                        <h3 class="request-detail__title">{{'旅リクエストの'|ttrans}}{{request.title}}</h3>
+                        <table class="request-detail__table">
+                            <tbody>
+                            <tr>
+                                <th>{{'実施希望日'|ttrans}}</th>
+                                <td>{{request.date_plan|datex: 'YYYY/MM/DD'}}（{{weekday_date_plan|ttrans}})</td>
+                                <th>{{'募集期限'|ttrans}}</th>
+                                <td>{{request.date_end|datex: 'YYYY/MM/DD'}}（{{weekday_date_end|ttrans}}）</td>
+                            </tr>
+                            <tr>
+                                <th>{{'人数'|ttrans}}</th>
+                                <td>{{request.num_people}} {{'F13_名'|ttrans}}</td>
+                                <th>{{'希望金額'|ttrans}}</th>
+                                <td >{{'¥'|ttrans}}<span>{{request.desire_price|numberFormat}}</span>/1{{'F13_人'|ttrans}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{'開始時間'|ttrans}}</th>
+                                <td>{{time_request_hour}}{{':'|ttrans}}{{time_request_min}}</td>
+                                <th>{{'F13_所用時間'|ttrans}}</th>
+                                <td>{{time_request_required|formatHour}}h</td>
+                            </tr>
+                            <tr>
+                                <th>{{'対応言語'|ttrans}}</th>
+                                <td>{{request.language_request_support|ttrans}}</td>
+                                <th>{{'作成日'|ttrans}}</th>
+                                <td>{{request.created_at | datex : 'YYYY/MM/DD'}} ({{weekday_created|ttrans}})</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.request-detail__section suggest__section outer-->
+
+
+        <form action="" >
+            <section class="form-content content outer">
+                <div class="outer__inner">
+                    <div class="content__head">
+                        <h3 class="content__title">{{'提案プラン'|ttrans}}</h3>
+                    </div>
+                    <div class="content__body">
+                        <table class="form-content__form-table">
+                            <tbody>
+                            <tr>
+                                <th>{{'タイトル'|ttrans}}<sup style="color: red;">*</sup></th>
+                                <td>
+                                    <div class="form-set">
+                                        <input type="text" name="plan-name"  id="plan-name" class="form-set__input is-required" placeholder="{{'提案プランタイトルを記入ください。'|ttrans}}" />
+                                        <small class="msg_err" *ngIf="Error.proposal_title">{{Error.proposal_title[0]|ttrans}}</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'実施日'|ttrans}}<sup style="color: red;">*</sup></th>
+                                <td>
+                                    <div class="form-set">
+                                        <input  name="date_plan" value="{{request.date_plan|datex: 'YYYY/MM/DD'}}"  id="input-date" class="form-set__input is-required" type="text" (click)="app.showCalendar()" placeholder="{{'実施日'|ttrans}}" />
+                                        <small class="msg_err" *ngIf="Error.date_plan">{{Error.date_plan[0]|ttrans}}</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'F13_所用時間'|ttrans}}<sup style="color: red;">*</sup></th>
+                                <td>
+                                    <!--<div id="plan-time" class="form-set__select is-required">-->
+                                        <!--<select name="time_request" class="form-set__select is-required time_request">-->
+                                            <!--<option value="">{{'所用時間'|ttrans}}</option>-->
+                                            <!--<option *ngFor="let item of app.constant.TimePlan.Plan_hour_min|list" [value]="item.key" [selected]="item.key == selectedTime">{{item.value|ttrans}}</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                    <!--<small class="msg_err" *ngIf="Error.time_request">{{Error.time_request[0]|ttrans}}</small>-->
+                                    <fieldset>
+                                        <div class="form-set--02 form-set__select is-required" id="plan-hour">
+                                            <select  name="time_resquest_hour"  class=" is-required input-sm form-control plan-time-start plan_time_hour_required_request" id="time_request_hour">
+                                                <!--<option *ngFor="let item of app.constant.TimePlan.Plan_hour|list" [value]="item.value"  >{{item.value}}</option>-->
+                                                <option value="01">01</option>
+                                                <option value="02">02</option>
+                                                <option value="03">03</option>
+                                                <option value="04">04</option>
+                                                <option value="05">05</option>
+                                                <option value="06">06</option>
+                                                <option value="07">07</option>
+                                                <option value="08">08</option>
+                                                <option value="09">09</option>
+                                                <option value="10">10</option>
+                                                <option value="11">11</option>
+                                                <option value="12">12</option>
+                                                <option value="13">13</option>
+                                                <option value="14">14</option>
+                                                <option value="15">15</option>
+                                                <option value="16">16</option>
+                                                <option value="17">17</option>
+                                                <option value="18">18</option>
+                                                <option value="19">19</option>
+                                                <option value="20">20</option>
+                                                <option value="21">21</option>
+                                                <option value="22">22</option>
+                                                <option value="23">23</option>
+                                                <option value="24">24</option>
+                                            </select>
+                                        </div>
+                                        <p class="form-set--02 form-set--p">{{'時間'|ttrans}}</p>
+                                        <div class="form-set--02 form-set__select is-required" id="plan-hour">
+                                            <select  name="time_resquest_min"  class=" is-required input-sm form-control plan_time_required_request" id="time_request_min">
+                                                <!--<option *ngFor="let item of app.constant.TimePlan.Plan_min|list " [value]="item.value"  >{{item.value}}</option>-->
+                                                <option value="00">00</option>
+                                                <option value="15">15</option>
+                                                <option value="30">30</option>
+                                                <option value="45">45</option>
+
+                                            </select>
+                                        </div>
+                                        <p class="form-set--02 form-set--p">{{'分'|ttrans}}</p>
+                                        <ul class="form-set--02 form-set__option">
+                                            <!--<a  href="javascript:void(0);" class="js-add" (click)="addTime()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>-->
+                                            <!--<a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeTime(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>-->
+                                        </ul>
+                                        <small class="msg_err" *ngIf="Error.time_request">{{Error.time_request[0]|ttrans}}</small>
+                                    </fieldset>
+                                </td>
+                            </tr>
+
+                            <tr >
+                                <th>{{'開始時間'|ttrans}}<sup style="color: red;">*</sup></th>
+                                <td>
+                                    <fieldset class="fieldset__inner" *ngFor="let planitem of timeStart.time; let i = index">
+                                        <div class="form-set--02 form-set__select is-required" id="plan-hour">
+                                            <select  name="plan_hour_{{i}}" class="form-set__select is-required input-sm form-control plan-time-start" id="plan_hour" [(ngModel)]="planitem.plan_hour">
+                                                <option *ngFor="let item of app.constant.TimePlan.Plan_hour|list" [value]="item.value"  >{{item.value}}</option>
+                                            </select>
+                                        </div>
+                                        <p class="form-set--02 form-set--p">{{':'|ttrans}}</p>
+                                        <div class="form-set--02 form-set__select is-required" id="plan-hour">
+                                            <select  name="plan_min_{{i}}" class="form-set__select is-required input-sm form-control" id="plan_min" [(ngModel)]="planitem.plan_min">
+                                                <option *ngFor="let item of app.constant.TimePlan.Plan_min|list " [value]="item.value"  >{{item.value}}</option>
+                                            </select>
+                                        </div>
+                                        <!--<p class="form-set&#45;&#45;02 form-set&#45;&#45;p ">{{'分'|ttrans}}</p>-->
+                                        <ul class="form-set--02 form-set__option">
+                                            <!--<a  href="javascript:void(0);" class="js-add" (click)="addTime()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>-->
+                                            <!--<a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeTime(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>-->
+                                        </ul>
+                                        <small class="msg_err" *ngIf="timeStartError && timeStartError[i]">{{timeStartError[i][0]|ttrans}}</small>
+                                    </fieldset>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'集合場所'|ttrans}}<sup style="color: red;">*</sup></th>
+                                <td>
+                                    <!--<div class="inner-form">-->
+                                        <!--<div id="plan-location-country" class="form-set form-set__select is-required">-->
+                                            <!--<select name="country_id"  class="country_id" (change)="changeCountry()" >-->
+                                                <!--&lt;!&ndash;<option value="" selected="" disabled>{{'都市'|ttrans}}</option>&ndash;&gt;-->
+                                                <!--<option *ngFor="let item of listCountry|list " [value]="item.key" [selected]="item.key == selectedCountry" >{{item.value}}</option>-->
+                                            <!--</select>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="inner-form">
+                                        <div id="plan-location-pref" class="form-set form-set__select is-required">
+                                            <select name="prefecture_id"  class="prefecture_id">
+                                                <option value="" selected="" disabled>{{'都市'|ttrans}}</option>
+                                                <option *ngFor="let item of listPrefecture|list " [value]="item.key" [selected]="item.key == selectedPre" >{{item.value}}</option>
+                                            </select>
+                                        </div>
+                                        <small class="msg_err" *ngIf="Error.city_id">{{Error.city_id[0]|ttrans}}</small>
+                                    </div>
+                                    <div class="form-set">
+                                        <input type="text" class="address_meeting" [(ngModel)]="data.address_meeting" name="address_meeting" id="plan-location-address" class="form-set__input is-required" />
+                                        <small class="msg_err" *ngIf="Error.address_meeting">{{Error.address_meeting[0]|ttrans}}</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'提案プラン内容'|ttrans}}<sup style="color: red;">*</sup></th>
+                                <td>
+                                    <div class="form-set">
+                                        <textarea name="content" id="plan-detail"  cols="30" rows="10" class="form-set__input form-set__textarea is-required content-ta-plan plan-text" placeholder="{{'提案プラン内容を記入ください。'|ttrans}}"></textarea>
+                                        <small class="msg_err" *ngIf="Error.content">{{Error.content[0]|ttrans}}</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'その他'|ttrans}}</th>
+                                <td>
+                                    <div class="form-set">
+                                        <textarea name="other" id="plan-note"  cols="30" rows="10" class="form-set__input other-ta-plan form-set__textarea plan-text" placeholder="{{'その他を記入ください。'|ttrans}}"></textarea>
+                                        <small class="msg_err" *ngIf="Error.other">{{Error.other[0]|ttrans}}</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'提案プラン金額'|ttrans}}<sup style="color: red;">*</sup></th>
+                                <td class="price--container">
+                                    <p class="form-set--02">{{'単価'|ttrans}}</p>
+                                    <p class="form-set--02">{{'¥'|ttrans}}</p>
+
+                                    <div class="form-set form-set--02">
+                                        <input type="text" name="plan-price"  id="plan-price" class="form-set__input is-required" (keyup)="onKey($event)" />
+                                    </div>
+                                    <p class="form-set--02">×　{{'人数'|ttrans}}</p>
+                                    <div class="form-set form-set--02">
+                                        <input type="text" name="plan-number" id="plan-number" value="{{request.num_people}}" disabled class="form-set__input" (keyup)="numPeople($event)" value="5" />
+                                        <small class="msg_err" *ngIf="Error.price">{{errPeople|ttrans}}</small>
+                                    </div>
+                                    <p class="form-set--02">{{'名'|ttrans}}　=　{{'合計'|ttrans}}</p>
+                                    <p class="form-set--02">{{'¥'|ttrans}}</p>
+
+                                    <div class="form-set form-set--02 form-set--02__last">
+                                        <input type="text" name="plan-total" id="plan-total" disabled class="form-set__input" value="0,000" />
+                                    </div>
+                                    <small class="msg_err" *ngIf="Error.price">{{Error.price[0]|ttrans}}</small>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <section class="plan-reserve__content form-content">
+                            <h4 class="plan-reserve__sub-title">{{'ガイド規約について'|ttrans}}</h4>
+                            <!--<p  id="plan-detail"  class="form-set__pre form-set__input plan-text" placeholder="その他、ユーザーへのメッセージなどをご記入ください。">-->
+                                <!---->
+                            <!--</p>-->
+                            <textarea *ngIf="app.language == ''" name="" id="" cols="30" rows="20" style="resize: none;width: 100%">
+本利用規約（以下「本規約」）は、株式会社平成エンタープライズ（以下「当社」）により提供される「マッチングガイド」の利用に際し、当社および利用者（第2条に定義）の権利と義務および利用者が遵守すべき事項を明示する。当サービスに登録しようとするすべての利用者はその同意の前に本規約の全文を通読する必要がある。
+
+
+第1条　本規約の適用
+
+本規約は、当社が運営する本サービスのすべてにおいて、会員と当社との間に適用され、本サービスを利用することにより、会員は個別規定を含む本規約および個人情報保護方針の全ての項目に同意したものとします。
+
+
+第2条　使われる用語の定義
+
+本規約において使用する以下の用語は、以下に定める意味を有するものとします。
+
+. 「会員」とは、本規約に同意の上、本サイトに会員登録をした個人および団体をいいます。
+
+. 「旅ガイド」とは、本サイトの会員の内、旅プラン、または旅リクエストへの提案への予約を受ける者のことをいいます。
+
+. 「旅ユーザー」とは、本サイトの会員の内、旅プラン、または旅リクエストへの提案プランへの予約をする者のことをいいます。
+
+. 「旅プラン」とは、本サイトに登録されている旅ガイドが旅ユーザーに提供するサービスのことをいいます。
+
+. 「旅リクエスト」とは旅ユーザーが理想としているプランを作成したもののことをいいます。
+
+. 「取引」とは、本サイトで旅ユーザーが旅ガイドの旅プランや旅リクエストへの提案プランを予約申請し、旅ガイドが旅ユーザーの予約申請を承認することをいいます。
+
+
+第3条　会員資格・会員登録手続
+
+サービス取引成立時点で旅ユーザーは事前決済をし、サービス代金は運営者側で一旦お預かりします。サービス提供完了後、お互いに実施承認が行われてから、旅ガイドに支払われます。万が一、実施承認が7日間以内に行われなかった場合は自動承認となりますので、必ず実施承認をするようお願いしております。
+
+1 本規約に同意の上、当社所定の会員登録手続をされた個人は、会員登録手続完了後に会員としての資格を有します。
+
+2 会員登録手続は、会員となる個人または団体（団体の場合は、会員登録はかならず担当者個人の名前で行い、当該担当者のみが会員の資格を有します）が直接行わなければならず、代理による会員登録は一切認められません。
+
+3 18歳未満の方は本サイトに会員登録できません。
+
+4 当社は、第１項に基づき登録を申請した者が、以下の各号のいずれかの事由に該当する場合は、会員資格を剥奪することがあります。
+
+
+本規約に違反するおそれがあると当社が判断した場合
+
+. 当社に提供された登録事項の全部又は一部につき虚偽、誤記又は記載漏れがあった場合
+
+. 過去に本サービスの利用の登録を取り消された者である場合
+
+. 未成年者、成年被後見人、被保佐人又は被補助人のいずれかであり、法定代理人、後見人､保佐人又は補助人の同意等を得ていなかった場合
+
+. 反社会的勢力等（暴力団、暴力団員、右翼団体、反社会的勢力、その他これに準ずる者を意味する。以下同じ。）である、又は資金提供その他を通じて反社会的 勢力等の維持、運営若しくは経営に協力若しくは関与する等反社会的勢力等との何らかの交流若しくは関与を行っていると当社が判断した場合
+
+. その他、当社が登録を適当でないと判断した場合
+
+
+第4条　会員情報の入力
+
+会員登録手続では、必要な情報を虚偽なく正確に入力してください。
+
+
+第5条　パスワードの管理
+
+1 パスワードは、他人に知られることがないよう、会員本人が責任をもって保管し、定期的に変更するなど適切な管理を行なって下さい。
+
+2 入力されたメールアドレスやパスワードが会員登録されたものと一致することを当社の所定の方法により確認した場合
+
+会員本人による利用があったものとみなし、それらが盗用、不正使用その他の事情により会員本人以外の者が利用している場合であっても、それにより生じた損害等について当社は一切の責任を負いません。
+
+
+第6条　会員登録情報の変更
+
+1 登録した情報に変更が生じた場合は、当社所定の方法により、会員本人が直ちに変更の手続き行なって下さい。ただし、変更がなされた場合でも、変更の登録前に開始された取引は変更登録前の情報に基づいて行われます。
+
+2 登録内容の変更が、会員本人により適切になされなかったことにより生じた損害等について当社は一切の責任を負いません。
+
+第8条　会員の退会
+
+会員は、有効に会員として登録されている期間内に限り、本規約の目的の範囲内でかつ本規約に違反しない範囲内で、当社の定める方法に従い、本サービスを利用することができます。
+
+
+第7条　本サービスの利用
+
+1 会員が退会を希望する場合、当社所定の方法にて速やかに退会手続を行うこととし、所定の退会手続が完了した後、退会となります。
+
+2 退会時に、当社が会員に対し支払うべき売上金額等があった場合、当社の定める方法、期日に支払うものとします。また、金融機関に支払う振込み手数料その他の費用は、会員の負担とします。
+
+
+第9条　保証の否認及び免責
+
+1 当社は、会員同士が登録商品に関する情報をやりとりし、マッチングをするためのシステムを提供するものにすぎず、そのマッチングの成否、会員同士で提供される情報の内容の正確性、真実性、適法性等について一切責任を負うものではありません。当社は、会員に対し、適宜情報提供やアドバイスを行うことがありますが、それにより責任を負うものではありません。また、如何なる場合も当社は取引の当事者となるものではなく、登録されている情報について瑕疵担保責任その他一切の責任を負うものではありません。
+
+2 会員は、本サービスを利用することが、会員に適用のある法令、業界団体の内部規則等に違反するか否かを自己の責任と費用に基づいて調査するものとし、当社は、会員による本サービスの利用が、会員に適用のある法令、業界団体の内部規則等に適合することを何ら保証するものではありません。
+
+3 本サイトから他のウェブサイトへのリンク又は他のウェブサイトから本サイトへのリンクが提供されている場合でも、当社は、本サイト以外のウェブサイト及びそこから得られる情報に関して如何なる理由に基づいても一切の責任を負わないものとします。
+
+4 当社は会員が使用する機器、設備またはソフトウェアが本サービスの利用に適さない場合であっても、本サービスの改変、修正を行う義務を負わないものとします。
+
+5 通信回線、ソフトウェア、ハードウェアなどのパフォーマンスの低下、障害、不正アクセスにより、本サービスのシステムの中断・遅延・中止等によって生じたいかなる損害についても、当社は一切責任を負わないものとします。
+
+6 当社は、本サービスに関連して当社から送られる電子メール及びウェブコンテンツに、コンピューターウィルス等の有害なものが含まれていないことを保証しないものとします。
+
+7 当社は、会員に対し適宜情報提供や助言を行うことがありますが、それにより当社はなんらかの義務や責任を負わないものとします。
+
+8 当社は、会員が本サービスを利用する際に必要とする設備や通信回線の費用について、一切負担しないものとします。
+
+9 会員が本規約等に違反したことによって生じた損害については、当社は一切責任を負いません。
+
+10 当社は、本サービスで会員が行った取引について、その内容が会員の希望を満たすこと、有用であること等、一切の保証をしないものとします。
+
+11 上記の各項目の他、本サービスの利用にあたって会員に生じた一切の損害について当社は、原則、責任を負いません。但し、当社に故意または重過失があり、これにより当社が会員に損害を与えた場合、当社は会員について発生した直接かつ通常の損害に限り、当該損害の原因となった取引の対価を上限として保証します。本利用規約等が消費者契約法（平成12年法律第61号）第2条第3項の消費者契約に該当する場合には、本規約のうち、当社の損害賠償責任を完全に免責する規定は適用されないものとする。
+
+
+第10条　禁止事項
+
+会員は、本サービスを利用するにあたり、以下の各行為をすることを禁止します。
+
+. 本規約、法令、または他の規約等に違反する行為
+
+. 当社または第三者の権利、名誉等を損ねる、侵害する、またはそのおそれのある行為
+
+. 他人になりすまして、当社に情報等を送信する行為
+
+. 公序良俗に反する、またはそのおそれのある行為
+
+. 有害なコンピュータープログラム等を送信、または書き込む行為
+
+. パスワードを第三者に貸与・譲渡・転売すること、または第三者と共用する行為
+
+１会員が複数の会員登録申込を行う行為
+
+. 本サービスとは関係がないと当社の判断する団体やサービス、活動への勧誘行為
+
+. 本サービスに掲載されている情報をもとに、本サービスを通さずに会員同士で取引をする行為
+
+. 本サービスを通じて知りえた他の会員の情報を、当該会員の明示的な承諾なくして、本サービスの利用以外の目的で利用又は第三者に提供する行為
+
+. その他、当社の裁量により、当社が不適切と判断する全ての行為
+
+
+第11条　情報等の削除
+
+１　次の各号に定めるいずれかに該当する場合、当社は、会員が本サービスを通じ本サイト上に掲載した情報を削除できるものとします。この場合、事前または事後に合理的と判断する手段により通知を行うものとします。
+
+. 掲載内容が本規約に定める禁止行為、また、本規約のいずれかの条項に違反すると当社が判断した場合
+
+. 会員によって登録された情報の容量が当社所定の容量を超過した場合
+
+. 会員が登録した内容が権利侵害、名誉毀損、侮辱表現であると判断した場合
+
+. わいせいつ表現、暴力的表現、公序良俗に反する表現、反社会的表現および、当社が不適切と判断した表現があった場合
+
+２　会員がウェブサイト上に掲載した情報に関する全ての責任は会員にあり、当社は前項に関して情報を監視・削除する義務を負うものではないため、当社が情報を削除しなかったことにより会員あるいは第三者が被った損害について、当社は一切責任を負わないものとします。
+
+３　当社が、本条に基づき、会員が本サービスを通じウェブサイト上に掲載した情報を削除したことにより、会員あるいは第三者が被った損害については、当社は一切責任を負わないものとします。
+
+
+第12条　会員資格の取消
+
+１　会員が以下各号のいずれかに該当すると、当社が判断した場合、本サービスの利用を許諾せず、事前に通知することなく当該会員の会員資格の取消、退会処置、再登録の禁止、本サービスの一部または全部の利用停止、取引の取消、その他当社が必要と判断する措置を行えるものとします。
+
+.過去を含め、本規約、法令等に違反したとき
+
+. パスワードおよび本サービスを不正に使用、または使用させたとき
+
+. 会員登録の情報に虚偽の内容、不足があった、またはそのおそれがあるとき
+
+. クレジットカードの与信に問題が生じたとき
+
+. 支払停止もしくは支払不能となり、または破産手続開始、民事再生手続開始、会社更生手続開始、特別清算開始もしくはこれに類する手続の開始の申し立てがあった場合
+
+. 反社会勢力もしくは反社会的活動を行う団体に所属、またはこれらと関係を有するとき
+
+. 他の会員の情報やコンテンツを事前同意なく、第三者に提供した場合
+
+. 当社からの問い合わせその他の回答を求める連絡に対して、30日以上応答がない場合
+
+. その他、当社が本サービスの利用、会員としての登録、または本サービス利用の継続が適当ではないと判断した場合
+
+. 会員登録手続が、会員となる本人または法人ではなく、代理によりされた場合
+
+２　会員は、前項に基づきなされた措置に対して、理由の開示を求めること、および一切の異議の申立て等を行うことはできず、これにより会員は損害または不利益を被ったとしても、当社は一切の責任を負いません。
+
+３　上記各号のいずれかに該当した場合、会員は、当社に対して負っている債務の一切について当然に期限の利益を失い、直ちに当社に対して全ての債務の支払いを行わなければならないものとします。
+
+
+第13条　サービスの停止及び廃止
+
+１　当社は、以下各号の事由に該当する場合、事前に本サイト上でその旨を通知した上、本サービスの全部または一部を停止又は廃止するできるものとします。ただし、緊急の場合は、事前の通知は要しないものとします。
+
+. 定期的または緊急に本サービス提供のためのシステムの保守または点検を行うとき
+
+. 天災、火災、停電等の非常事態により本サービスの運営をすることが不可能となったとき
+
+. 第三者からの本サービスへの不正アクセス、有害なコンピュータープログラム等により、本サービスの提供ができないとき
+
+. 法令等に基づく措置により本サービスが提供できないとき
+
+. その他、当社がやむを得ないと判断したとき
+
+２　前項に基づき本サービスの全部または一部が停止又は廃止されたことによって、会員または第三者に損害が発生したとしても、当社は一切の責任を負わないものとします。
+
+
+第14条　登録禁止商品
+
+当社は、本サービスをご利用頂くにあたり、以下の登録商品を登録することを禁止します。
+
+. 公序良俗に反する、またはそのおそれのある内容のもの
+
+. 実態の無い体験商品、または催行不可能なものを催行可能なように紹介した内容のもの
+
+. 免許、許可を持たない者の主催による、催行するのに特別な免許、許可を必要とする内容のもの
+
+. 登録商品が実施される国・地域の法令、および日本の法令に反する内容のもの
+
+. 重大な危険行為に結びつく、またはこれを助長するような内容のもの
+
+. 登録商品が実施される国・地域で文化的や宗教的にタブーとされる内容のもの
+
+. わいせつ行為、および児童ポルノに該当する内容のもの
+
+. 売春・買春に該当する内容のもの
+
+. 覚せい剤、麻薬等薬物の使用をする内容もの
+
+. 不健全な出会いを目的とする、または出会いを誘導する内容のもの
+
+. その他、当社の裁量により、当社が不適切と判断する全ての内容のもの
+
+
+第15条　紛争処理
+
+1 本サイトは、登録商品についてホストとゲストの間で直接取引が成立するものであり、ホストとゲストの間に紛争が生じた場合は両当事者において解決するものとし、当社はホストとゲストの間の紛争について一切責任を負うものではありません。
+2 前項に加え、会員が、本サービスに関連して他の会員その他の第三者からクレームを受け又はそれらの者との間で紛争を生じた場合には、直ちにその内容を当社に通知するとともに、会員の費用と責任において当該クレーム又は紛争を処理し、当社からの要請に基づき、その経過及び結果を当社に報告するものとします。
+3 会員による本サービスの利用に関連して、当社が、他の会員その他の第三者から権利侵害その他の理由により何らかの請求を受けた場合は、会員は当該請求に基づき当社が当該第三者に支払を余儀なくされた金額を賠償しなければなりません。
+
+第16条　情報の保存
+
+1 当社は、会員が送受信したメッセージその他の情報を運営上一定期間保存していた場合であっても、かかる情報を保存する義務を負うものではなく、当社はいつでもこれらの情報を削除できるものとします。
+2 当社は、前項に基づき当社が行った措置に基づき会員に生じた損害について一切の責任を負いません。
+
+
+第17条　権利帰属
+
+1 当社が提供するサービス上で、当社が掲示した内容に関する著作権等の知的財産権は、別段の定めのない限り全て当社に帰属し、当社の許可がない限り利用することはできないものとします。
+
+2 会員が解退会約及び会員資格の停止、取り消しとなった場合であっても、それ以前に提供した情報の権利は前項によるものとします。
+
+3 会員から投稿されたコンテンツの著作権は、そのコンテンツを投稿した会員に帰属するものとします。ただし、当社が本サービス外のウェブサイトや出版物、その他メディア等に、これらの情報を二次利用（表示・引用・転載・変更・切除・その他改変等）する場合、会員はこれを許諾するものとします。また、かかる利用に際して、会員は著作者人格権を行使しないものとします。
+
+4 本サービスの権利関係は当社に帰属し、会員に対して、本サイト内のコンテンツについて、本サイト内での使用の範囲を超えた権利を与えるものではありません。
+
+5 会員は、本サービスを利用して投稿、その他送信するコンテンツについて、当社に対し世界的・非独占的・無償・サブライセンス可能かつ譲渡可能な仕様・複製・配布・派生著作物の作成・表示・及び実行に関するライセンスを付与するものとします。
+
+6 会員は、第三者が著作権、商標権、意匠権等の知的所有権を有する著作物、標章、サービスマーク、デザイン、表示等を当社が提供するサービス上に掲載する場合は、会員が当該知的所有権保持者より許諾を得る必要があり、これらの許諾を得ている事について表明保証するものとします。
+
+7 会員は、いかなる理由によっても当社の知的財産権を侵害するおそれのある行為（逆アセンブル、逆コンパイル、リバースエンジニアリングを含みますが、これに限定されません。）をしないものとします。
+
+8 前項に違反して問題が発生した場合、会員は自己の費用と責任においてかかる問題を解決するとともに、当社に何らの損害を与えないものとします。
+
+
+第18条　個人情報
+
+1 当社は、別途定めるプライバシーポリシーに従い、会員の個人情報を管理するものとし、会員はこれに同意します。
+
+2 当社は会員の個人情報をもとに、個人を特定できない形式による統計データを作成し、利用することがあります。
+
+
+第19条　広告の掲載
+
+1 当社は、当社の裁量において、本サイトに適切と判断される広告を掲載することができます。
+
+2 本サイトに掲載される広告によって、会員等および第三者に生じる損害等に関して、当社は一切の責任を負いません。
+
+
+第20条　本規約の改定
+
+1 当社は、会員の同意を得ることなく本規約を任意に改定、または補充する規約を定めることができるものとします。
+
+2 変更後の本規約は、当社が別途定める場合を除いて、本サービスを提供する本サイトに掲示された時点よりその効力を生じるものとします。
+
+3 会員が本規約の変更の効力が生じた後に本サービスを利用する場合、又は当社の定める期間内に登録取消の手続をとらなかった場合には、会員は変更後の規約に同意したものとみなされます。
+
+4 会員は、本規約の改定、または補充に対して異議、クレームを唱えないものとし、規約の変更・追加により会員等に生じた一切の損害について、直接損害か間接損害か否か、予見できたか否かを問わずに、当社は一切に責任を負わないものとします。
+
+
+第21条　権利関係の譲渡等
+
+1 会員は、当社の書面による事前の承諾なく、本規約に基づく当社と会員の間の契約上の地位又は本規約に基づく権利若しくは義務につき、第三者に対し、譲渡、移転、担保設定、その他の処分をすることはできません。
+
+2 当社は本サービスにかかる事業を他社に譲渡した場合には、当該事業譲渡に伴い本規約に基づく当社と会員の間の契約上の地位、本規約に基づく権利及び義務並びに会員の登録事項その他の顧客情報を当該事業譲渡の譲受人に譲渡することができるものとし、会員は、かかる譲渡につき本項において予め同意したものとします。なお、本項に定める事業譲渡には、通常の事業譲渡のみならず、会社分割その他事業が移転するあらゆる場合を含むものとします。
+
+
+第22条　分離可能性
+
+本規約のいずれかの条項又はその一部が、消費者契約法その他の法令等により無効又は執行不能と判断された場合であっても、本規約の残りの規定及び一部が無効又は執行不能と判断された規定の残りの部分は、継続して完全に効力を有し、当社及び会員は、当該無効若しくは執行不能の条項又は部分を適法とし、執行力を持たせるために必要な範囲で修正し、当該無効若しくは執行不能な条項又は部分の趣旨並びに法律的及び経済的に同等の効果を確保できるように努めるものとします。
+
+
+第23条　連絡通知
+
+本サービスに関する問い合わせ、その他会員から当社に対する連絡または通知及び本規約の変更に関する通知、その他当社から会員に対する連絡または通知は、当社独自の判断で行うものとします。
+
+
+第24条　準拠法・管轄裁判所
+
+1 本規約の準拠法は日本法とします。
+
+2 会員と当社は、本規約に関連する訴訟について、東京地方裁判所を第一審の専属的合意管轄裁判所とします。
+
+
+第25条　当社の義務・役割
+
+1 本サービスが円滑に提供されるよう専用設備を維持運営することに努めます。ただし、不測の事態により本サービスが利用できない場合があることを会員は予め了承するものとします。
+
+2 また本サービスを通じて他の会員との間で直接なされた情報の授受、及びそれに付随して行われる行為について、当社は一切責任を負わないものとします。
+
+
+第26条　本サービスの料金等
+
+１ 利用料金については、以下のとおりとします。
+
+1 利用料金は、当社が別途料金表に定める料金を適用します
+
+2 当社が利用料金を計算し、会員に対して通知を行うものとします
+
+3 当社は、会員の承諾なく、利用料金の改定、変更を行うことができるものとします
+
+4 利用料金に改定、変更がある場合は、当社は会員へ通知するものとします
+
+5 会員から当社に支払われた本サービスに関する一切の料金等は、いかなる理由といえども返還しないものとします
+
+２　利用料金等の支払については、以下のとおりとします。
+
+1 当社は、利用料金の支払方法や支払い期日を、別途料金表、またはその他オンライン上電子メールにて告知するものとします
+
+2 金融機関に支払う振込み手数料その他の費用は、会員の負担とします
+
+3 会員は別途料金表に定めるいずれの支払方法を選択した場合も、支払方法に不備があった場合は、直ちに当社に適切な方法で届け出るものとします
+
+4 会員が当社の指定する支払い方法以外で入金した等、会員の過失を要因として当社が会員の入金した事実を確認できない場合、会員または他の第三者が被った損害について当社は一切の責任を負わないものとします
+
+３　料金改定については、以下のとおりとします。
+
+1 当社は、会員の承諾を得ることなく料金を改定する場合があり、会員はこれに同意することとします
+
+2 改定後の料金体系は、会員が本サービスの利用を継続する事により承諾されたとみなされ、適用されるものとします。
+
+
+ゲスト向け個別規定
+
+
+第１条
+
+旅ユーザーについては、本規約のほか、この「旅ユーザー向け個別規定」が適用されるものとします。
+
+
+第２条　サービス
+
+本サイトは、旅ガイドと旅ユーザーとの間で取引を行うためのシステムを提供するものにすぎず、旅ガイドの提供する情報の正確性、真実性、取引の内容の妥当性、 適法性を保証するものではなく、また、取引の成否をお約束するものではありません。旅ガイドの方は自らの責任で旅ユーザーの方と取引を行ってください。
+
+
+第３条　取引の成立
+
+1 旅ユーザーは、旅プラン、または旅リクエストへの提案プランを予約申請した際には、本サイトに掲示された取引代金を支払う事に了承し、これに同意したものとみなし、旅プランの予約申請を72時間以内に旅ガイドが承認し、その情報が当社に送信された時点で取引が成立します。
+2 本サイトで行われる取引のクレジットカード決済は、当社が指定したサービスを利用することとします。
+
+
+第４条　取引の変更及びキャンセル
+
+1 成立した取引がキャンセルされた場合、キャンセルのタイミングに応じて、当社所定のキャンセルポリシーに従い、旅ユーザーはキャンセル料を負担する場合があります。詳しくは、キャンセルポリシーをご確認ください。
+
+2 当社はキャンセルの事情が旅ガイドの事情によるか旅ユーザーの事情によるか具体的に調査する義務を負うものではなく、本サービスを通じてキャンセル手続を行った当事者が旅ユーザーであるか、旅ガイドであるかにより、キャンセルポリシーを適用するものとし、個別の事情に応じた対応については、旅ガイドと旅ユーザーの間での話し合いにより解決することとし、当社はこれについて一切責任を負いません。
+
+3 取引のキャンセル又は中止等により取引代金の払い戻しを行う場合、当社の定める方法による旅ユーザーの手続完了後、原則として当社は30営業日以内に返金手続を行いますが、各クレジットカード会社等の事情により、旅ユーザーへの払い戻しが遅くなる場合があり、旅ユーザーは予めこれを了承するものとします。また、払い戻しにかかる手数料（5%）は旅ユーザーが負担するものとします。
+
+4 旅ユーザーは、取引成立後においても、旅ガイドが本サービスを通じて取引をキャンセルする場合があることをあらかじめ了解し、これについて当社に対して損害賠償請求をすることができないものとします。
+
+5 旅ガイドの事情により旅ユーz-あが損害を被った場合において、当該損害の原因となった取引における取引代金以上には旅ユーザーから旅ガイドに対して損害賠償請求をすることができない場合があることを予め了承するものとします。なお、いかなる場合も、当社は、キャンセルポリシーに定める内容以外に、旅ユーザーに生じた損害についての損害回復措置をとる義務を負うものではありません。
+
+
+第５条　税金の取扱い
+
+本サービスに関して旅ユーザーにかかる消費税その他の税金については、旅ユーザーの費用と責任でこれを負担及び処理するものとし、当社は一切関知するものではありません。
+
+
+第６条　譲渡・転売の禁止
+
+1 成立した取引に基づく権利、義務及び契約上の地位を、第三者に譲渡または転売をすることを禁止します。
+
+2 前項の行為が行われている、 または行われるおそれがあると当社が判断した場合、取引を無効とし、取引代金の払い戻しを認めない場合があります。
+
+3 当社は、会員が成立した取引に基づく権利及び義務、並びに取引の契約上の地位を譲渡または転売した場合の問題については、一切の責任を負わないものとします。
+
+
+第７条　本サービスの利用にあたっての旅ユーザーの誓約事項
+
+１　旅ユーザーは本サービスの利用にあたり、この旅ユーザー向け個別規定に定められた事項、本サイト利用時に申告した内容について真実であること、及び以下の内容を保証及び誓約するものとします。
+
+. 旅ユーザーは、自らの責任で本サービスを利用するものであり、当社に対して登録商品の情報の正確性や瑕疵担保責任等を追及できるものではないことを了解すること
+
+. 旅ゲストの提供する登録商品を、社会通念上適正な方法・判断をもって利用すること
+
+. 旅ゲストの提供する登録商品の催行にあたって旅ガイドが提示した条件（旅ガイドが本サイト上で定めるルールを含むが、これに限らない。）を遵守すること
+
+. 旅ガイドの提供する登録商品の催行にあたって、旅ガイドの所有物を無断で持ち出したり、汚損、破壊等してはならないこと
+
+２　上記記載の内容が正確又は真実ではなかったことにより、当社、会員その他の第三者が損害を被った場合は、旅ユーザーはその損害の一切を賠償する義務を負うものとします。
+
+
+旅ガイド向け個別規定
+
+
+第１条
+
+旅ガイドについては、本規約のほか、この「旅ガイド向け個別規定」が適用されるものとします。
+
+
+第２条　サービス
+
+1 本サイトは、旅ガイドと旅ユーザーとの間で取引を行うためのシステムを提供するものにすぎず、旅ユーザーの提供する情報の正確性、真実性、取引内容の妥当性、適法性を保証するものではなく、また、取引の成否をお約束するものではありません。
+
+2 旅ガイドは自らの責任で旅ユーザーと取引を行ってください。
+
+3 本サービスで提供される登録商品は全て旅ガイドが自らの責任で作成するものであり、その内容に関して当社は一切責任を負いません。
+
+4 合計予約金額からの消費税の支払いは旅ガイドの責任とします。
+
+5 旅ガイドが本サービス上で登録商品を作成するにあたっては、取引の対価、その他当社が本サイトにおいて定める設定上のルールに従うものとします。
+
+
+第３条　特定の旅ガイドのアカウント停止
+
+１　当社は、特定の旅ガイドのアカウントが以下各号のいずれかに該当する場合、事前に通知することなく旅ガイドのサービス利用停止、会員資格の取消、取引の停止、または無効化を行えるものとします。
+
+. 登録商品が実施される国・地域の法令、日本の法令、本規約等に違反すると判断されたとき
+
+. 本サービスの利用に関して不正行為があった、若しくはあったおそれがあるとき
+
+. 特定の宗教・思想の啓蒙や勧誘行為を目的と判断されたとき
+
+. 登録商品が実施される国・地域で文化的や宗教的にタブーとされる内容が登録されたとき
+
+. わいせつな行為、性行為、及び差別行為等を目的とするなど、公序良俗に反する内容が登録されたとき
+
+. 反社会勢力もしくは反社会的活動を行う団体に所属、またはこれらと関係を有すると判断されたとき
+
+. その他、当社の裁量に基づき、当社が適当では無いと判断したとき
+
+２　前項によって、旅ガイドに何らかの損害等が生じた場合、当社は一切の責任を負わないものとします。
+
+
+第４条　旅ガイドの審査
+
+1 本サービスに入会した会員が登録商品を作成した場合、当社は本規約に基づき旅ガイドの登録情報を審査することがあります。
+
+2 また、本規約に反すると認められた場合は登録情報を削除します。
+
+3 登録情報の削除理由については、個別に答える事は無いものとします。
+
+
+第５条　取引の変更・キャンセル
+
+. 旅ユーザーにより取引がキャンセルされた場合、キャンセルのタイミングに応じて、当社の別途定めるキャンセルポリシーに従い旅ユーザーに所定のキャンセル料が発生する場合があるものとします。
+
+. 旅ユーザーによる旅ガイドへのキャンセル料の支払いについて当社は責任を負わないものとします。
+
+. 旅ガイドは、取引の成立後は原則としてキャンセルすることができないものとします。但し、登録商品の実施前に限り、本サービスにおいて定める方法によりキャンセルできるものとします。
+
+. 当社はキャンセルの事情が旅ガイドの事情によるか旅ユーザーの事情によるか具体的に調査する義務を負わないものとします。
+
+. 当社は、本サービスを通じてキャンセル手続を行った場合、キャンセルポリシーを適用するものとし、個別の事情に応じた対応については、旅ガイドと旅ユーザーの間での話し合いにより解決することとし、当社はこれについて一切責任を負わないものとします。
+
+. 旅ガイドは、取引成立後においても、旅ユーザーが本サービスを通じて登録商品の実施前に取引をキャンセルする場合があることをあらかじめ了解し、これについて当社に対して損害賠償請求をすることができないものとします。
+
+. 旅ガイドは旅ユーザーの事情により取引がキャンセルされた事により損害を被った場合に、当該損害の原因となった取引における取引代金以上には旅ユーザーに対して損害賠償請求をすることができないものとします。
+
+. いかなる場合も、当社は、キャンセルポリシーに定める内容以外に、旅ガイドに生じた損害についての損害回復措置をとる義務を負うものではありません。
+
+. 天候や気象条件、天変地異などその他やむにやまれぬ事情により、登録商品の実施が中止された場合、旅ガイドは取引金額を上限として返金手続きを行うものととします。
+
+. 旅ガイド側が個別にキャンセルポリシーを定めている場合は、それを優先するものとします。
+
+
+第６条　税金の取扱い
+
+本サービスに関して旅ガイドにかかる消費税その他の税金については、旅ガイドの費用と責任でこれを負担及び処理するものとし、当社は一切関知しないものとします。
+
+
+第７条　本サービスの利用にあたっての旅ガイドの誓約事項
+
+１　旅ガイドは本サービスの利用にあたり、以下各号の内容を保証及び誓約するものとします。旅ガイドは、登録商品に登録する情報内容が正確かつ真実であることを保証するものとします。
+
+. 旅ガイドは、登録商品として情報を登録して本サービスを利用するにあたり、当該登録商品を登録する正当な権限を有することを保証し、また、この登録商品を催行する上で、登録商品が催行される国・地域の法令、日本の法令、施設や備品等の所有者その他の権利者との契約に違反していないことを保証するものとします。また、これらの者の承諾が当該法令や契約上要求されている場合は、この承諾を得たうえで本サービスを利用するものとします
+
+. 旅ガイドは、本サービスを自らの責任で利用するものであり、登録商品に情報を登録して本サービスを利用したことにより、自らの管理する施設や備品等が汚損、破壊等されたとしても、当社は一切の責任を負うものではありません
+
+. 旅ガイドは、登録商品が実施される国・地域の人や文化を重んじる姿勢であることとします
+
+２　前項各号の内容が正確又は真実ではなかったことにより、当社、会員その他の第三者が損害を被った場合は、旅ガイドはその損害の一切を賠償する義務を負うものとします。
+
+
+第８条　取引代金の払い出し
+
+1 当社は旅ガイドに対し、本サービス上で成立した取引について、催行が終了した（旅ガイドが「完了する」ボタンを押した時点。但し、旅ユーザーによるキャンセルの場合は、そのキャンセル手続完了時点。以下、「払い出し事由発生時点」）後、予約時における登録商品の対価として本サイトに掲示された取引代金から、当社が料金表に定めた利用手数料を差し引いた金額を、本サービス上で旅ガイドが指定した情報を元に、指定のPaypal口座もしくは銀行口座（日本国内に限る）に払い出すものとします
+
+2 当社による払い出し手続のタイミングについては、当月に到来した払い出し事由発生時点について、月末で締め、翌月末（同日が休業日の場合は翌営業日）までを原則とするが、各クレジットカード会社等の事情により、旅ガイドへの払い出しが遅くなる場合があり、旅ガイドは予めこれを了承するものとします
+
+3 払い出しのために要する振込手数料その他の手数料は旅ガイドが負担するものとします。なお、払い出し用の情報が登録されていない場合、旅ガイドによりかかる情報が登録され、当社における処理手続が完了するまで当社は払い出しを行う義務を負わないものとします
+                    </textarea>
+                            <textarea *ngIf="app.language != ''"  cols="30" rows="20" style="resize: none;width: 100%">
+This Terms of Service define the rights and obligations of the administration company and users (as defined in Article 2) that shall be observed. All users who intend to register for this service must read the full text of this agreement before consenting.
+
+Article 1. Application of this agreement
+This agreement is applied between the user and the administration company for all the services operated by the administration company, the user shall agree to all the following articles, including personal information protection policy and individual regulations.
+
+Article 2. Definition of terms
+The following terms used in this agreement shall apply to the meanings set forth below.
+"Members": individuals and organizations that have registered on this site and agree to these terms.
+"Travel Guide": the person who receives a reservation for a travel plan or a travel proposal from members of this site.
+"Travelers": those who make reservations for travel plans or travel requests, among the members of this site.
+"Travel plan": the service that the travel guide registered on this site provides to travelers.
+"Travel Request": a travel plan created according the traveler’s preferences.
+"Transactions": the action of reserving or modifying a travel plan or a travel request between the user and the travel guide.
+
+Article 3. Membership requirements · Membership registration process
+1 A user who has agreed to the terms stated in this agreement and has undergone the member registration procedure prescribed by the administration company shall become a member after completing the membership registration procedure.
+2 The membership registration procedures shall be carried out directly by individuals or organizations, (in the case of organizations, membership registration shall always be made under the name of individual personnel eligible for membership). Membership registration by proxy is not allowed.
+Those who have not reached the age of 18 cannot register as members on this site.
+
+4. The administration company may decline the membership request if a person applying for registration falls under any of the following:
+- if a danger of violating these terms is recognized.
+- if falsehood, mistyping or omission in the whole or a part of the registration occurs.
+- if the applicant has canceled the registration previously and wishes to apply again.
+- if the consent of the legal representative, guardian, curator or assistant of a minor has not been obtained.
+- if the operation of antisocial forces (organized crime groups, right-wing organizations) and fundraising is recognized.
+
+Article 4. Member information entry
+In the membership registration process, please enter the necessary information accurately without falsehood.
+
+Article 5. Management of passwords
+1 The members are responsible for their personal password, which shall be managed appropriately, such as periodical changes.
+2 When confirming that the entered e-mail address or password as prescribed, it is deemed that such information belong to the member only. Depending on circumstances such as theft, misappropriation, etc. or if a person other than the member has access to such information, we will not be held liable for any damage.
+
+Article 6. Changing the member registration information
+1 In the event that a change to the registered information is needed, the member shall proceed to the change procedure immediately according to the method prescribed by the administration company. However, even if a change is made, the transaction that was started before the change registration shall continue according to the information previous to the change.
+2 The administration company is not responsible for any damage caused by wrong changes made by the member.
+
+Article 7. Use of this service
+Members are permitted to use this service within the period of valid registration as a member within its purposes. The user shall not violate this agreement’s conditions specified by the administration company.
+
+Article 8. Membership cancellation
+1 When membership cancellation is needed, the administration company will promptly proceed with the member’s request in accordance with the specified method. The membership will be cancelled once the procedure has been completed.
+2 When cancelling one’s membership, if an amount etc. is yet to be paid to the member, the administration company will proceed with payment according to the method and the date determined by the conditions. Transfer fees and other expenses to be paid to financial institutions shall be borne by the member.
+
+Article 9. Warranty Disclaimer
+1 The Company provides a system for exchanging information on registered products between members and a matching system. The administration company does not assume any responsibility for legality or the accuracy of the information contents provided among the members. The administration company may provide information and advices to members as appropriate, but it is not responsible for that. Also, the Company will not become a party to the transaction and it shall not bear any liability for defect warranty liability or any other information regarding registered information.
+2 Members shall investigate whether using this service violates laws, internal rules of industry organizations etc. based on their own responsibility and costs. The administration company does not guarantee that the use of this service conforms to laws applicable to members, internal regulations of industry organizations, etc.
+3 Even if a link from this site to another website or a link from the other website to this site is provided, the administration company shall not be liable for any reason on the website other than this site and the information obtained from it.
+4 The administration company does not undertake obligation to alter or modify this service even if the equipment or software used by the member is not suitable for use of this service.
+5. The administration company shall not be liable for any damage caused by interruption, delay, cancellation, etc. of the system due to performance degradation, failure, illegal access.
+6. The administration company shall not guarantee that e-mails and web contents sent do not contain dangerous items such as computer viruses.
+7 The administration company may provide information and advice as appropriate to members, but it does not assume any obligation or responsibility.
+8 The administration Company shall not bear any costs on the facilities and communication lines necessary for members to use this service.
+9 The administration company is not responsible for any damage caused by members violating the Terms and Conditions.
+10 The administration company shall not provide any warranty, such as that the contents of the transaction made by this service meet the needs of the member, resulting useful.
+11 In addition to the above statements, the administration company is not responsible for any damage caused to members using this service. However, if the Company deliberately negligees and damages the member, it shall pay the direct and normal damages amount to the member, up to the consideration of the transaction that caused the damage. In the event that these Terms and Conditions fall under the consumer contract under Article 2, Paragraph 3 of the Consumer Contract Act (Act No. 61 of 2000), the administration company shall completely exclude its liability for damages and the provisions shall not apply.
+
+Article 10. Prohibited matter
+The following acts are prohibited when using this service.
+Acts that violate these terms, laws, regulations, that can damage, infringe, or are likely to impair the rights, honor, etc. of the administration company or a third party.
+Act of impersonating others and sending false information etc. to the administration company.
+Actions contrary to public order and morals.
+Act to transmit or dangerous computer programs, viruses, etc.
+Lending, transferring, reselling passwords to third parties.
+Multiple member registration with a single account.
+The act of solicitation to groups, services and activities that it is not related to this service
+Conducting transactions between members without passing through this service
+The act of using or notifying other member's information for purposes other than using this service without explicit consent of the member or providing it to a third party
+All other acts that the administrators deem inappropriate at their discretion.
+
+Article 11. Deleting information etc.
+1 In the event that any of the following situations occurs, the administration company shall be able to delete information posted on this website by the member through this service. In this case, members will be notified by means judged to be reasonable before or after.
+When the administration company determines that the contents of publication violate any of the provisions of this agreement, prohibited acts stipulated in this agreement.
+When the capacity of the information registered by the member exceeds the capacity specified by the administration company
+When judging that the content registered by the member is infringement of right, defamation, or an insult expression.
+When expressions of undertakings, expressions of violence, expressions contrary to public order and morality, antisocial expressions and expressions deemed inappropriate by the Company.
+2 Since all members are responsible for the information posted on the website and the administration company has no obligation to monitor or delete information according to the preceding paragraph, the administration company is not responsible for any damage suffered by the third parties.
+3. The Company shall not be liable for damages suffered by a member or a third party as a result information cancellation posted on the website through this service by a member.
+
+Article 12. Withdrawal of membership
+1 If the member falls under any of the following conditions, if the administration company determines that the member is not allowed to use this service anymore, the following measures might be undertaken: membership cancellation without notification, prohibition of re-registration, suspension of use of part of this service (or complete suspension), cancellation of transactions, etc.
+When the agreement terms, laws and regulations, including the past regulations, are violated.
+When the member uses the password or the service improperly (also through a third party).
+When false contents or lack of information is provided upon registration.
+When problems with credit card information occur.
+When cancellation of payment or impossibility of payment occur, or when there is a petition for commencement of bankruptcy proceedings, commencement of civil rehabilitation proceedings, commencement of corporate reorganization proceedings, commencement of special liquidation or commencement of similar procedures.
+When the member belongs to an organization that conducts anti-social activities, or have any relationships with such organizations.
+When the member provides information of another member to a third party without prior consent.
+When there is no response for more than 30 days to inquiries from the administration company and other contacts requesting a response.
+When the administration company states that it is not appropriate to use this service, register as a member, or continue using this service.
+When the member registration procedure is made on behalf of a third person or corporation to be a member.
+2 A Member may not request the disclosure of the reasons for the measures made under the preceding paragraph, and may not make any objections. If the member suffers damages or disadvantages, the administration company does not assume any responsibility.
+3. If the member falls under any of the previous items, the member shall immediately lose any right to receive any amount owed from the administration company and shall promptly pay all obligations to the administration company.
+
+Article 13. Suspension and abolition of service
+1 In cases where the administration company falls under any of the following grounds, the company may notify the fact on this website in advance and may suspend or abolish all or part of this service. In case of emergency, advance notice is not required.
+When maintaining or inspecting the system for providing this service on a regular or urgent basis.
+When it becomes impossible to operate this service due to emergency such as natural disaster, fire, blackout.
+When the service cannot be provided due to unauthorized access to this service from a third party, harmful computer program, etc.
+When this service cannot be provided due to measures based on laws and regulations
+In addition, when the administration company judges the service suspension as unavoidable.
+2. The administration company shall not bear any responsibility, even if damages occur to members or third parties as a result of suspension or abolition of the whole or a part of this service as stated in the preceding paragraph.
+
+Article 14. Items for which registration is prohibited
+In using this service, we will prohibit registering the following registered products.
+Contents contrary to public order and morals, or contents having such risk.
+Those that introduced contents that allow you to conduct experiencing products that are not real or those that cannot be held.
+Sponsored by persons who do not have licenses and permits, special licenses to be held, contents requiring permission
+Regulations of the country/region in which the registered product is implemented, and contents contrary to Japanese laws and regulations.
+Content that leads to dangerous behavior.
+Items that are tabooed culturally or religiously in the country/region in which the registered product is implemented.
+Obscene acts and contents corresponding to child pornography.
+Contents corresponding to prostitution.
+Contents regarding the use of drugs and narcotics such as stimulants.
+For the purpose of unhealthy encounter, or content that induces encounter.
+In addition, at the discretion of the administration company, all of the contents that we deem inappropriate.
+
+Article 15. Dispute Resolution
+1 In this site, direct transactions are established between the host and the guest regarding the registered product, in the event of a dispute between the host and the guest, both parties shall resolve. The administration company is not responsible for any dispute.
+2 In addition to the preceding paragraph, in the event that the member receives complaints from other members or other third parties in connection with the Service or a dispute arises with those persons, the member shall immediately notify the administration company of the dispute together with the expenses and responsibilities of the member. The administration company will process the complaint or dispute and report the progress and results to us in accordance with our request.
+3. In connection with the use of the Service by the Member, if the administration company receives any request from other members or other third parties for infringement or for other reasons, the Member shall notify the administration company of such third party, who will have to compensate the amount.
+
+Article 16. Preservation of Information
+1 The administration company shall have no obligation to save such information even if the message or other information transmitted or received by the member has been stored for a certain period of time for management. Also, the administration company shall be able to delete such information at any time.
+2. The administration company shall not take any responsibility for damage caused to members based on measures taken by the company under the preceding paragraph.
+
+Article 17. Rights attribution
+1 All intellectual property rights, such as copyrights, regarding the contents posted by the Company on the services provided by the administration company belong to the company unless otherwise specified and cannot be used without permission.
+2 Even if the membership is suspended or withdrawn, the rights of information previously provided shall be in accordance with the preceding paragraph.
+3 The copyright of the content posted from the member belongs to the member who posted the content. The Member may grant permission for secondary use (display, quotation, reprint, modification, resection, other modification, etc.) of these information on websites, publications, other media. In addition, the members shall not compromise the author's moral rights upon such use.
+4 The rights relationship of this service belongs to the administration company and does not give the members rights beyond the scope of use within the site regarding contents in this site.
+5 The member shall submit to the administration company the contents to be posted using this service and other transmitted content, creation/display of worldwide, non-exclusive, free of charge, sub-licensable and assignable specifications, reproduction, distribution, derivative work ·the administration company will grant a license on execution.
+(6) In the event that a third party posts copyrighted works, marks, service marks, designs, indications, etc. that have intellectual property rights such as copyright, trademark rights, design rights, etc. on services provided by the administration company, Members must acquire permission from the intellectual property holders and represent and warrant that they are obtaining such permission.
+7 Members shall not do any acts (including but not limited to disassembling, decompiling and reverse engineering) that may infringe our intellectual property rights for any reason.
+8 In the event of a problem in violation of the preceding paragraph, the member shall solve such problem in its own expense and responsibility and shall not cause any damage to the administration company.
+
+Article 18. Personal Information
+1 In accordance with a privacy policy stipulated separately, the administration company shall manage the personal information of the member and the member agrees with this.
+2 Based on the personal information of the member, the administration company may create and use statistical data in a format that cannot identify individuals.
+
+Article 19. Advertisement placement
+1 At the administration company’s own discretion, advertisements deemed appropriate for this site can be posted.
+2 The administration company is not responsible for any damage, etc. caused to members or third parties by advertisements posted on this site.
+
+Article 20. Revision of these Terms
+1 The administration company shall be able to establish a contract for arbitrarily revising or supplementing this agreement without obtaining the consent of the member.
+2. The changed terms shall be effective as of the date of posting on this website providing this Service, unless otherwise specified by the administration company.
+3 If the member uses this service after the effect of this agreement has come into force or does not take the procedure of cancellation of registration within the period specified by the administration company, the member agrees with the changed terms.
+4 Members shall not cast objections or complaints regarding the amendment or supplementation of these Terms. The administration company shall predict whether any direct or indirect damage to any member is possible, etc. by changing or adding the terms Regardless of whether it is or not, the company will not assume any responsibility.
+
+Article 21. Transfer of Rights Relations, etc.
+1 Member shall not transfer to third party information about the contractual position between the administration company and the Member or the rights or obligations under this agreement, without prior written consent of the administration company.
+ 2. In the event that the business pertaining to this service is transferred to another company, in accordance with the assignment of the business, the contractual position between the administration company and the member and the rights and obligations under this contract, shall be transferred to the assignee of the new administration party, and the member shall agree in advance in this paragraph regarding such transfer. The business transfer prescribed in this section shall include not only normal business transfer, but also any cases of company split or other business transfers.
+
+Article 22. Severability
+Even if any provision of this Agreement or any part thereof is determined to be invalid or unenforceable by the Consumer Contract Act or other laws or regulations, the remaining provisions and some of these Terms shall be invalid or unenforceable. The remainder of the provision determined to be continuous has full effect and the Company and its members make the provision or part which is invalid or unenforceable legitimate and to the extent necessary for enforcing executive power. The administration company will make efforts to ensure the effect of the invalid or unenforceable provision or part and the legal and economic equivalent effect.
+
+Article 23. Contact notification
+Inquiries concerning this service, other contacts or notifications from the members to the administration company, notices concerning the change of this agreement and other notices from the administration company to members or notices shall be made at our sole discretion.
+
+Article 24. Governing Law, Jurisdictional Court
+1 The Governing Law of this agreement shall refer to the Japanese law.
+2 Members and the administration company shall refer to the Tokyo District Court - First Instance Exclusive Agreement Jurisdiction Tribunal for litigation related to these Terms.
+
+Article 25. Company obligations and roles
+1 The administration company will strive to maintain and operate private facilities so that this service can be provided. However, the member acknowledges in advance that the service may not be available due to unforeseen circumstances.
+2. The administration company shall not be held responsible for the transfer of information directly made with other members through this service and the acts incidental thereto.
+
+Article 26. Costs and fees of this service
+1 The usage fee is as follows.
+Applicable fee is the fee separately set by the administration company in the price list.
+The company will calculate the usage fee and notify the members
+The administration company shall be able to revise and change the usage fee without consent of the member.
+If there is a revision or change in the usage fee, members will be notified.
+All charges etc. relating to this service paid by the member to the administration company shall not be refunded for any reason.
+2 For payment of usage fee etc., it is as follows.
+The payment method of usage fee and payment due date shall be announced separately on the price list or other online e-mail.
+The transfer fee and other expenses to be paid to the financial institution shall be borne by the member.
+Even if the member selects any payment method specified separately in the price list, if there is any incompleteness in the payment method, the member shall immediately notify the administration company in an appropriate manner.
+In the case where the administration company cannot confirm the fact that the amount has been deposited due to member's negligence, such as payment by members other than the method of payment designated, the company will not take any responsibility for damages suffered by members or other third parties.
+3 For rates revised, the following is assumed.
+The administration company may revise the fee without obtaining the consent of the member, and the member agrees to this.
+The revised fee structure will be deemed to be accepted by the members continuing to use this service and shall be applied.
+Individual provision for guests.
+
+Article. 1
+Regarding traveling users, in addition to these terms, this "individual provision for travelers" shall apply.
+
+Article 2. Service
+This site provides only a system for conducting transactions between a travel guide and a traveling user, it is important to provide accurate information on the information provided by the travel guide, the validity of the information, the legality of the transaction. The service does not guarantee and does not promise the success or failure of the transaction. If you are a travel guide, please do business with your traveling user at your own risk.
+
+Article 3. Establishment of Transaction
+1 When a traveling user applies for reservation for a travel plan or a suggestion plan for a travel request, he acknowledges paying the transaction fee posted on this site. The transaction is approved when the travel guide approves the application within 72 hours and the information is sent to the administration company.
+2 The credit card settlement of transactions carried out on this site shall use the services designated by the Company.
+
+Article 4. Transaction change and cancellation
+1 In case the established transaction is canceled, the traveling user may bear the cancellation fee according to the cancellation policy specified by the company according to the timing of cancellation. For details, please check cancellation policy.
+2 The administration company is not obligated to concretely investigate whether the circumstances of cancellation depend on the circumstances of travel guide or circumstances of traveling user, the party who carried out the cancellation procedure through this service is a traveling user or a travel guide will be investigated.
+The cancellation policy shall be applied depending on the existence, and in response to individual circumstances, it will be resolved by discussion between the travel guide and the traveling user, and we will not take any responsibility for this.
+3 In case of refund of transaction fee due to cancellation or cancellation of transaction etc., after the completion of the procedure by the traveling user by the method specified by the administration company, in principle the administration company will make a refund procedure within 30 business days. Due to circumstances, refunds to traveling users may be delayed, and traveling users will acknowledge it in advance. In addition, the traveling user shall bear the commission (5%) related to the refund.
+4 The traveling user agrees in advance that the travel guide may cancel the transaction through this service even after the transaction is established, and the administration company cannot demand damages against the company concerning this in advance.
+5 In the event that a member has suffered damage caused by the travel guide, the member needs to prove damages suffered from the travel guide from the travel user beyond the transaction fee in the transaction that caused the damage. In any case, the travel company is not obliged to take measures to recover damages for damages caused to travelers other than the contents specified in the cancellation policy.
+
+Article 5. Treatment of Tax
+Regarding this service, consumption taxes and other taxes on traveling users will be borne and handled by traveling user's expenses and responsibilities, and we do not take any responsibility.
+
+Article 6. Prohibition of assignment and resale
+1 Transfer or resale of rights, obligations and contractual positions based on established transactions to a third party is prohibited.
+2 In the event that the Company determines that the acts set forth in the preceding paragraph are being conducted or is likely to be conducted, the transaction may be invalid and refund of the transaction fee may not be accepted.
+3. The Company shall not bear any responsibility for the rights and obligations based on the transaction established by the member and the problem in the case of assigning or reselling the contractual position of the transaction.
+
+Article 7. Traveling User's Pledge Matters in Using the Service
+Travel users understand that they use this service at their own risk and cannot pursue the accuracy of information on registered products and liability for warranty against defects to the administration company.
+To use the registered products provided by traveling guests in an appropriate way and judgment on social norms.
+To comply with the conditions presented by the travel guide (including but not limited to the rules specified by the travel guide on this website) in the course of the registration of the registered products provided by travel guests.
+In carrying out the registered goods provided by the travel guide, do not bring out possession of the travel guide without permission, dirty, destroy, etc.
+In the event that the contents are not accurate or true and the administration company, a member or any other third party suffered damage, the traveling user is obliged to compensate for all the damage.
+
+For travel guides
+Article 1
+Regarding travel guides, in addition to this agreement, this section statements shall apply.
+
+Article 2 Service
+1 This site provides connection between travel guides and travelers, based on the accuracy and the truthfulness of the information provided by members, adequacy of transaction contents, legality. The service does not guarantee and does not promise the success or failure of the transaction.
+2 Please make a transaction with travelers on your own responsibility.
+3 All the registered products provided by this service are created by the travel guides on their own responsibility and the administration company are not responsible for the contents of it.
+4 The payment of the consumption tax from the total reservation amount is responsibility of the travel guide.
+5 When a travel guide creates a registered product on this service, it shall comply with the consideration of the transaction and other rules set by the administration company in this site.
+
+Article 3. Account suspension for a specific travel guide
+1 In the event that the account of a specific travel guide falls under any of the following items, the administration company may suspend the use of services of the travel guide, cancel his/her membership, suspend transactions or invalidate without prior notice.
+When judged to be in violation of the laws of the country/region in which the registered product is implemented (Japan).
+When there is a fraudulent act or concern regarding the use of this service.
+When judgment is made for the purpose of solicitation of a specific religion/philosophy.
+When content that is tabooed culturally or religiously in the country/region where the registered product is implemented is published.
+When contents contrary to public order and morals are registered, such as for obscene acts, sexual acts, discrimination acts, etc.
+When it is judged that it belongs to an antisocial power or an organization conducting antisocial activities or has a relationship with them.
+In addition, based on its own discretion, when the administration company judges the content as not appropriate.
+2. In accordance with the preceding paragraph, the administration assumes no responsibility if any damage or the like occurs in the travel guide.
+
+Article 4. Review of travel guide
+1 When a member who joins the service creates a registered product, the administration company may review the registration information of the travel guide based on this agreement.
+2 In addition, the registered information will be deleted if it is found to be against this Agreement.
+3 For deletion of registered information, the administration company shall not reply individually about the reasons.
+
+Article 5. Change / Cancel of Transaction
+In the event that the transaction is canceled by the traveling user, the cancellation fee may be charged to the traveling user in accordance with the cancellation policy separately specified by the administration company according to the timing of the cancellation.
+The administration company is not responsible for payment of cancellation fee to travel guide by traveling user.
+As a general rule, travel guides cannot be canceled after the establishment of a transaction. However, it can be canceled by the method specified in this service only before the registration product is executed.
+The administration company shall not be obligated to concretely investigate whether the circumstances of cancellation depend on the circumstances of the travel guide or the circumstances of the traveling user.
+The cancellation policy shall apply when the administration company shall perform cancellation procedures through this service and we will resolve the correspondence according to individual circumstances by talks between travel guide and travel user, the administration company shall not be responsible for anything.
+The travel guide in advance acknowledges that the traveling user may cancel the transaction before the execution of the registered product through this service beforehand even after the transaction is established. In this case damages against the company won’t be attributable.
+Travel guide who suffered damage due caused by the traveler due to canceling the transaction, those who cannot demand damages for travelers more than the transaction fee in the transaction which caused the damage will do.
+In any case, the administration company is not obliged to take measures to recover damages suffered by the travel guide besides the contents specified in the cancellation policy.
+In the event that the implementation of registered goods is canceled due to weather conditions,   natural disasters and other unavoidable circumstances, the travel guide shall make a refund procedure up to the transaction amount.
+If the travel guide side separately specifies a cancellation policy, it shall take precedence.
+
+Article 6. Treatment of Tax
+Regarding this service, consumption tax and other taxes on the travel guide will be borne and handled by the expense and responsibility of the travel guide and shall not be regarded by the administration company at all.
+
+Article 7. Pledged matter of travel guide in using this service
+1 Travel Guide guarantees and pledges the contents of the following items in using this service. The travel guide shall ensure that the information content to be registered in the registered product is accurate and true.
+When registering information as a registered product and using this service, the travel guide shall guarantee that he/she has legitimate authority to register the registered product, and when the registered product is held by the registered product, the administration company shall guarantee that we do not violate the laws and regulations of the countries and areas to be done, the laws and ordinances of Japan, the owner of facilities and furniture etc. and other rights holders. In addition, in the case where the consent of these persons is requested under the relevant laws and regulations, the administration company will use this service with this consent
+The travel guide is to use this service at its own risk, and even if facilities, equipment etc. managed by himself/herself are contaminated, destroyed etc. by registering information on registered goods and using this service, the administration company shall not assume any responsibility.
+The travel guide shall assume the attitude of respecting the people and culture of the countries/areas where the registered products are implemented.
+2 In the event that the Company, a member or any other third party suffered damages due to the fact that the contents of each item of the preceding paragraph was not accurate or true, the travel guide shall be obliged to compensate for all the damage.
+
+Article 8. Payment of transaction fee
+1 For the transaction system established by the Service, when the performance has been completed (when the travel guide pushes the "Complete" button, or, in the case of cancellation by the traveling user, when the cancellation procedure (Hereinafter referred to as the "time of occurrence of a payout event"), after the transaction fee posted on this website as compensation for the registered product at the time of booking, travel fee on this service less the 	fee Based on the information specified by the guide shall be paid out to the designated Paypal account or bank account (limited to Japan).
+2 As for the timing of the payout procedure, the payout event for the current month is closed at the end of the month and as a general rule from the end of the next month (the next business day if the same day is a holiday), each credit card company etc. Depending on the circumstances, payment to the travel guide may be delayed, and the travel guide will acknowledge it beforehand
+3 The travel guide will bear the transfer fee and other fee required for payout. If information for payment is not registered, such information will be registered by the travel guide and the administration company will not be obligated to pay out until the processing procedure at our company is completed.
+                            </textarea>
+                        </section>
+                        <div class="form-set__checks u-text-center">
+                            <input type="checkbox" name="check-privacy" value="カテゴリー" checked="" id="check-privacy">
+                            <label for="check-privacy" class="checkbox">{{'「ガイド規約」に同意して、提案プランを作成する。'|ttrans}}</label>
+                            <small style="margin-top: 15px;" class="msg_err" *ngIf="checkedError != ''">{{checkedError|ttrans}}</small>
+                        </div>
+                        <div class="form-set__button">
+                            <input type="submit" class="btn--primary" (click)="confirmData()" value="{{'F13_提案プラン確認'|ttrans}}"  />
+                        </div>
+                    </div>
+                    <div class="content__foot">
+                        <a [routerLink]="['/'+languageName+'/request/detail/'+request_id]" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F13_旅リクエスト詳細'|ttrans}} {{request.title}} {{'F13_に戻る'|ttrans}}</a>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </section>
+</div>

@@ -1,0 +1,149 @@
+<div id="sb-site">
+    <div class="mypage" *ngIf="data && data.formPlan">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/proposal_plan']">{{'F62_提案プラン一覧'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/proposal_plan/edit/'+data.formPlan.id]">{{'F64_再プラン提案入力'|ttrans}}</a></li>
+                <li><span >{{'F65_再プラン提案確認'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'提案プラン再提出完了'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title">{{data.titleRequest}}</h3>
+
+                        <div class="mypage__body__box">
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">{{'F64_リクエストNO'|ttrans}}</th>
+                                    <td><p>{{request.request_id | addFixedId : 'R'}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F64_実施 リクエスト日'|ttrans}}</th>
+                                    <td *ngIf="weekday_request"><p>{{request.date_plan|datex:'YYYY/MM/DD'}} ({{weekday_request|ttrans}})</p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'提案プラン詳細'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title">{{data.formPlan.proposal_title}}</h3>
+
+                        <div class="mypage__body__box">
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">{{'F63_提案NO'|ttrans}}</th>
+                                    <td><p>{{request.request_id|addFixedId: 'R'}}-{{data.formPlan.id*1|addFixedId:''}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F63_提案日時'|ttrans}}</th>
+                                    <td *ngIf="weekday_created_at"><p>{{data.created_at|datex:'YYYY/MM/DD'}} ({{weekday_created_at|ttrans}})</p></td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F64_提案プラン内容'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.formPlan.content}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F65_実施日'|ttrans}}</th>
+                                    <td *ngIf="weekday"><p>{{data.formPlan.date_plan|datex:'YYYY/MM/DD'}} ({{weekday|ttrans}})</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F45_F47_開始時間'|ttrans}}</th>
+                                    <td>
+                                        <ul>
+                                            <li *ngFor="let item of timeStart">{{item.time_start}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F63_実施時間'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.formPlan.time_request|formatHour}}h</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F64_希望金額'|ttrans}}</th>
+                                    <td>
+                                        <p>
+                                            <span>{{'単価'|ttrans}}</span>
+                                            <span>{{'¥'|ttrans}}</span>
+                                            <span class="is-strong">{{data.formPlan.price|numberFormat }}</span>
+                                            ×
+                                            <span>{{'人数'|ttrans}}</span>
+                                            <span class="is-strong">{{data.formPlan.num_people}}</span>
+                                            <span>{{'名'|ttrans}} = </span>
+                                            <span>{{'合計'|ttrans}}</span>
+                                            <span>{{'¥'|ttrans}}</span>
+                                            <span class="is-emphasis">{{data.formPlan.price*data.formPlan.num_people|numberFormat}}</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'集合場所'|ttrans}}</th>
+                                    <td><p>{{data.prefectureText}} {{data.formPlan.address_meeting}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'その他'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.formPlan.other}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F64_リクエスト様へのメッセージ'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.message}}</pre>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+                            <div class="form-set__button">
+                                <input type="submit" class="btn--primary" (click)="save()" value="{{'F65_提出確認'|ttrans}}">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/proposal_plan/edit/'+data.formPlan.id]" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F65_提案プラン詳細へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

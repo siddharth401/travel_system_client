@@ -1,0 +1,148 @@
+.suggest{
+	&__box{
+		border: 1px solid #ccc;
+		background: #fff;
+		padding: 0 30px;
+		margin-bottom: $base_margin;
+		@include for-size(phone-only) {
+			margin: 0 20px;
+		}
+	}
+	&__head{
+		padding: 40px 0px;
+		text-align: center;
+		@include font-size(26,34);
+		font-weight: bold;
+		border-bottom: 1px solid #ccc;
+		@include for-size(phone-only) {
+			padding: 20px 0px;
+			@include font-size(16,24);
+		}
+	}
+	&__body{
+		padding: 40px 0;
+		@include for-size(phone-only) {
+			padding: 20px 0px 0;
+		}
+	}
+	&__thanks-title{
+		@include font-size(24,43);
+		font-weight: 600;
+		text-align: center;
+		margin-bottom: 55px;
+		@include for-size(phone-only) {
+			@include font-size(14,23);
+			margin-bottom: 20px;
+			br{display: none;}
+		}
+	}
+	&__text{
+		@include font-size(16,26);
+		text-align: center;
+		margin-bottom: $base_margin;
+		@include for-size(phone-only) {
+			@include font-size(12,22);
+			br{display: none;}
+		}
+	}
+	&__thanks{
+		padding: 0px 0 0px;
+		@include for-size(phone-only) {
+			padding: 20px 0 20px;
+		}
+	}
+	&__foot{
+		text-align: center;
+		width: 600px;
+		margin: 0 auto;
+		@include for-size(phone-only) {
+			width: 100%;
+			padding: 20px;
+			box-sizing: border-box;
+		}
+		a{
+			display: block;
+			height: 55px;
+			@include font-size(16,55);
+			@include for-size(phone-only) {
+				height: 45px;
+				@include font-size(16,45);
+			}
+		}
+	}
+}
+.suggest{
+	&__note{
+		margin: 0 auto;
+		width: 325px;
+		@include for-size(phone-only) {
+			width: 100%;
+		}
+		&-head{
+			position: relative;
+			text-align: center;
+			margin-bottom: 20px;
+			@include font-size(18,18);
+			position: relative;
+			@include for-size(phone-only) {
+				margin-bottom: 10px;
+				@include font-size(14,14);
+			}
+			&:after {
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				background: #ccc;
+				z-index: 0;
+				content: "";
+			}
+		}
+		&-title{
+			background: #fff;
+			display: inline-block;
+			padding: 10px;
+			position: relative;
+			z-index: 10;
+		}
+		&-list{
+			padding: 0 70px;
+			text-align: left;
+			@include font-size(14,14);
+			@include for-size(phone-only) {
+				padding: 0 35px;
+				@include font-size(12,12);
+			}
+			li{
+				a{
+					color: #333;
+					text-decoration: none;
+					position: relative;
+
+					&:hover{
+						color: $accent_color;
+						text-decoration: underline;
+					}
+					&:before{
+						display: block;
+						position: absolute;
+						top: 50%;
+						left: -20px;
+						width: 7px;
+						height: 7px;
+						margin-top: -4px;
+						border-top: solid 2px $accent_color;
+						border-right: solid 2px $accent_color;
+						-webkit-transform: rotate(45deg);
+						transform: rotate(45deg);
+						content: "";
+					}
+				}
+			}
+			li+li{margin-top: 10px;}
+		}
+	}
+}
+

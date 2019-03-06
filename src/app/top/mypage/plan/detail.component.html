@@ -1,0 +1,278 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/plan']">{{'F47_旅プラン一覧'|ttrans}}</a></li>
+                <li><span >{{data.proposal_title}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <!--<div class="mypage__body__title&#45;&#45;box-shoulder">-->
+                                <!--<div class="form-set form-set__select form-set&#45;&#45;inline">-->
+                                    <!--<select name="plan-lang" id="plan-lang" (change)="selectPlan()">-->
+                                        <!--<option *ngFor="let item of listLanguage|list " [value]="item.key" [selected]="item.key == language_id" >{{item.value|ttrans}}</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <h2 class="mypage__body__title--02">{{'F49_旅プラン詳細'|ttrans}}</h2>
+                        </div>
+
+                        <div class="mypage__body__align--center">
+                            <p><button type="button" class="btn--primary btn__mypage" (click)="settingCalendar();">{{'募集日設定'|ttrans}}</button></p>
+                        </div>
+
+                        <h3 class="mypage__body__title">{{data.proposal_title}}</h3>
+
+                        <div class="mypage__body__block">
+
+                            <table class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th class="title-lang">{{'掲載言語'|ttrans}}</th>
+                                    <td  class="language-plan">
+                                        <button class="btn-lang" [id]="item.value" value="{{item.key}}" [class.active]="item.key == is_active" type="button" *ngFor="let item of listLanguage|list" (click)="selectPlan(item.key,item.value)" >
+                                            <i *ngIf="language_add.indexOf(item.value) == -1" class="fa fa-plus-square" aria-hidden="true"></i> {{item.value|ttrans}}
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'プランID'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.id*1|addFixedId: 'G'}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'カテゴリー'|ttrans}}</th>
+                                    <td>
+                                        <ul class="category">
+                                            <li *ngFor="let item of data.categories"><a href="javascript:void(0);" style="background: #7cb342">{{item.name}}</a></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'プランイメージ'|ttrans}}</th>
+                                    <td>
+                                        <ul>
+                                           <li *ngFor="let item of data.images">
+                                                <img [attr.src]="item.image ? app.constant.FILE_URL+item.image : '/assets/top/img/noimage.png'"  alt="">
+                                           </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'対応言語'|ttrans}}</th>
+                                    <td>
+                                        <ul class="list-item">
+                                            <li *ngFor="let item of data.languages">{{item.name}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F49_所要時間'|ttrans}}</th>
+                                    <td>
+                                        <p>{{time_request|formatHour}}h</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F49_開始時間'|ttrans}}</th>
+                                    <td>
+                                        <ul class="list-item">
+                                            <li *ngFor="let item of time_start">{{item.hour}}{{'時'|ttrans}}{{item.min}}{{'分'|ttrans}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'予約時間制限'|ttrans}}</th>
+                                    <td>
+                                        <p>{{app.constant.Guider.time_apply_text[data.time_apply] |ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'価格'|ttrans}}</th>
+                                    <td>
+                                        <p>{{'¥'|ttrans}}{{data.price}}{{'/1人'|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'食事'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.meal}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'人数'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.min_people}}{{'F30_F35_人'|ttrans}}～{{data.max_people}}{{'F30_F35_人'|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'申込期限'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="language_id == app.constant.TRUE">{{'実施日から'}}{{data.num_before_deadline}}{{'日'}}</p>
+                                        <p *ngIf="language_id != app.constant.TRUE && data.num_before_deadline == app.constant.TRUE">{{data.num_before_deadline}} {{'day before activity'}}</p>
+                                        <p *ngIf="language_id != app.constant.TRUE && data.num_before_deadline != app.constant.TRUE">{{data.num_before_deadline}} {{'days before activity'}}</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>{{'参加条件'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.participation_case}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅プラン内容'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.content}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅ガイドの準備物'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.guide_perparation}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F49_旅ユーザー推奨'|ttrans}}<br>{{'F49_服装＆準備物'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.guest_perparation}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'その他'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.other}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'集合場所'|ttrans}}</th>
+                                    <td>
+                                        <p>{{countryName}} {{prefecture}} {{data.address_meeting}}</p>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <th>{{'地図'|ttrans}}</th>
+                                    <td>
+                                        <div class="plan-detail__map" *ngIf="addressMap">
+                                            <iframe frameborder="0" style="border:0" [src]="addressMap|safe" allowfullscreen></iframe>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'口コミ'|ttrans}}</th>
+                                    <td>
+                                        <p><a [routerLink]="['/'+languageName+'/mypage/plan/review/'+data.id]" (click)="reviewPlan()">{{data.reviews_count}}</a></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'ステータス'|ttrans}}</th>
+                                    <td *ngIf="data.status == app.constant.GuiderStatus.APPROVAL_REQUEST"><button type="button" class="btn--primary btn__mypage btn__mypage--waiting btn__mypage--icon" >{{'F48_申請中'|ttrans}}</button></td>
+                                    <td *ngIf="data.status == app.constant.GuiderStatus.PUBLIC_OFFERING"><button type="button" class="btn--primary btn__mypage btn__mypage--on btn__mypage--icon" >{{'F48_募集中'|ttrans}}</button></td>
+                                    <td *ngIf="data.status == app.constant.GuiderStatus.STOP_PUBLIC"><button type="button" class="btn--primary btn__mypage btn__mypage--off btn__mypage--icon" >{{'F48_募集停止'|ttrans}}</button></td>
+                                    <td *ngIf="data.status == app.constant.GuiderStatus.NON_APPROVAL">
+                                        <!--<button style="background: #333;color: #fff" type="button" class="btn&#45;&#45;primary btn__mypage btn__mypage&#45;&#45;off btn__mypage&#45;&#45;icon" >{{'申請却下'|ttrans}}</button>-->
+                                        <p *ngIf="data.status == app.constant.GuiderStatus.NON_APPROVAL"><button type="button" style="background: #333;color: #fff"  class="btn--primary btn__mypage btn__mypage--icon" >{{app.constant.Guider.status[data.status]|ttrans}}</button>
+                                            <a style="margin-left: 50px;" href="javascript:void(0);" (click)="showCancel()">{{'F49_プラン申請を取り消し'|ttrans}}</a><br><br>
+                                            {{data.plan_approve.content}}
+                                        </p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="mypage__body__float--right">
+                                <p><a href="javascript:void(0);" type="button" (click)="goToEditPopup()" class="btn--primary btn__mypage btn__mypage--waiting" disabled="">{{'旅プランを修正'|ttrans}}</a></p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/plan']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'プラン一覧へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal-dialog modal-dialog-cancel">
+        <div class="modal-content-cancel">
+            <div class="modal-header-cancel">
+                <button type="button" class="btn btn-default close" (click)="cancel_modal()" id="close_modal" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body-cancel">
+
+                <!--<textarea name="" disabled class="mypage__body__textarea modal-body__text" rows="8" ></textarea>-->
+                <!--<h2 style="text-align: center; font-size: 2rem">{{'登録変更確認'|ttrans}}</h2>-->
+                <!--<td></td>-->
+
+
+            </div>
+            <div class="modal-footer-cancel">
+                <!--<p style="text-align: center">{{'お断りすると、戻せなくなりますのでご注意ください。'|ttrans}}</p>-->
+                <p>
+                    {{'本当に、プラン申請を取り消ししますか？取り消しした場合には、作成中のプランは消えますのでご注意ください。'|ttrans}}</p>
+                <div class="btn__inner-cancel">
+                    <button class="cancel" data-dismiss="modal" (click)="cancel_modal()">{{'キャンセル'|ttrans}}</button>
+                    <button class="submit" data-dismiss="modal" (click)="calcelPLan()">{{'OK'|ttrans}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal-dialog modal-dialog-edit-status-other">
+        <div class="modal-content-cancel">
+            <div class="modal-header-cancel">
+                <button type="button" class="btn btn-default close" (click)="cancel_modal_edit_other()" id="close_modal" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body-cancel">
+
+                <!--<textarea name="" disabled class="mypage__body__textarea modal-body__text" rows="8" ></textarea>-->
+                <h2 *ngIf="data.status == app.constant.GuiderStatus.PUBLIC_OFFERING || data.status == app.constant.GuiderStatus.STOP_PUBLIC" style="text-align: center; font-size: 2rem">{{'プランを修正した場合は、再度管理者の承認が必要となります。'|ttrans}}</h2>
+                <h2 *ngIf="data.status == app.constant.GuiderStatus.NON_APPROVAL || data.status == app.constant.GuiderStatus.APPROVAL_REQUEST"style="text-align: center; font-size: 2rem">{{'プランを修正して、再度申請をいたします。'|ttrans}}</h2>
+                <!--<td></td>-->
+
+
+            </div>
+            <div class="modal-footer-cancel">
+                <p *ngIf="data.status == app.constant.GuiderStatus.PUBLIC_OFFERING || data.status == app.constant.GuiderStatus.STOP_PUBLIC" style="text-align: center">
+                    {{'注意:'|ttrans}}
+                    {{'承認があるまでは、現在のプランでの募集となります。'|ttrans}}
+                    {{'また、すでに予約があった分に関しては現状のプランでの受付となりますのでご注意ください。'|ttrans}}</p>
+                <div class="btn__inner-cancel">
+                    <!--<button class="cancel" data-dismiss="modal" (click)="cancel_modal_edit_other()">{{'キャンセル'|ttrans}}</button>-->
+                    <button class="submit" data-dismiss="modal" (click)="goToEditlPLan()">{{'F49_プランを修正する'|ttrans}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

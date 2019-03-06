@@ -1,0 +1,12 @@
+.show-target{
+    display: inline;
+}
+.hide-target{
+    display: none;
+}
+.tab__list a {
+    cursor: pointer;
+}
+.about__flow {
+    align-items: baseline;
+}

@@ -1,0 +1,25 @@
+.btn-block{
+	text-align: center;
+	width: 600px;
+	margin: 0 auto 40px;
+	@include for-size(phone-only) {
+		padding: 20px;
+		width: auto;
+		margin: 0 0 0px;
+	}
+	a{
+		display: block;
+		width: 600px;
+		height: 70px;
+		color: #fff;
+		text-align: center;
+		text-decoration: none;
+		@include font-size(20,70);
+		@include for-size(phone-only) {
+			width: 100%;
+			box-sizing: border-box;
+			height: 45px;
+			@include font-size(16,45);
+		}
+	}
+}

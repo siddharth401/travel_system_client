@@ -1,0 +1,13 @@
+.btn--primary{
+    text-align: center;
+}
+.modal {
+    background: url("../../../../assets/top/img/bg_modal.png");
+    background-size: cover;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}

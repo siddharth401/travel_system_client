@@ -1,0 +1,15 @@
+.list--style {
+    max-width: 200px;
+    overflow: hidden;
+}
+.list--style a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    line-height: 28px;
+}
+.mypage__body__table-compact tbody tr td:first-child {
+    text-align: center;
+}
+

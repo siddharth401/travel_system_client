@@ -1,0 +1,6 @@
+.guide-score{
+	@include flexbox(flex-start,center);
+	&--start{
+		@include flexbox(flex-start,center);
+	}
+}

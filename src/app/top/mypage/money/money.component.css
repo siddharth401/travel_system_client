@@ -1,0 +1,100 @@
+.mypage__body__block__money__body {
+    position: relative;
+    margin-bottom: 50px;
+}
+.mypage__body__float--left {
+    position: absolute;
+    top:50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+.mypage__body__btn {
+    width:60px;
+    height: 60px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.mypage__body__btn i {
+    font-size: 19px;
+}
+.mypage__body__float--left i {
+    margin-right: 5px;
+}
+.mypage__body__float--right i {
+    margin-left: 5px;
+}
+.mypage__body__float--left a {
+    position: absolute;
+    top: 20px;
+    color: #fff;
+    left: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+.mypage__body__float--right {
+    position: absolute;
+    top:50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+.mypage__body__float--right a {
+    position: absolute;
+    top: 20px;
+    color: #fff;
+    right: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+.mypage__body__block__money__title {
+    text-align: center;
+    margin: 30px 0 30px;
+    font-size: 2.4rem;
+    font-weight: bold;
+}
+.mypage__body__block__money__list {
+    border-top: 1px solid #ccc;
+    margin: 0 154px;
+}
+.mypage__body__block__money__list__item {
+    width: 50%;
+    display: inline-block;
+    padding: 15px 10px;
+}
+.mypage__body__block__money__list__item:first-child {
+    border-right: 1px solid #ccc;
+    text-align: center;
+}
+.mypage__body__block__money__text {
+    font-size: 1.8rem;
+    text-align: center;
+}
+.mypage__body__btn span {
+    color: #fff;
+    position: absolute;
+    top: 19px;
+    left: 9px;
+}
+@media (max-width: 767px) {
+    .mypage__body__btn {
+        width: 45px;
+        height: 45px;
+    }
+    .mypage__body__btn span {
+        top: 13px;
+        left: 4px;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+    }
+    .mypage__body__block__money__list {
+        display: flex;
+        margin: 35px 55px;
+    }
+}

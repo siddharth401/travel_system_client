@@ -1,0 +1,79 @@
+<div class="mypage">
+    <div class="breadcrumb mypage__breadcrumb">
+        <i></i>
+        <ul class="breadcrumb__list">
+            <li><a [routerLink]="['/' + language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+            <li><a [routerLink]="['/' + language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+            <li>{{'F28_旅のリクエスト一覧'|ttrans}}</li>
+        </ul>
+    </div>
+    <!--/.breadcrumb -->
+    <div class="mypage__container mypage__flex">
+        <top-mypage-menu></top-mypage-menu>
+        <div class="mypage__content">
+            <top-mypage-head></top-mypage-head>
+
+            <div class="mypage__body">
+
+
+
+                <div class="mypage__body__section">
+
+                    <div class="mypage__body__title--box">
+                        <div class="mypage__body__title--box-shoulder">
+                            <button type="button" class="btn--primary btn__mypage btn__mypage--request" [routerLink]='["/" + language + "/mypage/request/add/"]'>{{'F28_旅リクエスト作成'|ttrans}}</button>
+                        </div>
+                        <h2 class="mypage__body__title--02 mypage__body__title--normal">{{'旅リクエスト一覧'|ttrans}}</h2>
+                    </div>
+
+                    <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-compact">
+                        <thead>
+                        <tr>
+                            <th scope="col">{{'実施日'|ttrans}}</th>
+                            <th scope="col">{{'募集締切'|ttrans}}</th>
+                            <th scope="col">{{'リクエスト内容'|ttrans}}</th>
+                            <th scope="col">{{'提案数'|ttrans}}</th>
+                            <th scope="col">{{'メッセージ'|ttrans}}</th>
+                            <th scope="col">{{'ステータス'|ttrans}}</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngIf="requests && requests.total > 0">
+                            <tr *ngFor="let item of requests.data">
+                                <td data-title="{{'実施日'|ttrans}}"><span *ngIf="item.date_plan">{{item.date_plan|datex: "YYYY/MM/DD"}}</span></td>
+                                <td data-title="{{'募集締切'|ttrans}}"><span *ngIf="item.date_end">{{item.date_end|datex: "YYYY/MM/DD"}}</span></td>
+                                <td data-title="{{'リクエスト内容'|ttrans}}"><a class="mypage__body__table-compact__link" [routerLink]='["/" + language + "/mypage/request/detail/" + item.id]' data-toggle="tooltip" title="{{item.desc}}">{{item.desc|limit:20}}</a></td>
+                                <td data-title="{{'提案数'|ttrans}}" class="mypage__body__table-compact__txt mypage__body__align--center">
+                                    <i class="ct ct-zero ct-none" *ngIf="item.num_suggestions == null || item.num_suggestions == 0">0</i>
+                                    <i class="ct ct-none" *ngIf="item.num_suggestions && item.num_suggestions > 0">{{item.num_suggestions}}</i>
+                                </td>
+                                <td data-title="{{'メッセージ'|ttrans}}" class="mypage__body__align--center">
+                                    <i class="ct ct-zero" *ngIf="item.chats_count == null || item.chats_count == 0">0</i>
+                                    <i class="ct" *ngIf="item.chats_count > 0">{{item.chats_count}}</i>
+                                </td>
+                                <td data-title="{{'ステータス'|ttrans}}">
+                                    <button type="button" *ngIf="item.status == app.constant.RECRUITING_REQUEST" class="btn--primary btn__mypage btn__mypage--on btn__mypage--icon">{{'F28_募集中'|ttrans}}</button>
+                                    <button type="button" *ngIf="item.status == app.constant.UNDER_NEGOTIATION" class="btn&#45;&#45;primary btn__mypage btn__mypage&#45;&#45;negotiation btn__mypage&#45;&#45;icon">{{'F28_交渉中'|ttrans}}</button>
+                                    <button type="button" *ngIf="item.status == app.constant.IMPLEMENT_WAITING" class="btn&#45;&#45;primary btn__mypage btn__mypage&#45;&#45;waiting btn__mypage&#45;&#45;icon">{{'F28_実施待ち'|ttrans}}</button>
+                                    <button type="button" *ngIf="item.status == app.constant.REQUEST_CLOSED" class="btn&#45;&#45;primary btn__mypage btn__mypage&#45;&#45;off btn__mypage&#45;&#45;icon" disabled>{{'F28_募集終了'|ttrans}}</button>
+                                    <button type="button" *ngIf="item.status == app.constant.IMPLEMENTED" class="btn&#45;&#45;primary btn__mypage btn__mypage&#45;&#45;off btn__mypage&#45;&#45;icon" disabled>{{'F28_実施済み'|ttrans}}</button>
+                                    <button type="button" *ngIf="item.status == app.constant.CANCEL" class="btn&#45;&#45;primary btn__mypage btn__mypage&#45;&#45;cancel btn__mypage&#45;&#45;icon">{{'F28_キャンセル'|ttrans}}</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="requests && requests.total == 0">
+                        <tr>
+                            <td class="not-data" colspan="6">{{'データがございません'|ttrans}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <layout-loadmore  *ngIf="requests && requests.total > 10" [data]="requests" [url]="'mypage/requests'"></layout-loadmore>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

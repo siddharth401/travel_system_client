@@ -1,0 +1,423 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="[['HOME'|trans, '/admin/home'],['Booking management'|trans, '/admin/booking'],[(fb.isNew?'Add':'Booking detail')|trans]]" icon="plus-square"
+                            class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-sm-12">
+                <h2 class="booking-management">{{'Booking management'|trans}}</h2>
+                <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false"
+                     data-widget-editbutton="false" role="widget">
+                    <header role="heading">
+                        <div class="jarviswidget-ctrls" role="menu">
+                            <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip"
+                               title="" data-placement="bottom" data-original-title="Fullscreen"><i
+                                    class="fa fa-expand"></i></a>
+                        </div>
+                        <span class="widget-icon"> <i class="fa fa-pencil-square-o"></i> </span>
+                        <h2>{{'Booking detail'|trans}}</h2>
+                    </header>
+
+                    <div role="content">
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body">
+                            <form [formGroup]="fb.form" class="form-horizontal" *ngIf="fb.form.value">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'NO'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">{{fb.form.value['id']|addFixedId: "Y"}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"><strong>{{'Booking content'|trans}}</strong></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Reservation date'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">{{fb.form.value['created_at']|datex: "YYYY/MM/DD"}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Guider plan'|trans}}</label>
+                                    <div class="col-md-8" *ngIf="fb.form.value['plans']">
+                                        <label class="control-label" *ngFor="let item of fb.form.value['plans']['plan_translates']; let i = index;">
+                                            <a [routerLink]='["/admin/plan/form/",item.plan_id,1]'
+                                               target="_blank" *ngIf="i == 0">{{item.proposal_title}}</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Experience date'|trans}}/{{'Time start'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">
+                                            <span class="date_actual" *ngIf="fb.form.value['date_actual']">{{fb.form.value['date_actual']|datex: "YYYY/MM/DD"}}</span>
+                                            <span *ngIf="fb.form.value['plans']">{{fb.form.value['plans']['time_start']}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Meeting place'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label>{{fb.form.value['address']}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Guider'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label"
+                                               *ngIf="fb.form.value['plans'] && listGuiders[fb.form.value['plans']['member_id']]">
+                                            <a [routerLink]='["/admin/members/form/",fb.form.value["plans"]["member_id"]]'
+                                               target="_blank">{{listGuiders[fb.form.value['plans']['member_id']]}}</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!--This is information booking and message of booking content-->
+                                <div class="form-group">
+                                    <div class="bottom-information-message">
+                                        <button class="btn btn-primary" id="information-button"
+                                                (click)="clickButton(1)"><i class="fa"></i> {{'Information'|trans}}
+                                        </button>
+                                        <button class="btn btn-default" id="message-button" (click)="clickButton(2)"><i
+                                                class="fa"></i> {{'Message'|trans}}
+                                        </button>
+                                    </div>
+                                    <!--This is content information booking-->
+                                    <div class="col-md-12" id="content-information">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'F014_Name'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label">
+                                                        <a *ngIf="fb.form.value['members']['name']" [routerLink]='["/admin/members/form/",fb.form.value["member_id"]]'
+                                                           target="_blank">{{fb.form.value['members']['name']}}</a>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Customer name'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label" *ngIf="fb.form.value['customer_name']">{{fb.form.value['customer_name']}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Gender'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label"
+                                                           *ngIf="fb.form.value['gender'] && app.constant.User.gender[fb.form.value['gender']]">{{app.constant.User.gender[fb.form.value['gender']]|trans}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Email'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label" *ngIf="fb.form.value['members']">{{fb.form.value['members']['email']}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Customer email'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label" *ngIf="fb.form.value['email']">{{fb.form.value['email']}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Telephone'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label"><span *ngIf="app.constant.CountryCallingCodes[fb.form.value['phone_code']]">{{app.constant.CountryCallingCodes[fb.form.value['phone_code']]}}</span>{{fb.form.value['phone']}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Country'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label"
+                                                           *ngIf="fb.form.value['country_id'] && listCountries[fb.form.value['country_id']]">{{listCountries[fb.form.value['country_id']]}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" *ngIf="fb.form.value['country_id'] == app.constant.COUNTRY_DEFAULT">
+                                                <label class="col-md-2 control-label">{{'Prefecture'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label"
+                                                           *ngIf="fb.form.value['prefecture_id'] && listPrefecture[fb.form.value['prefecture_id']]">{{listPrefecture[fb.form.value['prefecture_id']]}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Address'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label" *ngIf="fb.form.value['customer_address']">{{fb.form.value['customer_address']}}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Talkable languages'|trans}}</label>
+                                                <div class="col-md-8" *ngIf="listLanguages">
+                                                    <label class="control-label" *ngIf="fb.form.value['customer_languages']">
+                                                        <span *ngFor="let item of fb.form.value['customer_languages']" class="guider_languages">{{listLanguages[item.language_id]|trans}}</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label"><strong>{{'Implementation status'|trans}}</strong></label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Implementation state'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <div class="text-status">
+                                                        <span *ngIf="fb.form.value['status'] == app.constant.REQUESTING_GUIDER">
+                                                            {{'Requesting'|trans}}
+                                                        </span>
+                                                        <span *ngIf="fb.form.value['status'] == app.constant.AFTER_EXECUTE && fb.form.value['is_already'] == app.constant.FALSE">
+                                                            {{'Before execute'|trans}}
+                                                        </span>
+                                                        <span *ngIf="fb.form.value['status'] == app.constant.AFTER_EXECUTE
+                                                        && fb.form.value['is_already'] == app.constant.TRUE">
+                                                            {{'Execute confirm'|trans}}
+                                                        </span>
+                                                        <span *ngIf="fb.form.value['status'] == app.constant.REQUEST_REVIEW || fb.form.value['status'] == app.constant.REVIEWED">{{'Executed'|trans}}</span>
+                                                        <span *ngIf="fb.form.value['status'] == app.constant.CANCEL">
+                                                            {{'Cancel'|trans}}
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <a *ngIf="fb.form.value['status'] == app.constant.REQUESTING_GUIDER
+                                                        || (fb.form.value['status'] == app.constant.AFTER_EXECUTE && fb.form.value['is_already'] == app.constant.FALSE)"
+                                                           (click)="changeStatus(fb.form.value['id'], 'status', 'Booking', app.constant.CANCEL)"
+                                                           class="btn btn-cancel">
+                                                            {{'Cancel'|trans}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{'Guider implementation state'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <div class="guider-text-status">
+                                                    <span *ngIf="fb.form.value['status'] == app.constant.REQUESTING_GUIDER
+                                                    && fb.form.value['is_already'] == app.constant.FALSE">
+                                                        {{'Before execute'|trans}}
+                                                    </span>
+                                                    <span *ngIf="fb.form.value['status'] == app.constant.AFTER_EXECUTE || fb.form.value['status'] == app.constant.REQUEST_REVIEW || fb.form.value['status'] == app.constant.REVIEWED">
+                                                        <span class="text-guider-status">{{'Execute'|trans}}</span>
+                                                        <span class="date_actual" *ngIf="fb.form.value['date_actual']">{{fb.form.value['date_actual']|datex: "YYYY/MM/DD HH:mm"}}</span>
+                                                    </span>
+                                                    <span *ngIf="fb.form.value['status'] == app.constant.CANCEL">
+                                                        <span>{{'Non-approval'|trans}}</span>
+                                                        <span class="date_actual" *ngIf="fb.form.value['date_actual']">{{fb.form.value['date_actual']|datex: "YYYY/MM/DD HH:mm"}}</span>
+                                                    </span>
+
+                                                    </div>
+                                                    <div>
+                                                        <a *ngIf="fb.form.value['status'] == app.constant.REQUESTING_GUIDER
+                                                    && fb.form.value['is_already'] == app.constant.FALSE"
+                                                           (click)="changeStatus(fb.form.value['id'], 'status', 'Booking', app.constant.AFTER_EXECUTE)" class="btn btn-approve">
+                                                            {{'Execute'|trans}}
+                                                        </a>
+                                                        <a *ngIf="fb.form.value['status'] == app.constant.REQUESTING_GUIDER
+                                                    && fb.form.value['is_already'] == app.constant.FALSE"
+                                                           (click)="changeStatus(fb.form.value['id'], 'status', 'Booking', app.constant.CANCEL)" class="btn btn-cancel">
+                                                            {{'Cancel'|trans}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--<div class="form-group" *ngIf="fb.form.value['plans'] && fb.form.value['plans']['request_id']">
+                                                <label class="col-md-2 control-label">{{'Guide approval'|trans}}</label>
+                                                <div class="col-md-8">
+                                                    <div class="text-status"><span
+                                                            *ngIf="app.constant.Booking.guider_status[fb.form.value['guider_status']]">{{app.constant.Booking.guider_status[fb.form.value['guider_status']]|trans}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <a *ngIf="app.constant.Booking.guider_status[fb.form.value['guider_status']] && fb.form.value['guider_status'] != app.constant.NOT_YET"
+                                                           (click)="changeGuiderStatus(fb.form.value['id'], 'guider_status', 'Booking', app.constant.APPROVAL)"
+                                                           class="btn btn-approve">
+                                                            {{app.constant.Booking.guider_status[app.constant.APPROVAL]|trans}}
+                                                        </a>
+                                                        <a *ngIf="app.constant.Booking.guider_status[fb.form.value['guider_status']] && fb.form.value['guider_status'] != app.constant.NOT_YET "
+                                                           (click)="changeGuiderStatus(fb.form.value['id'], 'guider_status', 'Booking', app.constant.NON_APPROVAL)"
+                                                           class="btn btn-cancel">
+                                                            {{app.constant.Booking.guider_status[app.constant.NON_APPROVAL]|trans}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                            <!--<div *ngIf="(fb.form.value['status'] == app.constant.AFTER_EXECUTE)
+                                                    && (fb.form.value['guider_status_go'] == app.constant.TRUE
+                                                    || fb.form.value['guider_status_not_go'] == app.constant.TRUE
+                                                    || fb.form.value['traveler_status_go'] == app.constant.TRUE
+                                                    || fb.form.value['traveler_status_not_go'] == app.constant.TRUE)">-->
+                                            <div *ngIf="fb.form.value['is_already'] == true && fb.form.value['status'] == app.constant.AFTER_EXECUTE || fb.form.value['status'] == app.constant.REQUEST_REVIEW || fb.form.value['status'] == app.constant.REVIEWED">
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label"><strong>{{'Approval state'|trans}}</strong></label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label">{{'User approval'|trans}}</label>
+                                                    <div class="col-md-8">
+                                                        <label class="control-label">
+                                                            <select class="form-control selection-width"
+                                                                    disabled="'disabled'">
+                                                                <option *ngIf="fb.form.value['traveler_status_go'] == app.constant.FALSE">{{'Not yet'|trans}}</option>
+                                                                <option *ngIf="fb.form.value['traveler_status_go'] == app.constant.TRUE">{{'Approval'|trans}}</option>
+                                                            </select>
+                                                        </label>
+                                                        <label>
+                                                            <a *ngIf="fb.form.value['traveler_status_not_go'] == app.constant.TRUE" class="btn btn-default btn-primary button-orange">{{'Non-approval'|trans}}</a>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label">{{'Guide approval'|trans}}</label>
+                                                    <div class="col-md-8">
+                                                        <label class="control-label">
+                                                            <select class="form-control selection-width" disabled="'disabled'">
+                                                                <option *ngIf="fb.form.value['guider_status_go'] == app.constant.FALSE">{{'Not yet'|trans}}</option>
+                                                                <option *ngIf="fb.form.value['guider_status_go'] == app.constant.TRUE">{{'Approval'|trans}}</option>
+                                                            </select>
+                                                        </label>
+                                                        <label>
+                                                            <a *ngIf="fb.form.value['guider_status_not_go'] == app.constant.TRUE" class="btn btn-default btn-primary button-orange">{{'Non-approval'|trans}}</a>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-md-2 control-label"><strong>{{'Post review'|trans}}</strong></label>
+                                                </div>
+                                                <div class="form-group" style="margin-bottom: 0;">
+                                                    <label class="col-md-2 control-label">{{'User Reviews'|trans}}</label>
+                                                    <div class="col-md-8" *ngIf="fb.form.value['booking_reviews']">
+                                                        <div class="rating text-status" *ngFor="let item of fb.form.value['booking_reviews']">
+                                                            <ul class="content-list__score">
+                                                                <li class="is-active" *ngFor=" let item of rating(item.point)">
+                                                                    <i *ngIf="item.key" class="fa fa-star" aria-hidden="true"></i>
+                                                                    <i *ngIf="!item.key" class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </li>
+                                                            </ul>
+                                                            <p *ngIf="item.point">{{item.point | number:'1.1-2'}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="fb.form.value['booking_reviews']">
+                                                    <div class="form-group">
+                                                        <div class="col-md-12" *ngFor="let item of fb.form.value['booking_reviews']; let i = index">
+                                                            <div *ngIf="item.status == app.constant.BOOKING_REVIEW_CONFIRM" class="col-md-12" style="margin-bottom: 20px">
+                                                                <label class="col-md-2 control-label"></label>
+                                                                <div class="col-md-10 booking-block">
+                                                                    <label class="control-label label-msg">
+                                                                        <pre class="pre-text">{{item.content}}</pre>
+                                                                        <div class="text-align-left">
+                                                                            <a class="btn btn-approve" (click)="changeStatusApprovalReviewBooking(item.id)">{{app.constant.Booking.guider_status[app.constant.APPROVAL]|trans}}</a>
+                                                                            <a class="btn btn-cancel"  id="btn-cancel-review-booking">{{app.constant.Booking.guider_status[app.constant.NON_APPROVAL]|trans}}</a>
+                                                                        </div>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group" *ngIf="item.status == app.constant.BOOKING_REVIEW_APPROVAL">
+                                                                <label class="col-md-2 control-label"></label>
+                                                                <div class="col-md-10 booking-block">
+                                                                    <label class="control-label label-msg">
+                                                                        <label style="margin-bottom: 10px;">{{item.content}}</label>
+                                                                    </label>
+                                                                </div>
+                                                                <label class="col-md-2 control-label">{{'Approved by Admin'|trans}}</label>
+                                                                <div class="col-md-8 content-message__style">
+                                                                    <span class="content-message__date">{{item.created_at|datex: 'YYYY/MM/DD HH:mm:ss'}}</span>
+                                                                    <div class="content-message__box content-message__box--blue">
+                                                                        {{item.content}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div *ngIf="item.status == app.constant.BOOKING_REVIEW_NON_APPROVAL" class="col-md-12" style="margin-bottom: 20px">
+                                                                <label class="col-md-2 control-label"></label>
+                                                                <div class="col-md-10 booking-block">
+                                                                    <label class="control-label label-msg">
+                                                                        <label style="margin-bottom: 10px;">{{item.content}}</label>
+                                                                    </label>
+                                                                </div>
+                                                                <label class="col-md-2 control-label">{{'Reject by Admin'|trans}}</label>
+                                                                <div class="col-md-8 content-message__style">
+                                                                    <span class="content-message__date">{{item.updated_at}}</span>
+                                                                    <div class="content-message__box content-message__box--blue"  *ngIf="item.user_comment">
+                                                                        {{item.user_comment}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12" id="user-comment" style="display: none">
+                                                                <label class="col-md-2 booking-block control-label"><span>{{'Reason of un-approved'|trans}}</span></label>
+                                                                <div class="col-md-10 booking-block">
+                                                                    <label class="control-label">
+                                                                        <textarea id="user_comment" style="margin: 0px; width: 692px; height: 141px;" cols="150" rows="8">{{item.user_comment}}</textarea>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-md-12 button-submit-review">
+                                                                    <button (click)="changeStatusNonApproveReviewBooking(item.id)" class="btn btn-primary"><i
+                                                                            class="fa"></i> {{'Register review'|trans}}
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--Guider review for user-->
+                                                <!--<div class="form-group" style="margin-bottom: 0;">
+                                                    <label class="col-md-2 control-label">{{'Guider Reviews'|trans}}</label>
+                                                    <div class="col-md-8" *ngIf="fb.form.value['member_review']">
+                                                        <div class="rating text-status">
+                                                            <ul class="content-list__score">
+                                                                <li class="is-active" *ngFor=" let item of rating(fb.form.value['member_review'].point)">
+                                                                    <i *ngIf="item.key" class="fa fa-star" aria-hidden="true"></i>
+                                                                    <i *ngIf="!item.key" class="fa fa-star-o" aria-hidden="true"></i>
+                                                                </li>
+                                                            </ul>
+                                                            <p *ngIf="fb.form.value['member_review'].point">{{fb.form.value['member_review'].point | number:'1.1-2'}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                                                <div style="margin-bottom: 0;">
+                                                    <label class="col-md-2 control-label">{{'Guider Reviews'|trans}}</label>
+                                                    <div class="form-group" *ngIf="fb.form.value['member_review']">
+                                                        <div class="col-md-8">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-10 booking-block">
+                                                                    <pre class="pre-text">{{fb.form.value['member_review'].content}}</pre>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <!--This is content list booking chats-->
+                                    <div id="content-message" style="display: none;" *ngIf="fb.form.value['booking_chats'] != []">
+                                        <div class="col-md-8 content-message__style" *ngFor="let item of fb.form.value['booking_chats']">
+                                            <div *ngIf="item.member_id == fb.form.value['member_id']">
+                                                <span class="content-message__date" *ngIf="item.created_at">{{item.created_at|datex: "YYYY/MM/DD HH:mm:ss"}}</span>
+                                                <div class="content-message__box content-message__box--blue">
+                                                    <pre class="content-message__pre-text">{{item.content}}</pre>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="item.member_id != fb.form.value['member_id']">
+                                                <span class="content-message__date content-message__date--right" *ngIf="item.created_at">{{item.created_at|datex: "YYYY/MM/DD HH:mm:ss"}}</span>
+                                                <div class="content-message__box content-message__box--orange">
+                                                    <pre class="content-message__pre-text" *ngIf="item.member_id != fb.form.value['member_id']">{{item.content}}</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12 button-back">
+                                            <button [routerLink]='["/admin/booking"]' class="btn btn-primary"><i
+                                                    class="fa"></i> {{'Back to list'|trans}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

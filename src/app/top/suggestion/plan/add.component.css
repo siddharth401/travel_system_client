@@ -1,0 +1,115 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.inner-form {
+    margin-bottom: 25px;
+}
+#plan-location-pref {
+    margin-bottom: 0;
+}
+.picker__table {
+    table-layout: auto !important;
+    text-align: center !important;
+}
+.picker__table th {
+    text-align: center !important;
+}
+.plan-text {
+    font-size: 1.7rem;
+    line-height: 2;
+
+}
+.fieldset__inner select {
+    border: none;
+}
+textarea {
+    font-size: 1.4rem !important;
+    font-size: 14px !important;
+    font-family: Arial !important;
+    line-height: 19px !important;
+}
+#plan-price {
+    margin-bottom: 10px;
+    width: 100px;
+}
+.form-set--02.form-set--02__last{
+    margin-right: 0;
+}
+.form-set__input.is-required {
+    background: #f9fbe7!important;
+}
+.form-set__select.is-required {
+    background: #f9fbe7;
+}
+
+.form-set__input:disabled {
+    background: #fff;
+}
+.form-content__form-table tbody tr th {
+    padding-right: 10px;
+}
+#plan-detail:disabled {
+    border:0;
+    padding: 0;
+}
+.form-set__textarea {
+    padding: 10px 20px;
+}
+.form-set__select select {
+    width: 100%;
+}
+.form-set__pre {
+    padding: 0;
+    height: 100%;
+    font-size: 1.4rem;
+    font-size: 14px;
+    border:0;
+}
+@media (max-width: 767px){
+    #plan-hour {
+        margin: 0;
+    }
+    .form-set--p {
+        margin: 0 8px;
+    }
+    #plan-detail {
+        overflow-y: scroll;
+    }
+    .checkbox {
+        white-space: normal;
+    }
+    .form-set__textarea {
+        padding: 10px;
+    }
+    .form-set__input {
+        font-size: 1.4rem;
+        font-size: 14px;
+    }
+    .form-set__select select {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+    .request-detail__table tbody tr th {
+        border-bottom: 0;
+    }
+    .request-detail__table tbody tr td {
+        border-bottom: 0;
+    }
+    .request-detail__table tbody tr:last-child td:nth-child(4) {
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+.price--container .form-set--02{
+    margin-right: 10px;
+}
+
+@media (max-width:767px) {
+    .form-content__form-table tbody tr th, .form-content__form-table tbody tr td {
+        display:block;
+        width:100%;
+    }
+}

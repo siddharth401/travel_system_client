@@ -1,0 +1,51 @@
+<div id="sb-site">
+    <section class="giude page-content outer">
+        <div class="guide__visual page-content__visual">
+            <h2 class="page-content__title">{{'旅ガイド一覧' | ttrans}}</h2>
+        </div>
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a href="/">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li>{{'旅ガイド一覧' | ttrans}}</li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="content-wrap">
+            <div class="content__head">
+                <h3 class="content__title">{{'旅ガイド一覧' | ttrans}}</h3>
+                <p class="content__num"><span>{{data.total}}</span> {{'件'|ttrans}}</p>
+            </div>
+            <div class="content__body">
+                <div class="review__container outer__inner">
+                    <ul class="review__list" *ngIf="data">
+                        <li *ngFor="let item of data.data">
+                            <div class="review__flex">
+                                <div class="review__photo">
+                                    <img [attr.src]="item.avatar ? FILE_URL+item.avatar : '/assets/top/img/noimage_200x200.png'" alt="">
+                                </div>
+                                <div class="review__text">
+                                    <div class="review__head">
+                                        <div>
+
+                                            <div class="flex-content">
+                                                <p class="guide-name"><a [routerLink]='["/" + language + "/guide/detail" + "/" + item.id]'><span>{{'旅ガイド' | ttrans}}：</span>{{item.nick_name}}</a></p>
+                                                <div class="guide-score--start">
+                                                        <top-star class="star" [point]="item.guider_ranking"></top-star>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <top-see-full [content]="item.introduce_plan" [id]="item.id"></top-see-full>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <layout-loadmore
+                    [data]="data"
+                    [url]="'top_guider/guider_lists'"
+            ></layout-loadmore>
+        </div>
+    </section>
+</div>

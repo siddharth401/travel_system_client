@@ -1,0 +1,258 @@
+.payment-text{
+    margin-bottom: 20px;
+}
+.msg_warning {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #f9a825;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.form-group__select {
+    height: 50px;
+}
+.plan-reserve__content .page-content__container{
+    height: 200px;
+    overflow-y: scroll;
+}
+.page-content__container{
+    margin-bottom: 0px;
+}
+#user-pref{
+    width: 200px;
+    margin-bottom: 20px;
+}
+#user-address, #request-guider {
+    width: 100%;
+    box-sizing: border-box;
+}
+#user-mail, #customer-email{
+    width: 475px;
+}
+#user-contry-num {
+    width: 75px;
+}
+#user-tel{
+    width: 400px;
+}
+#user-name{
+    width: 475px;
+}
+.plan-detail__table td{
+    word-break: break-all;
+}
+.plan-detail__table th{
+    min-width: 150px;
+}
+.star {
+    display: flex;
+}
+.form-set__select{
+    width: 475px;
+}
+#input-date, #booking-date{
+    cursor: default;
+}
+.general-error-msg {
+    display: none;
+}
+.booking-input-time{
+    width: 400px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-clip: padding-box;
+    padding: 0 20px;
+    height: 50px;
+    font-size: 1.6rem;
+}
+
+#select-number {
+    font-size: 1.6rem;
+}
+
+.msg_err_conditions {
+    margin-top: 15px;
+    margin-left: 195px;
+}
+@media (max-width: 767px) {
+    .msg_err_conditions{
+        margin-left: 0px;
+    }
+}
+.form-content__form-table tr th {
+    padding-right: 10px;
+}
+.form-content__form-table tr td textarea {
+    border: none;
+}
+.form-set__textarea {
+    border: 1px solid #ccc;
+    padding: 0 1px;
+}
+.form-set__textarea textarea {
+    margin-top: 1px;
+    font-family: "Hiragino Kaku Gothic Pro", sans-serif;
+    font-size: 14px;
+}
+.form-set__input.is-required {
+    background: #f9fbe7;
+}
+.form-set__select.is-required {
+    background: #f9fbe7;
+}
+#warning-booking-time {
+    margin: 8px 0 0;
+}
+.plan-reserve__table tbody td {
+    padding: 20px 3px;
+}
+.plan-reserve__table tbody td span {
+    word-break: break-all;
+    font-size: 2rem;
+    font-size: 20px;
+}
+.plan-reserve__table tbody td {
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+@media (max-width: 767px) {
+    .plan-reserve__table tbody td span {
+        font-size: 1.6rem;
+        font-size: 16px;
+    }
+    .plan-reserve__table tbody td {
+        font-size: 14px;
+        font-size: 1.4rem;
+    }
+}
+@media (max-width: 767px){
+    .form-group__input-date select {
+        width: 100%;
+        height: 45px;
+        font-size: 14px;
+        font-size: 1.4rem;
+        line-height: 2.8125;
+        padding: 0 10px;
+    }
+    .form-group__input-date input {
+        font-size: 14px;
+        font-size: 1.4rem;
+        padding: 0 10px;
+    }
+    .form-group__label.label-start {
+        font-size: 1.3rem;
+        font-size: 13px;
+    }
+    .plan-detail {
+        padding: 0;
+        margin: 0;
+    }
+    .plan-detail__table th {
+        min-width: 100px;
+        white-space: normal;
+    }
+    #user-pref, #customer-email, #user-name, #user-mail, #user-tel {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .u-text-center {
+        font-size: 12px;
+        font-size: 1.2rem;
+        line-height: 1.66667;
+        margin-bottom: 10px;
+    }
+    .form-set__select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .form-set__number {
+        margin-bottom: 20px;
+    }
+    .form-set__not-margin {
+        margin-top: 0;
+    }
+    .form-set__select select {
+        width: 100%;
+    }
+    #phone_code {
+        font-size: 1.2rem;
+        font-size: 12px;
+    }
+    .checkbox {
+        white-space: normal;
+    }
+    .form-group__label {
+        font-size: 1.3rem;
+        font-size: 13px;
+    }
+    .plan-reserve__table tbody td {
+        padding: 10px 3px;
+    }
+}
+.flag-list--01 li {
+    margin-right: 2px;
+}
+.content__foot {
+    padding-top: 40px;
+    border-top:1px solid #ccc;
+}
+@media (max-width: 767px) {
+    .content__foot {
+        padding-top: 20px;
+    }
+}
+.form-set--lang {
+    margin-bottom: 40px;
+}
+.form-set--lang select {
+    width: 100%;
+}
+.form-set--lang .form-set__option {
+    margin: 10px 0;
+}
+@media (max-width: 767px) {
+    .form-set--lang__item {
+        width: calc(100% - 100px);
+        margin-right: 0;
+    }
+}
+.guide {
+    margin-bottom: 40px;
+}
+@media (max-width: 767px) {
+    .guide {
+        margin-bottom: 0;
+        flex-direction: row;
+    }
+    .guide__head{
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 767px){
+    .payment__list{
+        flex-wrap: nowrap;
+    }
+    .payment__list li{
+        width: 23%;
+    }
+    .payment__list li img{
+        max-width: 100%;
+    }
+}
+@media (max-width: 767px){
+    .form-content__form-table tbody tr th,.form-content__form-table tbody tr td{
+        display: block;
+        width:100%;
+    }
+}
+ul{
+    font-size: 14px;
+}

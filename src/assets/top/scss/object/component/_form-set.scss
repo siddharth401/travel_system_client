@@ -1,0 +1,123 @@
+.form-set{
+	&__input{
+		border: 1px solid #ccc;
+		height: 55px;
+		@include font-size(14,55);
+		@include border-radius(3px);
+		padding: 0 20px;
+		box-sizing: border-box;
+		outline: none;
+		@include for-size(phone-only) {
+			height: 45px;
+			@include font-size(16,45);
+			padding: 0 10px;
+		}
+		&:focus{
+			border: 1px solid $accent_color;
+		}
+		&.is-required{
+			background: #f9fbe7;
+		}
+	}
+	&__select{
+		border: 1px solid #ccc;
+		@include border-radius(3px);
+		overflow: hidden;
+		&.is-required{
+			background: #f9fbe7;
+		}
+		select{
+			outline: none;
+			box-sizing: border-box;
+			width: 110%;
+			height: 50px;
+			padding: 0 20px;
+			@include font-size(14,55);
+			@include for-size(phone-only) {
+				height: 45px;
+				@include font-size(16,45);
+				padding: 0 10px;
+			}
+		}
+	}
+	&--02{
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 20px;
+	}
+	&--02+&--02{
+		margin-top: 0;
+		@include for-size(phone-only) {
+			margin-top: 10px;
+		}
+	}
+	&__option{
+		.js-add{
+			@include font-size(40,40);
+			color: $accent_color;
+			@include for-size(phone-only) {
+				@include font-size(35,35);
+			}
+		}
+		.js-minus{
+			@include font-size(40,40);
+			color: #ccc;
+			@include for-size(phone-only) {
+				@include font-size(35,35);
+			}
+		}
+	}
+	&__button{
+		width: 550px;
+		margin: 0 auto 60px;
+		padding-top: 40px;
+		@include for-size(phone-only) {
+			width: 100%;
+			margin: 0 auto 20px;
+			padding-top: 20px;
+		}
+		input{
+			width: 100%;
+			height: 70px;
+			@include font-size(20,20);
+			@include for-size(phone-only) {
+				height: 45px;
+				@include font-size(16,16);
+			}
+		}
+	}
+	&__radio{
+		display: none;
+	}
+	&__radio+label{
+		padding-left: 20px;
+		position:relative;
+		margin-right: 20px;
+		&:before{
+			content: "";
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 15px;
+			height: 15px;
+			border: 1px solid #999;
+			border-radius: 50%;
+		}
+	}
+	&__radio:checked + label{
+		&:after{
+			content: "";
+			display: block;
+			position: absolute;
+			top: 3px;
+			left: 3px;
+			width: 11px;
+			height: 11px;
+			background: #009a9a;
+			border-radius: 50%;
+  		}
+	}
+
+
+}

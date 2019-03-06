@@ -1,0 +1,284 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/proposal_plan']">{{'F62_提案プラン一覧'|ttrans}}</a></li>
+                <li><span >{{'F62_提案プラン詳細'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+
+                <div class="mypage__body">
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'旅リクエスト詳細'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title">{{detailRequests.title}}</h3>
+
+                        <div class="mypage__body__box">
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">{{'F64_リクエストNO'|ttrans}}</th>
+                                    <td><p>{{detailRequests.request_id |addFixedId: 'R'}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F64_実施 リクエスト日'|ttrans}}</th>
+                                    <td><p>{{detailRequests.date_plan|datex:'YYYY/MM/DD'}} ({{detailRequests.date_of_week_request_date_plan|ttrans}})</p></td>
+                                    <!--<td *ngIf="!year_request"><p></p></td>                               -->
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <div class="mypage__body__title--box-shoulder">
+                                <button type="button" class="btn--primary btn__mypage btn__mypage--contact" (click)="goToF67()">{{'旅ユーザーへ連絡'|ttrans}}</button>
+                            </div>
+                            <h2 class="mypage__body__title--02 mypage__body__title--normal">{{'提案プラン詳細'|ttrans}}</h2>
+                        </div>
+
+                        <h3 class="mypage__body__title">{{detailSuggestPlan.title}}</h3>
+
+                        <ul class="mypage__body__tab__list">
+                            <li><a href="javascript:void(0);" class="is-current">{{'提案プラン詳細'|ttrans}}</a></li>
+                            <li><a [routerLink]="['/'+languageName + '/mypage/proposal_plan/detail/'+ plan_id+'/message_input']">{{'問合せ履歴'|ttrans}}</a></li>
+                        </ul>
+
+                        <div class="mypage__body__box">
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">{{'F63_提案NO'|ttrans}}</th>
+                                    <td><p>{{detailRequests.request_id | addFixedId : 'R'}}-{{detailSuggestPlan.id | addFixedId : ''}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F63_提案日時'|ttrans}}</th>
+                                    <td><p>{{detailSuggestPlan.created_at|datex:'YYYY/MM/DD'}} ({{detailSuggestPlan.date_of_week_plan_suggest_created_at|ttrans}})</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'旅ガイド'|ttrans}}</th>
+                                    <td><p><a [routerLink]="['/'+languageName+'/guide/detail/'+detailSuggestPlan.member_id]" target="_blank">{{detailSuggestPlan.guider}}</a></p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F63_提案内容'|ttrans}}</th>
+                                    <td><pre class="pre-text">{{detailSuggestPlan.content}}</pre></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'実施日'|ttrans}}</th>
+                                    <td><p>{{detailSuggestPlan.date_plan|datex:'YYYY/MM/DD'}} ({{detailSuggestPlan.date_of_week_plan_suggest_date_plan|ttrans}})</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F45_F47_開始時間'|ttrans}}</th>
+                                    <td>
+                                        <ul >
+                                            <li *ngFor="let item of detailSuggestPlan.time_start">{{item}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F63_実施時間'|ttrans}}</th>
+                                    <td>
+                                        <p>{{detailSuggestPlan.time_request|formatHour}}h</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'料金'|ttrans}}</th>
+                                    <td><p>{{'￥'|ttrans}}{{detailSuggestPlan.price * detailSuggestPlan.num_people| numberFormat}} （{{'単価'|ttrans}} {{'￥'|ttrans}}{{detailSuggestPlan.price|numberFormat}} × {{detailSuggestPlan.num_people}} {{'F30_F35_人'|ttrans}}）</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'集合場所'|ttrans}}</th>
+                                    <td><p> {{prefectureName}} {{detailSuggestPlan.address_meeting}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'その他'|ttrans}}</th>
+                                    <!--<td><p style="word-break: break-all">{{detailSuggestPlan.other}}</p></td>-->
+                                    <td><pre class="pre-text">{{detailSuggestPlan.other}}</pre></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-set__button">
+                                <div class="form-set__button__item">
+                                    <button *ngIf="detailSuggestPlan.status == app.constant.NEGOTIATION || detailSuggestPlan.status == app.constant.PROPOSAL_COLLECTION" type="submit" class="btn--primary" (click)="goToF64()">{{'再提案'|ttrans}}</button>
+                                    <!--<input *ngIf="detailSuggestPlan.status == app.constant.NEGOTIATION || detailSuggestPlan.status == app.constant.PROPOSAL_COLLECTION" type="submit" class="btn&#45;&#45;primary" (click)="goToF64()" value="{{'再提案'|ttrans}}">-->
+                                </div>
+                                <div class="form-set__button__item">
+                                    <button *ngIf="detailSuggestPlan.status == app.constant.NEGOTIATION || detailSuggestPlan.status == app.constant.PROPOSAL_COLLECTION" type="submit" class="btn--primary" (click)="confirmCancel()">{{'取り下げ'|ttrans}}</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__box">
+
+                            <h2 class="mypage__body__title--02">{{'提案履歴'|ttrans}}</h2>
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-compact">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{{'実施日'|ttrans}}</th>
+                                    <th class="mypage__body__table__width" scope="col">{{'F30_F35_提案タイトル'|ttrans}}</th>
+                                    <th scope="col">{{'単価'|ttrans}}</th>
+                                    <th scope="col">{{'F63_金額'|ttrans}}</th>
+                                    <th class="mypage__body__table__width" scope="col">{{'F63_更新日'|ttrans}}</th>
+                                    <th scope="col">{{'ステータス'|ttrans}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let item of listSuggestPlan">
+                                    <td data-title="{{'実施日'|ttrans}}">{{item.date_plan | datex: 'YYYY/MM/DD'}}</td>
+                                    <td data-title="{{'F30_F35_提案タイトル'|ttrans}}" class="mypage__body__table-compact__txt list--style--name"><a href="javascript:void(0);" (click)="showDetail(item.id)" data-toggle="tooltip" title="{{item.proposal_title}}">{{item.proposal_title}}</a></td>
+                                    <td data-title="{{'単価'|ttrans}}" style="min-width: 100px">{{'￥'|ttrans}}{{item.price | numberFormat}}</td>
+                                    <td data-title="{{'F63_金額'|ttrans}}" style="min-width: 100px">{{'￥'|ttrans}}{{item.price * detailRequests.num_people |numberFormat}}</td>
+                                    <td data-title="{{'F63_更新日'|ttrans}}">{{item.created_at | datex: 'YYYY/MM/DD A hh:mm'}}</td>
+                                    <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 5" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--on btn__mypage--icon">{{'F62_交渉中'|ttrans}}</button></td>
+                                    <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 6" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--off btn__mypage--icon"  disabled>{{'F62_お断り'|ttrans}}</button></td>
+                                    <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 7" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--decision btn__mypage--icon" >{{'F62_決定'|ttrans}}</button></td>
+                                    <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 8" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--on btn__mypage--icon">{{'F62_提案集'|ttrans}}</button></td>
+                                    <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 9" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--cancel btn__mypage--icon" >{{'F62_キャンセル'|ttrans}}</button></td>
+
+                                </tr>
+                                </tbody>
+                                <tbody *ngIf="listSuggestPlan && listSuggestPlan.length == 0">
+                                <tr>
+                                    <td class="not-data" colspan="6">{{'データがございません。'|ttrans}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/request/detail/' + detailRequests.request_id]" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'旅リクエスト詳細{0}に戻る'|ttrans_replace:detailRequests.title}}</a>
+                    <!--<a [routerLink]="['/'+languageName+'/mypage/proposal_plan']" class="link&#45;&#45;back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F63_リクエスト一覧へ戻る'|ttrans}}</a>-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-dialog">
+        <div class="modal-content modal-content--style">
+            <div class="modal-header">
+                <a href="javascript:void(0);" (click)="close_modal()"><span class="modal-dialog__close" (click)="close_modal()">x</span></a>
+            </div>
+            <div class="modal-body">
+                <table class="form-content__form-table">
+                    <tbody>
+                    <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                        <tbody>
+                        <tr>
+                            <th scope="col">{{'F63_提案NO'|ttrans}}</th>
+                            <td><p>{{detailRequests.request_id | addFixedId : 'R'}}-{{detailSuggestPlanOther.id | addFixedId : ''}}</p></td>
+                        </tr>
+                        <!--<tr>-->
+                            <!--<th scope="col">{{'提案日時'|ttrans}}</th>-->
+                            <!--<td><p>{{detailSuggestPlanOther.date_plan | datex: 'YYYY/MM/DD'}}</p></td>-->
+                        <!--</tr>-->
+                        <tr>
+                            <th scope="col">{{'F63_提案日時'|ttrans}}</th>
+                            <td><p>{{detailSuggestPlanOther.created|datex:'YYYY/MM/DD'}} ({{detailSuggestPlanOther.date_of_week_plan_suggest_created_at|ttrans}})</p></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'旅ガイド'|ttrans}}</th>
+                            <td><p><a [routerLink]="['/'+languageName+'/guide/detail/'+detailSuggestPlan.member_id]" target="_blank">{{detailSuggestPlanOther.name}}</a></p></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'F63_提案内容'|ttrans}}</th>
+                            <td><pre class="pre-text">{{detailSuggestPlanOther.content}}</pre></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'実施日'|ttrans}}</th>
+                            <td><p>{{detailSuggestPlanOther.date_plan|datex:'YYYY/MM/DD'}} ({{detailSuggestPlanOther.date_of_week_plan_suggest_date_plan|ttrans}})</p></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'F45_F47_開始時間'|ttrans}}</th>
+                            <td>
+                                <ul>
+                                    <li *ngFor="let item of detailSuggestPlanOther.time_start">{{item}}</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'F63_実施時間'|ttrans}}</th>
+                            <td>
+                                <p>{{detailSuggestPlanOther.time_request}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'料金'|ttrans}}</th>
+                            <td><p>{{'￥'|ttrans}}{{detailSuggestPlanOther.price *  detailRequests.num_people|numberFormat}} （{{'単価'|ttrans}} {{'￥'|ttrans}}{{detailSuggestPlanOther.price}} × {{detailRequests.num_people}} {{'F30_F35_人'|ttrans}}）</p></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'集合場所'|ttrans}}</th>
+                            <td *ngIf="prefectureNameOther"><p> {{prefectureNameOther}} {{detailSuggestPlanOther.address_meeting}}</p></td>
+                            <td *ngIf="!prefectureNameOther"><p>{{detailSuggestPlanOther.address_meeting}}</p></td>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{'その他'|ttrans}}</th>
+                            <td><pre class="pre-text">{{detailSuggestPlanOther.other}}</pre></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="margin-right: 10px;" class="btn btn-default close" (click)="close_modal()" id="close_modal" data-dismiss="modal">{{'閉じる'|ttrans}}</button>
+                <!--<button type="submit" class="submit" data-dismiss="modal" (click)="close_modal()">{{'オッケー'|ttrans}}</button>-->
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="modal-dialog-cancel">
+        <div class="modal-content-cancel">
+            <div class="modal-header-cancel">
+                <button type="button" class="btn btn-default close" (click)="close_modal()" id="close_modal" data-dismiss="modal">x</button>
+            </div>
+            <h2 class="modal-header-cancel__title">{{'本当に出した提案プランを取り下げますか？'|ttrans}}</h2>
+            <div class="modal-footer-cancel">
+                <!--<p style="text-align: center">{{'お断りすると、戻せなくなりますのでご注意ください。'|ttrans}}</p>-->
+                <div class="btn__inner-cancel">
+                    <button class="cancel" data-dismiss="modal" (click)="close_modal()">{{'キャンセル'|ttrans}}</button>
+                    <button class="submit" data-dismiss="modal" (click)="calcelTaPLan()">{{'OK'|ttrans}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>
+

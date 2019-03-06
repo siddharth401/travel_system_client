@@ -1,0 +1,194 @@
+<div class="breadcrumb">
+    <ul class="breadcrumb__list">
+        <li><a [routerLink]="['/' + app.language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+        <li><a [routerLink]="['/' + app.language + '/guide/detail/' + confirmBooking.guider.guider_id]">{{confirmBooking.guider.guider_name}}</a></li>
+        <li><a [routerLink]="['/' + app.language + '/tour/detail/' + confirmBooking.booking.plan_id]">{{confirmBooking.booking.title}}</a></li>
+        <li><a [routerLink]="['/' + app.language + '/reservation/' + confirmBooking.booking.plan_id]">{{'旅プラン予約入力'|ttrans}}</a></li>
+        <li>{{'旅プラン予約確認'|ttrans}}</li>
+    </ul>
+</div>
+<!--/.breadcrumb -->
+<nav class="reservation__flow flow-content">
+    <ul class="flow-content__list">
+        {{page}}
+        <li class="flow-content__item">{{'予約者情報入力'|ttrans}}</li>
+        <li class="flow-content__item flow-content__item--current">{{'予約者情報確認'|ttrans}}</li>
+        <li class="flow-content__item">{{'カード決済'|ttrans}}</li>
+        <li class="flow-content__item">{{'旅プラン予約完了'|ttrans}}</li>
+    </ul>
+</nav>
+<!-- /.reservation__flow flow-content -->
+<section class="plan-reserve page-content outer" *ngIf="confirmBooking">
+    <div class="outer__inner">
+        <div class="plan-reserve__box">
+            <div class="plan-reserve__head">
+                <h2 class="plan-reserve__title">{{confirmBooking.booking.title}}</h2>
+            </div>
+            <div class="plan-reserve__body">
+                <div class="plan-reserve__flex flex-content">
+                    <div class="flex-content__item--50">
+                        <div class="form-group">
+                            <div class="form-group__item">
+                                <p class="form-group__label label-date is-require">{{'実施日Hon'|ttrans}}</p>
+                                <p class="form-group__text"><span *ngIf="confirmBooking.booking.date">{{confirmBooking.booking.date|datex: "YYYY/MM/DD"}}（{{date_str|ttrans}}）</span></p>
+                            </div>
+                            <div class="form-group__item">
+                                <p class="form-group__label label-start">{{'開始時間Hon'|ttrans}}</p>
+                                <p class="form-group__text">{{confirmBooking.booking.hour}}</p>
+                            </div>
+                            <div class="form-group__item">
+                                <p class="form-group__label label-start">{{'参加人数Hon'|ttrans}}</p>
+                                <p class="form-group__text">{{confirmBooking.booking.number_people}}{{'名'|ttrans}}</p>
+                            </div>
+                        </div>
+                        <table class="plan-reserve__table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{'基本料金'|ttrans}}</th>
+                                <th></th>
+                                <th>{{'人数'|ttrans}}</th>
+                                <th></th>
+                                <th>{{'合計金額'|ttrans}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="label-sm">{{'プラン料金Hon'|ttrans}}</td>
+                                <td>¥<span>{{confirmBooking.booking.amount/confirmBooking.booking.number_people|numberFormat}}</span></td>
+                                <td>×</td>
+                                <td>{{confirmBooking.booking.number_people}}{{'名'|ttrans}}</td>
+                                <td>=</td>
+                                <td>¥<span>{{confirmBooking.booking.amount|numberFormat}}</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="flex-content__item--50">
+                        <div class="guide">
+                            <div class="guide__photo"><img [attr.src]="confirmBooking.guider && confirmBooking.guider.guider_avatar ? app.constant.FILE_URL+confirmBooking.guider.guider_avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                            <div class="guide__text">
+                                <div class="guide__head">
+                                    <div>
+                                        <p class="guide-name"><span>{{'旅ガイド'|ttrans}}：</span>{{confirmBooking.guider.guider_nick_name}}</p>
+                                        <div class="guide-score">
+                                            <top-star class="star" [point]="confirmBooking.guider.guider_rating"></top-star>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-detail">
+                            <table class="plan-detail__table">
+                                <tbody>
+                                <tr>
+                                    <th>{{'F03_旅ガイド言語'|ttrans}}</th>
+                                    <td>
+                                        <ul class="flag-list--01 flag-list--inner">
+                                            <li *ngFor="let item of confirmBooking.guider.guider_languages">
+                                                <img [attr.src]="item.icon ? app.constant.FILE_URL+item.icon : 'assets/top/img/flag03.svg'" alt="{{item.name}}">
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F03_所要時間'|ttrans}}</th>
+                                    <td>{{confirmBooking.guider.plan_time_request|formatHour}}h</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'食事'|ttrans}}</th>
+                                    <td>{{confirmBooking.guider.plan_meal}}</td>
+                                </tr>
+                                <!--<tr>
+                                    <th>{{'参加条件'|ttrans}}</th>
+                                    <td>{{confirmBooking.guider.plan_participation_case}}</td>
+                                </tr>-->
+                                <tr>
+                                    <th>{{'集合場所'|ttrans}}</th>
+                                    <td><span *ngIf="confirmBooking.country && confirmBooking.country.name">{{confirmBooking.country.name}}, </span><span *ngIf="confirmBooking.city && confirmBooking.city.name">{{confirmBooking.city.name}}, </span><span>{{confirmBooking.booking.address_meeting}}</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="form-content content outer" *ngIf="confirmBooking && confirmBooking.member">
+    <div class="outer__inner">
+        <div class="content__head">
+            <h3 class="content__title">{{'予約代表者情報'|ttrans}}</h3>
+        </div>
+        <div class="content__body">
+            <table class="form-content__form-table--02">
+                <tbody>
+                <tr>
+                    <th>{{'F04_名前Hon'|ttrans}}</th>
+                    <td>{{confirmBooking.member.name}}</td>
+                </tr>
+                <tr>
+                    <th>{{'性別'|ttrans}}</th>
+                    <td><span *ngIf="app.constant.User.gender[confirmBooking.member.gender]">{{app.constant.User.gender[confirmBooking.member.gender]|ttrans}}</span></td>
+                </tr>
+                <tr>
+                    <th>{{'連絡先'|ttrans}}</th>
+                    <td><span *ngIf="app.constant.CountryCallingCodes[confirmBooking.member.phone_code]">{{app.constant.CountryCallingCodes[confirmBooking.member.phone_code]|ttrans}}</span>{{confirmBooking.member.phone}}</td>
+                </tr>
+                <tr>
+                    <th>{{'メールアドレス'|ttrans}}</th>
+                    <td>{{confirmBooking.member.email}}</td>
+                </tr>
+                <tr>
+                    <th>{{'国Hon'|ttrans}}</th>
+                    <td>
+                        <span *ngIf="listCountry">{{listCountry[confirmBooking.member.country_id]}}</span>
+                        <span *ngIf="listPrefecture && confirmBooking.member.country_id == app.constant.COUNTRY_DEFAULT">{{listPrefecture[confirmBooking.member.prefecture_id]}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{'住所'|ttrans}}</th>
+                    <td>{{confirmBooking.member.address}}</td>
+                </tr>
+                <tr>
+                    <th>{{'話せる言語'|ttrans}}</th>
+                    <td *ngIf="listLanguage"><p class="languageSupport" *ngFor="let item of confirmBooking.member.languages">{{listLanguage[item.language_id]|ttrans}} </p></td>
+                </tr>
+                <tr>
+                    <th>{{'メルマガ'|ttrans}}</th>
+                    <td>
+                        <span *ngIf="confirmBooking.member.mail_magazine_option == app.constant.Send">{{'マッチングガイドからのお知らせを受け取る'|ttrans}}</span>
+                        <span *ngIf="confirmBooking.member.mail_magazine_option == app.constant.Not_Send">{{'受け取らない'|ttrans}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{'Other requirement to guider'|ttrans}}</th>
+                    <td>
+                        <pre class="content__body__pre">{{confirmBooking.booking.request_guider}}</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{'メールアドレス２'|ttrans}}</th>
+                    <td>
+                        {{confirmBooking.member.customer_email}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>{{'登録更新'|ttrans}}</th>
+                    <td>
+                        <span *ngIf="confirmBooking.member.is_update_profile == app.constant.TRUE">{{'する'|ttrans}}</span>
+                        <span *ngIf="confirmBooking.member.is_update_profile == app.constant.FALSE">{{'しない'|ttrans}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="form-set__button">
+                <input  (click)="payment()" type="submit" class="btn--primary" value="{{'決済へ進む'|ttrans}}" />
+            </div>
+        </div>
+        <div class="content__foot">
+            <a [routerLink]='["/" + app.language + "/reservation/"+confirmBooking.booking.plan_id]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'予約者情報に戻る'|ttrans}}</a>
+        </div>
+    </div>
+</section>

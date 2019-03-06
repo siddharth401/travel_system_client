@@ -1,0 +1,52 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a href="/">トップ</a></li>
+                <li><a href="/mypage/">マイページ</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">キャンセル処理完了</h2>
+
+                        <h3 class="mypage__body__title">{{booking_name}}</h3>
+
+                        <div class="mypage__body__block">
+
+                            <div class="mypage__body__block__caution">
+
+                                <h4 class="mypage__body__block__caution__title">キャンセル処理が完了しました。</h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]='["/" + language + "/mypage/apply"]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>応募一覧へ戻る</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

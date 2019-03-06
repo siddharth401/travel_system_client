@@ -1,0 +1,94 @@
+<div id="sb-site">
+    <section class="cancelpolicy page-content outer">
+        <div  class="cancelpolicy__visual page-content__visual">
+            <h2 class="page-content__title">{{'F75_キャンセルポリシー'|ttrans}}</h2>
+        </div>
+        <!--/.search__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a href="/">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a href="/cancelpolicy/">{{'F75_キャンセルポリシー'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div *ngIf="app.language != 'en'" class="outer__inner">
+            <div class="page-content__container">
+                <section class="cancelpolicy__block">
+                    <p>プランのキャンセルされる場合には、下記キャンセルポリシーが適用となります。</p>
+                    <table class="cancelpolicy__table">
+                        <tbody>
+                        <tr>
+                            <th>プラン実施日の8日前まで</th>
+                            <td>0％</td>
+                        </tr>
+                        <tr>
+                            <th>7日前～2日前まで</th>
+                            <td>30％</td>
+                        </tr>
+                        <tr>
+                            <th>前日</th>
+                            <td>40％</td>
+                        </tr>
+                        <tr>
+                            <th>当日プラン実施前まで</th>
+                            <td>50％</td>
+                        </tr>
+                        <tr>
+                            <th>プラン実施時間後</th>
+                            <td>100％</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <ul class="list--astarisk">
+                        <li>※返金手数料はお客様のご負担になりますのでご了承ください。</li>
+                        <li>※キャンセル可能期間については、日本時間で計算されます。</li>
+                    </ul>
+                    <div class="cancelpolicy__box">
+                        <h3 class="cancelpolicy__title">＜キャンセル方法＞</h3>
+                        <p>マイページから、該当のプランの「詳細」ボタンを押し、ページ下部にある「キャンセルする」ボタンからキャンセルをすることができます。予約リクエストする際には、必ずキャンセル規定をご確認ください。</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div *ngIf="app.language == 'en'" class="outer__inner">
+            <div class="page-content__container">
+                <section class="cancelpolicy__block">
+                    <p>In the case of cancellation of the plan, the following cancellation policy is applicable.</p>
+                    <table class="cancelpolicy__table">
+                        <tbody>
+                        <tr>
+                            <th>Up to 8 days before the day of travel</th>
+                            <td>0％</td>
+                        </tr>
+                        <tr>
+                            <th>7 days to 2 days before the day of travel</th>
+                            <td>30％</td>
+                        </tr>
+                        <tr>
+                            <th>Previous day</th>
+                            <td>40％</td>
+                        </tr>
+                        <tr>
+                            <th>On the day of the plan (before start time)</th>
+                            <td>50％</td>
+                        </tr>
+                        <tr>
+                            <th>After travel plan execution time</th>
+                            <td>100％</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <ul class="list--astarisk">
+                        <li>※ Please understand that refund fee will be borne by the customer.</li>
+                        <li>※ Cancellation period is calculated in Japan time (JST).</li>
+                    </ul>
+                    <div class="cancelpolicy__box">
+                        <h3 class="cancelpolicy__title">＜Cancellation method＞</h3>
+                        <p>From “My Page”, you will see a "cancel" button at the bottom of the page. Please click on it to cancel. Be sure to check the cancellation policy while making a reservation request.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+    <!--#include virtual="/inc/footer.html" -->
+</div>

@@ -1,0 +1,55 @@
+<div id="sb-site">
+    <section class="reservation page-content outer form-end">
+        <div style="background: url(assets/top/img/visual_suggest.png);" class="reservation__visual page-content__visual">
+            <h2 class="page-content__title">{{'F33_提案プラン予約確認'|ttrans}}</h2>
+        </div>
+        <!--/.search__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/request']">{{'F30_F35_旅のリクエスト一覧'|ttrans}}</a></li>
+                <li *ngIf="request_id"><a [routerLink]="['/'+languageName+'/mypage/request/detail/'+request_id]">{{request_title}}</a></li>
+                <li *ngIf="plan_id && plan_title"><a [routerLink]="['/'+languageName+'/mypage/suggestion/detail/'+plan_id]">{{plan_title}}</a></li>
+                <li><span >{{'F33_メッセージ送信完了'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+
+        <nav class="reservation__flow flow-content">
+            <ul class="flow-content__list">
+                <li class="flow-content__item">{{'F31_予約者情報入力'|ttrans}}</li>
+                <li class="flow-content__item">{{'F31_予約者情報確認'|ttrans}}</li>
+                <li class="flow-content__item">{{'F31_カード決済'|ttrans}}</li>
+                <li class="flow-content__item flow-content__item--current">{{'F31_旅プラン予約完了'|ttrans}}</li>
+            </ul>
+        </nav>
+        <!-- /.reservation__flow flow-content -->
+        <form action="">
+            <section class="plan-reserve page-content outer">
+                <div class="outer__inner">
+                    <div class="plan-reserve__box">
+                        <div class="plan-reserve__head">
+                            <h2 class="mypage__body__title--02" *ngIf="plan_title">{{plan_title}}</h2>
+                        </div>
+                        <div class="plan-reserve__body">
+                            <h3 class="mypage__body__title--03">{{'この度は、マッチングガイドのご利用ありがとうございました。'|ttrans}}<br>{{'旅ガイドへ申込を完了しました。'|ttrans}}</h3>
+                            <p class="mypage__body__text mypage__body__align--center">{{'後日、旅ガイドより2日以内に、'|ttrans}}<br>{{'提案プランの確定の連絡のない場合は'|ttrans}}</p>
+                            <div class="form-set__button">
+                                <input type="submit" class="btn--primary" (click)="goToF30()" value="{{'旅ガイドへ連絡する'|ttrans}}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="form-content content outer">
+                <div class="outer__inner">
+                    <div class="content__foot">
+                        <a [routerLink]='["/" + app.language]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F33_マイページＴＯＰに戻る'|ttrans}}</a>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </section>
+    <!--#include virtual="/inc/footer.html" -->
+</div>

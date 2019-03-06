@@ -1,0 +1,556 @@
+<div id="sb-site">
+    <section class="usage page-content outer">
+        <div  class="usage__visual page-content__visual">
+            <h2 class="page-content__title">{{'F70_マッチングガイドの使い方'|ttrans}}</h2>
+        </div>
+        <!--/.search__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a href="/">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a href="/usage/">{{'使い方説明'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div *ngIf="app.language == ''" class="outer__inner">
+            <div class="usage__block">
+                <ul class="usage__anchor">
+                    <li><a href="javascript:void (0);" class="usage__anchor--01" (click)="usage01()">旅ユーザーとしてプランを<br/>予約・参加する</a></li>
+                    <li><a href="javascript:void (0);" class="usage__anchor--02" (click)="usage02()">旅ユーザーとして<br/>旅リクエストを登録する</a></li>
+                    <li><a href="javascript:void (0);" class="usage__anchor--03" (click)="usage03()">旅ガイドとして<br/>旅プランを提供する</a></li>
+                    <li><a href="javascript:void (0);" class="usage__anchor--04" (click)="usage04()">旅リクエストに応えてみる</a></li>
+                </ul>
+
+                <section id="usage01" class="usage__content ">
+                    <h3 class="usage__title">旅ユーザーとしてプランを予約・参加する</h3>
+                    <ul class="usage__step--01 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage01.png" alt="自分好みの旅プランを探しましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="STEP1">自分好みの<br/>旅プランを探しましょう</h4>
+                                    <p>
+                                        マッチングガイドには、その土地や体験をよく知っている地元の方などが作る様々な旅プランが登録されています。気になるプランがあったら、旅ガイドに問い合わせてみたり、お気に入り登録して後で再度見る事も可能です。もし気に入った旅プランが見つからなかったら、自分で旅リクエストを作成し、旅ガイドの提案を待つこともできます。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage02.png" alt="予約してみましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="STEP2">予約してみましょう</h4>
+                                    <p>体験したい旅プランが見つかったら「予約リクエスト」をしましょう。<br/>予約リクエストを行うと旅ガイドに承認依頼が送られるので、承認をお待ちください。予約リクエストから2日たっても旅ガイドからの承認がない場合は、事務局にご連絡をお願いいたします。
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage03.png" alt="予約の確定"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="STEP3">予約の確定</h4>
+                                    <p>
+                                        予約リクエストから２日以内に旅ガイドが承認作業を行い、旅ガイドが承認すると、メールでお知らせが届きます。体験当日までに質問があれば、旅ガイドにマイページからメッセージで連絡することもできます。 </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage04.png" alt="いよいよ当日！"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="STEP4">いよいよ当日！</h4>
+                                    <p>当日は、指定の時間に集合場所で旅ガイドと会い、あなただけの体験をお楽しみください。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="必ず実施承認をしましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="STEP5">必ず実施承認を<br/>しましょう。</h4>
+                                    <p>無事プランが実施・体験されたら7日以内に実施承認を行いましょう。<br/>もし7日以内に承認されなかった場合、自動承認となります。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="ガイドをレビューしてみましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="STEP6">ガイドをレビューしてみましょう</h4>
+                                    <p>楽しかった思い出を元に旅ガイドのレビューをしてみましょう。<br/>あなたの楽しい思い出を伝えることで、同様のプラン体験をしたい人が出てくるかも。 </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section id="usage02" class="usage__content">
+                    <h3 class="usage__title">旅ユーザーとして旅リクエストを登録する</h3>
+                    <ul class="usage__step--02 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage07.png" alt="旅リクエストの作成"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP1">旅リクエストの作成</h4>
+                                    <p>もし旅プランの中から気に入ったプランがなかったら、自分で行きたい場所や体験したいことなどを書いて旅リクエストを登録してみましょう。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage08.png" alt="旅リクエストへの提案"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP2">旅リクエストへの提案</h4>
+                                    <p>
+                                        あなたの旅リクエストを見た旅ガイドが、希望を反映した提案プランを送ってくれます。質問や変えてほしいことなどがあったら、メッセージを送って希望も伝えてみましょう。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage09.png" alt="提案への予約"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP3">提案への予約</h4>
+                                    <p>提案プランや金額が気に入ったら予約リクエストをしましょう。旅ガイドも確認して予約が確定となります。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage10.png" alt="いよいよ当日！"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP4">いよいよ当日！</h4>
+                                    <p>当日は、指定の時間に集合場所で旅ガイドと会い、あなただけの体験をお楽しみください。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="必ず実施承認をしましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP5">必ず実施承認を<br/>しましょう。</h4>
+                                    <p>無事プランが実施・体験されたら7日以内に実施承認を行いましょう。<br/>もし7日以内に承認されなかった場合、自動承認となります。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="予約の確定"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP6">ガイドをレビューしてみましょう</h4>
+                                    <p>楽しかった思い出を元に旅ガイドのレビューをしてみましょう。<br/>あなたの楽しい思い出を伝えることで、同様のプラン体験をしたい人が出てくるかも。 </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section id="usage03" class="usage__content">
+                    <h3 class="usage__title">旅ガイドとして旅プランを提供する</h3>
+                    <ul class="usage__step--03 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage11.png" alt="あなたが案内したい旅プランを作りましょう">
+                                </div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="STEP1">あなたが案内したい<br/>旅プランを作りましょう</h4>
+                                    <p>
+                                        旅ユーザーにあなたが案内したい街や体験してほしい旅プランをつくりましょう。マイページの「ガイドプラン作成」から、旅プランの内容・写真・所要時間・料金などを入力しましょう。あなたの魅力が伝わり、旅ユーザが参加してみたいと思う旅プランにしてみてください。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage02.png" alt="予約リクエストの承認"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="STEP2">予約リクエストの承認</h4>
+                                    <p>
+                                        旅ユーザーからの予約はマイページの「ガイド管理画面」内の「応募一覧」に入りますので、予約内容を確認し、2日以内に承認してください。旅ユーザーに質問や事前に伝えたいことなどがあればメッセージで連絡を取り合うことができます。 </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage04.png" alt="旅プランの実施"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="STEP3">旅プランの実施</h4>
+                                    <p>
+                                        当日は、案内した時間に集合場所で旅ユーザーをお出迎えください。急な連絡が入るかもしれないので、登録している携帯電話も忘れずに。旅ユーザーと一緒にあなたも素敵な時間を楽しみながら案内してください。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="実施承認をする"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="STEP4">実施承認をする</h4>
+                                    <p>無事プランの案内終了したら、実施承認をしてください。旅ユーザーも実施承認をしたら決済が行われます。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="旅ユーザーをレビュー"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="STEP5">旅ユーザーをレビュー</h4>
+                                    <p>体験が終わったら、旅ユーザーのレビューを書いて、お礼と楽しかった時間を振り返ってみてください。</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section id="usage04" class="usage__content">
+                    <h3 class="usage__title">旅リクエストに応えてみる</h3>
+                    <ul class="usage__step--04 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage01.png" alt="応えられる旅リクエストを探す"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="STEP1">応えられる<br/>旅リクエストを探す</h4>
+                                    <p>
+                                        旅ユーザーは既に登録されている旅プランではなく、自分のしたいことをまとめた旅リクエストを登録することがあります。そんな旅リクエスト一覧から自分ができると思うものを探してみましょう。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage02.png" alt="リクエストに対する提案プランをつくる"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="STEP2">リクエストに対する<br/>提案プランをつくる</h4>
+                                    <p>
+                                        旅リクエストに対し、行程を組み立てたり、予算や日時などを記載して提案プランを作成し、提案してみてください。旅ユーザーから提案プランについて質問や問合せがきますので、返事をしましょう。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage09.png" alt="予約確定"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="STEP3">予約確定</h4>
+                                    <p>あなたの提案プランを旅ユーザーが気に入ったら、旅ユーザーから予約が入ります。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage04.png" alt="旅プランの実施"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="STEP4">旅プランの実施</h4>
+                                    <p>
+                                        当日は、案内した時間に集合場所で旅ユーザーをお出迎えください。急な連絡が入るかもしれないので、登録している携帯電話も忘れずに。旅ユーザーと一緒にあなたも素敵な時間を楽しみながら案内してください。
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="実施承認をする"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="STEP5">実施承認をする</h4>
+                                    <p>無事プランの案内終了したら、実施承認をしてください。旅ユーザーも実施承認をしたら決済が行われます。</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="旅ユーザーをレビュー"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="STEP6">旅ユーザーをレビュー</h4>
+                                    <p>体験が終わったら、旅ユーザーのレビューを書いて、お礼と楽しかった時間を振り返ってみてください。</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+            </div>
+        </div>
+        <div *ngIf="app.language != ''" class="outer__inner">
+            <div class="usage__block">
+                <ul class="usage__anchor">
+                    <li><a href="javascript:void (0);" class="usage__anchor--01" (click)="usage01()">Book and participate in a Travel plan as a Travel user</a></li>
+                    <li><a href="javascript:void (0);" class="usage__anchor--02" (click)="usage02()">Register a travel request as a travel user</a></li>
+                    <li><a href="javascript:void (0);" class="usage__anchor--03" (click)="usage03()">Propose a travel plan as a travel guide</a></li>
+                    <li><a href="javascript:void (0);" class="usage__anchor--04" (click)="usage04()">Respond to a travel request</a></li>
+                </ul>
+
+                <section id="usage01" class="usage__content">
+                    <h3 class="usage__title">Book and participate in a Travel plan as a Travel user</h3>
+                    <ul class="usage__step--01 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage01.png" alt="自分好みの旅プランを探しましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="Step 1:">Let's find a Travel plan that you like.</h4>
+                                    <p>
+                                        There are several travel plans registered on the matching site, all created by locals living in the area or those who are proficient with getting around the city.
+                                        If you are interested in a plan, you simply get in touch with the guide for more information.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage02.png" alt="予約してみましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="Step 2:">Lets reserve.</h4>
+                                    <p>Make a reservation if you find a Travel that you would like to participate in.
+                                        When you make a reservation, it sent for approval to the guide, please wait for a while for the request to be approved.
+                                        If there is no approval form the travel guide after 2 days from the reservation request, please contact our office.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage03.png" alt="予約の確定"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="Step 3:">Confirm your reservation</h4>
+                                    <p>
+                                        Once the trarvel guide approves your request within two days, you will receive an email notification.
+                                        If you have any questions regarding the plan or need any clarifications, contact the guide directly via our internal messenger.  </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage04.png" alt="いよいよ当日！"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="Step 4:"> The day of Travel!</h4>
+                                    <p>On the day of Travel plan, meet your Travel guide at the designated meeting place and time and get started!</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="必ず実施承認をしましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="Step 5:">Confirm the completion of Travel</h4>
+                                    <p>Please confirm that the Travel plan was executed as planned within 7 days post travel date. If not, it will be automatically approved after 7 days. </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="予約の確定"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--01" data-step="Step 6:">Let's review the guide</h4>
+                                    <p>If you think the guide was helpful/useful, please leave a review so that other travelers can experience the same hospitality as you did. </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section id="usage02" class="usage__content">
+                    <h3 class="usage__title">Register a travel request as a travel user</h3>
+                    <ul class="usage__step--02 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage07.png" alt="Make a travel request"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP1">Make a travel request</h4>
+                                    <p>If you are unable to find a travel plan you like, create a Travel request based on where you would like to go and what you would like to do.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage08.png" alt="Suggesting for a travel request"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP2">Suggesting for a travel request</h4>
+                                    <p>
+                                        A travel guide who sees your request will send you a suggestion plan as per the locations you wish to go. If you have any questions or want changes in the plan, you can simply send a message. </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage09.png" alt="Reserving a proposal"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="STEP3">Reserving a proposal</h4>
+                                    <p>Make a reservation request if you like the proposed plan and okay with the price.
+                                        The Travel guide will confirm the plan as well and the reservation will be confirmed. </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage10.png" alt="いよいよ当日！"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="Step 4:">The day of travel!</h4>
+                                    <p>On the day of Travel plan, meet your Travel guide at the designated meeting place and time and get started!
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="必ず実施承認をしましょう"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="Step 5:">Confirm the completion of Travel</h4>
+                                    <p>Please confirm that the Travel plan was executed as planned within 7 days post travel date. If not, it will be automatically approved after 7 days.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="予約の確定"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--02" data-step="Step 6:">Let's review the guide</h4>
+                                    <p>If you think the guide was helpful/useful, please leave a review so that other travelers can experience the same hospitality as you did.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section id="usage03" class="usage__content">
+                    <h3 class="usage__title">Propose a travel plan as a travel guide
+                    </h3>
+                    <ul class="usage__step--03 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage11.png" alt="あなたが案内したい旅プランを作りましょう">
+                                </div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="Step 1:">Make a travel plan that you would like to guide.</h4>
+                                    <p>
+                                        Create a travel plan that travel users can choose to experience or visit.
+                                        From the "Create guide plan" option on "my page", enter the plan details like contents of the trip, photograph, required time, the price etc;
+                                        Make your travel plan sound as exciting as possible. </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage02.png" alt="予約リクエストの承認"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="Step 2:">Approve the reservation request</h4>
+                                    <p>
+                                        Reservations from travelers will be displayed on your "Application list" in the "Guide management screen" on "my page". Approve the request within two days.
+                                        If you have any questions or tips for the travel users, you can simply message them using our internal messenger.  </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage04.png" alt="旅プランの実施"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="Step 3:">Implementation your travel plan</h4>
+                                    <p>
+                                        Welcome travelers who have joined your tour on the day of travel.
+                                        Please do not forget your registered mobile phone as the travelers might want to get in touch with you in case of emergency.
+                                        Have a good time guiding the travelers!</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="実施承認をする"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="Step 4:">Confirm the execution of the travel plan. </h4>
+                                    <p>After the travel plan has been executed successfully, please confirm.
+                                        The payment settlement will be done only when this step is completed by both the guide and travel user.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="旅ユーザーをレビュー"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--03" data-step="Step 5:">Review travelers</h4>
+                                    <p>After completion of travel, review the travel users who participated in your tour!
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section id="usage04" class="usage__content">
+                    <h3 class="usage__title">Respond to a travel request
+                    </h3>
+                    <ul class="usage__step--04 steps">
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage01.png" alt="応えられる旅リクエストを探す"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="Step 1:">Find a suitable travel request</h4>
+                                    <p>
+                                        Travel users sometimes register a travel request based on what they want since they cannot already find a plan that includes the places they want to visit. Think of what you can do with such travel requests.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage02.png" alt="リクエストに対する提案プランをつくる"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="Step 2:">Create a suggestion plan for the request</h4>
+                                    <p>
+                                        In response to the travel request, please make a suggestion plan to propose to the travel user based on their requirement. Make sure to include details like content description, budget, date and time etc;
+                                        Reply to the questions and inquiries sent by travel users once you've proposed your plan.</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage09.png" alt="予約確定"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="Step 3:">Confirm reservation</h4>
+                                    <p>If the travelers like your travel proposal, they will make a reservation.
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage04.png" alt="旅プランの実施"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="Step 4:">Implementation your travel plan</h4>
+                                    <p>
+                                        Welcome travelers who have joined your tour on the day of travel.
+                                        Please do not forget your registered mobile phone as the travelers might want to get in touch with you in case of emergency.
+                                        Have a good time guiding the travelers!
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage05.png" alt="実施承認をする"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="Step 5:">Confirm the execution of the travel plan.</h4>
+                                    <p>After the travel plan has been executed successfully, please confirm.
+                                        The payment settlement will be done only when this step is completed by both the guide and travel user. </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div class="steps__img"><img src="/assets/top/img/img_usage06.png" alt="旅ユーザーをレビュー"></div>
+                                <div class="steps__text">
+                                    <h4 class="steps__title--04" data-step="Step 6:">Review travelers</h4>
+                                    <p>After completion of travel, review the travel users who participated in your tour! </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+
+            </div>
+        </div>
+    </section>
+    <!--#include virtual="/inc/footer.html" -->
+</div>
+

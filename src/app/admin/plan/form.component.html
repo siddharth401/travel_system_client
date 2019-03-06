@@ -1,0 +1,745 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="[['Travel plan management'|trans],['Travel plan list'|trans, '/admin/plan/list'],[(fb.isNew?'Travel plan add':'Travel plan detail')|trans]]" icon="plus-square"
+                            class="col-xs-12"></sa-big-breadcrumbs>
+    </div>
+    <div *ngIf="fb.isNew == false" class="col-md-12" style="text-align: right;padding-bottom: 10px;">
+        <a [routerLink]='["calander"]' class="icon-button  btn btn-warning" id="calandar">{{'Recruitment date setting'|trans}}</a>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-sm-12">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" id="wid-id-0"
+                     data-widget-colorbutton="false" data-widget-editbutton="false" role="widget">
+                    <header role="heading">
+                        <link rel="stylesheet" type="text/css"
+                              href="/node_modules/ng-pick-datetime/assets/style/picker.min.css"/>
+                        <div class="jarviswidget-ctrls" role="menu">
+                            <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip"
+                               title="" data-placement="bottom" data-original-title="Fullscreen"><i
+                                    class="fa fa-expand "></i></a>
+                        </div>
+                        <span class="widget-icon"> <i class="fa fa-pencil-square-o"></i> </span>
+                        <h2 *ngIf="!fb.isNew">{{'Travel plan detail'|trans}}</h2>
+                        <h2 *ngIf="fb.isNew">{{'Travel plan add'|trans}}</h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body">
+                            <form [formGroup]="fb.form" class="form-horizontal" (ngSubmit)="save(true)">
+                                <fieldset>
+                                    <div class="form-group" *ngIf="fb.isNew == false">
+                                        <label class="col-md-2 control-label label-left">{{'NO'|trans}} </label>
+                                        <div class="col-md-8">
+                                            <label style="padding-left: 20px;" class="control-label">{{fb.form.value['id']}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="selectLanguage">
+                                        <label class="col-md-2 control-label label-left">{{'Posted language'|trans}} </label>
+                                        <div class="col-md-8" *ngIf="fb.isNew == false">
+                                            <a type="button" style="margin-right: 10px;" *ngFor="let item of listLanguage|list" [routerLink]='["/admin/plan/form",fb.form.value["id"],item.key]' [ngClass]="(paramLanguage == item.key)? 'icon-button  btn btn-warning': 'icon-button  btn btn-default' ">{{item.value|trans}}</a>
+                                        </div>
+                                        <div class="col-md-8" *ngIf="fb.isNew == true" id="value-language">
+                                            <button type="button" style="margin-right: 10px;" *ngFor="let item of listLanguage|list" [class]="default + ' langBtn'" [class.btn-warning]="item.value=='日本語'" [value]="item.key" [id]="item.value" (click)="changeEnglishNewForm(item.value,item.key)">{{item.value|trans}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Travel guide name'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-4" *ngIf="fb.isNew == true">
+                                            <select2 [options]="guider" formControlName="member_id"></select2>
+                                        </div>
+                                        <div class="col-md-3" *ngIf="fb.isNew == false">
+                                            <div class="col-md-8">
+                                                <label style="padding-left: 20px;" class="control-label memberName">{{listGuide[fb.form.value['member_id']]}}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Travel plan name'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <input formControlName="proposal_title" id="proposal_title" placeholder="{{'Travel plan name'|trans}}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!--category-->
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Category'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="checkbox col-md-8">
+                                            <label *ngFor="let item of listCategory|list; let i = index;"
+                                                   class="checkbox-label">
+                                                <input type="checkbox" name="category-{{i}}" [checked]="checkedCategory.indexOf(item.key * 1) != -1" class="checkbox style-0" [value]="item.key" (change)="updateCheckedOptions(item.key, $event);"/>
+                                                <span>{{item.value|trans}}</span>
+                                            </label>
+                                            <small class="msg_err" *ngIf="plan_categories_error">{{plan_categories_error[0]|trans}}</small>
+                                        </div>
+                                    </div>
+                                    <!--end category-->
+
+                                    <!--language-->
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Language'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <div *ngIf="fb.form.value.plan_languages.length > 0">
+                                                <div formArrayName="plan_languages">
+                                                    <div *ngFor="let item of fb.form.controls.plan_languages.controls; let i = index;">
+                                                        <div [formGroupName]="i" class="form-group">
+                                                            <div [formGroup]="fb.form.controls.plan_languages.controls[i]">
+                                                                <div class="col-md-3">
+                                                                    <select formControlName="language_id" class="form-control language-err">
+                                                                        <option value="">{{'Select Language' | trans}}</option>
+                                                                        <option *ngFor="let item of listLanguageSupport|list" [value]="item.key" [selected]="item.key==''">{{item.value}}</option>
+                                                                    </select>
+                                                                    <small class="msg_err" *ngIf="language_error && language_error[i]">{{language_error[i][0]|trans}}</small>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <i *ngIf="i>0" class="fa fa-trash-o btn btn-danger" (click)="fb.removeItem('plan_languages',i)" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1 control-label text-left">
+                                                    <i class="fa fa-plus btn btn-default"
+                                                       (click)="fb.addItem('plan_languages')" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end language-->
+                                    <div class="form-group row">
+                                        <label class="col-md-2 control-label label-left">{{'Time required'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <div>
+                                                <div>
+                                                    <div>
+                                                        <div class="form-group">
+                                                            <div >
+                                                                <div class="col-md-2">
+                                                                    <select  formControlName="time_resquest_hour" class=" is-required input-sm form-control plan-time-start" id="time_request_hour">
+                                                                        <option value="">{{'Select hour'|trans}}</option>
+                                                                        <option value="01">01</option>
+                                                                        <option value="02">02</option>
+                                                                        <option value="03">03</option>
+                                                                        <option value="04">04</option>
+                                                                        <option value="05">05</option>
+                                                                        <option value="06">06</option>
+                                                                        <option value="07">07</option>
+                                                                        <option value="08">08</option>
+                                                                        <option value="09">09</option>
+                                                                        <option value="10">10</option>
+                                                                        <option value="11">11</option>
+                                                                        <option value="12">12</option>
+                                                                        <option value="13">13</option>
+                                                                        <option value="14">14</option>
+                                                                        <option value="15">15</option>
+                                                                        <option value="16">16</option>
+                                                                        <option value="17">17</option>
+                                                                        <option value="18">18</option>
+                                                                        <option value="19">19</option>
+                                                                        <option value="20">20</option>
+                                                                        <option value="21">21</option>
+                                                                        <option value="22">22</option>
+                                                                        <option value="23">23</option>
+                                                                    </select>
+
+                                                                </div>
+                                                                <label class="col-md-1 control-label" style="text-align: center;width: 0%; margin-left: -5px;">{{':'}} </label>
+
+                                                                <div class="col-md-2">
+                                                                    <select  formControlName="time_resquest_min" class=" is-required input-sm form-control" id="time_request_min">
+                                                                        <option value="">{{'Select min'|trans}}</option>
+                                                                        <option value="00">00</option>
+                                                                        <option value="15">15</option>
+                                                                        <option value="30">30</option>
+                                                                        <option value="45">45</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <div class="col-md-12">
+                                                                    <small class="msg_err" *ngIf="time_request_error">{{time_request_error|trans}}</small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1 control-label text-left">
+                                                    <i></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--time start-->
+                                    <div class="form-group row">
+                                        <label class="col-md-2 control-label label-left">{{'Time start'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <div *ngIf="fb.form.value.plan_time_start.length > 0">
+                                                <div formArrayName="plan_time_start">
+                                                    <div *ngFor="let item of fb.form.controls.plan_time_start.controls; let i = index;">
+                                                        <div [formGroupName]="i" class="form-group">
+                                                            <div [formGroup]="fb.form.controls.plan_time_start.controls[i]">
+                                                                <div class="col-md-2">
+                                                                    <select  formControlName="time_start_hour" class="form-control time_err" id="plan_hour_{{i}}">
+                                                                        <option value="">{{'Select hour'|trans}}</option>
+                                                                        <option *ngFor="let item of app.constant.TimePlan.Plan_hour|list" [selected]="item.value == ''" [value]="item.value"  >{{item.value}}</option>
+                                                                    </select>
+                                                                </div>
+
+                                                                <label  class="col-md-1 control-label" style="text-align: center;width: 0%; margin-left: -5px;">{{':'}} </label>
+
+                                                                <div class="col-md-2">
+                                                                    <select formControlName="time_start_min" class="form-control time_err" id="plan_min">
+                                                                        <option value="">{{'Select min'|trans}}</option>
+                                                                        <option *ngFor="let item of app.constant.TimePlan.Plan_min|list "  [selected]="item.value == ''" [value]="item.value"  >{{item.value}}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <i *ngIf="i>0" class="fa fa-trash-o btn btn-danger" (click)="fb.removeItem('plan_time_start',i)" aria-hidden="true"></i>
+                                                                </div>
+
+                                                                <small class="msg_err col-md-12" *ngIf="time_err && time_err[i]">{{time_err[i][0]|trans}}</small>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1 control-label text-left">
+                                                    <i class="fa fa-plus btn btn-default"
+                                                       (click)="fb.addItem('plan_time_start')" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--plan images-->
+                                    <div class="form-group row">
+                                        <label class="col-md-2 control-label label-left">{{'Images'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <div *ngIf="plan_images">
+                                                <ul *ngFor="let item of plan_images" style="list-style-type: none;" class="detail-image">
+                                                    <li><img class="detail-img" width="150" [id]="item.id" [src]="app.constant.FILE_URL+item.image"><span style="margin-left: 20px;" class="fa fa-trash-o btn btn-danger {{item.id}}" (click)="removeImage(item.id)"></span></li>
+                                                </ul>
+                                            </div>
+                                            <div *ngIf="fb.form.value.planImage.length > 0">
+                                                <div formArrayName="planImage">
+                                                    <div *ngFor="let item of fb.form.controls.planImage.controls; let i = index;">
+                                                        <div [formGroupName]="i" class="form-group">
+                                                            <div [formGroup]="fb.form.controls.planImage.controls[i]">
+                                                                <div class="col-md-4" id="show-icon">
+                                                                    <sa-file-upload fieldName="image-{{i+1}}" extensions="jpg|jpeg|png|JPG|JEPG|PNG" class="image" size="5120" id="image-{{i+1}}"></sa-file-upload>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <i *ngIf="i>0" class="fa fa-trash-o btn btn-danger load-detail-image"  (click)="fb.removeItem('planImage',i)" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group hideImage">
+                                                <div class="col-md-1 control-label text-left">
+                                                    <i  class="fa fa-plus btn btn-default" (click)="fb.addItem('planImage')" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Reservation time limit'|trans}} </label>
+                                        <div class="radiobox col-md-10">
+                                            <label>
+                                                <input type="radio" name="time_apply" [value]="app.constant.Guider.time_apply.TIME_REQUIRED" formControlName="time_apply" [checked]="fb.form.value['time_apply']*1 == app.constant.Guider.time_apply.TIME_REQUIRED"/>
+                                                <span>{{'Make reservations impossible within the required time from reservation time'|trans}}</span><br>
+                                                <input type="radio" name="time_apply" [value]="app.constant.Guider.time_apply.RESERVE_TIME" formControlName="time_apply" [checked]="fb.form.value['time_apply']*1 == app.constant.Guider.time_apply.RESERVE_TIME"/>
+                                                <span>{{'Reserve time without reservation time relation'|trans}}</span><br>
+                                                <input type="radio" name="time_apply" [value]="app.constant.Guider.time_apply.DAILY_RESERVATION" formControlName="time_apply" [checked]="fb.form.value['time_apply']*1 == app.constant.Guider.time_apply.DAILY_RESERVATION"/>
+                                                <span>{{'Reservation should be 1 daily reservation'|trans}}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Price'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <input formControlName="price" id="price" placeholder="{{'Price'|trans}}" class="form-control">
+                                        </div>
+                                        <label class="col-md-2 control-label label-left">{{'円/1人'|trans}} </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Meal content'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <input formControlName="meal" id="meal" placeholder="{{'Meal content'|trans}}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <!--plan_translates_meal-->
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Number of people'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-3">
+                                                <input formControlName="min_people" id="min_people" placeholder="{{'Min people'|trans}}" class="form-control">
+                                        </div>
+                                        <label class="col-md-1 control-label" style="text-align: left">{{'people'|trans}} </label>
+                                        <label class="col-md-1 control-label" style="text-align: left">{{'~'|trans}} </label>
+                                        <div class="col-md-3">
+                                            <input formControlName="max_people" id="max_people" placeholder="{{'Max people'|trans}}" class="form-control">
+                                        </div>
+                                        <label class="col-md-1 control-label" style="text-align: left">{{'people'|trans}} </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Before deadline day'|trans}} <span class="text-danger">*</span></label>
+                                        <label class="col-md-2 control-label label-left text-right">{{'From the day'|trans}} </label>
+                                        <div class="col-md-3">
+                                            <select formControlName="num_before_deadline" id="num_before_deadline" class="form-control" style="padding-left: 35px;">
+                                                <option value="" selected>{{'Select day'|trans}}</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                        </div>
+                                        <label class="col-md-3 control-label" style="text-align: left">{{'Since monday'|trans}} </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Participation case'|trans}}</label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="participation_case" id="plan_participation_case" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Travel plan content'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="content" id="plan_content" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Preparation for guide'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="guide_perparation" id="guide_perparation" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Preparation of guest'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="guest_perparation" id="guest_perparation" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'Other'|trans}} </label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="other" id="other" cols="30" rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label label-left">{{'The meeting place'|trans}} <span class="text-danger">*</span></label>
+                                        <div class="col-md-2">
+                                            <select formControlName="country_id" class="form-control country-select" (change)="getListCity(fb.form.get('country_id').value)">
+                                                <option value="">{{'---Country Select---'|trans}}</option>
+                                                <option *ngFor="let item of listCountry|list" [value]="item.key" [selected]="item.key == ''">{{item.value}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2"></label>
+                                        <div  class="col-md-2">
+                                            <select formControlName="city_id" class="form-control prefecture-select" >
+                                                <option value=""> {{'Prefecture Select'|trans}}</option>
+                                                <option *ngFor="let item of listCity|list" [value]="item.key" [selected]="item.key==''">{{item.value}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input formControlName="address_meeting" id="address_meeting" value="{{fb.form.value['address_meeting']}}" placeholder="{{'Address meeting'|trans}}" type="text" class="form-control" >
+                                        </div>
+                                    </div>
+                                    <!--google map-->
+                                    <div class="form-group">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-8" id="map">
+                                            <iframe width="100%" height="450"  frameborder="0" style="border:0" [src]="urlMap | safe" allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-2"></div>
+                                        <div class="col-md-2">
+                                            <a class="btn btn-warning" id='location-map'(click)="changeMap()">{{'Corrected map position'|trans}}</a>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="fb.isNew == false && statusApprove == app.constant.GuiderStatus.APPROVAL_REQUEST" class="hide-approve">
+                                        <div class="form-group" class="approve-plan">
+                                            <label class="col-md-2 label-left control-label">{{'Approval request'|trans}}</label>
+                                            <div class="col-md-8">
+                                                <a class="btn btn-success" id="approve" style="background-color: #0fb311"(click)="changeStatus(fb.form.value['id'], 'active', 'Plan', app.constant.GuiderStatus.PUBLIC_OFFERING)">{{'Approve'|trans}}</a>
+                                                <a class="btn btn-danger" id="no-approve" style="margin-left: 20px;" (click)="cancelApprove(fb.form.value['id'], 'active', 'Plan', app.constant.GuiderStatus.NON_APPROVAL)">{{'No Approve'|trans}}</a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label"></label>
+                                            <div col-md-8 style="text-align: center;margin-right: 170px;"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label"></label>
+                                            <div class="text-center col-md-8">
+                                                <textarea formControlName="plan_content" id="plan_approves_content" placeholder="{{'In the case of denial, please write down the contents of denial here'|trans}}" cols="30" rows="3" class="form-control"></textarea>
+                                                <small class="msg_err" *ngIf="cancel_error">{{cancel_error.planApprovesContent|trans}}</small>
+                                                <a style="margin-top: 15px;" class="btn btn-default" [routerLink]='["/admin/plan/list"]' type="button">{{'Cancel'|trans}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="fb.isNew == false && statusApprove == app.constant.GuiderStatus.PUBLIC_OFFERING || statusApprove == app.constant.GuiderStatus.STOP_PUBLIC">
+                                        <div class="form-group">
+                                            <label class="col-md-2 label-left control-label">{{'Approval request'|trans}} </label>
+                                            <div class="col-md-8">
+                                                <label style="padding-left: 20px;" class="control-label">{{'Approved'|trans}}</label>
+                                            </div>
+                                        </div >
+                                        <div class="form-group">
+                                            <label class="col-md-2 label-left control-label">{{'Status'|trans}}</label>
+                                            <div class="col-md-2 text-left">
+                                                <select class="form-control status-plan">
+                                                    <option *ngIf="statusApprove == app.constant.GuiderStatus.PUBLIC_OFFERING" value="{{app.constant.GuiderStatus.PUBLIC_OFFERING}}" selected="selected">{{'Public offering'|trans}}</option>
+                                                    <option *ngIf="statusApprove != app.constant.GuiderStatus.PUBLIC_OFFERING" value="{{app.constant.GuiderStatus.PUBLIC_OFFERING}}">{{'Public offering'|trans}}</option>
+                                                    <option *ngIf="statusApprove == app.constant.GuiderStatus.STOP_PUBLIC" value="{{app.constant.GuiderStatus.STOP_PUBLIC}}" selected="selected">{{'Stop public'|trans}}</option>
+                                                    <option *ngIf="statusApprove != app.constant.GuiderStatus.STOP_PUBLIC" value="{{app.constant.GuiderStatus.STOP_PUBLIC}}" >{{'Stop public'|trans}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="fb.isNew == false && statusApprove == app.constant.GuiderStatus.NON_APPROVAL  && nonApprove != ''">
+                                        <div class="form-group">
+                                            <label class="col-md-2 label-left control-label">{{'Approval request'|trans}} </label>
+                                            <div class="col-md-8">
+                                                <label class="control-label">{{'No Approved'|trans}}</label>
+                                            </div>
+                                        </div >
+                                        <div class="form-group">
+                                            <label class="col-md-2 label-left control-label"></label>
+                                            <div class="col-md-8 text-left">
+                                              <span>{{nonApprove}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-default" [routerLink]='["/admin/plan/list"]' type="button">{{'Cancel'|trans}}</a>
+                                            <button class="btn btn-primary" type="submit"><i class=""></i>
+                                                {{'Submit'|trans}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="formConfirm" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Posted language'|trans}}</strong></label>
+                        <div class="col-md-8">{{listLanguage[postedLanguage]}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Travel guide name'|trans}}</strong></label>
+                        <div class="col-md-8">{{member}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Travel plan name'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('proposal_title').value}}</div>
+                    </div>
+                </div>
+                <!--category-->
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Category'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            <ul class="list-item">
+                                <li *ngFor="let item of checked">{{listCategory[item]}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--end category-->
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Language'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            <ul class="list-item">
+                                <li *ngFor="let item of fb.form.get('plan_languages').value">{{listLanguageSupport[item.language_id]}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Time required'|trans}}</strong></label>
+                        <div class="col-md-8">{{show_time_request}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Time start'|trans}}</strong></label>
+                        <div class="col-md-8" >
+                            <ul class="list-item">
+                                <li *ngFor="let item of fb.form.get('plan_time_start').value">{{item.time_start_hour + ':' + item.time_start_min}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Images'|trans}}</strong></label>
+                        <div class="col-md-8">
+                                <ul class="list-img">
+                                    <li *ngFor="let item of hasImages"><img width="50" [src]="item"></li>
+                                    <li id="show-image"></li>
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Reservation time limit'|trans}}</strong></label>
+                        <div class="col-md-8">{{app.constant.Guider.time_apply_text[fb.form.get('time_apply').value]|trans}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Price'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('price').value}}  {{'円/1人'|trans}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Meal content'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('meal').value}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Number of people'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            {{fb.form.get('min_people').value}} {{'people'|trans}} {{'~'|trans}}
+                            {{fb.form.get('max_people').value}} {{'people'|trans}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Before deadline day'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            {{'From the day'|trans}} {{fb.form.get('num_before_deadline').value}} {{'Since monday'|trans}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Participation case'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('participation_case').value}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Travel plan content'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('content').value}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Preparation for guide'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('guide_perparation').value}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Preparation of guest'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('guest_perparation').value}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Other'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('other').value}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'The meeting place'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            <p>{{'Country:'|trans}}{{listCountry[fb.form.get('country_id').value]}}</p>
+                            <p>{{'Prefecture:'|trans}}{{listCity[fb.form.get('city_id').value]}}</p>
+                            <p>{{'Address meeting:'|trans}}{{addressMeeting}}</p>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row show-plan-content" *ngIf="fb.isNew == false && statusApprove == app.constant.GuiderStatus.NON_APPROVAL">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"><strong>{{'Approval request'|trans}}</strong></label>
+                            <div class="col-md-8">
+                                <span>{{'No approve:'|trans}}<br>{{nonApprove}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div *ngIf="fb.isNew == false && statusApprove == app.constant.GuiderStatus.PUBLIC_OFFERING || statusApprove == app.constant.GuiderStatus.STOP_PUBLIC" class="form-group">
+                            <label class="col-md-4 control-label"><strong>{{'Approval request'|trans}}</strong></label>
+                            <div class="col-md-8">
+                                <span>{{'Approved'|trans}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div *ngIf="fb.isNew == false && statusApprove == app.constant.GuiderStatus.PUBLIC_OFFERING || statusApprove == app.constant.GuiderStatus.STOP_PUBLIC" class="form-group">
+                                <label class="col-md-4 control-label"><strong>{{'Status'|trans}}</strong></label>
+                                <div class="col-md-8">
+                                    <span>{{app.constant.Guider.status[confirmStatus]|trans}}</span>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+                <button type="button" class="btn btn-primary" (click)="save()"><i class=""></i>
+                    {{'Confirm'|trans}}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="formConfirmChangeJapanese" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Would you like to switch to'|trans}}</strong></label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+                    <button type="button" id="changeLanguageJapanese" class="btn btn-primary"><i
+                            class="fa fa-check"></i> {{'Confirm'|trans}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="formConfirmChangeEnglish" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" style="text-align: right;padding-right:0"><strong class="switch-language"></strong></label>
+                        <label class="col-md-4 control-label" style="padding-left: 5px;"><strong>{{'Would you like to switch to'|trans}}</strong></label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="CancelChangeLanguageEnglish" (click)="cancelChangeLanguage()">{{'Cancel'|trans}}</button>
+                    <button type="button" id="changeLanguageEnglish" class="btn btn-primary" (click)="reset()"><i
+                            class=""></i> {{'OK'|trans}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="formConfirmChangeApprove" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Would you like to switch to'|trans}}</strong></label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+                    <button type="button" id="changeApprovePlan" class="btn btn-primary"><i class=""></i>
+                        {{'Confirm'|trans}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="formConfirmPlanApproved" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-12 control-label text-center"><strong>{{'Would you like to approved'|trans}}</strong></label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+                    <button type="button" id="approved-submit" class="btn btn-primary">{{'Confirm'|trans}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cannotstop" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center">{{'Confirmation'|trans}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-12 control-label text-center">
+                            <strong>
+                                {{'Because of there is some reservations so you just stop this tour plan after '|trans}}
+                                <span class="date-stop-public"></span>
+                                {{', is it OK?'|trans}}
+                            </strong>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="    text-align: center;">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'Close up'|trans}}</button>
+                    <!--<button type="button" id="approved-submit" class="btn btn-primary">{{'Confirm'|trans}}</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

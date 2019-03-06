@@ -1,0 +1,206 @@
+.date_actual{
+    margin-right: 20px;
+}
+#information-button{
+    margin-right: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+#message-button {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.cancel_status{
+    color: red;
+}
+.guider_languages {
+    margin-right: 20px;
+}
+.btn-cancel {
+    background-color: red;
+    color: #fff;
+    border-radius: 8px;
+}
+.btn-approve {
+    background-color: #74c149 ;
+    color: #fff;
+    border-radius: 8px;
+}
+.bottom-information-message {
+    width: 70%;
+    border-bottom: 1px solid #ccc;
+    margin-left: 113px;
+}
+.text-status {
+    width: 170px;
+    float: left;
+    padding-top: 7px;
+}
+.guider-text-status{
+    width: 200px;
+    float: left;
+    padding-top: 7px;
+}
+/*.fa-star{*/
+    /*color: darkgrey;*/
+/*}*/
+.checked {
+    color: orange;
+}
+/*.point-rating {*/
+    /*margin-left: 10px;*/
+/*}*/
+.button-back {
+    text-align: center;
+}
+.selection-width{
+    width: 250px;
+}
+.text-align-left {
+    text-align: left;
+}
+
+#content-message {
+    width: 70%;
+    margin-left: 113px;
+}
+.content-message__date {
+    font-size: 12px;
+    display: block;
+    margin: 15px 0 5px;
+}
+.content-message__box {
+    background: #fff2cc;
+    border-radius: 4px;
+    position: relative;
+    color: #333;
+    padding: 10px;
+    word-break: break-all;
+}
+.content-message__box--blue {
+    background: #D4E1F5;
+}
+.content-message__box--blue:before {
+    position: absolute;
+    top:50%;
+    margin-top: -10px;
+    content: "";
+    border-style: solid;
+    border-width: 15px 15px 15px 0;
+    border-color: #D4E1F5 transparent transparent transparent !important;
+    left: -1px;
+    transform: rotate(-45deg) !important;
+}
+.content-message__box--orange:before {
+    right: -2px !important;
+    content: "";
+    position: absolute;
+    top:50%;
+    margin-top: -18px;
+    content: "";
+    border-style: solid;
+    border-width: 15px 15px 15px 0;
+    border-color: #fff2cc transparent transparent transparent;
+    transform: rotate(134deg);
+}
+.content-message__box:before {
+
+}
+.content-message__style {
+    margin-bottom: 25px;
+    margin-top: -6px;
+}
+.content-message__style:last-child {
+    margin-left: 0;
+    margin-right: 15px;
+}
+.content-message__date--right {
+    text-align: right;
+    margin: 5px 0 15px !important;
+}
+.no-data-result {
+    margin-top: 10px;
+}
+.thead-table {
+    color:#fff;
+}
+.hasinput ul {
+    list-style: none;
+    display: flex;
+    color:#f0ad4e;
+}
+.table-style {
+    padding: 0;
+}
+.table-inner {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+.table-title {
+    text-align: right;
+    padding: 0 26px;
+}
+.table-btn {
+    display: flex;
+    justify-content: center;
+}
+.table-btn a {
+    width: 100px;
+    margin: 0 5px;
+}
+.button-review{
+    margin-left: 650px;
+    margin-top: 10px;
+
+}
+.rating {
+    display: flex;
+}
+.content-list__score {
+    list-style: none;
+    color:#f0ad4e;
+    margin-left: -39px;
+    margin-right: 5px;
+}
+.content-list__score li {
+    display: inline-block;
+}
+.booking-block {
+    padding: 0;
+}
+.booking-block.control-label {
+    padding-right: 26px;
+}
+.button-submit-review {
+    margin-left: 530px;
+    margin-top: 10px;
+}
+.label-msg {
+    text-align: left;
+    width: 100%;
+}
+.booking-management {
+    margin-top: 0px;
+}
+.text-guider-status {
+    margin-left: 5px;
+    margin-right: 10px;
+}
+.pre-text {
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 20px;
+    border: none;
+    background: transparent;
+    padding: 0;
+}
+.content-message__pre-text {
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 20px;
+    background: transparent;
+    overflow: hidden;
+    border: 0;
+}

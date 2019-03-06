@@ -1,0 +1,103 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><span >{{'F62_提案プラン一覧'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'提案プラン一覧'|ttrans}}</h2>
+
+                        <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-compact">
+                            <thead>
+                            <tr>
+                                <th scope="col">{{'作成日'|ttrans}}</th>
+                                <th scope="col">{{'F62_リクエストID'|ttrans}}</th>
+                                <th scope="col">{{'F62_実施希望日'|ttrans}}</th>
+                                <th scope="col">{{'旅リクエストタイトル'|ttrans}}</th>
+                                <th scope="col">{{'旅ユーザー'|ttrans}}</th>
+                                <th scope="col">{{'F62_メッセージ'|ttrans}}</th>
+                                <th scope="col">{{'ステータス'|ttrans}}</th>
+                            </tr>
+                            <tr class="thead-table">
+                                <th ><a></a><span class="arrow desc"></span></th>
+                                <th ><a></a><span class="arrow desc"></span></th>
+                                <th >
+                                    <form (keyup.enter)="search()">
+                                        <input  (click)="app.showCalendarSearch()" type="text" name="date_plan" class="form-set__input search-date-plan" id="input-date" value="{{'日付'|ttrans}}"/>
+                                        <div class="add__form-button">
+                                            <button type="button" (click)="search()" class="btn__filter"></button>
+                                        </div>
+                                    </form>
+                                    <span class="arrow desc"></span></th>
+                                <th ><a></a><span class="arrow desc"></span></th>
+                                <th ><a></a><span class="arrow desc"></span></th>
+                                <th ><a></a><span class="arrow desc"></span></th>
+                                <th>
+                                    <div class="form-set--02 form-set__select">
+                                        <select  name="status" (change)="search()" id="status-teian">
+                                            <option value="">{{'状態を選択する'|ttrans}}</option>
+                                            <option *ngFor="let item of app.constant.SuggestionPlanStatusJapan|list" [value]="item.key">{{item.value|ttrans}}</option>
+                                        </select>
+                                    </div>
+                                    <!--<span class="arrow desc"></span>-->
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of data.data">
+                                <td data-title="{{'作成日'|ttrans}}">{{item.created_at | datex: 'YYYY/MM/DD'}}</td>
+                                <td data-title="{{'F62_リクエストID'|ttrans}}"><a [routerLink]="['/'+languageName+'/request/detail/'+item.request_id]" target="_blank" data-toggle="tooltip" title="{{item.id | addFixedId: 'R'}}">{{item.id | addFixedId: 'R'}}</a></td>
+                                <td data-title="{{'F62_実施希望日'|ttrans}}" class="mypage__body__table-compact__txt">{{item.date_plan | datex: 'YYYY/MM/DD'}}</td>
+                                <td data-title="{{'旅リクエストタイトル'|ttrans}}" class="list--style mypage__body__table-compact__txt"><a [routerLink]="['/'+languageName+'/mypage/proposal_plan/detail/'+item.id]" data-toggle="tooltip" title="{{item.request_title}}">{{item.request_title}}</a></td>
+                                <td data-title="{{'旅ユーザー'|ttrans}}" class="list--style"><span data-toggle="tooltip" title="{{item.name}}">{{item.name}}</span></td>
+                                <td data-title="{{'F62_メッセージ'|ttrans}}" *ngIf="item.chats_count == 0" class="mypage__body__align--center"><a [routerLink]="['/'+languageName+'/mypage/proposal_plan/detail/' + item.id + '/message_input']"><i class="ct ct-zero">0</i></a></td>
+                                <td data-title="{{'F62_メッセージ'|ttrans}}" *ngIf="item.chats_count > 0" class="mypage__body__align--center"><a [routerLink]="['/'+languageName+'/mypage/proposal_plan/detail/' + item.id + '/message_input']"><i class="ct">{{item.chats_count}}</i></a></td>
+                                <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 5" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--on btn__mypage--icon">{{'F62_交渉中'|ttrans}}</button></td>
+                                <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 6" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--off btn__mypage--icon"  disabled>{{'F62_お断り'|ttrans}}</button></td>
+                                <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 7" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--decision btn__mypage--icon" >{{'F62_決定'|ttrans}}</button></td>
+                                <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 8" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--on btn__mypage--icon">{{'F62_提案集'|ttrans}}</button></td>
+                                <td data-title="{{'ステータス'|ttrans}}" *ngIf="item.status == 9" style="text-align: center;"><button type="button" class="btn--primary btn__mypage btn__mypage--cancel btn__mypage--icon" >{{'F62_キャンセル'|ttrans}}</button></td>
+
+
+                            </tr>
+                            </tbody>
+                            <tbody *ngIf="data.data && data.data.length == 0">
+                            <tr>
+                                <td  class="not-data" style="text-align: center;" colspan="7">{{'データがございません。'|ttrans}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <p><a *ngIf="data.current_page < data.last_page" class="content-list__button btn--default" href="javascript:void(0);" (click)="loadMore()">{{'もっと見る'|ttrans}}</a></p>
+                        <!--<layout-loadmore [data]="data" [url]="'mypage/list_suggest_plan'"></layout-loadmore>-->
+
+                    </div>
+
+
+
+                </div>
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F62_マイページへ戻る'|ttrans}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

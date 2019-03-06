@@ -1,0 +1,132 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li class="breadcrumb__list__item"><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li class="breadcrumb__list__item"><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li class="breadcrumb__list__item"><a [routerLink]="['/'+languageName+'/mypage/plan']">{{'F47_旅プラン一覧'|ttrans}}</a></li>
+                <li *ngIf="data.plan_info" class="breadcrumb__list__item"><a [routerLink]="['/'+languageName+'/mypage/plan/detail/'+data.plan_info.id]">{{data.plan_info.proposal_title |ttrans}}</a></li>
+                <li *ngIf="data.plan_info" class="breadcrumb__list__item"><a>{{'実施月選択' |ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <div class="mypage__body__title--box-shoulder">
+                                <button type="button" class="btn--primary btn__mypage btn__mypage--on" (click)="planDetail()">{{'F52_旅プラン詳細' | ttrans}}</button>
+                            </div>
+                            <h2 class="mypage__body__title--02 mypage__body__title--normal">{{'旅プラン詳細 実施日設定 月選択'|ttrans}}</h2>
+                        </div>
+
+                        <div class="mypage__body__block">
+
+                            <table class="mypage__body__table-normal" *ngIf="data.plan_info">
+                                <tbody>
+                                <tr>
+                                    <th>{{'プランID'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.plan_info.id}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'プランタイトル'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.plan_info.proposal_title}}</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <h3 class="mypage__body__title--03"><span class="link__pager--calendar" *ngIf="month_calendar">
+                            <a *ngIf="min > currentMonth" (click)="clickMonth(month_calendar, year, 'previous')"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                            <label *ngIf="min <= currentMonth" ><i class="fa fa-angle-left" aria-hidden="true"></i></label>
+                        </span>
+                            <span *ngIf="app.language == ''">{{year}}{{'年度'|ttrans}}</span>
+                            <span *ngIf="app.language != ''">{{'FY'|ttrans}} {{year}}</span>
+                            <span class="link__pager--calendar">
+                            <a (click)="clickMonth(month_calendar, year, 'next')"><i class="fa fa-angle-right" aria-hidden="true"></i></a></span>
+                        </h3>
+
+                        <div class="mypage__body__block">
+                            <div class="calendar content-list--calendar">
+                                <ul class="content-list__wrap" *ngIf="modifyData">
+                                    <li class="content-list__item" *ngFor="let item_month of modifyData">
+                                        <a *ngIf="year +'-'+ item_month.month >= currentMonth" href="javascript:void(0);" class="mypage__body__title--05 link"  [routerLink]="['/'+languageName+'/mypage/plan/dateregister/' +plan_id+'/'+year+item_month.month]">{{year}}/{{item_month.month}}</a>
+                                        <a *ngIf="year +'-'+ item_month.month < currentMonth" href="javascript:void(0);" class="mypage__body__title--05 disabled">{{year}}/{{item_month.month}}</a>
+
+                                        <table class=" table-calendar">
+                                            <thead>
+                                            <tr>
+                                                <th class="dow">{{'日'|ttrans}}</th>
+                                                <th class="dow">{{'月'|ttrans}}</th>
+                                                <th class="dow">{{'火'|ttrans}}</th>
+                                                <th class="dow">{{'水'|ttrans}}</th>
+                                                <th class="dow">{{'木'|ttrans}}</th>
+                                                <th class="dow">{{'金'|ttrans}}</th>
+                                                <th class="dow">{{'土'|ttrans}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr *ngFor="let item of item_month.list">
+                                                <td *ngIf="item.length >= 1" [ngClass]="item[0] && item[0].selected && item[0].selected == 1 ? 'day active-day' : 'day'">
+                                                    {{ item[0].date ? (item[0].date|datex:'D') : ''}}
+                                                </td>
+                                                <td *ngIf="item.length < 1" class="day"></td>
+
+                                                <td *ngIf="item.length >= 2" [ngClass]="item[1] && item[1].selected && item[1].selected == 1 ? 'day active-day' : 'day'">
+                                                    {{ item[1].date ? (item[1].date|datex:'D') : ''}}
+                                                </td>
+                                                <td *ngIf="item.length < 2" class="day"></td>
+
+                                                <td *ngIf="item.length >= 3" [ngClass]="item[2] && item[2].selected && item[2].selected == 1 ? 'day active-day' : 'day'">
+                                                    {{ item[2].date ? (item[2].date|datex:'D') : ''}}
+                                                </td>
+                                                <td *ngIf="item.length < 3" class="day"></td>
+
+                                                <td *ngIf="item.length >= 4" [ngClass]="item[3] && item[3].selected && item[3].selected == 1 ? 'day active-day' : 'day'">
+                                                    {{ item[3].date ? (item[3].date|datex:'D') : ''}}
+                                                </td>
+                                                <td *ngIf="item.length < 4" class="day"></td>
+
+                                                <td *ngIf="item.length >= 5" [ngClass]="item[4] && item[4].selected && item[4].selected == 1 ? 'day active-day' : 'day'">
+                                                    {{ item[4].date ? (item[4].date|datex:'D') : ''}}
+                                                </td>
+                                                <td *ngIf="item.length < 5" class="day"></td>
+
+                                                <td *ngIf="item.length >= 6" [ngClass]="item[5] && item[5].selected && item[5].selected == 1 ? 'day active-day' : 'day'">
+                                                    {{ item[5].date ? (item[5].date|datex:'D') : ''}}
+                                                </td>
+                                                <td *ngIf="item.length < 6" class="day"></td>
+
+                                                <td *ngIf="item.length >= 7" [ngClass]="item[6] && item[6].selected && item[6].selected == 1 ? 'day active-day' : 'day'">
+                                                    {{ item[6].date ? (item[6].date|datex:'D') : ''}}
+                                                </td>
+                                                <td *ngIf="item.length < 7" class="day"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="mypage__foot">
+                    <!--<a [routerLink]="['/'+languageName+'/mypage/plan/detail/' + plan_id]" class="link&#45;&#45;back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F52_マイページへ戻る'|ttrans}}</a>-->
+                    <a [routerLink]="['/'+languageName+'/mypage']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F52_マイページへ戻る'|ttrans}}</a>
+                </div>
+        </div>
+    </div>
+    </div>
+</div>

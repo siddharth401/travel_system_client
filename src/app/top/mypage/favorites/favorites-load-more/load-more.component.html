@@ -1,0 +1,3 @@
+<p *ngIf="data.last_page > data.current_page">
+    <a (click)="loadMore(request_favorites,'mypage/request_favorites')" class="content-list__button btn--default">{{'もっと見る'|ttrans}}</a>
+</p>

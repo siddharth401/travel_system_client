@@ -1,0 +1,70 @@
+.search--sp{
+	@include for-size(tablet-portrait-up) {
+		display: none;
+	}
+	@include for-size(phone-only) {
+		display: none;
+		background: rgba(0,0,0,.7);
+		padding: 20px;
+		box-sizing: border-box;
+		position: fixed;
+		width: 100%;
+		top: 70px;
+		z-index: 5;
+		height: 100vh;
+		&__inner{
+			background: #fff;
+			padding: 20px;
+			@include border-radius(5px);
+		}
+		&__list{
+			li{margin-bottom: 15px;}
+		}
+		&__button{
+			position: relative;
+			width: 100%;
+			box-sizing: border-box;
+			height: 40px;
+			@include font-size(16,40);
+		}
+	}
+}
+
+.custom-form{
+	border: 1px solid #ccc;
+	height: 40px;
+	@include border-radius(3px);
+	position: relative;
+	overflow: hidden;
+	&:after {
+		display: block;
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		width: 7px;
+		height: 7px;
+		margin-top: -7px;
+		border-top: solid 2px #7f7f7f;
+		border-right: solid 2px #7f7f7f;
+		-webkit-transform: rotate(135deg);
+		transform: rotate(135deg);
+		content: "";
+	}
+	&__select{
+		outline: none;
+		width: 110%;
+		padding: 0 10px;
+		@include font-size(16,40);
+		height: 40px;
+		color: #484848;
+	}
+	&__input{
+		padding: 0 10px;
+		outline: none;
+		width: 110%;
+		@include font-size(16,40);
+		height: 40px;
+		color: #484848;
+		border: none;
+	}
+}

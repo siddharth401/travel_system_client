@@ -1,0 +1,190 @@
+<div id="sb-site" *ngIf="data">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/plan']">{{'F47_旅プラン一覧'|ttrans}}</a></li>
+                <li *ngIf="language_id == app.constant.TRUE"><a [routerLink]="['/'+languageName+'/mypage/plan/edit/'+data.formPlan.id]">{{data.formPlan.proposal_title}}{{' '}}{{'修正'|ttrans}}</a></li>
+                <li *ngIf="language_id != app.constant.TRUE"><a [routerLink]="['/'+languageName+'/mypage/plan/edit/'+data.formPlan.id]">{{'The modification of the travel plan'}}</a></li>
+                <li><span  >{{'F53_修正確認'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+                <div class="mypage__body">
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <!--<div class="mypage__body__title&#45;&#45;box-shoulder">-->
+                                <!--<div class="form-set form-set__select form-set&#45;&#45;inline" style="text-align: center;">-->
+                                    <!--<span name="plan-lang" id="plan-lang">{{data.languagePlan}}</span>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <h2 class="mypage__body__title--02">{{'旅プラン修正確認'|ttrans}}</h2>
+                        </div>
+
+                        <div class="mypage__body__block">
+
+                            <table class="form-content__form-table form-content__form-table--border">
+                                <tbody>
+                                <tr>
+                                    <th>{{'掲載言語'|ttrans}}</th>
+                                    <td>
+                                        <p class="form-content__form-table__title">{{data.languagePlan|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅プランタイトル'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.formPlan.proposal_title}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F45_プランイメージの'|ttrans}}<br>{{'F45_アップロード'|ttrans}}</th>
+                                    <td>
+                                        <ul *ngIf="showImageDetail">
+                                            <li *ngFor="let item of showImageDetail">
+                                                <img  class="show-image-detail"  src='{{item}}'>
+                                            </li>
+                                        </ul>
+                                        <ul *ngIf="showImageEdit">
+                                            <li *ngFor="let item of showImageEdit">
+                                                <img class="show-image-detail" src='{{item}}'>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'カテゴリー'|ttrans}}</th>
+                                    <td>
+                                        <ul class="list-category" *ngIf="data.categories">
+                                            <li *ngFor="let item of data.categories">{{data.listCategory[item]}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'対応言語'|ttrans}}</th>
+                                    <td>
+                                        <ul class="list-item">
+                                            <li *ngFor="let item of languages.language">{{data.listLanguage[item.language_id]|ttrans}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F45_F47_所要時間'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.formPlan.time_request|formatHour}}h</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F45_F47_開始時間'|ttrans}}</th>
+                                    <td>
+                                        <ul class="list-item">
+                                            <li *ngFor="let item of data.planHourMin.time">{{item.plan_hour}}{{'時'|ttrans}}{{item.plan_min}}{{'分'|ttrans}}</li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'予約時間制限'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="data.formPlan.time_apply == 1">{{'予約時間から所要時間内は、予約はできなくする'|ttrans}}</p>
+                                        <p *ngIf="data.formPlan.time_apply == 2">{{'予約時間関係なしで、予約する'|ttrans}}</p>
+                                        <p *ngIf="data.formPlan.time_apply == 3">{{'予約は、一日1予約とする'|ttrans}}</p>                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'価格'|ttrans}}</th>
+                                    <td>
+                                        <p>{{'¥'|ttrans}}{{data.formPlan.price}}/1 {{'人'|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'食事'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.formPlan.meal}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'人数'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.formPlan.min_people}} {{'F45_人'|ttrans}} ～ {{data.formPlan.max_people}} {{'F47_人'|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'申込期限'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="data.formPlan.num_before_deadline == 2">{{'F45_実施日から'|ttrans}} {{data.formPlan.num_before_deadline}} {{'F45_日前まで'|ttrans}}</p>
+                                        <p *ngIf="data.formPlan.num_before_deadline == 1">{{'F45_実施日から'|ttrans}} {{data.formPlan.num_before_deadline}} {{'F46_日前まで'|ttrans}}</p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>{{'参加案件'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.formPlan.participation_case}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅プラン内容'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.formPlan.content}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅ガイド準備物'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.formPlan.guide_perparation}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!--<th>{{'旅ユーザー推奨'|ttrans}}<br>{{'服装＆準備物'|ttrans}}</th>-->
+                                    <th >{{'旅ユーザー推奨服装'|ttrans}} <br>{{'＆準備物'|ttrans}}</th>
+
+                                    <td>
+                                        <pre class="pre-text">{{data.formPlan.guest_perparation}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'その他'|ttrans}}</th>
+                                    <td>
+                                        <pre class="pre-text">{{data.formPlan.other}}</pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'集合場所'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.countryText}}<br>
+                                            {{data.prefectureText}} {{data.formPlan.address_meeting}}</p>
+                                        <div class="plan-detail__map">
+                                            <iframe frameborder="0" style="border:0" [src]="addressMap|safe" allowfullscreen></iframe>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-set__button">
+                                <input type="submit" class="btn--primary" (click)="save()" value="{{'F53_申請'|ttrans}}">
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName + '/mypage/plan/edit/' + data.formPlan.id]" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F53_入力画面へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

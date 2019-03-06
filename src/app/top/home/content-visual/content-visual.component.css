@@ -1,0 +1,22 @@
+.search__item {
+    position: relative;
+}
+.search__item select {
+    z-index: 1;
+    line-height: 50px !important;
+}
+#input-date{
+    cursor: default;
+}
+
+.search__item select {
+    letter-spacing: -1px;
+    width:100% !important;
+}
+.search__category {
+    width: 209px !important;
+
+}
+.search__category select {
+    padding: 0 !important;
+}

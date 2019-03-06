@@ -1,0 +1,45 @@
+<div class="breadcrumb">
+    <ul class="breadcrumb__list">
+        <li><a [routerLink]="['/' + app.language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+        <li>{{'F06_旅プラン予約完了'|ttrans}}</li>
+    </ul>
+</div>
+<!--/.breadcrumb -->
+<nav class="reservation__flow flow-content">
+    <ul class="flow-content__list">
+        <li class="flow-content__item">{{'予約者情報入力'|ttrans}}</li>
+        <li class="flow-content__item">{{'予約者情報確認'|ttrans}}</li>
+        <li class="flow-content__item">{{'カード決済'|ttrans}}</li>
+        <li class="flow-content__item flow-content__item--current">{{'F31_旅プラン予約完了'|ttrans}}</li>
+    </ul>
+</nav>
+<!-- /.reservation__flow flow-content -->
+<section class="plan-reserve page-content outer">
+    <div class="outer__inner">
+        <div class="plan-reserve__box">
+            <div class="plan-reserve__head">
+                <h2 class="plan-reserve__title">{{booking_title}}</h2>
+            </div>
+            <div class="plan-reserve__body">
+
+                <div class="plan-reserve__thanks">
+                    <p class="plan-reserve__thanks-title">
+                        {{'この度は、マッチングガイドのご利用ありがとうございました。'|ttrans}}<br />
+                        {{'旅プランのリクエストが完了しました。'|ttrans}}
+                    </p>
+                    <p class="plan-reserve__text">{{'後日、旅ガイドより２日以内に回答の連絡がない場合は、'|ttrans}}<br />{{'お手数ですが事務局までご連絡ください。'|ttrans}}</p>
+                    <div class="plan-reserve__contact">
+                        <a [routerLink]='["/" + app.language + "/mypage/reservationtour/detail/" + booking_id + "/message_input"]' class="btn--primary">{{'旅ガイドへ連絡する'|ttrans}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.plan-reserve page-content outer -->
+
+<div class="content--02 outer">
+    <div class="outer__inner">
+        <a [routerLink]='["/" + app.language + "/"]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F06_サイトＴＯＰに戻る'|ttrans}}</a>
+    </div>
+</div>

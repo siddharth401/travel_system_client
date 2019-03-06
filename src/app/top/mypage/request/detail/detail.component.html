@@ -1,0 +1,191 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/' + language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + language + '/mypage/request']">{{'F29_旅のリクエスト一覧'|ttrans}}</a></li>
+                <li><a>{{detail.request_detail.title}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body" *ngIf="detail">
+
+
+                    <div class="mypage__body__section" *ngIf="detail.request_detail">
+
+                        <h2 class="mypage__body__title--02">{{'旅リクエスト詳細'|ttrans}}</h2>
+
+                        <h3 class="mypage__body__title">{{detail.request_detail.title}}</h3>
+
+                        <div class="mypage__body__box">
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">{{'リクエストNO'|ttrans}}</th>
+                                    <td><p *ngIf="detail.request_detail.id">{{detail.request_detail.id|addFixedId: "R"}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'ステータス'|ttrans}}</th>
+                                    <td>
+                                        <p><span *ngIf="app.constant.Request.status[detail.request_detail.status]">{{app.constant.Request.status[detail.request_detail.status]|ttrans}}</span></p>
+                                        <span class="mypage__body__float--right">
+                                            <button *ngIf="detail.request_detail.status == app.constant.RECRUITING_REQUEST || detail.request_detail.status == app.constant.UNDER_NEGOTIATION" type="button" class="btn--primary btn__mypage btn__mypage--contact" (click)="showPopup()">{{'キャンセル'|ttrans}}</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'作成日'|ttrans}}</th>
+                                    <td><p *ngIf="detail.request_detail.created_at">{{detail.request_detail.created_at|datex: "YYYY/MM/DD"}}（{{detail.request_detail.dayofweek_created_at|ttrans}}）</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F29_実施希望日'|ttrans}}</th>
+                                    <td><p *ngIf="detail.request_detail.date_plan">{{detail.request_detail.date_plan|datex: "YYYY/MM/DD"}}（{{detail.request_detail.dayofweek_date_plan|ttrans}}）</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'開始時間'|ttrans}}</th>
+                                    <td><p>{{detail.request_detail.time_start}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F29_実施時間'|ttrans}}</th>
+                                    <td><p>{{detail.request_detail.plan_hour|formatHour}}h</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'場所'|ttrans}}</th>
+                                    <td><p><span *ngIf="detail.request_detail.countries">{{detail.request_detail.countries.display_name}}</span>　<span *ngIf="detail.request_detail.city">{{detail.request_detail.city.name}}</span></p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'カテゴリー'|ttrans}}</th>
+                                    <td><p *ngIf="detail.request_detail.categories">
+                                        <span *ngFor="let item of detail.request_detail.categories" style="margin-right: 30px;">{{item.name}}</span><br/>
+                                    </p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'人数'|ttrans}}</th>
+                                    <td><p>{{detail.request_detail.num_people}}{{'F29_人'|ttrans}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'希望金額'|ttrans}}</th>
+                                    <td>
+                                        <p>￥<span *ngIf="detail.request_detail.num_people*detail.request_detail.desire_price">{{detail.request_detail.num_people*detail.request_detail.desire_price|numberFormat}}</span>
+                                            <span *ngIf="detail.request_detail.num_people == 0 || detail.request_detail.desire_price == 0">0</span></p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'対応言語'|ttrans}}</th>
+                                    <td><p *ngIf="listLanguages">{{listLanguages[detail.request_detail.support_language_id]|ttrans}}</p></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'リクエスト内容'|ttrans}}</th>
+                                    <td><pre class="word-break pre-text">{{detail.request_detail.desc}}</pre></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">{{'F29_募集期限'|ttrans}}</th>
+                                    <td>
+                                        <p *ngIf="detail.request_detail.date_end" id="set-date-end">{{detail.request_detail.date_end|datex: "YYYY/MM/DD"}}（{{detail.request_detail.dayofweek_date_end|ttrans}}）</p>
+                                        <span class="mypage__body__float--right" *ngIf="detail.request_detail.status == app.constant.RECRUITING_REQUEST || detail.request_detail.status == app.constant.UNDER_NEGOTIATION || detail.request_detail.status == app.constant.REQUEST_CLOSED" (click)="updateDeadline()">
+                                            <button type="button" class="btn--primary btn__mypage btn__mypage--icon" id="change-deadline">{{'期間変更'|ttrans}}</button>
+                                        </span>
+                                        <span class="mypage__body__float--right" *ngIf="detail.request_detail.status == app.constant.IMPLEMENT_WAITING || detail.request_detail.status == app.constant.IMPLEMENTED || detail.request_detail.status == app.constant.CANCEL">
+                                            <button type="button" class="btn--primary btn__mypage btn__mypage--waiting">{{'期間変更'|ttrans}}</button>
+                                        </span>
+                                        <p class="warning_msg">{{'募集期日は実施日より５日前までに設定する必要がある。更新できない場合、別のリクエストを作成してください。'|ttrans}}</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <div class="mypage__body__section" *ngIf="detail && detail.suggestions">
+
+                        <div class="mypage__body__box">
+
+                            <h2 class="mypage__body__title--02">{{'F29_提案プラン'|ttrans}}</h2>
+
+                            <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-compact">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{{'提案タイトル'|ttrans}}</th>
+                                    <th scope="col">{{'ガイド名'|ttrans}}</th>
+                                    <th scope="col">{{'単価'|ttrans}}</th>
+                                    <th scope="col">{{'金額'|ttrans}}</th>
+                                    <th scope="col">{{'メッセージ'|ttrans}}</th>
+                                    <th scope="col">{{'実施日'|ttrans}}</th>
+                                    <th scope="col">{{'ステータス'|ttrans}}</th>
+                                </tr>
+                                </thead>
+                                <tbody *ngIf="detail.suggestions.total > 0">
+                                <tr *ngFor="let item of detail.suggestions.data">
+                                    <td class="mypage__body__table-compact__txt" data-title="{{'提案タイトル'|ttrans}}"><a class="mypage__body__table-compact__a" [routerLink]="['/' + language + '/mypage/suggestion/detail/' + item.id]">{{item.proposal_title|limit: 30}}</a></td>
+                                    <!--<td><a href ="{{app.constant.BASE_WEB + language + 'mypage/suggestion/detail/' + item.id}}">{{item.proposal_title|limit: 30}}</a></td>-->
+                                    <!--<td *ngIf="language != ''"><a href ="{{app.constant.BASE_WEB + language + '/mypage/suggestion/detail/' + item.id}}">{{item.proposal_title|limit: 30}}</a></td>-->
+                                    <td data-title="{{'ガイド名'|ttrans}}"><span class="mypage__body__table-compact__a" *ngIf="item.guiders">{{item.guiders.name}}</span></td>
+                                    <td data-title="{'単価'|ttrans}}"><span *ngIf="item.price">￥{{item.price|numberFormat}}</span></td>
+                                    <td data-title="{{'金額'|ttrans}}"><span *ngIf="detail.request_detail.num_people*item.price|numberFormat">￥{{detail.request_detail.num_people*item.price|numberFormat}}</span></td>
+                                    <td data-title="{{'メッセージ'|ttrans}}" class="text-align-center">
+                                      <a [routerLink]="['/' + language + '/mypage/suggestion/detail/' + item.id + '/message_input/']">
+                                        <i class="ct ct-zero" *ngIf="item.chats_count == null || item.chats_count == 0">0</i>
+                                        <i class="ct" *ngIf="item.chats_count > 0">{{item.chats_count}}</i>
+                                      </a>
+                                    </td>
+                                    <td data-title="{{'実施日'|ttrans}}" class="text-align-center"><span *ngIf="item.date_plan">{{item.date_plan|datex: "YYYY/MM/DD"}}</span></td>
+                                    <td data-title="{{'ステータス'|ttrans}}" class="text-align-center">
+                                        <button *ngIf="item.status == app.constant.NEGOTIATION || item.status == app.constant.PROPOSAL_COLLECTION" type="button" class="btn--primary btn__mypage btn__mypage--negotiation btn__mypage--icon">{{'交渉中'|ttrans}}</button>
+                                        <button *ngIf="item.status == app.constant.DECLINE" type="button" class="btn--primary btn__mypage btn__mypage--negotiation btn__mypage--icon">{{'お断り'|ttrans}}</button>
+                                        <button *ngIf="item.status == app.constant.DECIDED" type="button" class="btn--primary btn__mypage btn__mypage--negotiation btn__mypage--icon">{{'決定'|ttrans}}</button>
+                                        <button *ngIf="item.status == app.constant.CANCEL" type="button" class="btn--primary btn__mypage btn__mypage--cancel btn__mypage--icon">{{'キャンセル'|ttrans}}</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                <tbody *ngIf="detail.suggestions.total == 0">
+                                <tr>
+                                    <td colspan="7" class="not-data">{{'データがございません'|ttrans}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="review__footer content__footer" *ngIf="detail.suggestions.current_page < detail.suggestions.last_page">
+                                <a (click)="loadMore(detail.suggestions)"  class="review__button btn--default">{{'もっと見る'|ttrans}}</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]='["/" + language + "/mypage/request"]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'リクエスト一覧へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn btn-default close close_modal" (click)="close_modal()" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-footer">
+                <p class="modal-footer__text">{{'本当にキャンセルしますか？キャンセルすると、戻せなくなりますのでご注意ください。'|ttrans}}</p>
+                <div class="modal-footer__btn">
+                    <button type="button"  data-dismiss="modal" (click)="close_modal()" class="cancel close_modal">{{'キャンセル'|ttrans}}</button>
+                    <button class="submit" data-dismiss="modal" (click)="changeStatus(detail.request_detail, app.constant.CANCEL)">{{'OK'|ttrans}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

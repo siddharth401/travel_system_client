@@ -1,0 +1,81 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                    <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                    <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                    <li><span >{{'F47_旅プラン一覧'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <div class="mypage__body__title--box-shoulder">
+                                <button type="button" class="btn--primary btn__mypage btn__mypage--contact" (click)="goToF45()">{{'F45_F47_旅プラン作成'|ttrans}}</button>
+                            </div>
+                            <h2 class="mypage__body__title--02 mypage__body__title--normal">{{'作成済み旅プラン一覧'|ttrans}}</h2>
+                        </div>
+
+                        <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-compact">
+                            <thead>
+                            <tr>
+                                <th scope="col">{{'F48_作成日'|ttrans}}</th>
+                                <th scope="col">{{'旅プランタイトル'|ttrans}}</th>
+                                <th scope="col">{{'予約数'|ttrans}}</th>
+                                <th scope="col">{{'期間設定'|ttrans}}</th>
+                                <th scope="col">{{'口コミ'|ttrans}}</th>
+                                <th scope="col">{{'ステータス'|ttrans}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of listPlan.data">
+                                <td data-title="{{'F48_作成日'|ttrans}}">{{item.created_at | datex : 'YYYY/MM/DD'}}</td>
+                                <!--<td><a [routerLink]="['/'+languageName+'/mypage/plan/detail/'+item.id]">{{item.proposal_title}}</a></td>-->
+                                <td data-title="{{'旅プランタイトル'|ttrans}}" class="list--style">
+                                    <a *ngFor="let planItem of item.proposal_titles" [routerLink]="['/'+languageName+'/mypage/plan/detail/'+item.id]" (click)="goToDetail(planItem.language_id)" data-toggle="tooltip" title="{{planItem.proposal_title}}">{{planItem.proposal_title}}<br></a>
+                                </td>
+                                <td data-title="{{'予約数'|ttrans}}" class="mypage__body__align--center"><i class="ct ct-none">{{item.bookings_count}}</i></td>
+                                <td data-title="{{'期間設定'|ttrans}}" *ngIf="item.ari == true" class="mypage__body__align--center"><i class="ct ct-none">{{'あり'|ttrans}}</i></td>
+                                <td data-title="{{'期間設定'|ttrans}}" *ngIf="item.ari == false" class="mypage__body__align--center"><i class="ct ct-none">{{'なし'|ttrans}}</i></td>
+                                <td data-title="{{'口コミ'|ttrans}}" class="mypage__body__align--center">
+                                    <a  [routerLink]="['/'+languageName+'/mypage/plan/review/'+item.id]" (click)="reviewPlan(item.proposal_titles)"><i class="ct ct-none">{{item.reviews_count}}</i></a>
+                                </td>
+                                <td data-title="{{'ステータス'|ttrans}}" style="text-align: center;" *ngIf="item.status == app.constant.GuiderStatus.APPROVAL_REQUEST"><button type="button" class="btn--primary btn__mypage btn__mypage--waiting btn__mypage--icon" >{{'F48_申請中'|ttrans}}</button></td>
+                                <td data-title="{{'ステータス'|ttrans}}" style="text-align: center;" *ngIf="item.status == app.constant.GuiderStatus.PUBLIC_OFFERING"><button type="button" class="btn--primary btn__mypage btn__mypage--on btn__mypage--icon" >{{'F48_募集中'|ttrans}}</button></td>
+                                <td data-title="{{'ステータス'|ttrans}}" style="text-align: center;" *ngIf="item.status == app.constant.GuiderStatus.STOP_PUBLIC"><button type="button" class="btn--primary btn__mypage btn__mypage--off btn__mypage--icon" >{{'F48_募集停止'|ttrans}}</button></td>
+                                <td data-title="{{'ステータス'|ttrans}}" style="text-align: center;" *ngIf="item.status == app.constant.GuiderStatus.NON_APPROVAL"><button style="background: #333;color: #fff" type="button" class="btn--primary btn__mypage btn__mypage--off btn__mypage--icon" >{{'F48_申請却下'|ttrans}}</button></td>
+                            </tr>
+                            </tbody>
+                            <tbody *ngIf="listPlan && listPlan.total == 0">
+                            <tr>
+                                <td class="not-data" colspan="6">{{'データがございません'|ttrans}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <p><a *ngIf="listPlan.current_page < listPlan.last_page" class="content-list__button btn--default" href="javascript:void(0);" (click)="loadMore()">{{'もっと見る'|ttrans}}</a></p>
+
+                    </div>
+
+
+
+                </div>
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'プロフィールへ戻る'|ttrans}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

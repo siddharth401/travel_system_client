@@ -1,0 +1,361 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a>{{'本人確認書類'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+                    <div class="mypage__body__section" *ngIf="memberImages">
+
+                        <h2 class="mypage__body__title--02">{{'本人確認証明書について'|ttrans}}</h2>
+
+                        <div class="mypage__body__block">
+
+                            <p class="mypage__body__text">
+                                {{'マッチングガイドでは、旅ガイド様と旅ユーザー様が安心してお取引をできるよう、旅ガイド様に写真のある本人確認書類の提出をお願いしております。'|ttrans}}<br>
+                                {{'公式の身分証明書でご本人と確認できた方のみ、旅ガイドとして活動していただけます。'|ttrans}}<br>
+                                {{'身分証明書では、名前、住所、生年月日、有効期限が登録された情報と一致しているかどうかを確認しております。'|ttrans}}<br>
+                                {{'また日本国籍ではない場合、日本で就労可能なビザをお持ちであるかも確認しております。'|ttrans}}<br>
+                                {{'旅ガイド様が日本国籍を持っている場合の本人確認書類（下記のうち一つ）'|ttrans}}<br>
+                                {{'・免許証（表・裏）'|ttrans}}<br>
+                                {{'・パスポート（旅券番号の記載があるページ）'|ttrans}}<br>
+                                {{'上記お持ちでない場合は、下記組合せで2点の本人確認書類が必要です。'|ttrans}}<br>
+                                {{'・健康保険証（表裏）＋　写真付き身分証明書類（写真付き社員証など）'|ttrans}}<br>
+                                {{'・住民票　＋　写真付き身分証明書類（写真付き社員証など）'|ttrans}}<br>
+                                {{'旅ガイド様が日本国籍を持たない場合の本人確認書類（下記のうち一つ）'|ttrans}}<br>
+                                {{'・パスポート及び日本国内で就労可能なビザのページ'|ttrans}}<br>
+                                {{'・就労可能なビザでない場合は、在留カード及び資格外活動が許可されていることが分かるもの身分証明書につきましては、事務局が大切にお預かりし、外部に公開することはありません。'|ttrans}}<br>
+                                {{'旅ユーザーさんからも見ることはできませんのでご安心ください。'|ttrans}}<br>
+
+
+                            </p>
+
+                        </div>
+                        <div class="mypage__body__block mypage__body__block--style"
+                             *ngIf="memberImages.type == 1 && memberImages.approve_guide == 4">
+
+                            <div class="mypage__body__block__caution mypage__body__block--style__blue">
+
+                                <p class="mypage__body__block__caution__text">{{'本人書類ご提出頂きにありがとうございました。'|ttrans}}<br>{{'引き続き、ガイドマッチングのご利用よろしくお願いします。'|ttrans}}
+                                </p>
+
+                            </div>
+
+                        </div>
+                        <div class="mypage__body__block"
+                             *ngIf="memberImages.type == app.constant.MEMBER_USER && memberImages.approve_guide == app.constant.MEMBER_REJECT">
+
+                            <div class="mypage__body__block">
+
+                                <div class="mypage__body__block__caution">
+
+                                    <p class="mypage__body__block__caution__text mypage__body__block__caution__bold">{{'ご提出頂きました書類に不備があり、再度本人確認書類のご提出をお願い致します。'|ttrans}}<br>{{'不備内容においてご質問がある場合は、恐れ入りますが下記の運営事務局までご連絡ください。'|ttrans}}
+                                    </p>
+                                    <p class="mypage__body__block__caution__text mypage__body__block__caution__text--subtext"
+                                       style="color: black">{{'ガイドマッチング運営事務局'|ttrans}}</p>
+                                    <p class="mypage__body__block__caution__text" style="color: black;font-size: 23px">
+                                        049-253-7765<span class="mypage__body__block__caution__text--date"
+                                                          style="color: black;margin-left: 15px">{{'(平日：10時から18時)'|ttrans}}</span>
+                                    </p>
+
+                                </div>
+
+                            </div>
+                            <div class="form-set__button button_hide">
+                                <input type="submit" (click)="showData()" class="btn--primary" value="{{'再提出する'|ttrans}}">
+                            </div>
+                        </div>
+                        <div class="mypage__body__block mypage__body__block--style"
+                                 *ngIf="memberImages.type == app.constant.MEMBER_USER && memberImages.approve_guide == 2">
+
+                            <div class="mypage__body__block__caution mypage__body__block--style__black">
+
+                                <h3 class="mypage__body__block__caution__title">{{'本人書類の申請承認待ち状態となっております。恐れ入りますが、もう少々お待ちください。'|ttrans}}
+                                </h3>
+                                <p class="mypage__body__block__caution__text">
+                                    {{'１週間たっても、承認処理がなされない場合には恐れ入りますが下記の運営事務局までご連絡ください。'|ttrans}}</p>
+
+                                <p class="mypage__body__block__caution__text mypage__body__block__caution__text--subtext">
+                                    {{'ガイドマッチング運営事務局'|ttrans}}</p>
+                                <p class="mypage__body__block__caution__text" style="font-size: 23px">049-253-7765<span
+                                        class="mypage__body__block__caution__text--date" style="margin-left: 15px">{{'(平日：10時から18時)'|ttrans}}</span>
+                                </p>
+                            </div>
+                            <div class="form-set__button button_hide">
+                                <input type="submit" (click)="showData()" class="btn--primary" value="{{'再提出する'|ttrans}}">
+                            </div>
+                        </div>
+                        <div style="display: none" id="identify_image"
+                             *ngIf="memberImages.type == app.constant.MEMBER_USER && (memberImages.approve_guide == app.constant.MEMBER_NOT_CONFIRM || memberImages.approve_guide == 5)">
+                            <div class="mypage__body__frame mypage__body__frame--s">
+                                <table class="tb-abc form-content__form-table form-content__form-table--borderless form-content__form-table-l form-content__form-table--btmless">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5 class="title">{{'個人情報書類のアップロード'|ttrans}}</h5>
+                                            <fieldset style="margin-bottom: 30px;">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img"><img
+                                                            *ngIf="memberImages.identify_image_0" class="detail-img"
+                                                            width="250"
+                                                            [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_0 + '&top_token=' + top_token"/>
+                                                    </div>
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="identify_image_0"
+                                                                        extensions="jpg|jpeg|png|JPG|JPEG|PNG"
+                                                                        class="image-resume" size="5120"
+                                                                        id="identify_image-0"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a href="javascript:void(0);" class="js-add"
+                                                           (click)="addImage(1)"><i class="fa fa-plus-square"
+                                                                                    aria-hidden="true"></i></a>
+                                                    </ul>
+                                                </div>
+                                                <small class="msg_err" *ngIf="imageError.identify_image_0">
+                                                    {{imageError.identify_image_0[0]|ttrans}}
+                                                </small>
+                                            </fieldset>
+                                            <fieldset
+                                                    class="{{(memberImages.identify_image_1 == '' || memberImages.identify_image_1 == null) ? 'hidden' : ''}}"
+                                                    style="margin-bottom: 30px;" id="identify_image_1">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img"><img
+                                                            *ngIf="memberImages.identify_image_1" class="detail-img"
+                                                            width="250"
+                                                            [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_1 + '&top_token=' + top_token"/>
+                                                    </div>
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="identify_image_1"
+                                                                        extensions="jpg|jpeg|png|JPG|JPEG|PNG"
+                                                                        class="image-resume" size="5120"
+                                                                        id="image-1"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a href="javascript:void(0);" class="js-add"
+                                                           (click)="addImage(2)"><i class="fa fa-plus-square"
+                                                                                    aria-hidden="true"></i></a>
+                                                        <a href="javascript:void(0);" class="js-minus"
+                                                           (click)="removeImage(1)"><i class="fa fa-minus-square"
+                                                                                       aria-hidden="true"></i></a>
+                                                    </ul>
+                                                </div>
+                                                <small class="msg_err" *ngIf="imageError.identify_image_1">
+                                                    {{imageError.identify_image_1[0]|ttrans}}
+                                                </small>
+                                            </fieldset>
+                                            <fieldset
+                                                    class="{{(memberImages.identify_image_2 == '' || memberImages.identify_image_2 == null) ? 'hidden' : ''}}"
+                                                    style="margin-bottom: 30px;" id="identify_image_2">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img"><img
+                                                            *ngIf="memberImages.identify_image_2" class="detail-img"
+                                                            width="250"
+                                                            [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_2 + '&top_token=' + top_token"/>
+                                                    </div>
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="identify_image_2"
+                                                                        extensions="jpg|jpeg|png|JPG|JPEG|PNG"
+                                                                        class="image-resume" size="5120"
+                                                                        id="image-2"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a href="javascript:void(0);" class="js-add"
+                                                           (click)="addImage(5)"><i class="fa fa-plus-square"
+                                                                                    aria-hidden="true"></i></a>
+                                                        <a href="javascript:void(0);" class="js-minus"
+                                                           (click)="removeImage(2)"><i class="fa fa-minus-square"
+                                                                                       aria-hidden="true"></i></a>
+                                                    </ul>
+                                                </div>
+                                                <small class="msg_err" *ngIf="imageError.identify_image_2">
+                                                    {{imageError.identify_image_2[0]|ttrans}}
+                                                </small>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="form-set__button">
+                                <input type="submit" (click)="confirmSaveData()" class="btn--primary" value="{{'再提出する'|ttrans}}">
+                            </div>
+                        </div>
+
+                        <div *ngIf="memberImages.type == app.constant.MEMBER_GUIDER">
+                            <div class="mypage__body__frame--s">
+                                <table class="tb-abc form-content__form-table form-content__form-table--borderless form-content__form-table-l form-content__form-table--btmless">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5 class="title">{{'個人情報書類のアップロード'|ttrans}}</h5>
+                                            <fieldset style="margin-bottom: 30px;">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img">
+                                                        <img *ngIf="memberImages.identify_image_0" class="detail-img"
+                                                             width="250"
+                                                             [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_0 + '&top_token=' + top_token"/>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset *ngIf="memberImages.identify_image_1">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img">
+                                                        <img class="detail-img" width="250"
+                                                             [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_1 + '&top_token=' + top_token">
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset *ngIf="memberImages.identify_image_2">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img">
+                                                        <img class="detail-img" width="250"
+                                                             [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_2 + '&top_token=' + top_token">
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div *ngIf="memberImages.type == app.constant.MEMBER_USER && memberImages.approve_guide == 1">
+                            <div class="mypage__body__frame mypage__body__frame--s">
+                                <table class="tb-abc form-content__form-table form-content__form-table--borderless form-content__form-table-l form-content__form-table--btmless">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <h5 class="title">{{'個人情報書類のアップロード'|ttrans}}</h5>
+                                            <fieldset style="margin-bottom: 30px;">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img"><img
+                                                            *ngIf="memberImages.identify_image_0" class="detail-img"
+                                                            width="250"
+                                                            [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_0 + '&top_token=' + top_token">
+                                                    </div>
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="identify_image_0"
+                                                                        extensions="jpg|jpeg|png|JPG|JPEG|PNG"
+                                                                        class="image-resume" size="5120"
+                                                                        id="identify-image-0"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a href="javascript:void(0);" class="js-add"
+                                                           (click)="addImage(1)"><i class="fa fa-plus-square"
+                                                                                    aria-hidden="true"></i></a>
+                                                    </ul>
+                                                </div>
+                                                <small class="msg_err" *ngIf="imageError.identify_image_0">
+                                                    {{imageError.identify_image_0[0]|ttrans}}
+                                                </small>
+                                            </fieldset>
+                                            <fieldset
+                                                    class="{{(memberImages.identify_image_1 == '' || memberImages.identify_image_1 == null) ? 'hidden' : ''}}"
+                                                    style="margin-bottom: 30px;" id="identify_image_1">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img"><img
+                                                            *ngIf="memberImages.identify_image_1" class="detail-img"
+                                                            width="250"
+                                                            [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_1 + '&top_token=' + top_token">
+                                                    </div>
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="identify_image_1"
+                                                                        extensions="jpg|jpeg|png|JPG|JPEG|PNG"
+                                                                        class="image-resume" size="5120"
+                                                                        id="image-1"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a href="javascript:void(0);" class="js-add"
+                                                           (click)="addImage(2)"><i class="fa fa-plus-square"
+                                                                                    aria-hidden="true"></i></a>
+                                                        <a href="javascript:void(0);" class="js-minus"
+                                                           (click)="removeImage(1)"><i class="fa fa-minus-square"
+                                                                                       aria-hidden="true"></i></a>
+                                                    </ul>
+                                                </div>
+                                                <small class="msg_err" *ngIf="imageError.identify_image_1">
+                                                    {{imageError.identify_image_1[0]|ttrans}}
+                                                </small>
+                                            </fieldset>
+                                            <fieldset
+                                                    class="{{(memberImages.identify_image_2 == '' || memberImages.identify_image_2 == null) ? 'hidden' : ''}}"
+                                                    style="margin-bottom: 30px;" id="identify_image_2">
+                                                <div class="inner-upload">
+                                                    <div class="inner-upload__img"><img
+                                                            *ngIf="memberImages.identify_image_2" class="detail-img"
+                                                            width="250"
+                                                            [src]="app.constant.PRIVATE_URL + '?url=' + memberImages.identify_image_2 + '&top_token=' + top_token">
+                                                    </div>
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="identify_image_2"
+                                                                        extensions="jpg|jpeg|png|JPG|JPEG|PNG"
+                                                                        class="image-resume" size="5120"
+                                                                        id="image-2"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a href="javascript:void(0);" class="js-add"
+                                                           (click)="addImage(5)"><i class="fa fa-plus-square"
+                                                                                    aria-hidden="true"></i></a>
+                                                        <a href="javascript:void(0);" class="js-minus"
+                                                           (click)="removeImage(2)"><i class="fa fa-minus-square"
+                                                                                       aria-hidden="true"></i></a>
+                                                    </ul>
+                                                </div>
+                                                <small class="msg_err" *ngIf="imageError.identify_image_2">
+                                                    {{imageError.identify_image_2[0]|ttrans}}
+                                                </small>
+                                            </fieldset>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="form-set__button">
+                                <input *ngIf="memberImages.type != 1" type="submit" (click)="confirmSaveData()"
+                                       class="btn--primary" value="{{'再提出する'|ttrans}}">
+                                <input *ngIf="memberImages.type == 1" type="submit" (click)="confirmSaveData()"
+                                       class="btn--primary" value="{{'本人書類をアップロードする'|ttrans}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/profile/']" class="link--back"><i
+                            class="fa fa-angle-left" aria-hidden="true"></i>{{'プロフィールへ戻る'|ttrans}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-dialog-01">
+    <div class="modal-content">
+        <button type="button" class="modal-dialog--close close_modal_approve_guide" (click)="close_modal()"
+                data-dismiss="modal"></button>
+        <div class="modal-body">
+            <h2 class="modal-dialog__title">{{'表示されているイメージの書類で提出してよろしいですか？'|ttrans}}</h2>
+            <ul>
+                <li class="modal-body__list-img" id="show-image"></li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="submit" data-dismiss="modal" (click)="saveData()">{{'提出' | ttrans}}</button>
+        </div>
+    </div>
+</div>

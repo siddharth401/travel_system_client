@@ -1,0 +1,18 @@
+<div id="sb-site">
+    <content-visual></content-visual>
+    <!--/.visual content-->
+
+    <content-about></content-about>
+    <!-- /.about outer content -->
+
+    <content-plan-list *ngIf="topData && topData.categories" [listCategory] = "topData.categories" [curMember]="curMember"></content-plan-list>
+    <!-- /.plan-list outer content -->
+
+    <content-request-list *ngIf="topData && topData.requests" [listRequest] = "topData.requests" [countData]="topData.count_requests" [curMember]="curMember"></content-request-list>
+    <!-- /.request-list outer content -->
+
+    <content-review *ngIf="topData && topData.reviews" [listReview] = "topData.reviews"></content-review>
+    <!-- /.request-list outer content -->
+</div>
+<fixed-area [language]="language" [curMember]="curMember"></fixed-area>
+<!--/.fixed-area-->

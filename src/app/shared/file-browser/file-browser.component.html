@@ -1,0 +1,50 @@
+<div class="modal fade" id="file-browser" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input (input)="search($event)" placeholder="{{'Search image'|trans}}" type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="superbox">
+                            <div>
+                                <div class="superbox-list" *ngFor="let item of listImage">
+                                    <img (click)="selectItem(item,$event)" class="superbox-img" src="{{app.constant.FILE_URL}}Media/{{item.path}}{{item.thumbnail}}" alt="{{item.name}}" title="{{item.name}}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-left">
+                        <div class="description" *ngIf="result">{{result}}</div>
+                    </div>
+                    <div class="col-md-8">
+                        <select (change)="variableChange($event)" class="form-control" >
+                            <option *ngFor="let item of listVariable|list:('Default'|trans)" [value]="item.value">{{item.value}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+                        <button type="button" class="btn btn-primary" [disabled]="!result" (click)="submit()"><i class="fa fa-check"></i> {{'Select'|trans}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="file-browser-preview" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                Image here
+            </div>
+        </div>
+    </div>
+</div>

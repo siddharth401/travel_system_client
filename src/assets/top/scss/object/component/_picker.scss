@@ -1,0 +1,12 @@
+.picker__frame, .picker__holder{
+	outline: none;
+}
+.picker__day--today:before{
+	border-top: .5em solid $accent_color;
+}
+.picker__button--today:before{
+	border-top: .66em solid $accent_color;
+}
+.picker--focused .picker__day--selected, .picker__day--selected, .picker__day--selected:hover{
+	background: $accent_color;
+}

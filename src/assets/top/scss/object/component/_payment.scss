@@ -1,0 +1,24 @@
+.payment{
+	&__list{
+		@include flexbox(flex-start,flex-start);
+		margin-bottom: 20px;
+		@include for-size(phone-only) {
+			@include flexbox(center,flex-start);
+			margin-bottom: 10px;
+		}
+		li+li{
+			margin-left: 10px;
+			@include for-size(phone-only) {
+				@include flexbox(center,flex-start);
+				margin-bottom: 5px;
+			}
+		}
+	}
+	>p{
+		@include font-size(14,14);
+		@include for-size(phone-only) {
+			@include font-size(12,16);
+			margin-bottom: 10px;
+		}
+	}
+}

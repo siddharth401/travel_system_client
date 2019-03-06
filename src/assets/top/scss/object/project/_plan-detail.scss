@@ -1,0 +1,253 @@
+.plan-detail{
+	color: #666;
+	@include for-size(phone-only) {
+		margin-bottom: 15px;
+		padding: 20px;
+	}
+	&__head{
+		margin-bottom: 35px;
+		@include flexbox(flex-start,flex-start);
+		@include for-size(phone-only) {
+			margin-bottom: 15px;
+		}
+		.pref-list{
+			margin-right: 5px;
+		}
+	}
+	&__title{
+		@include font-size(26,32);
+		font-weight: 600;
+		margin-bottom: 50px;
+		@include for-size(phone-only) {
+			@include font-size(16,24);
+			margin-bottom: 25px;
+		}
+	}
+	&__table{
+		margin-bottom: 35px;
+		width: 100%;
+		border-collapse: collapse;
+		border-spacing: 0;
+		@include for-size(phone-only) {
+			margin-bottom: 25px;
+		}
+		tr{
+			th{
+				font-weight: bold;
+				background: #fafafa;
+				@include for-size(phone-only) {
+					white-space: nowrap;
+				}
+			}
+			th,td{
+				vertical-align: middle;
+				text-align: left;
+				padding: 10px 20px;
+				border: 1px solid #ccc;
+				@include font-size(15,24);
+				@include for-size(phone-only) {
+					@include font-size(12,20);
+					padding: 5px 10px;
+				}
+			}
+		}
+	}
+	&__section{
+		margin-bottom: 35px;
+		@include for-size(phone-only) {
+			margin-bottom: 20px;
+		}
+		>p{
+			@include font-size(14,24);
+			@include for-size(phone-only) {
+				@include font-size(12,20);
+			}
+		}
+	}
+	&__sub-title{
+		@include font-size(24,24);
+		margin-bottom: 40px;
+		font-weight: 600;
+		@include for-size(phone-only) {
+			@include font-size(16,20);
+			margin-bottom: 20px;
+		}
+	}
+	&__section+&__section{
+		padding-top: 35px;
+		border-top: 1px solid #ccc;
+		@include for-size(phone-only) {
+			padding-top: 20px;
+		}
+	}
+	&__map{
+		margin-top: 35px;
+		@include for-size(phone-only) {
+			margin-top: 15px;
+		}
+		iframe{
+			width: 100%;
+			height: 340px;
+			@include for-size(phone-only) {
+				height: 170px;
+			}
+		}
+	}
+	.guide{
+		margin-bottom: 50px;
+		@include for-size(phone-only) {
+			margin-bottom: 25px;
+		}
+	}
+	&__foot{
+		a{
+			width: 600px;
+			height: 55px;
+			display: block;
+			margin: 0 auto;
+			text-align: center;
+			@include font-size(16,55);
+			@include for-size(phone-only) {
+				width: 100%;
+				height: 40px;
+				@include font-size(14,40);
+			}
+		}
+	}
+}
+.plan-info{
+	padding: 0 20px;
+
+	&__title{
+		margin-bottom: 30px;
+		@include font-size(24,24);
+		font-weight: bold;
+		padding-top: 20px;
+		@include for-size(phone-only) {
+			@include font-size(14,20);
+			padding-top: 10px;
+			margin-bottom: 15px;
+		}
+	}
+	&__slide{
+		position: relative;
+	}
+	&__content{
+		padding-bottom: 15px;
+		p{
+			@include font-size(14,24);
+			@include for-size(phone-only) {
+				@include font-size(12,20);
+			}
+		}
+	}
+	&__content+&__content{
+		border-top: 1px solid #ccc;
+		padding-top: 15px;
+	}
+	&__sns{
+		@include flexbox(flex-start,center);
+	}
+	&__price{
+		@include flexbox(flex-start,center);
+		@include for-size(phone-only) {
+			flex-direction: column;
+		}
+		.price{
+			@include font-size(24,24);
+			color: #e53935;
+			font-weight: 600;
+			@include for-size(phone-only) {
+				margin-bottom: 15px;
+			}
+		}
+		a{
+			display: block;
+			margin-left: auto;
+			width: 190px;
+			height: 50px;
+			text-align: center;
+			@include font-size(18,50);
+			font-weight: 600;
+			@include for-size(phone-only) {
+				width: 100%;
+				height: 40px;
+				@include font-size(14,40);
+			}
+			&::after {
+				display: none;
+			}
+		}
+	}
+	&__review{
+		@include flexbox(flex-start,center);
+		.content-list__score{
+			margin-right: 10px;
+			li{
+				@include font-size(16,16);
+			}
+		}
+		p{
+			@include font-size(16,16);
+		}
+	}
+}
+.sns-list{
+	li{
+		padding-right: 15px;
+		a{
+			&:hover{
+				@include opacity(.7);
+			}
+		}
+		@include for-size(phone-only) {
+			padding-right: 8px;
+		}
+	}
+	li+li{
+		padding-left: 15px;
+		border-left: 1px solid #ccc;
+		@include for-size(phone-only) {
+			padding-left: 8px;
+		}
+	}
+	&__line{
+		a{
+			img{
+				width: 26px;
+				height: 26px;
+				vertical-align: bottom;
+			}
+		}
+	}
+	&__facebook{
+		a{
+			color: #315096;
+			@include font-size(30,30);
+		}
+	}
+	&__twitter{
+		a{
+			@include font-size(30,30);
+			color: #55acee;
+		}
+	}
+	&__mail{
+		a{
+			@include font-size(30,30);
+			color: $accent_color;
+		}
+	}
+	&__favorite{
+		a{
+			color: #666;
+			text-decoration: none;
+			@include for-size(phone-only) {
+				@include font-size(11,11);
+			}
+			i{
+				margin-left: 5px;
+			}
+		}
+	}
+}

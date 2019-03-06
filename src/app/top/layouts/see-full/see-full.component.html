@@ -1,0 +1,4 @@
+<div class="review__body plan-review__body" id="post_{{id}}" *ngIf="content">
+    <pre class="limit pre-text">{{content | limit:200}}<a *ngIf="content.length >200"  class="btn_see_full" data-id="{{id}}">{{'続きを見る'|ttrans}}</a></pre>
+    <pre class="full" style="display: none">{{content}}</pre>
+</div>

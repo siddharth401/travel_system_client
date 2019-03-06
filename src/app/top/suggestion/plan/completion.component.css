@@ -1,0 +1,107 @@
+.suggest__note {
+    margin: 0 auto;
+    background: #f0f0f0;
+    width: 60%;
+    padding: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+.suggest__note-head {
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 25px;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 1;
+    position: relative;
+}
+.suggest__note-title {
+    display: inline-block;
+    position: relative;
+    font-weight: bold;
+    font-size: 18px;
+    font-size: 1.8rem;
+    line-height: 1;
+    background: transparent;
+    padding: 0;
+}
+
+.suggest__note-list {
+    padding: 0 0px;
+    text-align: left;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.suggest__note-list li {
+    width: 48.5%;
+}
+.suggest__label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 1;
+    margin-bottom: 10px;
+}
+.suggest__note-list li p {
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1.85714;
+    text-align: center;
+}
+.suggest__note-head:after {
+    content: none;
+}
+.suggest__note-list li + li {
+    margin-top:0 !important;
+}
+@media (max-width: 767px){
+    .suggest__note {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .suggest__note-head {
+        margin-bottom: 15px;
+        font-size: 14px;
+        font-size: 1.4rem;
+        line-height: 1;
+        padding-bottom: 10px;
+    }
+    .suggest__note-list {
+        flex-direction: column;
+        padding: 0px;
+        font-size: 12px;
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+    .suggest__note-list li {
+        width: 100%;
+        margin-left: 0;
+    }
+    .suggest__note-list li + li {
+        margin-top: 10px !important;
+    }
+    .suggest__note-list li p {
+        font-size: 12px;
+        font-size: 1.2rem;
+        line-height: 1.66667;
+        text-align: left;
+    }
+    .suggest__label {
+        text-align: left;
+        font-size: 14px;
+        font-size: 1.4rem;
+        line-height: 1;
+    }
+}

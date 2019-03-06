@@ -1,0 +1,241 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/' + language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li>{{'旅のリクエスト作成'|ttrans}}</li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'旅リクエスト作成'|ttrans}}</h2>
+                        <div><small class="msg_err" *ngIf="error['message']">{{error['message']|ttrans}}</small></div>
+                        <div class="mypage__body__block">
+
+                            <table class="form-content__form-table">
+                                <tbody>
+                                <tr>
+                                    <th>{{'リクエストタイトル'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--block form-msg">
+                                            <input type="text" name="request-title" id="request-title" class="form-set__input is-required" placeholder="{{'旅リクエストのタイトルを記入ください'|ttrans}}" [value]="request.title">
+                                            <small class="msg_err" *ngIf="error['request.0.title']">{{error['request.0.title']|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'実施リクエスト日'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-set form-width form-group__input-date form-set--inline">
+                                            <input type="text" name="input-date" id="input-date" class="form-set__input form-set__select is-required" placeholder="{{'日付'|ttrans}}" [value]="request.date_plan">
+                                            <small class="msg_err msg_err--form" *ngIf="error['request.0.date_plan']">{{error['request.0.date_plan']|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'開始時間'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="date-inner">
+                                            <div class="form-set form-set--inline-l">
+                                                <select name="request-date-start01" id="request-date-start01" class="form-group__select form-set__select is-required" [value]="request.hour">
+                                                    <option *ngFor="let item of app.constant.TimePlan.Plan_hour|list" value="{{item.value}}">{{item.value}}</option>
+                                                </select>
+                                                <small class="msg_err msg_err--form" *ngIf="error['request.0.hour']">{{error['request.0.hour']|ttrans}}</small>
+                                            </div>
+                                            <span>{{'時'|ttrans}}</span>
+                                            <div class="form-set form-set--inline-l">
+                                                <select name="request-date-start02" id="request-date-start02" class="form-group__select form-set__select is-required" [value]="request.minute">
+                                                    <option *ngFor="let item of app.constant.TimePlan.Plan_min|list" value="{{item.value}}">{{item.value}}</option>
+                                                </select>
+                                                <small class="msg_err msg_err--form" *ngIf="error['request.0.minute']">{{error['request.0.minute']|ttrans}}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F25_実施時間'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="date-inner">
+                                            <div class="form-set form-set--inline-l">
+                                                <select name="request-time" id="request-time-hour" class="form-group__select form-set__select is-required" [value]="request.request_time_hour">
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="21">21</option>
+                                                    <option value="22">22</option>
+                                                    <option value="23">23</option>
+                                                    <option value="24">24</option>
+                                                </select>
+                                                <small class="msg_err msg_err--form" *ngIf="error['request.0.request_time_hour']">{{error['request.0.request_time_hour']|ttrans}}</small>
+                                            </div>
+                                            <span>{{'時'|ttrans}}</span>
+                                            <div class="form-set form-set--inline-l">
+                                                <select name="request-time" id="request-time-minute" class="form-group__select form-set__select is-required" [value]="request.request_time_minute">
+                                                    <option value="00">00</option>
+                                                    <option value="15">15</option>
+                                                    <option value="30">30</option>
+                                                    <option value="45">45</option>
+                                                </select>
+                                                <small class="msg_err msg_err--form" *ngIf="error['request.0.request_time_minute']">{{error['request.0.request_time_minute']|ttrans}}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'希望場所'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--inline-l" style="margin-right: 10px;">
+                                            <select name="request-location-country" id="request-location-country" class="form-group__select form-set__select is-required" (change)="getListCities()">
+                                                <option *ngFor="let item of listCountry|list" value="{{item.key}}" [selected]="item.key == request.country_id">{{item.value}}</option>
+                                            </select>
+                                            <small class="msg_err msg_err--form" *ngIf="error['request.0.country_id']">{{error['request.0.country_id']|ttrans}}</small>
+                                        </div>
+                                        <div class="form-set form-set--inline-l" *ngIf="cities">
+                                            <select name="request-location-city" id="request-location-city" class="form-group__select form-set__select is-required">
+                                                <option value="" [selected]="request.city_id == '' || exist_city_id != true" disabled>{{'都市'|ttrans}}</option>
+                                                <option *ngFor="let item of cities|list " [value]="item.key" [selected]="item.key == request.city_id">{{item.value}}</option>
+                                            </select>
+                                            <small class="msg_err msg_err--form" *ngIf="error['request.0.city_id']">{{error['request.0.city_id']|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'カテゴリー'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-set--text form-set--style" *ngIf="categories">
+                                            <div class="form-set form-set--checkbox" *ngFor="let item of categories">
+                                                <input type="checkbox" name="request-category" class="form-set__checkbox" id="request-category-{{item.id}}" value="{{item.id}}" [checked]="checkInArrayCategory(request.categories, item.id)">
+                                                <label for="request-category-{{item.id}}">{{item.name}}</label>
+                                            </div>
+                                        </div>
+                                        <div><small class="msg_err msg_err--form" *ngIf="error['request.0.categories']">{{error['request.0.categories']|ttrans}}</small></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'人数'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-content__form-table__box">
+                                            <div class="form-set form-width form-set--inline-l">
+                                                <input name="request-number" class="form-set__input is-required" id="request-number" value="{{request.num_people}}" (input)="changeNumPeople($event.target.value)">
+                                            </div>
+                                            <span>{{'人'|ttrans}}</span>
+                                        </div>
+                                        <small class="msg_err msg_err--form" *ngIf="error['request.0.num_people']">{{error['request.0.num_people']|ttrans}}</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'希望金額'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div>
+                                            <span>{{'単価'|ttrans}}</span>
+                                            <div class="form-set form-set--inline-l request-price-cost--container">
+                                                <input type="text" name="request-price-cost" id="request-price-cost" class="form-set__select form-group__select is-required" placeholder="0,000" (input)="changeDesirePrice($event.target.value)" value="{{request.desire_price}}">
+                                            </div>
+                                            <span>{{'¥'|ttrans}} × </span>
+                                        </div>
+                                        <div>
+                                            <span>{{'人数'|ttrans}}</span>
+                                            <div class="form-set form-set--inline request-price-number--container">
+                                                <input type="text" name="request-price-number" id="request-price-number" class="form-set__input is-strong" placeholder="0" (input)="changeNumPeople($event.target.value)"  value="{{request.num_people}}" disabled>
+                                            </div>
+                                            <span>{{'名'|ttrans}} = </span>
+                                        </div>
+                                        <div>
+                                            <span>{{'合計'|ttrans}}</span>
+                                            <span>{{'¥'|ttrans}}</span>
+                                            <div class="form-set form-set--inline">
+                                                <input *ngIf="price_sum != '0,000'" type="text" name="request-price-sum" class="request-price-sum" class="form-set__input is-emphasis" placeholder="{{price_sum|numberFormat}}" disabled>
+                                                <input *ngIf="price_sum == '0,000'" type="text" name="request-price-sum" class="request-price-sum" class="form-set__input is-emphasis" placeholder="{{price_sum}}" disabled>
+                                            </div>
+                                        </div>
+                                        <small class="msg_err msg_err--form" *ngIf="error['request.0.desire_price']">{{error['request.0.desire_price']|ttrans}}</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'対応言語'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-set">
+                                            <select name="request-lang" id="request-lang" class="form-set__select form-set--inline-l form-group__select is-required">
+                                                <option value="" selected="" disabled>{{'対応言語'|ttrans}}</option>
+                                                <option *ngFor="let item of listLanguage|list" [value]="item.key" [selected]="item.key == request.support_language_id">{{item.value|ttrans}}</option>
+                                            </select>
+                                            <small class="msg_err msg_err--form" *ngIf="error['request.0.support_language_id']">{{error['request.0.support_language_id']|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'リクエスト内容'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="request-content" id="request-content" class="form-set__textarea is-required" placeholder="{{'リクエスト内容を記入して下さい。'|ttrans}}" value="{{request.desc}}"></textarea>
+                                            <small class="msg_err msg_err--form" *ngIf="error['request.0.desc']">{{error['request.0.desc']|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'募集期日'|ttrans}}<sup>※</sup></th>
+                                    <td>
+                                        <div class="form-set form-width form-group__input-date form-set--inline">
+                                            <input type="text" name="date-end" id="date-end" class="form-set__input is-required" placeholder="{{'募集期日'|ttrans}}" value="{{request.date_end}}">
+                                            <small class="msg_err msg_err--form" *ngIf="error['request.0.date_end']">{{error['request.0.date_end']|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'申込期限'|ttrans}}</th>
+                                    <td><p>{{'{0}日前'|ttrans_replace:'5'}}</p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-set__button">
+                                <input type="button" (click)="confirmData(true)" class="btn--primary" value="{{'作成確認'|ttrans}}" [disabled]="isDisabled">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/' + language + '/mypage/request']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'リクエスト一覧へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

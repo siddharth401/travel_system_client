@@ -1,0 +1,20 @@
+.list{
+	&--num{
+		> li{
+			position: relative;
+			counter-increment : num;
+			&:before{
+				content : counter(num);
+			}
+		}
+	}
+	&--num-parenthesis{
+		> li{
+			position: relative;
+			counter-increment : num-parenthesis;
+			&:before{
+				content : "(" counter(num-parenthesis) ")";
+			}
+		}
+	}
+}

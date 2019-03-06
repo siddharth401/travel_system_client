@@ -1,0 +1,73 @@
+/*
+
+	font settings
+
+**************************************************/
+/*
+
+	view port settings
+
+**************************************************/
+/*
+
+	boxsizing settings
+
+**************************************************/
+/*
+
+	opacity settings
+
+**************************************************/
+/*
+
+	border-radius settings
+
+**************************************************/
+/*
+
+	drop shadow settings
+
+**************************************************/
+/*
+
+	vertical align setting
+
+**************************************************/
+/*
+
+	table layout setting
+
+**************************************************/
+/*
+
+	flexbox layout setting
+
+**************************************************/
+/*
+
+	scaling img
+
+**************************************************/
+/*
+
+	clearfix
+
+**************************************************/
+.privacypolicy__visual {
+  background: url(../img/visual_privacy.png) no-repeat center top;
+  background-size: cover;
+}
+.list li{
+  position: relative;
+  padding-left: 20px;
+}
+.list li:before{
+  content: "・";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.condition__list dd > p + p {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=../css/privacypolicy.map */

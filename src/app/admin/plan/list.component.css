@@ -1,0 +1,62 @@
+.cancel_status {
+    color: red;
+}
+.btn-approve {
+    background-color: #74c149 ;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.btn-reset {
+    background-color: #d0d0d0 ;
+    color: #fff;
+    border-radius: 8px;
+}
+.date-from-to {
+    text-align: center;
+}
+.checkbox-status{
+    margin-right: 10px;
+}
+.title{
+    background-color: #3276b1;
+    color: #fff;
+    font-size: 18px;
+    padding: 5px 20px;
+    display: inline-block;
+}
+.thead-table th{
+    background-color: #3276b1;
+}
+.thead-table th a{
+    color: #fff;
+}
+.div-status{
+    width: 135px;
+    float: left;
+}
+.form-group--input .control-label {
+    padding-top:2px;
+}
+.title-plan {
+    font-size: 14px;
+    background: #ddd;
+    padding: 8px 10px;
+}
+.list-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.list-button a {
+    width: 70%;
+}
+.list-button a:first-child {
+    margin-bottom: 5px;
+}
+.control-label[_ngcontent-c6]{
+    padding-top: 0px;
+}
+
+
+

@@ -1,0 +1,118 @@
+<section class="request-list page-content outer">
+    <div class="request-list__visual page-content__visual">
+        <h2 class="page-content__title">{{'F11_旅リクエスト一覧'|ttrans}}</h2>
+    </div>
+    <!--/.search__visual -->
+    <request-list-breadcrumb *ngIf="option" [option]="option" [last]="last"></request-list-breadcrumb>
+    <!--/.breadcrumb -->
+    <div class="outer__inner">
+        <div class="container">
+            <div class="container__sub">
+                <section class="search-content">
+                    <div class="search-content__head">
+                        <h2 class="search-content__title">{{'旅行先から探す'|ttrans}}</h2>
+                    </div>
+                    <div class="search-content__body" *ngIf="app.listDataFormSearch.cities">
+                        <select name="search-area" id="search-area" class="easy-select">
+                            <option value="" selected>{{'旅先はどちらですか?'|ttrans}}</option>
+                            <optgroup *ngFor="let country of app.listDataFormSearch.cities" label="{{country.display_name}}">
+                                <option *ngFor="let item of country.cities" [value]="item.prefix" [selected]="item.prefix == conditions.city_prefix ">
+                                    <span>{{item.name}}</span>
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </section>
+                <section class="search-content">
+                    <div class="search-content__head">
+                        <h2 class="search-content__title">{{'日付'|ttrans}}</h2>
+                    </div>
+                    <div class="search-content__body">
+                        <div class="custom-form">
+                            <input id="input-date" type="text" placeholder="{{'日付'|ttrans}}" class="custom-form__input" [value]="conditions.date_plan">
+                        </div>
+                    </div>
+                </section>
+                <section class="search-content">
+                    <div class="search-content__head">
+                        <h2 class="search-content__title">{{'カテゴリー絞り込み'|ttrans}}</h2>
+                    </div>
+                    <div class="search-content__body">
+                        <ul class="search-content__wrap">
+                            <li *ngFor="let item of app.listDataFormSearch.categories">
+                                <div>
+                                    <input type="checkbox" name="category" value="{{item.prefix}}"  id="{{item.prefix}}" [checked]="conditions.category_prefix.indexOf(item.prefix) != -1" />
+                                    <label [for]="item.prefix" style="word-break: break-all;" class="checkbox">{{item.name}}</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class="search-content">
+                    <div class="search-content__head">
+                        <h2 class="search-content__title">{{'対応言語'|ttrans}}</h2>
+                    </div>
+                    <div class="search-content__body">
+                        <select name="search-area" id="search-language" class="easy-select">
+                            <option value="">{{'対応言語'|ttrans}}</option>
+                            <option *ngFor="let item of app.listDataFormSearch.languages" [value]="item.prefix" [selected]="conditions.language_prefix.indexOf(item.prefix) != -1">{{item.display_name|ttrans}}</option>
+                        </select>
+                    </div>
+                </section>
+                <button type="submit" id="search-tour" class="search-content__button" (click)="searchRequest()">{{'検索'|ttrans}}</button>
+            </div>
+            <div class="container__main">
+                <div class="container__head">
+                    <h3 class="container__title"><span>{{'「検索された条件の文言表示エリア」のリクエスト一覧'|ttrans}}</span></h3>
+                    <div class="result">
+                        <p class="result__num" *ngIf="requests && requests.request_lists.total > -1">{{requests.request_lists.total}}</p>
+                        <p class="result__text">{{'件'|ttrans}}</p>
+                    </div>
+                </div>
+                <div class="container__body">
+                    <div class="content-list">
+                        <ul class="request-lineup__list " *ngIf="requests && requests.request_lists.last_page > 0">
+                            <li *ngFor="let item of requests.request_lists.data">
+                                <div class="request-lineup__head">
+                                    <ul class="pref-list">
+                                        <li><a *ngIf="item.city" (click)="searchRequest(item.city.prefix, null)">{{item.city.name}}</a></li>
+                                    </ul>
+                                    <p class="request-time">{{item.date_plan|datex: "YYYY/MM/DD"}}</p>
+                                </div>
+                                <div class="request-lineup__body">
+                                    <div class="request-lineup__flex">
+                                        <div class="request-lineup__photo">
+                                            <a [routerLink]='["/" + app.language + "/request/detail/" + item.id]'><img [attr.src]="item.avatar ? app.constant.FILE_URL+item.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></a>
+                                        </div>
+                                        <div class="request-lineup__text">
+                                            <h3 class="word-break request-lineup__title"><a [routerLink]='["/" + app.language + "/request/detail/" + item.id]' data-toggle="tooltip" title="{{item.title}}">{{item.title}}</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="request-lineup__foot">
+                                    <ul class="category" *ngIf="item.categories">
+                                        <li *ngFor="let category of item.categories"><a  (click)="searchRequest(null, category.prefix)" style="background: #7cb342">{{category.name}}</a></li>
+                                    </ul>
+                                    <a [routerLink]='["/" + app.language + "/request/detail/" + item.id]'>
+                                        <div>
+                                            <figure><img [attr.src]="item.language_support && item.language_support.icon ? app.constant.FILE_URL+item.language_support.icon : '/assets/top/img/flag03.svg'" alt="{{item.language_support.display_name}}" width="38" /></figure>
+                                            <p>{{item.num_people}}{{'F29_人'|ttrans}}</p>
+                                        </div>
+                                        <div>
+                                            <p class="request-lineup__info--01">¥{{item.desire_price|numberFormat}}／{{'F29_人'|ttrans}}</p>
+                                            <p class="request-lineup__info--02">{{item.plan_hour|formatHour}}h{{'／所要時間'|ttrans}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        <p *ngIf="requests.request_lists.last_page == 0" style="text-align: center;">{{'現在、検索結果がないので、他の検索条件を選択してください。'|ttrans}}</p>
+                    </div>
+                </div>
+                <div class="container__foot">
+                    <a *ngIf="requests && requests.request_lists.total > 9 && requests.request_lists.current_page < requests.request_lists.last_page" href="javascript:void(0);" class="btn--default" (click)="loadMore()">{{'もっと見る'|ttrans}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

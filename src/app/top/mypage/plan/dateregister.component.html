@@ -1,0 +1,117 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li class="breadcrumb__list__item"><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li class="breadcrumb__list__item"><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li class="breadcrumb__list__item"><a [routerLink]="['/'+languageName+'/mypage/plan']">{{'F47_旅プラン一覧'|ttrans}}</a></li>
+                <li *ngIf="data.plan_info" class="breadcrumb__list__item"><a [routerLink]="['/'+languageName+'/mypage/plan/detail/'+data.plan_info.id]">{{data.plan_info.proposal_title |ttrans}}</a></li>
+                <li *ngIf="data.plan_info" class="breadcrumb__list__item"><a [routerLink]="['/'+languageName+'/mypage/plan/dateselect/'+data.plan_info.id]">{{'実施月選択' |ttrans}}</a></li>
+                <li class="breadcrumb__list__item"><a>{{'実施日登録'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <div class="mypage__body__title--box-shoulder">
+                                <button type="button" class="btn--primary btn__mypage btn__mypage--on" (click)="planDetail()">{{'F52_旅プラン詳細' | ttrans}}</button>
+                            </div>
+                            <h2 class="mypage__body__title--02 mypage__body__title--normal">{{'旅プラン詳細 実施日設定 月選択'|ttrans}}</h2>
+                        </div>
+
+                        <div class="mypage__body__block">
+
+                            <table class="mypage__body__table-normal" *ngIf="data.plan_info">
+                                <tbody>
+                                <tr>
+                                    <th>{{'プランID'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.plan_info.id}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'プランタイトル'|ttrans}}</th>
+                                    <td>
+                                        <p>{{data.plan_info.proposal_title}}</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mypage__body__block">
+                            <div class="calendar content-list--calendar">
+                                <ul>
+                                    <li>
+                                        <div class="calendar__text">
+                                            <span class="mypage__body__title--05">{{year}}/{{month}}</span>
+                                            <span>{{'日付の時間枠に、実施可能な時間をクリックして色が変わっている所が、設定時間となります。'|ttrans}}<br>
+                                        　               {{'設定が終われば、下の登録ボタンを押して設定させてください。'|ttrans}}</span>
+                                        </div>
+                                        <div class="table-inner">
+                                            <table class="table-calendar">
+                                                <thead>
+                                                <tr>
+                                                    <th>{{'実施日'|ttrans}}</th>
+                                                    <th *ngFor="let time_start of data.time_start">
+                                                        {{time_start}}
+                                                    </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr *ngFor="let item of dataDay; let i=index;">
+                                                    <th class="{{item.day > currentDay ? '' : 'disabled'}} {{(item.day_of_week == 6 || item.day_of_week == 7) ? 'day_of_week' : ''}}">
+                                                        {{item.day|datex:'YYYY/MM/DD'}}
+                                                    </th>
+                                                    <td *ngFor="let time_start of data.time_start"
+                                                        [ngClass]="item.listTimes.includes(time_start) ? 'actived' : ''"
+                                                        class="{{item.day > currentDay ? '' : 'disabled'}} {{item.day + ' '}} "
+                                                        (click)="pushData(i, time_start)"
+                                                    >
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="form-set__button">
+                                <input type="submit" (click)="confirmSave()" class="btn--primary" value="{{'登録'|ttrans}}">
+                            </div>
+                    </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/plan/dateselect/' + plan_id]" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'月選択画面へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+    <!-- Modal content-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--<h4 class="modal-title">口コミ内容</h4>-->
+                <button type="button" class="btn btn-default close" (click)="close_modal()" id="close_modal" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-footer">
+                <p class="modal-footer__text">{{'F51_本当に登録して宜しいですか？'|ttrans}}</p><br>
+                <button type="submit" class="submit" data-dismiss="modal" (click)="save_data()">{{'登録'|ttrans}}</button>
+            </div>
+        </div>
+    </div>
+</div>

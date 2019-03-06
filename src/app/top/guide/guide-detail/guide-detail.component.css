@@ -1,0 +1,64 @@
+.star-right{
+    display: flex;
+    align-items: baseline;
+}
+.fa-red{
+    color:#f00
+}
+.introduce_plan{
+    word-wrap: break-word;
+}
+.list__city {
+    display: flex;
+}
+.list__city p {
+    position: relative;
+}
+.list__city p:after {
+    content: ",";
+    margin-right: 5px;
+}
+.list__city p:last-child:after {
+    content: none;
+}
+.guide-detail__lead__pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.guide-detail__name {
+    padding-right: 150px;
+    word-break: break-all;
+}
+@media (max-width: 767px) {
+    .guide-detail__name {
+        padding-right: 0;
+    }
+}
+.guide-detail__head .favorite {
+    top: 5px;
+}
+@media (max-width: 767px) {
+    /*.guide-detail__head .favorite {*/
+        /*display: block;*/
+        /*bottom: 18px;*/
+        /*top: auto;*/
+    /*}*/
+}
+
+.guide-prof__photo figure img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+@media (max-width: 767px) {
+    .guide-prof__photo figure img{
+        width: 84px;
+        height: 84px;
+    }
+}
+.fixed-area a.favorite--active{
+    background: #24a99b;
+}
+.fixed-area a.favorite--active i{
+    color: red;
+}

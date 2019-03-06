@@ -1,0 +1,81 @@
+.mypage__body__tab__form li {
+    margin-top: 20px;
+}
+
+.location-style {
+    display: flex;
+    justify-content: space-between;
+}
+.btn__mypage--map {
+    display: inline-block;
+    padding: 12px;
+    text-align: center;
+}
+.button-cancel{
+    background: red;
+    box-shadow: 0px 3px 0px 0px red;
+}
+.star{
+    display: flex;
+}
+.bolder-text{
+    font-weight: bolder;
+}
+
+.flex-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.location-style span {
+    width: calc(80% - 20px);
+    margin-right: 20px;
+}
+.location-style a {
+    width: 20%;
+}
+.review__head {
+    display: block !important;
+}
+.flex-content-text {
+    margin-top: 10px;
+}
+.mypage__body__title a{
+    color: #333;
+    text-decoration: none;
+}
+.mypage__body__title a:hover {
+    color: #00a699;
+}
+.guider_languages{
+    margin-right: 10px;
+}
+.mypage__body__table-normal{
+    word-break: break-all;
+}
+
+.mypage__body__table-normal__pre {
+    line-height: 22px;
+    white-space: pre-wrap;
+}
+.button-location span {
+    display: block;
+    word-break: break-all;
+}
+.button-location a {
+    text-align: center;
+    float: right;
+    padding: 10px;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+@media (max-width: 767px) {
+    .mypage__body__title--02 {
+        padding-top: 42px;
+    }
+}
+.guider-reason-cancel {
+    color: red;
+}

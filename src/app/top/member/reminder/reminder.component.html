@@ -1,0 +1,26 @@
+<section class="modal">
+    <div class="add">
+        <div class="modal__head">
+            <!--<h1 class="modal__logo"><img src="assets/top/img/logo.svg" alt="サイトロゴ" /></h1>-->
+            <h1 class="modal__logo"><a [routerLink]="['/']"><img src="assets/top/img/logo_ico.png" alt="サイトロゴ" /></a></h1>
+
+        </div>
+        <div class="modal__body">
+            <h2 class="modal__title">{{'F10_パスワード再設定'|ttrans}}</h2>
+            <div class="modal__inner">
+                <p>{{'F10_会員登録したアドレスに再送信します。'|ttrans}}</p>
+                <form (keyup.enter)="sendMail()" action="{{languageName}}/member/login/reminder/completion" class="add__form">
+                    <div class="add__form-item">
+                        <input type="text" class="email" (keyup)="changeButton()" placeholder="{{'メールアドレス'|ttrans}}">
+                        <small class="msg_err" *ngIf="error.email">{{error.email[0]|ttrans}}</small>
+                    </div>
+                    <div class="add__form-button">
+                        <button class="btn--primary btn-disable" disabled id="disable-button">{{'F10_パスワード再設定'|ttrans}}</button>
+                        <input type="button" (click)="sendMail()" value="{{'F10_パスワード再設定'|ttrans}}" id="changePass" class="btn--primary"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="cboxClose" (click)="btnClose()">close</button>
+</section>

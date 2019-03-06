@@ -1,0 +1,15 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+    font-size: 13px;
+}
+.dropdown-menu {
+    z-index: 1000 !important;
+}
+.pull-right {
+    position: fixed;
+    top: 36px;
+    right: 33px;
+}

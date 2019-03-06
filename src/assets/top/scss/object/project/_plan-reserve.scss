@@ -1,0 +1,144 @@
+.plan-reserve{
+	background: #fafafa;
+	padding: 75px 0px;
+	@include for-size(phone-only) {
+		padding: 20px;
+	}
+	&__box{
+		border: 1px solid #ccc;
+		background: #fff;
+		padding: 0 30px;
+		@include for-size(phone-only) {
+			padding: 0 15px;
+		}
+	}
+	&__head{
+		padding: 40px 0px;
+		text-align: center;
+		@include font-size(26,34);
+		font-weight: bold;
+		border-bottom: 1px solid #ccc;
+		@include for-size(phone-only) {
+			padding: 20px 0px;
+			@include font-size(16,24);
+		}
+	}
+	&__body{
+		padding: 40px 0 0;
+		@include for-size(phone-only) {
+			padding: 20px 0px 0;
+		}
+	}
+	&__table{
+		width: 100%;
+		margin-bottom: 25px;
+		@include for-size(phone-only) {
+			margin-bottom: 10px;
+		}
+		thead{
+			background: #f8f8f8;
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+			th{
+				padding: 10px 0px;
+				@include font-size(14,14);
+				@include for-size(phone-only) {
+					padding: 5px 0px;
+					@include font-size(12,12);
+				}
+			}
+		}
+		tbody{
+			td{
+				border-bottom: 1px solid #ccc;
+				padding: 20px 0px;
+				@include font-size(20,20);
+				text-align: center;
+				@include for-size(phone-only) {
+					padding: 10px 0px;
+					@include font-size(14,18);
+				}
+				&.label-sm{
+					@include font-size(14,14);
+					@include for-size(phone-only) {
+						@include font-size(12,12);
+					}
+				}
+				span{
+					@include font-size(30,30);
+					font-weight: bold;
+					color: #f00;
+					@include for-size(phone-only) {
+						@include font-size(16,16);
+					}
+				}
+			}
+		}
+	}
+	&__content{
+		border-bottom: 1px solid #ccc;
+		padding: 30px 0px;
+		margin-bottom: $base_margin;
+		@include for-size(phone-only) {
+			padding: 15px 0px;
+			margin-bottom: $base_margin/2;
+		}
+		p{
+			@include font-size(14,24);
+			@include for-size(phone-only) {
+				@include font-size(12,20);
+			}
+		}
+	}
+	&__sub-title{
+		margin-bottom: 30px;
+		font-weight: bold;
+		@include for-size(phone-only) {
+			margin-bottom: 15px;
+		}
+	}
+	&__thanks-title{
+		@include font-size(24,43);
+		font-weight: 600;
+		text-align: center;
+		margin-bottom: 80px;
+		@include for-size(phone-only) {
+			@include font-size(14,23);
+			margin-bottom: 20px;
+			br{display: none;}
+		}
+	}
+	&__text{
+		@include font-size(16,26);
+		text-align: center;
+		margin-bottom: $base_margin;
+		@include for-size(phone-only) {
+			@include font-size(12,22);
+			br{display: none;}
+		}
+	}
+	&__thanks{
+		padding: 80px 0 70px;
+		@include for-size(phone-only) {
+			padding: 20px 0 20px;
+		}
+	}
+	&__contact{
+		width: 550px;
+		margin: 0 auto;
+		@include for-size(phone-only) {
+			width: 100%;
+		}
+		a{
+			display: block;
+			text-align: center;
+			height: 70px;
+			@include font-size(20,70);
+			@include for-size(phone-only) {
+				height: 45px;
+				@include font-size(16,45);
+			}
+		}
+	}
+}
+

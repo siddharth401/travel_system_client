@@ -1,0 +1,27 @@
+.star-rating{
+    color: #f9a825;
+    font-size: 14px;
+}
+.rating-value {
+    border: none;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 3px;
+}
+.rating-value input{
+    font-size: 2.0rem;
+}
+.form-set__button input{
+    text-align: center;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+    text-align: left;
+}
+.u-text-center .msg_err{
+    text-align: center;
+    padding-top: 10px;
+}

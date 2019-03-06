@@ -1,0 +1,435 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + language + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a>{{'プロフィール'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content" *ngIf="member">
+                <div class="mypage__head">
+                    <div class="mypage__head">
+                        <div class="mypage__avator" id="avatar_member">
+                            <img [attr.src]="member && member.avatar ? app.constant.FILE_URL+member.avatar : '/assets/top/img/noimage_200x200.png'" title="最適サイズ: 200x200">
+                            <sa-file-upload [front]="2" fieldName="avatar" extensions="jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF"  size="5120" id="avatar"></sa-file-upload>
+                        </div>
+                        <sa-file-upload [front]="3" fieldName="banner" extensions="jpg|jpeg|png|JPG|JPEG|PNG"  size="5120" id="banner"></sa-file-upload>
+                        <div class="mypage__head-bg" id="banner_member">
+                            <img [attr.src]="member && member.banner ? app.constant.FILE_URL+member.banner : '/assets/top/img/cover.png'">
+                        </div>
+                    </div>
+                    <!--<p class="mypage__head__warning" *ngIf="member.type == 2">{{'ガイドの場合はプロフィールでプロフィール画像を追加してください。' | ttrans}}<span onclick="this.parentElement.style.display='none'" class="mypage__head__warning-close">x</span></p>-->
+                    <div class="mypage__head__belt user-info">
+                        <p class="user-info__name" *ngIf="member.name">
+                            <span *ngIf="member.type == app.constant.MEMBER_USER">{{'旅ユーザー'|ttrans}}：</span>
+                            <span *ngIf="member.type == app.constant.MEMBER_GUIDER">{{'旅ガイド'|ttrans}}：</span>
+                            <a [routerLink]="['/'+language + '/mypage/profile']" class="user-info__name__link"> {{member.name}}</a>
+                        </p>
+                        <p class="user-info__name" *ngIf="!member.name">
+                            <span *ngIf="member.type == app.constant.MEMBER_USER">{{'旅ユーザー'|ttrans}}：</span>
+                            <span *ngIf="member.type ==app.constant.MEMBER_GUIDER">{{'旅ガイド'|ttrans}}：</span>
+                            <a class="user-info__name__link" href="javascript:void(0);" *ngIf="member.type == app.constant.MEMBER_USER" [routerLink]="['/'+language + '/mypage/profile']">{{'ゲスト様'|ttrans}}</a>
+                            <a class="user-info__name__link" href="javascript:void(0);" *ngIf="member.type == app.constant.MEMBER_GUIDER" [routerLink]="['/'+language + '/mypage/profile']">{{'ガイド様'|ttrans}}</a>
+                        </p>
+                        <div class="guide-score">
+                            <top-star class="star-style" [point]="member.guider_ranking"></top-star>
+                        </div>
+                        <div class="user-info__button user-info__button--important">
+                            <button *ngIf="member.approve_guide == app.constant.MEMBER_IS_USER || member.approve_guide == app.constant.MEMBER_NOT_CARD" type="button" class="btn--default btn-red" (click)="updateProfile()">{{'本人書類申請未'|ttrans}}</button>
+                            <button *ngIf="member.approve_guide == app.constant.MEMBER_NOT_CONFIRM" type="button" class="btn--default btn-blue" (click)="updateProfile()">{{'本人書類承認待ち'|ttrans}}</button>
+                            <button *ngIf="member.approve_guide == app.constant.MEMBER_REJECT" type="button" class="btn--default btn-yellow" (click)="updateProfile()">{{'本人書類再提出必要'|ttrans}}</button>
+                            <button *ngIf="member.approve_guide == app.constant.MEMBER_RECEIVED" type="button" class="btn--default btn-status" (click)="updateProfile()">{{'本人書類承認済'|ttrans}}</button>
+                            <button type="button" class="btn--default user-info__button-link " (click)="updateImage()">{{'本人確認'|ttrans}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mypage__body">
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'プロフィール'|ttrans}}</h2>
+                        <div class="mypage__body__block">
+
+                            <p class="mypage__body__text--caution">{{'※は、必須項目です。'|ttrans}}<br>
+                                {{'★マークがついている項目は、ガイド登録に必要な項目です。'|ttrans}}<br>
+                                {{'☆マークがついている項目は、リクエストを作成するのに必要項目です。'|ttrans}}</p>
+                            <form action="">
+                                <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                                    <tbody>
+                                    <tr *ngIf="member.type == app.constant.MEMBER_IS_USER">
+                                        <th scope="col">{{'属性'|ttrans}}</th>
+                                        <td>
+                                            <div class="mypage__body__table-first">
+                                                <div class="form-set form-set--text">
+                                                    {{'F38_ゲスト'|ttrans}}
+                                                </div>
+                                                <div class="form-set__btn">
+                                                <span class="">
+                                                    <button *ngIf="member.type == app.constant.MEMBER_USER && member.approve_guide != app.constant.MEMBER_RECEIVED" type="button" class="btn--primary btn__mypage btn__mypage--guide" id="abc" (click)="showGuide()">{{'旅ガイド登録する'|ttrans}}</button>
+                                                    <button *ngIf="member.type == app.constant.MEMBER_USER && member.approve_guide == app.constant.MEMBER_RECEIVED && app.number_on_header.avatar == ''" type="button" class="btn--primary btn__mypage btn__mypage--guide" (click)="showGuide02()">{{'旅ガイド登録する'|ttrans}}</button>
+                                                    <button *ngIf="member.type == app.constant.MEMBER_USER && member.approve_guide == app.constant.MEMBER_RECEIVED && app.number_on_header.avatar != ''" type="button" class="btn--primary btn__mypage btn__mypage--guide" (click)="approveGuide(member.id,app.constant.MEMBER_NOT_CONFIRM)">{{'旅ガイド登録する'|ttrans}}</button>
+                                                </span>
+                                                    <a href="javascript:void(0);" class="btn__mypage--nsubscribe" (click)="DestroyGuide()">{{'退会する'|ttrans}}</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="member.type == app.constant.MEMBER_GUIDER">
+                                        <th scope="col">{{'属性'|ttrans}}</th>
+                                        <td>
+                                            <div class="mypage__body__table-first">
+                                            <div class="form-set form-set--text">
+                                                {{'F38_ガイド'|ttrans}}
+                                            </div>
+                                                <div class="form-set__btn">
+                                                    <span class="">
+                                                     <button  type="button" class="btn--primary btn__mypage btn__mypage--guide disable">{{'旅ガイド登録する'|ttrans}}</button>
+                                                    </span>
+                                                     <a href="javascript:void(0);" class="btn__mypage--nsubscribe" (click)="DestroyGuide()">{{'退会する'|ttrans}}</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'名前'|ttrans}}<sup class="sup">※</sup></th>
+                                        <td>
+                                            <div class="form-set form-set--block">
+                                                <input type="text" name="profile-name" id="profile-name"
+                                                       class="form-set__input is-required" value="{{member.name}}">
+                                                <small class="msg_err" *ngIf="error.name">{{error.name[0]|ttrans}}</small>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'ニックネーム'|ttrans}}<sup class="sup">★</sup></th>
+                                        <td>
+                                            <div class="form-set form-set--block">
+                                                <input type="text" name="profile-nickname" id="profile-nickname"
+                                                       class="form-set__input is-required" value="{{member.nick_name}}">
+                                                <small class="msg_err" *ngIf="error.nick_name">{{error.nick_name[0]|ttrans}}</small>
+                                            </div>
+                                            <p>{{'ガイドプランの実施者名は、ニックネームが表示されます。'|ttrans}}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'性別'|ttrans}}</th>
+                                        <td>
+                                            <div class="form-set form-set--text">
+                                                <div class="form-set form-set--02">
+                                                    <input type="radio" name="profile-gender"  [checked]="member.gender === app.constant.Male || member.gender == null" value="{{app.constant.Male}}" class="form-set__radio" id="profile-gender-01" checked="checked">
+                                                    <label for="profile-gender-01">{{'男性'|ttrans}}</label>
+                                                </div>
+                                                <div class="form-set form-set--02">
+                                                    <input type="radio" name="profile-gender"  [checked]="member.gender === app.constant.Female" value="{{app.constant.Female}}" class="form-set__radio" id="profile-gender-02">
+                                                    <label for="profile-gender-02">{{'女性'|ttrans}}</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'連絡先'|ttrans}}<sup class="sup">※</sup></th>
+                                        <td>
+                                            <div class="form-set">
+                                                <div class="form-set__dropdown form-set__number form-set--02 form-set__select is-required">
+                                                    <select id="phone_code" class="">
+                                                        <option *ngFor="let item of app.constant.CountryCallingCodes|list" [value]="item.key" [selected]="item.key==member.phone_code" >{{item.value|ttrans}}</option>
+                                                    </select>
+                                                </div>
+                                                <input type="text" name="profile-tel" id="profile-tel"
+                                                       class="form-set__input form-set__input--tel is-required" placeholder="000-0000-0000" value="{{phone}}">
+                                                <small class="msg_err" *ngIf="error.phone">{{error.phone[0]|ttrans}}</small>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="member.type == 2">
+                                        <th scope="col">{{'対応地域' | ttrans}}<sup class="sup">★</sup></th>
+                                        <td *ngIf="Member_places.member_places">
+                                            <fieldset class="fieldset-country" style="margin-bottom: 40px;" *ngFor="let member_places of Member_places.member_places; let i = index">
+                                                <div class="country-inner">
+                                                    <div class="country__item">
+                                                        <div id="user-country" class="form-set__select is-required form-set__dropdown">
+                                                            <select  name="country_id_{{i}}" class="country_id-member" [(ngModel)]="member_places.country_id" (change)="getListCity(member_places.country_id,i)">
+                                                                <option value="" selected>{{'国選択' | ttrans}}</option>
+                                                                <option *ngFor="let item of listCountry|list" [value]="item.key" [selected]="item.key == member_places.country_id">{{item.value}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <small class="msg_err" *ngIf="countryErr">{{countryErr[i]|ttrans}}</small>
+                                                    </div>
+                                                    <div class="country__item">
+                                                        <div id="user-city" class="form-set__select is-required form-set__dropdown">
+                                                            <select  name="city_id_{{i}}" class="city_id-member" [(ngModel)]="member_places.city_id">
+                                                                <option value="" selected>{{'都市選択' | ttrans}}</option>
+                                                                <option *ngFor="let item of listCities[i]|list" [value]="item.key" [selected]="item.key == member_places.city_id">{{item.value}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <small class="msg_err" *ngIf="cityErr">{{cityErr[i]|ttrans}}</small>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a  href="javascript:void(0);" class="js-add" (click)="addMemberPlaces()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                        <a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeMemberPlaces(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                    </ul>
+                                                </div>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'国'|ttrans}}<sup class="sup">※</sup></th>
+                                        <td>
+                                            <div class="form-set__select form-set--inline is-required form-set__dropdown">
+                                                <select name="profile-contory" id="profile-contory" class="country_id" (change)="getListPre()">
+                                                    <option value="">{{'国選択'|ttrans}}</option>
+                                                    <option *ngFor="let item of listCountry|list" [value]="item.key" [selected]="item.key == selectedCountry">{{item.value}}</option>
+                                                </select>
+                                            </div>
+                                            <small class="msg_err" *ngIf="error.country_id">{{error.country_id[0]|ttrans}}</small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'住所'|ttrans}}<sup class="sup">★</sup></th>
+                                        <td>
+                                            <div id="profile-pref" class="form-set form-set__select form-set--inline form-set__select--pref is-required form-set__dropdown" *ngIf="member.country_id == app.constant.COUNTRY_DEFAULT">
+                                                <select name="profile-pref" class="prefecture_id">
+                                                    <option value="">{{'都道府県'|ttrans}}</option>
+                                                    <option *ngFor="let item of listPre|list" [value]="item.key" [selected]="item.key== selectedPrefecture" >{{item.value}}</option>
+                                                </select>
+                                            </div>
+                                            <small class="msg_err" *ngIf="error.prefecture_id">{{error.prefecture_id[0]|ttrans}}</small>
+                                            <div class="form-set form-set--block">
+                                                <input type="text" name="profile-address" id="profile-address"
+                                                       class="form-set__input" value="{{member.address}}" autocomplete="off">
+                                                <small class="msg_err" *ngIf="error.address">{{error.address[0]|ttrans}}</small>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'話せる言語'|ttrans}}<sup class="sup">※</sup></th>
+                                        <td>
+                                            <fieldset style="margin-bottom: 40px;" *ngFor="let memberLanguage of Languages.languages; let i = index">
+                                                <div id="user-lang" class="form-set--02 form-set__select is-required form-set__dropdown">
+                                                    <select  name="language_{{i}}" class="language_id" [(ngModel)]="memberLanguage.language_id">
+                                                        <option value="" selected>{{'言語選択'|ttrans}}</option>
+                                                        <option *ngFor="let item of listlanguage|list" [value]="item.key" [selected]="item.key == memberLanguage.language_id" >{{item.value|ttrans}}</option>
+                                                    </select>
+                                                </div>
+                                                <ul class="form-set--02 form-set__option">
+                                                    <a  href="javascript:void(0);" class="js-add" (click)="addLanguage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                    <a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeLanguage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                </ul>
+                                                <small class="msg_err" *ngIf="languageError && languageError[i]">{{languageError[i][0]|ttrans}}</small>
+                                            </fieldset>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'Facebook連携'|ttrans}}</th>
+                                        <td *ngIf="member.fb">
+                                            <div class="form-set form-set--text">
+                                                <i class="fa fa-facebook-official" aria-hidden="true"></i> {{'連携済'|ttrans}}
+                                                <span class="mypage__body__float--right">
+                                                    <button type="button" class="btn--primary btn__mypage btn__mypage--facebook" (click)="DeleteFb()">{{'Facebook解除'|ttrans}}</button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td *ngIf="!member.fb">
+                                            <div class="form-set form-set--text">
+                                                <i class="fa fa-facebook-official" aria-hidden="true"></i> {{'未連携'|ttrans}}
+                                                <span class="mypage__body__float--right">
+                                                    <button type="button" class="btn--primary btn__mypage btn__mypage--facebook" (click)="signIn()">{{'Facebook 連携'|ttrans}}</button>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="member.type == app.constant.MEMBER_GUIDER">
+                                        <th scope="col">{{'得意カテゴリー'|ttrans}}<sup class="sup">★</sup></th>
+                                        <td>
+                                            <fieldset style="margin-bottom: 40px;" *ngFor="let category of Categories.categories; let i = index">
+                                                <div id="user-categories" class="form-set__dropdown form-set--02 form-set__select is-required">
+                                                    <select  name="category_{{i}}" class="category_id" [(ngModel)]="category.category_id">
+                                                        <option value="" selected>{{'得意カテゴリー選択'|ttrans}}</option>
+                                                        <option *ngFor="let item of listCategories|list" [value]="item.key" [selected]="item.key == category.category_id" >{{item.value}}</option>
+                                                    </select>
+                                                </div>
+                                                <ul class="form-set--02 form-set__option">
+                                                    <a  href="javascript:void(0);" class="js-add" (click)="addCategory()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                    <a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeCategory(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                </ul>
+                                                <small class="msg_err" *ngIf="categoryError && categoryError[i]">{{categoryError[i][0]|ttrans}}</small>
+                                            </fieldset>
+
+                                        </td>
+                                    </tr>
+                                    <tr id="show">
+                                        <th scope="col">{{'メールアドレス'|ttrans}}</th>
+                                        <td>
+                                            <div class="form-set form-set--text">
+                                                {{member.email}}
+                                                <span class="mypage__body__float--right"><button type="button"
+                                                                                                 class="btn--primary btn__mypage btn__mypage--mail" id="btn_show"
+                                                                                                 (click)="showEmail();">{{'メールアドレス変更'|ttrans}}</button></span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr id="hidden" style="display: none">
+                                        <th scope="col">{{'メールアドレス'|ttrans}}</th>
+                                        <td>
+                                            <div class="form-set form-set--text">
+                                                <input type="text" placeholder="XXXXXX@gmail.com" id="profile-email" name="profile-email"
+                                                       class="form-set__input">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'パスワード'|ttrans}}</th>
+                                        <td>
+                                            <div class="form-set__input--pwd" >
+                                                <div class="form-set form-set--inline-l mypage__body__float--left">
+                                                    <input autocomplete="off" type="password" name="profile-password" id="password"
+                                                           class="form-set__input password" placeholder="••••••••">
+                                                    <a class="form-set__eye" href="javascript:void(0);"><span toggle="#password" (click)="app.showPassword()" class="fa fa-fw fa-eye field-icon toggle-password"></span></a>
+                                                </div>
+                                                <div class="mypage__body__float--left form-set__input--pwd__err">
+                                                    <span>{{'パスワード（４～８文字の英数字）を変更登録する場合は、ご入力ください。'|ttrans}}</span>
+                                                </div>
+                                            </div>
+                                            <small class="err_password" *ngIf="error.password">{{error.password[0]|ttrans}}</small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'メルマガ'|ttrans}}</th>
+                                        <td>
+                                            <div class="form-set form-set--text">
+                                                <div class="form-set form-set--02">
+                                                    <input type="radio" name="user-magazine" [checked]="member.mail_magazine_option === app.constant.Send || member.mail_magazine_option == null" value="{{app.constant.Send}}" class="form-set__radio" id="user-magazine-01" checked>
+                                                    <label for="user-magazine-01">{{'メルマガを受信する'|ttrans}}</label>
+                                                </div>
+                                                <div class="form-set form-set--02">
+                                                    <input type="radio" name="user-magazine" [checked]="member.mail_magazine_option === app.constant.Not_Send" value="{{app.constant.Not_Send}}" class="form-set__radio" id="user-magazine-02">
+                                                    <label for="user-magazine-02">{{'メルマガを受信しない'|ttrans}}</label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">{{'あなたの自己紹介'|ttrans}}<sup class="sup">☆</sup></th>
+                                        <td>
+                                            <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="profile-selfintroduction" id="profile-selfintroduction"
+                                                      class="form-set__textarea">{{member.introduce}}</textarea>
+                                            </div>
+                                            <small class="err_password" *ngIf="error.introduce">{{error.introduce[0]|ttrans}}</small>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="member.type ==  app.constant.MEMBER_GUIDER && !member.introduce">
+                                        <th scope="col">{{'ガイドとしての自己紹介'|ttrans}}<sup class="sup">★</sup></th>
+                                        <td>
+                                            <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="profile-selfintroduction" id="profile-selfintroduction-guide"
+                                                      class="form-set__textarea">{{member.introduce_plan}}</textarea>
+                                            </div>
+                                            <small class="err_password" *ngIf="error.introduce_plan">{{error.introduce_plan[0]|ttrans}}</small>
+                                        </td>
+                                    </tr>
+                                    <!--<tr   *ngIf="member.type ==  app.constant.MEMBER_GUIDER && member.introduce">-->
+                                        <!--<th scope="col">{{'あなたの自己紹介'|ttrans}}<sup class="sup">☆</sup></th>-->
+                                        <!--<td>-->
+                                            <!--<div class="form-set form-set&#45;&#45;textarea form-group__input-date">-->
+                                            <!--<textarea name="profile-selfintroduction" id="profile-selfintroduction"-->
+                                                      <!--class="form-set__textarea">{{member.introduce}}</textarea>-->
+                                            <!--</div>-->
+                                            <!--<small class="err_password" *ngIf="error.introduce">{{error.introduce[0]|ttrans}}</small>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+                                    <tr *ngIf="member.type ==  app.constant.MEMBER_GUIDER && member.introduce">
+                                        <th scope="col">{{'ガイドとしての自己紹介'|ttrans}}<sup class="sup">★</sup></th>
+                                        <td>
+                                            <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="profile-selfintroduction" id="profile-selfintroduction-guide"
+                                                      class="form-set__textarea">{{member.introduce_plan}}</textarea>
+                                            </div>
+                                            <small class="err_password" *ngIf="error.introduce_plan">{{error.introduce_plan[0]|ttrans}}</small>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="form-set__button">
+                                    <input type="submit" (click)="confirmSave()" class="btn--primary" value="{{'変更確認'|ttrans}}">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+language+ '/mypage']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'マイページへ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal content-->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <button type="button" class="modal-dialog--close close_confirm" (click)="close_modal_confirm()"  data-dismiss="modal"></button>
+            <div class="modal-body">
+                <h2 class="modal-dialog__title">{{'登録変更確認'|ttrans}}</h2>
+                <p class="modal-body__text--center">{{'登録した内容で本当に変更してい宜しいですか？'|ttrans}}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="submit" data-dismiss="modal" (click)="save_data()">{{'変更' | ttrans}}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal content status approve guide-->
+    <div class="modal-dialog-01">
+        <div class="modal-content">
+            <button type="button" class="modal-dialog--close close_modal_approve_guide" (click)="close_modal_approve_guide()"  data-dismiss="modal"></button>
+            <div class="modal-body">
+                <h2 class="modal-dialog__title">{{'ガイド登録に関して'|ttrans}}</h2>
+                <p class="modal-body__text--center">
+                    {{'ガイド登録するには、本人書類の提出が必須となります。'|ttrans}}<br>
+                    {{'申請中・再提出の場合においては、'|ttrans}}<br>
+                    {{'再度提出し管理者からの承認をお待ちの上ガイド登録ください。'|ttrans}}<br>
+                    {{'なお、必須項目と★の項目もすべて記載する必要もあります。'|ttrans}}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default close close_modal_approve_guide" (click)="close_modal_approve_guide()" data-dismiss="modal">{{'閉じる' | ttrans}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog-02">
+        <div class="modal-content">
+            <button type="button" class="modal-dialog--close close_modal_approve_guide_02" (click)="close_modal_approve_guide_02()"  data-dismiss="modal"></button>
+            <div class="modal-body">
+                <h2 class="modal-dialog__title">{{'ガイド登録に関して'|ttrans}}</h2>
+                <p class="modal-body__text--center">
+                    {{'管理者は承認しました。プロフィール画像をアップロード、ガイド登録するボタンをクリックして、ガイドになってください。'|ttrans}}
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default close close_modal_approve_guide_02" (click)="close_modal_approve_guide_02()" data-dismiss="modal">{{'閉じる' | ttrans}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog-03">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>{{'既にガイドになりました。システムが自動的に５秒でログアウトしてから、再ログインしてください。'|ttrans}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog-04">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>{{'退会しました。システムが自動的に5秒でログアウトしてから、再ログインしてください。'|ttrans}}</p>
+            </div>
+        </div>
+    </div>
+</div>

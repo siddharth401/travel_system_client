@@ -1,0 +1,67 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.list-item {
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.list-item li {
+    padding: 0 20px;
+    position: relative;
+    counter-increment:section;
+}
+.list-item li:before {
+    content: "/";
+    position: absolute;
+    top:0;
+    left: -11px;
+}
+
+.list-item li:first-child:before {
+    content: none;
+}
+.list-item li:after {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border:1px solid;
+    content:""counter(section);
+    text-align: center;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+}
+
+.form-content__form-table__name {
+    line-height: 19px;
+    padding-top: 15px;
+}
+.mypage__body .form-content__form-table > tbody > tr > th {
+    padding: 20px 0 !important;
+    vertical-align: middle !important;
+}
+.mypage__body .form-content__form-table > tbody > tr > td span {
+    padding-top: 0;
+    height: auto;
+}
+.mypage__body .form-content__form-table > tbody > tr:last-of-type > th {
+    padding-bottom: 0 !important;
+}
+.mypage__body .form-content__form-table > tbody > tr > td p {
+    padding: 0;
+}
+.mypage__body .form-content__form-table > tbody > tr > th.mypage__body__table__title {
+    padding-top: 5px !important;
+}
+.plan-reserve__title, .plan-reserve__body{
+    word-break: break-all;
+}
+.form-content__form-table{
+    word-break: break-all;
+}

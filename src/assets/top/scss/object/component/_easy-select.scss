@@ -1,0 +1,46 @@
+.easy-select-box{
+	outline: none;
+	.esb-displayer{
+		border: 1px solid #ccc;
+		padding: 0 10px;
+		@include border-radius(3px);
+		height: 40px;
+		@include font-size(16,40);
+		outline: none;
+		position: relative;
+		&:after {
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 10px;
+			width: 7px;
+			height: 7px;
+			margin-top: -4px;
+			border-top: solid 2px #7f7f7f;
+			border-right: solid 2px #7f7f7f;
+			-webkit-transform: rotate(135deg);
+			transform: rotate(135deg);
+			content: "";
+		}
+	}
+	.esb-dropdown{
+		max-height: 300px;
+		display: none;
+		overflow: auto;
+		border: 1px solid #ccc;
+		border-top: none;
+	}
+	.esb-item{
+		padding: 10px;
+		&:first-child{
+			display: none;
+		}
+	}
+	.esb-item+.esb-item+.esb-item{
+		border-top: 1px solid #ccc;
+		cursor: pointer;
+		&:hover{
+			background: #f0f0f0;
+		}
+	}
+}

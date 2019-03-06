@@ -1,0 +1,65 @@
+/*
+
+	font settings
+
+**************************************************/
+/*
+
+	view port settings
+
+**************************************************/
+/*
+
+	boxsizing settings
+
+**************************************************/
+/*
+
+	opacity settings
+
+**************************************************/
+/*
+
+	border-radius settings
+
+**************************************************/
+/*
+
+	drop shadow settings
+
+**************************************************/
+/*
+
+	vertical align setting
+
+**************************************************/
+/*
+
+	table layout setting
+
+**************************************************/
+/*
+
+	flexbox layout setting
+
+**************************************************/
+/*
+
+	scaling img
+
+**************************************************/
+/*
+
+	clearfix
+
+**************************************************/
+.legal__visual {
+  background: url(../img/visual_legal.png) no-repeat center top;
+}
+.list--num>li {
+  position: relative;
+  counter-increment: num;
+}
+.list--num > li:before {
+  content: counter(num);
+}

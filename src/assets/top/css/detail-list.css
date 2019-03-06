@@ -1,0 +1,90 @@
+/*
+
+	font settings
+
+**************************************************/
+/*
+
+	view port settings
+
+**************************************************/
+/*
+
+	boxsizing settings
+
+**************************************************/
+/*
+
+	opacity settings
+
+**************************************************/
+/*
+
+	border-radius settings
+
+**************************************************/
+/*
+
+	drop shadow settings
+
+**************************************************/
+/*
+
+	vertical align setting
+
+**************************************************/
+/*
+
+	table layout setting
+
+**************************************************/
+/*
+
+	flexbox layout setting
+
+**************************************************/
+/*
+
+	scaling img
+
+**************************************************/
+/*
+
+	clearfix
+
+**************************************************/
+.detail-list__visual {
+  background: url(../img/cover.png) no-repeat center top;
+  background-size: cover;
+}
+
+@media (max-width: 767px) {
+  .detail-list__visual {
+    height: 360px;
+  }
+  .detail-list__visual .page-content__title {
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    bottom: 0;
+    top: auto;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    left: 0;
+    transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+  }
+}
+
+.detail-list .content-list__wrap {
+  margin: 0;
+}
+
+.detail-list .content-list__item {
+  margin-right: 25px;
+}
+
+.detail-list .content-list__item:nth-child(4n) {
+  margin-right: 0;
+}
+
+/*# sourceMappingURL=../css/detail-list.map */

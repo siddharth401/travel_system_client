@@ -1,0 +1,17 @@
+.link{
+	text-decoration: none;
+	&--back{
+		@extend .link;
+		color: #333;
+		@include for-size(phone-only) {
+			@include font-size(12,12);
+		}
+		&:hover{
+			@include opacity(.7);
+		}
+		i{
+			color: $accent_color;
+			margin-right: 20px;
+		}
+	}
+}

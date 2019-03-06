@@ -1,0 +1,93 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/' + language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/' + language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li>{{'売上表示'|ttrans}}</li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'売り上げ管理'|ttrans}}</h2>
+
+                        <div class="mypage__body__block" *ngIf="data">
+                            <div class="mypage__body__block__money">
+                                <div class="mypage__body__block__money__head">
+                                    <h3 class="mypage__body__title--03">
+                                        {{data.year}}{{'F69_年'|ttrans}}{{data.month}}{{'F69_月'|ttrans}}{{'の売り上げ'|ttrans}}
+                                    </h3>
+                                </div>
+                                <div class="mypage__body__block__money__body">
+                                    <a class="mypage__body__float--left mypage__body__btn" (click)="getDataOnMonth(data.month, data.year, false)"><span><i class="fa fa-caret-left" aria-hidden="true"></i>{{'先月'|ttrans}}</span></a>
+                                    <a class="mypage__body__float--right mypage__body__btn" (click)="getDataOnMonth(data.month, data.year, true)"><span>{{'来月'|ttrans}}<i class="fa fa-caret-right" aria-hidden="true"></i></span></a>
+                                    <h4 class="mypage__body__block__money__title">
+                                        ¥<span *ngIf="data.revenue">{{data.revenue|numberFormat}}</span>
+                                        <span *ngIf="!data.revenue">0</span>
+                                    </h4>
+                                    <ul class="mypage__body__block__money__list">
+                                        <li class="mypage__body__block__money__list__item">{{'実施'|ttrans}}{{data.booking_done}}{{'F69_件'|ttrans}}</li>
+                                        <li class="mypage__body__block__money__list__item"></li>
+                                    </ul>
+                                    <p class="mypage__body__block__money__text">{{'お振込分'|ttrans}}:¥
+                                        <span *ngIf="data.waiting_charge">{{data.waiting_charge|numberFormat}}</span>
+                                        <span *ngIf="!data.waiting_charge">0</span></p>
+                                </div>
+                                <div class="mypage__body__block__money__head">
+                                    <h3 class="mypage__body__title--03">
+                                        {{'今月完了処理をした体験'|ttrans}}
+                                    </h3>
+                                </div>
+                                <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-compact">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{{'実施日'|ttrans}}</th>
+                                        <th scope="col">{{'旅プラン名'|ttrans}}</th>
+                                        <th scope="col">{{'購入者'|ttrans}}</th>
+                                        <th scope="col">{{'F69_金額'|ttrans}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody *ngIf="data.lists.length > 0">
+                                    <tr *ngFor="let item of data.lists">
+                                        <td data-title="{{'実施日'|ttrans}}">{{item.date_actual|datex: "YYYY/MM/DD"}}</td>
+                                        <td data-title="{{'旅プラン名'|ttrans}}">{{item.name}}</td>
+                                        <td data-title="{{'購入者'|ttrans}}">{{item.user_name}}</td>
+                                        <td data-title="{{'F69_金額'|ttrans}}">¥{{item.amount|numberFormat}}</td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody *ngIf="data.lists.length == 0">
+                                    <tr>
+                                        <td class="not-data" colspan="4">{{'データがございません'|ttrans}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a  [routerLink]='["/" + language + "/mypage"]' class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'F69_マイページへ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

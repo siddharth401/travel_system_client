@@ -1,0 +1,37 @@
+<section class="modal">
+    <div class="add">
+        <div class="modal__head">
+            <a [routerLink]="['/']"><h1 class="modal__logo"><img src="assets/top/img/logo_ico.png" alt="サイトロゴ" /></h1></a>
+        </div>
+        <div class="modal__body">
+            <h2 class="modal__title">{{'ログイン'|ttrans}}</h2>
+            <div class="modal__inner">
+                <a href="javascript:void(0);" (click)="signIn()" class="btn--facebook">{{'F10_Facebookでログイン' | ttrans}}</a>
+                <small class="msg_err" *ngIf="Error_Facebook">{{Error_Facebook|ttrans}}</small>
+                <small class="msg_err" *ngIf="Error_from_facebook">{{Error_from_facebook|ttrans}}</small>
+                <p>{{'もしくは'|ttrans}}</p>
+                <form (keyup.enter)="saveData()" class="add__form" id="login-form-1">
+                    <div class="add__form-item">
+                        <input type="text"  class="email" id="email" placeholder="{{'F10_メールアドレス'|ttrans}}">
+                        <small class="msg_err" *ngIf="Error && Error.email">{{Error.email[0]|ttrans}}</small>
+                    </div>
+                    <div class="add__form-item style-login">
+                        <input type="password" class="password" id="password" placeholder="{{'パスワード（4～8文字以内の英数字）'|ttrans}}">
+                        <a href="javascript:void(0);"><span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span></a>
+                        <small class="msg_err" *ngIf="Error && Error.password">{{Error.password[0]|ttrans}}</small>
+                    </div>
+                    <div class="add__form-button">
+                        <input type="button" (click)="saveData()" value="{{'ログイン'|ttrans}}" class="btn--primary" />
+                    </div>
+                    <small class="msg_err" *ngIf="Error && Error.message">{{Error.message|ttrans}}</small>
+
+                </form>
+            </div>
+            <div class="modal__foot">
+                <a [routerLink]='["/" + app.language + "/member/login/reminder"]'  class="link--forward"><i class="fa fa-angle-right" aria-hidden="true"></i>{{'パスワードが分からない方'|ttrans}}</a>
+                <a [routerLink]='["/" + app.language + "/member/add/"]'  class="link--forward"><i class="fa fa-angle-right" aria-hidden="true"></i>{{'新規会員登録の方はこちら' | ttrans}}</a>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="cboxClose" (click)="btnClose()">close</button>
+</section>

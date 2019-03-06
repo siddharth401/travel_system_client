@@ -1,0 +1,17 @@
+.name_guide{
+    color: #484848;
+    text-decoration: none;
+}
+.star{
+    display: flex;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+@media (max-width: 767px) {
+    .review__head .guide-score--start {
+        margin-left: 0 !important;
+    }
+    .star {
+        margin-left: 0;
+    }
+}

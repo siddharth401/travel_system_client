@@ -1,0 +1,14 @@
+a.btn_see_full{
+    cursor: pointer;
+    color: #00a699;
+    text-decoration: underline;
+}
+.limit{
+    word-wrap: break-word;
+    line-height: 20px;
+}
+.full{
+    word-wrap: break-word;
+    line-height: 20px;
+    white-space: pre-wrap;
+}

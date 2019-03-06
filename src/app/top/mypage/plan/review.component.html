@@ -1,0 +1,99 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><span >{{'口コミ一覧'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <div class="mypage__body__title--box-shoulder">
+                                <button type="button" class="btn--primary btn__mypage btn__mypage--on" (click)="goToF49()">{{'旅プラン詳細'|ttrans}}</button>
+                            </div>
+                            <h2 class="mypage__body__title--02 mypage__body__title--normal">{{'口コミ'|ttrans}} <strong>{{data.total}}</strong> {{'件'|ttrans}}</h2>
+                        </div>
+
+                        <div class="mypage__body__block">
+
+                            <table class="mypage__body__table-normal">
+                                <tbody>
+                                <tr>
+                                    <th>{{'プランID'|ttrans}}</th>
+                                    <td>
+                                        <p>{{ plan.plan_id*1 | addFixedId : 'P'}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'プランタイトル'|ttrans}}</th>
+                                    <td>
+                                        <p>{{plan.proposal_title}}</p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="mypage__body__block">
+
+                            <div class="review__container">
+                                <ul class="review__list">
+                                    <li *ngFor="let item of data.data">
+                                        <div class="review__flex">
+                                            <div class="review__photo"><img [attr.src]="item.member.avatar ? app.constant.FILE_URL + item.member.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                            <div class="review__text">
+                                                <div class="review__head">
+                                                    <div>
+                                                        <p class="guide-name"><span>{{'旅ユーザー'|ttrans}}：</span>{{item.member.name}}</p>
+                                                        <p class="guide-date">{{'F07_投稿日'|ttrans}}：{{item.created_at | datex :'YYYY/MM/DD'}}</p>
+                                                    </div>
+                                                    <div class="guide-score">
+                                                        <top-star  class="star" style="display: flex;" [point]="item.point"></top-star>
+                                                    </div>
+                                                </div>
+                                                <div class="review__body">
+                                                        <pre  style=" white-space: pre-wrap; word-break: break-all;/*font-size: 14px;*/line-height: 24px;"class="limit-{{item.id}}">{{item.content | limit:200}}<a *ngIf="item.content.length >200" (click)="seeFull(item.id)" href="javascript:void(0);" class="btn_see_full" >{{'続きを見る'|ttrans}}</a></pre>
+                                                        <pre class="pre-text" style=" white-space: pre-wrap;word-break: break-all;/*font-size: 14px;*/line-height: 24px;" class="full-{{item.id}}" style="display: none">{{item.content}}</pre>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p><a *ngIf="data.current_page < data.last_page" class="content-list__button btn--default" href="javascript:void(0);" (click)="loadMore()">{{'もっと見る'|ttrans}}</a></p>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/plan']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'プラン一覧へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

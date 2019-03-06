@@ -1,0 +1,15 @@
+@import "foundation/_mixin.scss";
+@import "foundation/_setting.scss";
+
+.guide-list{
+	&__visual{
+		background: url(/img/visual_search.png) no-repeat center top;
+		background-size: cover;
+	}
+	.content-list__item{
+		margin-right: 25px;
+		&:nth-child(3n){margin-right: 0;}
+	}
+}
+
+

@@ -1,0 +1,151 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[['Master management'|trans],['Language management'|trans],['Language list'|trans, '/admin/language'],[(fb.isNew?'Language add':'Language detail')|trans]]" icon="plus-square"
+                        class="col-xs-12"></sa-big-breadcrumbs>
+  </div>
+  <section id="widget-grid" class="">
+    <div class="row">
+      <article class="col-sm-12">
+        <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" role="widget">
+          <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+              <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a>
+            </div>
+            <span class="widget-icon"> <i class="fa fa-pencil-square-o"></i> </span>
+            <h2 *ngIf="!fb.isNew">{{'Language detail'|trans}}</h2>
+            <h2 *ngIf="fb.isNew">{{'Language add'|trans}}</h2>
+          </header>
+
+          <div role="content">
+            <div class="jarviswidget-editbox">
+            </div>
+            <div class="widget-body">
+              <form [formGroup]="fb.form" class="form-horizontal" (ngSubmit)="save(true)">
+                <fieldset>
+                  <div class="form-group" *ngIf="isID == 1">
+                    <label class="col-md-2 control-label">{{'NO'|trans}} </label>
+                    <div class="col-md-8">
+                      <label style="padding-left: 20px;" class="control-label">  {{fb.form.value['id']}}</label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Language name'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-8">
+                      <input formControlName="name" placeholder="{{'Language name'|trans}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Language prefix'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-8">
+                      <input formControlName="prefix" placeholder="{{'Language prefix'|trans}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Display name'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-8">
+                      <select formControlName="display_name" class="form-control">
+                        <option value="">{{'Select Language'|trans}}</option>
+                        <option *ngFor="let item of app.constant.LanguageDisplay|list" [value]="item.value" [selected]="item.value==''" >{{item.value|trans}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Language icon'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                      <div style="margin-bottom: 20px;" class="image-detail"></div>
+                      <sa-file-upload fieldName="icon" filePath="{{fb.form.get('icon').value}}" extensions="jpg|jpeg|png" size="5120" id="icon"></sa-file-upload>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Type language'|trans}}</label>
+                    <div class="col-md-8">
+                      <label class="col-md-2 checkbox-inline checkbox-label"><input class="checkbox" type="checkbox" id="is-display" formControlName="is_display" ><span>{{'Is display'|trans}}</span></label>
+                      <label class="col-md-2 checkbox-inline checkbox-label"><input class="checkbox" type="checkbox" id="is-support" formControlName="is_support" ><span>{{'Is support'|trans}}</span></label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Active'|trans}}</label>
+                    <div class="col-md-2 text-left">
+                      <select formControlName="active" class="form-control">
+                        <option *ngFor="let item of app.constant.Active|list" [value]="item.key" [selected]="item.key=='1'" >{{item.value|trans}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <a class="btn btn-default" (click)="backToList()" type="button">{{'Cancel'|trans}}</a>
+                      <button class="btn btn-primary" type="submit"><i class=""></i> {{'Submit'|trans}}</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+<div class="modal fade" id="formConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Language name'|trans}}</strong></label>
+            <div class="col-md-8">{{fb.form.get('name').value}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Language prefix'|trans}}</strong></label>
+            <div class="col-md-8">{{fb.form.get('prefix').value}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Display name'|trans}}</strong></label>
+            <div class="col-md-8">{{fb.form.get('display_name').value}}</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Language icon'|trans}}</strong></label>
+            <div class="col-md-8" id="show-icon">
+              <!--<sa-file-upload fieldName="icon" confirm="1" filePath="{{fb.form.get('icon').value}}" id="confirm-icon" ></sa-file-upload>-->
+              <!--<img *ngIf="fb.form.get('icon').value == ''" src="{{app.constant.FILE_URL+fb.form.value['icon']}}" alt="icon" style="max-height: 32px;" title="{{fb.form.value['display_name']}}">-->
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Type language'|trans}}</strong></label>
+            <div class="col-md-8">
+              <label class="control-label" style="padding-left: 0">{{app.constant.Language_display[isDisplay]|trans}}</label>
+              <label *ngIf="isDisplay == app.constant.ActiveDefine.YES && isSupport == app.constant.ActiveDefine.YES">{{','|trans}}</label>
+              <label class="control-label" style="padding-left: 0">{{app.constant.Language_support[isSupport]|trans}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Active'|trans}}</strong></label>
+            <div class="col-md-8">{{app.constant.Active[fb.form.get('active').value]|trans}}</div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+        <button type="button" class="btn btn-primary" (click)="save()"><i class=""></i> {{'Confirm'|trans}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<sa-file-browser></sa-file-browser>

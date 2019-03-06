@@ -1,0 +1,506 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/mypage/plan']">{{'F47_旅プラン一覧'|ttrans}}</a></li>
+                <li><span class="title-plan-edit" ></span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <div class="mypage__body__title--box">
+                            <!--<div class="mypage__body__title&#45;&#45;box-shoulder">-->
+                                <!--<div class="form-set form-set__select form-set&#45;&#45;inline">-->
+                                    <!--<select name="plan-lang" id="language_plan" (change)="selectPlan()" disabled>-->
+                                        <!--<option *ngFor="let item of listLanguage|list " [value]="item.key" [selected]="item.key == plan_language" >{{item.value}}</option>-->
+                                    <!--</select>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <h2 class="mypage__body__title--02">{{'F52_旅プラン作成修正'|ttrans}}</h2>
+                        </div>
+
+                        <div class="mypage__body__block">
+
+                            <table class="form-content__form-table">
+                                <tbody>
+                                <tr>
+                                    <th class="title-lang">{{'掲載言語'|ttrans}}</th>
+                                    <td  class="language-plan">
+                                        <button class="btn-lang" [id]="item.value" value="{{item.key}}" [class.active]="item.key == plan_language" type="button" *ngFor="let item of listLanguage|list" (click)="selectPlan(item.key,item.value)" >
+                                            <i *ngIf="language_add.indexOf(item.value) == -1" class="fa fa-plus-square" aria-hidden="true"></i> {{item.value|ttrans}}
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅プランタイトル'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--block">
+                                            <input type="text" name="plan-name" id="plan-name" class="form-set__input is-required" value="" placeholder="{{'F45_旅プランタイトルを記入ください。'|ttrans}}">
+                                            <small class="msg_err" *ngIf="Error.proposal_title">{{Error.proposal_title[0]|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!--<th>{{'旅プランイメージの'|ttrans}}<br>{{'アップロード'|ttrans}}<sup style="color: red;">※</sup></th>-->
+                                    <th>{{'F45_プランイメージの'|ttrans}}<br>{{'F45_アップロード'|ttrans}}<sup style="color: red;">※</sup></th>
+
+                                    <div *ngIf="addPlan == false">
+                                        <td *ngIf="confirmback == true && app.image_edit_plans.length > 0">
+                                            <div class="show-image form-set__option">
+                                                <ul>
+                                                    <li *ngFor="let item of showImageFromConfirm; let i = index " >
+                                                        <div class="show-image__item add-image-edit-{{i}} image-default">
+                                                            <div class="show-image__img"><img src='{{item.src}}'  class='block-image' id="confirmbackimage-{{item.key}}"width='250'></div>
+                                                            <a href="javascript:void(0);" style='margin-left: 25px;' class="js-add add-back-plan-img-{{item.key}}" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                            <a href='javascript:void(0);' style='margin-left: 5px;' id="back-from-confirm-plan-{{item.key}}" class='js-minus'><i class='fa fa-minus-square' (click)="deleteImageFromConfirm(item.key,item.name)" aria-hidden='true'></i></a>
+                                                        </div>
+                                                    </li>
+
+                                                </ul>
+
+                                            </div>
+                                            <div *ngIf="plan_images_back">
+                                                <ul *ngFor="let item of plan_images_back" style="list-style-type: none;" class="detail-image">
+                                                    <li class="form-set__option image-{{item.id}} image-default edit-back-image-plan-{{item.id}}">
+                                                        <div class="plan-img"><img class="detail-img"  width="250" [id]="item.id" [src]="item.image"></div>
+                                                        <a href="javascript:void(0);" style='margin-left: 25px;' class="js-add" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                        <a  href='javascript:void(0);' class="js-minus"><i style="margin-left: 5px;" class="fa fa-minus-square {{item.id}}" (click)="deleteImageBack(item.id)"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div style="display: none" class="upload-image-back-from-confirm">
+                                                <fieldset style="margin-bottom: 40px;" *ngFor="let img of images.plan_images; let i = index">
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="image-{{10-i}}" extensions="jpg|jpeg|png|JPG|JPEG|PNG" class="image  image-{{10-i}}" size="5120" id="image-{{10-i}}"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a  href="javascript:void(0);" class="js-add" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                        <a  href="javascript:void(0);" class="js-minus" (click)="removeImage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                        <!--<a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeImage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>-->
+                                                    </ul>
+                                                    <small class="msg_err" *ngIf="imageBackError && imageBackError[i]">{{imageBackError[i][0]|ttrans}}</small>
+                                                </fieldset>
+                                            </div>
+                                        </td>
+                                        <td *ngIf="confirmback == true && app.image_edit_plans.length == 0">
+
+                                            <div *ngIf="plan_images_back">
+                                                <ul *ngFor="let item of plan_images_back" style="list-style-type: none;" class="detail-image">
+                                                    <li class="form-set__option image-{{item.id}} image-default edit-back-image-plan-{{item.id}}">
+                                                        <div class="plan-img"><img class="detail-img"  width="250" [id]="item.id" [src]="item.image"></div>
+                                                        <a href="javascript:void(0);" style='margin-left: 25px;' class="js-add" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                        <a  href='javascript:void(0);' class="js-minus"><i style="margin-left: 5px;" class="fa fa-minus-square {{item.id}}" (click)="deleteImageBack(item.id)"></i></a>
+                                                    </li>
+                                                </ul>
+                                                <div style="display: none" class="upload-image-back-from-confirm">
+                                                    <fieldset style="margin-bottom: 40px;" *ngFor="let img of images.plan_images; let i = index">
+                                                        <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                            <sa-file-upload fieldName="image-{{10-i}}" extensions="jpg|jpeg|png|JPG|JPEG|PNG" class="image  image-{{10-i}}" size="5120" id="image-{{10-i}}"></sa-file-upload>
+                                                        </div>
+                                                        <ul class="form-set--02 form-set__option">
+                                                            <a  href="javascript:void(0);" class="js-add" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                            <a  href="javascript:void(0);" class="js-minus" (click)="removeImage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                        </ul>
+                                                        <small class="msg_err" *ngIf="imageBackError && imageBackError[i]">{{imageBackError[i][0]|ttrans}}</small>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="plan_images_back.length == 0">
+                                                <ul *ngFor="let item of plan_images_back" style="list-style-type: none;" class="detail-image">
+                                                    <li class="form-set__option image-{{item.id}} image-default edit-back-image-plan-{{item.id}}">
+                                                        <div class="plan-img"><img class="detail-img"  width="250" [id]="item.id" [src]="item.image"></div>
+                                                        <a href="javascript:void(0);" style='margin-left: 25px;' class="js-add" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                        <a  href='javascript:void(0);' class="js-minus"><i style="margin-left: 5px;" class="fa fa-minus-square {{item.id}}" (click)="deleteImageBack(item.id)"></i></a>
+                                                    </li>
+                                                </ul>
+                                                <div class="upload-image-back-from-confirm">
+                                                    <fieldset style="margin-bottom: 40px;" *ngFor="let img of images.plan_images; let i = index">
+                                                        <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                            <sa-file-upload fieldName="image-{{10-i}}" extensions="jpg|jpeg|png|JPG|JPEG|PNG" class="image  image-{{10-i}}" size="5120" id="image-{{10-i}}"></sa-file-upload>
+                                                        </div>
+                                                        <ul class="form-set--02 form-set__option">
+                                                            <a  href="javascript:void(0);" class="js-add" (click)="addImagePlan()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                            <a *ngIf="i > 0" href="javascript:void(0);" class="js-minus" (click)="removeImage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                        </ul>
+                                                        <small class="msg_err" *ngIf="imageBackError && imageBackError[i]">{{imageBackError[i][0]|ttrans}}</small>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+
+                                        </td>
+
+                                        <td *ngIf="confirmback == false">
+
+                                            <div *ngIf="plan_images.length > 0">
+                                                <ul *ngFor="let item of plan_images" style="list-style-type: none;" class="detail-image">
+                                                    <li class="form-set__option image-{{item.id}} image-default">
+                                                        <div class="plan-img"><img class="detail-img"  width="250" [id]="item.id" [src]="app.constant.FILE_URL+item.image"></div>
+                                                        <a href="javascript:void(0);" style='margin-left: 25px;' class="js-add" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                        <a  href='javascript:void(0);' class="js-minus"><i style="margin-left: 5px;" class="fa fa-minus-square {{item.id}}" (click)="deleteImage(item.id)"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div style="display: none" class="upload-image-back-from-confirm">
+                                                <fieldset  style="margin-bottom: 40px;" *ngFor="let img of images.plan_images; let i = index">
+                                                    <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                        <sa-file-upload fieldName="image-{{i+1}}"  extensions="jpg|jpeg|png|JPG|JPEG|PNG" class="image image-{{i+1}}" size="5120" id="image-{{i+1}}"></sa-file-upload>
+                                                    </div>
+                                                    <ul class="form-set--02 form-set__option">
+                                                        <a  href="javascript:void(0);" class="js-add" (click)="addImage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                        <a  href="javascript:void(0);" class="js-minus" (click)="removeImage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                    </ul>
+                                                    <small class="msg_err" *ngIf="imageError && imageError[i]">{{imageError[i][0]|ttrans}}</small>
+                                                    <small class="msg_err" *ngIf="Error.images">{{Error.images[0]|ttrans}}</small>
+                                                </fieldset>
+                                            </div>
+                                        </td>
+                                    </div>
+
+                                    <div *ngIf="addPlan == true">
+                                        <td >
+                                            <div>
+                                                <div class="add-plan">
+                                                    <fieldset style="margin-bottom: 40px;" *ngFor="let img of images.plan_images; let i = index">
+                                                        <div class="form-set--02 form-set__select is-required form-set__upload">
+                                                            <sa-file-upload fieldName="image-{{10-i}}" extensions="jpg|jpeg|png|JPG|JPEG|PNG" class="image  image-{{10-i}}" size="5120" id="image-{{10-i}}"></sa-file-upload>
+                                                        </div>
+                                                        <ul class="form-set--02 form-set__option">
+                                                            <a  href="javascript:void(0);" class="js-add" (click)="addImagePlan()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                            <a *ngIf="i > 0" href="javascript:void(0);" class="js-minus" (click)="removeImage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                        </ul>
+                                                        <small class="msg_err error-image-{{i}}" *ngIf="imageError && imageError[i]">{{imageError[i][0]|ttrans}}</small>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </div>
+
+
+                                </tr>
+                                <tr>
+                                    <th>{{'カテゴリー'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div class="form-set--text form-set--block-checkbox">
+                                            <div *ngFor="let item of listCategory|list; let i = index;" class="form-set form-set--checkbox">
+                                                <input *ngIf="confirmback == false" type="checkbox" name="plan-category" [checked]="checkedCategory.indexOf(item.key*1) != -1"class="form-set__checkbox checkbox" id="category-{{i}}" [value]="item.key" />
+                                                <input *ngIf="confirmback == true" type="checkbox" name="plan-category" [checked]="checkedCategory.indexOf(item.key) != -1"class="form-set__checkbox checkbox" id="category-{{i}}" [value]="item.key" />
+                                                <label for="category-{{i}}">{{item.value}}</label>
+                                            </div>
+                                        </div>
+                                        <small class="msg_err" *ngIf="Error.plan_categories">{{Error.plan_categories[0]|ttrans}}</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'対応言語'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <fieldset style="margin-bottom: 40px;" *ngFor="let memberLanguage of Languages.language; let i = index">
+                                            <div id="user-lang" class="form-set--02 form-set__select is-required">
+                                                <select  name="language_{{i}}" class="language_id" [(ngModel)]="memberLanguage.language_id">
+                                                    <option value="" selected>{{'言語選択'|ttrans}}</option>
+                                                    <option *ngFor="let item of listlanguage|list" [value]="item.key" [selected]="item.key == ''" >{{item.value|ttrans}}</option>
+                                                </select>
+                                            </div>
+                                            <ul class="form-set--02 form-set__option">
+                                                <a  href="javascript:void(0);" class="js-add" (click)="addLanguage()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                <a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeLanguage(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                            </ul>
+                                            <small class="msg_err" *ngIf="languageError && languageError[i]">{{languageError[i][0]|ttrans}}</small>
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F45_F47_所要時間'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <fieldset style="margin-bottom: 40px;">
+                                            <div class="form-set--02 form-set__select is-required">
+                                                <select  name="time_resquest_hour" class=" is-required input-sm form-control plan-time-start" id="time_request_hour">
+                                                    <!--<option *ngFor="let item of app.constant.TimePlan.Plan_hour|list" [value]="item.value"  >{{item.value}}</option>-->
+                                                    <option value="01">01</option>
+                                                    <option value="02">02</option>
+                                                    <option value="03">03</option>
+                                                    <option value="04">04</option>
+                                                    <option value="05">05</option>
+                                                    <option value="06">06</option>
+                                                    <option value="07">07</option>
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                    <option value="19">19</option>
+                                                    <option value="20">20</option>
+                                                    <option value="21">21</option>
+                                                    <option value="22">22</option>
+                                                    <option value="23">23</option>
+                                                </select>
+                                            </div>
+                                            <p class="form-set--02">{{'時間'|ttrans}}</p>
+                                            <div class="form-set--02 form-set__select is-required">
+                                                <select  name="time_resquest_min" class=" is-required input-sm form-control" id="time_request_min">
+                                                    <!--<option *ngFor="let item of app.constant.TimePlan.Plan_min|list " [value]="item.value"  >{{item.value}}</option>-->
+                                                    <option value="00">00</option>
+                                                    <option value="15">15</option>
+                                                    <option value="30">30</option>
+                                                    <option value="45">45</option>
+                                                </select>
+                                            </div>
+                                            <p class="form-set--02">{{'分'|ttrans}}</p>
+                                            <ul class="form-set--02 form-set__option">
+                                                <!--<a  href="javascript:void(0);" class="js-add" (click)="addTime()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>-->
+                                                <!--<a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeTime(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>-->
+                                            </ul>
+                                            <small class="msg_err" *ngIf="Error.time_request">{{Error.time_request[0]|ttrans}}</small>
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F45_F47_開始時間'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <fieldset style="margin-bottom: 40px;" *ngFor="let planitem of timeStart.time; let i = index">
+                                            <div class="form-set--02 form-set__select is-required">
+                                                <select  name="plan_hour_{{i}}" class=" is-required input-sm form-control plan-time-start" id="plan_hour" [(ngModel)]="planitem.plan_hour">
+                                                    <option *ngFor="let item of app.constant.TimePlan.Plan_hour|list" [value]="item.value"  >{{item.value}}</option>
+                                                </select>
+                                            </div>
+                                            <p class="form-set--02">{{'時'|ttrans}}</p>
+                                            <div class="form-set--02 form-set__select is-required">
+                                                <select  name="plan_min_{{i}}" class=" is-required input-sm form-control" id="plan_min" [(ngModel)]="planitem.plan_min">
+                                                    <option *ngFor="let item of app.constant.TimePlan.Plan_min|list " [value]="item.value"  >{{item.value}}</option>
+                                                </select>
+                                            </div>
+                                            <p class="form-set--02">{{'分'|ttrans}}</p>
+                                            <ul class="form-set--02 form-set__option">
+                                                <a  href="javascript:void(0);" class="js-add" (click)="addTime()"><i class="fa fa-plus-square" aria-hidden="true"></i></a>
+                                                <a *ngIf="i != 0" href="javascript:void(0);" class="js-minus" (click)="removeTime(i)"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                            </ul>
+                                            <small class="msg_err" *ngIf="timeStartError && timeStartError[i]">{{timeStartError[i][0]|ttrans}}</small>
+                                        </fieldset>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'予約時間制限'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div>
+                                            <div class="form-set form-set--radio">
+                                                <div class="form-set form-set--02 form-set--block">
+                                                    <p>
+                                                        <input type="radio" name="plan-limit" class="form-set__radio" id="plan-limit-01" [checked]="checkedTimeApply == app.constant.Guider.time_apply.TIME_REQUIRED">
+                                                        <label for="plan-limit-01">{{'予約時間から所要時間内は、予約はできなくする'|ttrans}}</label>
+                                                    </p>
+                                                </div>
+                                                <div class="form-set form-set--02 form-set--block">
+                                                    <p>
+                                                        <input type="radio" name="plan-limit" class="form-set__radio" id="plan-limit-02" [checked]="checkedTimeApply == app.constant.Guider.time_apply.RESERVE_TIME">
+                                                        <label for="plan-limit-02">{{'予約時間関係なしで、予約する'|ttrans}}</label>
+                                                    </p>
+                                                </div>
+                                                <div class="form-set form-set--03 form-set--block">
+                                                    <p>
+                                                        <input type="radio" name="plan-limit" class="form-set__radio" id="plan-limit-03" [checked]="checkedTimeApply == app.constant.Guider.time_apply.DAILY_RESERVATION">
+                                                        <label for="plan-limit-03">{{'予約は、一日1予約とする'|ttrans}}</label>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'価格'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--block form-set--block-price">
+                                            <div>
+                                                <input type="text" name="plan-meal" id="plan-price" class="form-set__input is-required" placeholder="">
+                                            </div>
+                                            <span>{{'¥/1人'|ttrans}}</span>
+                                        </div>
+                                        <small  style="padding-top: 60px;" class="msg_err" *ngIf="Error.price">{{Error.price[0]|ttrans}}</small>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th>{{'食事'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--block" >
+                                            <input type="text" name="plan-meal" id="plan-meal" class="form-set__input is-required" placeholder="">
+                                        </div>
+                                        <small class="msg_err" *ngIf="Error.meal">{{Error.meal[0]|ttrans}}</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'人数'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+
+                                        <div class="inner-form">
+                                            <div class="inner-form__item">
+                                                <div class="form-set form-set--inline is-required">
+                                                    <input type="text" name="min_people" value="1" id="min_number" class="form-set__input is-required" >
+                                                </div>
+                                                <small class="msg_err" *ngIf="Error.min_people">{{Error.min_people[0]|ttrans}}</small>
+
+                                            </div>
+                                            <span>{{'F45_人'|ttrans}}</span>
+                                            <span>～</span>
+                                            <div class="inner-form__item">
+                                                <div class="form-set  form-set--inline is-required">
+                                                    <input type="text" name="max_people" value="5" id="max_number" class="form-set__input is-required" >
+                                                </div>
+                                                <small class="msg_err" *ngIf="Error.max_people">{{Error.max_people[0]|ttrans}}</small>
+
+                                            </div>
+                                            <span>{{'F47_人'|ttrans}}</span>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'申込期限'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <span class="date-title">{{'F45_実施日から'|ttrans}}</span>
+                                        <div class="inner-form">
+                                            <div class="form-set form-set__select form-set--inline is-required">
+                                                <select name="plan-term" id="plan-term">
+                                                    <option value="1">01</option>
+                                                    <option value="2">02</option>
+                                                </select>
+                                            </div>
+                                            <span>{{'F45_日前まで'|ttrans}}</span>
+                                            <small class="msg_err" *ngIf="Error.num_before_deadline">{{Error.num_before_deadline[0]|ttrans}}</small>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'参加条件'|ttrans}}</th>
+                                    <td>
+                                        <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="plan-content" id="participation_case" class="form-set__textarea is-required" placeholder="{{'参加案件を記入して下さい。'|ttrans}}"></textarea>
+                                            <small class="msg_err" *ngIf="Error.participation_case">{{Error.participation_case[0]|ttrans}}</small>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅プラン内容'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="plan-content" id="content" class="form-set__textarea is-required" placeholder="{{'プラン内容を記入して下さい。'|ttrans}}"></textarea>
+                                            <small class="msg_err" *ngIf="Error.content">{{Error.content[0]|ttrans}}</small>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'旅ガイド準備物'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="plan-preparation-guide" id="guide_perparation" class="form-set__textarea is-required" placeholder="{{'旅ガイド準備物を記入して下さい。'|ttrans}}"></textarea>
+                                            <small class="msg_err" *ngIf="Error.guide_perparation">{{Error.guide_perparation[0]|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!--<th>{{'旅ユーザー推奨'|ttrans}}<br>{{'服装＆準備物'|ttrans}}<sup style="color: red;">※</sup></th>-->
+                                    <th >{{'旅ユーザー推奨服装'|ttrans}} <br>{{'＆準備物'|ttrans}}<sup style="color: red;">※</sup></th>
+
+                                    <td>
+                                        <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="plan-preparation-user" id="guest_perparation" class="form-set__textarea is-required" placeholder="{{'旅ユーザー*推奨服装＆準備物を記入して下さい。'|ttrans}}"></textarea>
+                                            <small class="msg_err" *ngIf="Error.guest_perparation">{{Error.guest_perparation[0]|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'その他'|ttrans}}</th>
+                                    <td>
+                                        <div class="form-set form-set--textarea form-group__input-date">
+                                            <textarea name="plan-preparation-guide" id="other" class="form-set__textarea is-required" placeholder="{{'その他を記入して下さい。'|ttrans}}"></textarea>
+                                            <small class="msg_err" *ngIf="Error.other">{{Error.other[0]|ttrans}}</small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'集合場所'|ttrans}}<sup style="color: red;">※</sup></th>
+                                    <td>
+                                        <div class="clearfix">
+                                            <div class="inner-form">
+                                                <div class="form-set form-set__select--pref form-set__select form-set--inline ">
+                                                    <select name="plan-contory" id="plan-contory" class="plan-contory" (change)="changeCountry()">
+                                                        <!--<option value="">{{'国選択'|ttrans}}</option>-->
+                                                        <option *ngFor="let item of listCountry|list" [value]="item.key" [selected]="item.key== country_select" >{{item.value}}</option>
+                                                    </select>
+
+
+                                                </div>
+                                                <small class="msg_err" *ngIf="Error.country_id">{{Error.country_id[0]|ttrans}}</small>
+                                            </div>
+                                            <div class="inner-form">
+                                                <div id="plan-pref" class="form-set err-select form-set__select form-set--inline form-set__select--pref">
+                                                    <select name="plan-pref" id="plan-prefecture">
+                                                        <option value="">{{'都道府県'|ttrans}}</option>
+                                                        <option *ngFor="let item of listPrefecture|list" [value]="item.key" [selected]="item.key== selectedPrefecture*1" >{{item.value}}</option>
+                                                    </select>
+                                                </div>
+                                                <small class="msg_err" *ngIf="Error.city_id">{{Error.city_id[0]|ttrans}}</small>
+                                            </div>
+
+
+                                            <div class="form-set form-set--block">
+                                                <input type="text" name="plan-address" id="plan-address" class="form-set__input" value="">
+                                                <small class="msg_err" *ngIf="Error.address_meeting">{{Error.address_meeting[0]|ttrans}}</small>
+
+                                            </div>
+                                        </div>
+                                        <div class="plan-detail__map">
+                                            <iframe frameborder="0" style="border:0" [src]="addressMap|safe" allowfullscreen></iframe>
+                                        </div>
+                                        <button class="map-correct" style="color: #fff;background-color: #c79121; padding: 6px 12px;
+    font-size: 13px;border-color: #b1811d;border-radius: 3px;margin-top: 10px;display: inline-block" id='location-map'(click)="changeMap()">{{'Corrected map position'|trans}}</button>
+
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="form-set__button">
+                                <input type="submit" class="btn--primary" (click)="confirmSave()" value="{{'修正確認'|ttrans}}">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/plan']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'プラン一覧へ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

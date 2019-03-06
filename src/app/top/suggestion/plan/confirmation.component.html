@@ -1,0 +1,162 @@
+<div id="sb-site" *ngIf="data">
+    <section class="suggest page-content outer">
+        <div style="background: url(assets/top/img/visual_suggest.png);" class="suggest__visual page-content__visual">
+            <h2 class="page-content__title">{{'提案プラン作成'|ttrans}}</h2>
+        </div>
+        <!--/.suggest__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/request/search']">{{'旅のリクエスト一覧'|ttrans}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/request/detail/'+request.id]">{{request.title}}</a></li>
+                <li><a [routerLink]="['/'+languageName+'/suggestion/plan/add/'+request.id]">{{'F13_提案プラン作成'|ttrans}}</a></li>
+                <li><span >{{'F13_提案プラン作成確認'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+
+        <nav class="suggest__flow flow-content">
+            <ul class="flow-content__list">
+                <li class="flow-content__item">{{'提案プラン作成'|ttrans}}</li>
+                <li class="flow-content__item flow-content__item--current">{{'提案プラン確認'|ttrans}}</li>
+                <li class="flow-content__item">{{'提案プラン作成完了'|ttrans}}</li>
+            </ul>
+        </nav>
+        <!-- /.suggest__flow flow-content -->
+
+        <section class="request-detail__section suggest__section outer">
+            <div class="request-detail__person outer__inner request-detail__box">
+                <div class="request-detail__photo">
+                    <img src="{{member.avatar ? app.constant.FILE_URL+member.avatar : '/assets/top/img/noimage_200x200.png'}}" alt="" width="200" height="200">
+                    <p class="request-detail__name">{{member.name}}</p>
+                </div>
+                <div class="request-detail__info">
+                    <div class="request-detail__flex">
+                        <ul class="pref-list">
+                            <li><a href="javascript:void(0);">{{city_name}}</a></li>
+                        </ul>
+                        <ul class="category" *ngIf="category">
+                            <!--<li *ngIf="category"><a href="javascript:void(0);" style="background: #7cb342">{{category.name}}</a></li>-->
+                            <li *ngFor="let item of category"><a href="javascript:void(0);" style="background: #7cb342">{{item.name}}</a></li>
+
+                        </ul>
+                    </div>
+                    <div class="request-detail__body">
+                        <h3 class="request-detail__title">{{'旅リクエストの'|ttrans}}{{request.title}}</h3>
+                        <table class="request-detail__table">
+                            <tbody>
+                            <tr>
+                                <th>{{'実施希望日'|ttrans}}</th>
+                                <td>{{request.date_plan|datex: 'YYYY/MM/DD'}}（{{weekday_date_plan|ttrans}}）</td>
+                                <th>{{'募集期限'|ttrans}}</th>
+                                <td>{{request.date_end|datex: 'YYYY/MM/DD'}}（{{weekday_date_end|ttrans}}）</td>
+                            </tr>
+                            <tr>
+                                <th>{{'人数'|ttrans}}</th>
+                                <td>{{request.num_people}} {{'F13_名'|ttrans}}</td>
+                                <th>{{'希望金額'|ttrans}}</th>
+                                <td>{{'¥'|ttrans}}<span>{{request.desire_price|numberFormat}}</span>/1{{'F13_人'|ttrans}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{'開始時間'|ttrans}}</th>
+                                <td>{{time_request_hour}}{{':'|ttrans}}{{time_request_min}}</td>
+                                <th>{{'F13_所用時間'|ttrans}}</th>
+                                <td>{{time_request_required|formatHour}}h</td>
+                            </tr>
+
+                            <tr>
+                                <th>{{'対応言語'|ttrans}}</th>
+                                <td>{{request.language_request_support|ttrans}}</td>
+                                <th>{{'作成日'|ttrans}}</th>
+                                <td>{{request.created_at | datex : 'YYYY/MM/DD'}} ({{weekday_created|ttrans}})</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.request-detail__section suggest__section outer-->
+
+
+        <form action="">
+            <section class="form-content content outer">
+                <div class="outer__inner">
+                    <div class="content__head">
+                        <h3 class="content__title">{{'提案プラン'|ttrans}}</h3>
+                    </div>
+                    <div class="content__body">
+                        <table class="form-content__form-table--02 form-content__style">
+                            <tbody>
+                            <tr>
+                                <th>{{'タイトル'|ttrans}}<sup>*</sup></th>
+                                <td>
+                                    {{data.formPlan.proposal_title}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'F13_所用時間'|ttrans}}<sup>*</sup></th>
+                                <td>
+                                    {{data.formPlan.time_request|formatHour}}h
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'実施日'|ttrans}}<sup>*</sup></th>
+                                <td>
+                                    {{data.formPlan.date_plan}} ({{weekday|ttrans}})
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'開始時間'|ttrans}}<sup>*</sup></th>
+                                <td>
+                                    <ul>
+                                        <li>{{time_start_hour}}{{':'|ttrans}}{{time_start_min}}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'集合場所'|ttrans}}<sup>*</sup></th>
+                                <td>
+                                   {{data.prefecture_name}} {{data.formPlan.address_meeting}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'提案プラン内容'|ttrans}}<sup>*</sup></th>
+                                <td>
+                                    <pre class="pre-text">{{data.formPlan.content}}</pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'その他'|ttrans}}</th>
+                                <td>
+                                    <pre class="pre-text">{{data.formPlan.other}}</pre>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{'提案プラン金額'|ttrans}}<sup>*</sup></th>
+                                <td>
+                                    <p class="form-set--02">{{'単価'|ttrans}}</p>
+                                    <p class="form-set--02">{{'¥'|ttrans}}</p>
+                                    <p class="form-set--02">{{data.formPlan.price|numberFormat}}</p>
+                                    <p class="form-set--02">　×　{{'人数'|ttrans}}</p>
+                                    <p class="form-set--02">{{data.number_people}}</p>
+                                    <p class="form-set--02">{{'名'|ttrans}}　=　{{'合計'|ttrans}}</p>
+                                    <p class="form-set--02">{{'¥'|ttrans}}</p>
+                                    <p class="form-set--02">{{data.formPlan.price*data.number_people|numberFormat}}</p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="form-set__button">
+                            <input type="submit" (click)="save()" class="btn--primary" value="{{'提案プラン確定'|ttrans}}" />
+                        </div>
+                    </div>
+                    <div class="content__foot">
+                        <a [routerLink]="['/'+languageName + '/suggestion/plan/add/'+data.formPlan.request_id]" class="link--back" (click)="backAdd()"><i class="fa fa-angle-left"  aria-hidden="true"></i>{{'提案プラン作成へ戻る'|ttrans}}</a>
+                    </div>
+                </div>
+            </section>
+        </form>
+    </section>
+</div>

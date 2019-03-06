@@ -1,0 +1,187 @@
+/*
+
+	font settings
+
+**************************************************/
+/*
+
+	view port settings
+
+**************************************************/
+/*
+
+	boxsizing settings
+
+**************************************************/
+/*
+
+	opacity settings
+
+**************************************************/
+/*
+
+	border-radius settings
+
+**************************************************/
+/*
+
+	drop shadow settings
+
+**************************************************/
+/*
+
+	vertical align setting
+
+**************************************************/
+/*
+
+	table layout setting
+
+**************************************************/
+/*
+
+	flexbox layout setting
+
+**************************************************/
+/*
+
+	scaling img
+
+**************************************************/
+/*
+
+	clearfix
+
+**************************************************/
+.cancelpolicy__visual {
+  background: url(../img/visual_suggest.png) no-repeat center top;
+  background-size: cover;
+}
+
+.cancelpolicy__section {
+  background: #fafafa;
+  padding: 75px 0px;
+}
+
+@media (max-width: 767px) {
+  .cancelpolicy__section {
+    padding: 20px;
+  }
+}
+
+.cancelpolicy__block {
+  padding: 0 100px;
+}
+
+@media (max-width: 767px) {
+  .cancelpolicy__block {
+    padding: 0;
+  }
+}
+
+.cancelpolicy__block > p {
+  font-size: 16px;
+  font-size: 1.6rem;
+  line-height: 1.75;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .cancelpolicy__block > p {
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1.71429;
+    margin-bottom: 15px;
+  }
+}
+
+.cancelpolicy__table {
+  table-layout: fixed;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .cancelpolicy__table {
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1.71429;
+    margin-bottom: 15px;
+  }
+}
+
+.cancelpolicy__table tbody tr th, .cancelpolicy__table tbody tr td {
+  border: 1px solid #ccc;
+  padding: 15px;
+  vertical-align: middle;
+}
+
+@media (max-width: 767px) {
+  .cancelpolicy__table tbody tr th, .cancelpolicy__table tbody tr td {
+    padding: 8px;
+  }
+}
+
+.cancelpolicy__table tbody tr th {
+  width: 50%;
+  background: #f0f0f0;
+  text-align: right;
+  font-weight: bold;
+}
+
+@media (max-width: 767px) {
+  .cancelpolicy__table tbody tr th {
+    width: 70%;
+  }
+}
+
+.cancelpolicy__table tbody tr td {
+  width: 50%;
+}
+
+@media (max-width: 767px) {
+  .cancelpolicy__table tbody tr td {
+    width: 30%;
+  }
+}
+
+.cancelpolicy__box {
+  background: #f0f0f0;
+  padding: 15px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+}
+
+.cancelpolicy__box > p {
+  font-size: 13px;
+  font-size: 1.3rem;
+  line-height: 1.53846;
+}
+
+.cancelpolicy__title {
+  font-size: 14px;
+  font-size: 1.4rem;
+  line-height: 1;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.cancelpolicy .list--astarisk {
+  margin-bottom: 30px;
+}
+
+.cancelpolicy .list--astarisk li {
+  font-size: 13px;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.cancelpolicy .list--astarisk li + li {
+  margin-top: 10px;
+}
+
+/*# sourceMappingURL=../css/cancelpolicy.map */

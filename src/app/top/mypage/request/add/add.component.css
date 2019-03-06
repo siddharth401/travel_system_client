@@ -1,0 +1,129 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.form-group__select {
+    height: 50px;
+}
+.form-width {
+    width:auto !important;
+}
+.form-set--checkbox{
+    width: 200px;
+    word-break: break-all;
+}
+#input-date, #date-end{
+    cursor: default;
+    width: 200px;
+}
+.form-set--inline-l{
+    margin-right: 0px;
+}
+.form-set--style .form-set {
+    float:none !important;
+    width: 30.3%;
+}
+.form-set--style {
+    display: flex;
+    flex-wrap: wrap;
+}
+.form-msg .msg_err {
+    font-size: 1.4rem;
+    font-size: 14px;
+}
+.msg_err--form {
+    font-size: 1.4rem;
+    font-size: 14px;
+}
+#request-content {
+    font-size: 1.4rem;
+    font-size: 14px;
+    font-family: Arial;
+}
+.form-content__form-table tr th {
+    padding-right: 15px;
+}
+.form-set__input.is-required {
+    background: #f9fbe7;
+}
+.form-set__select.is-required {
+    background: #f9fbe7;
+}
+.form-set__input:disabled {
+    background: #fff;
+}
+.date-inner{
+    display: flex;
+}
+.date-inner .form-set--inline-l {
+    width: 100px;
+}
+.date-inner .form-set--inline-l select {
+    width: 100%;
+}
+.form-set--style .form-set:nth-child(3n) {
+    margin-right: 0;
+}
+@media (max-width: 767px){
+    select.form-set__select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .form-set--inline-l select {
+        width: 100%;
+    }
+    .form-set--style .form-set {
+        width: 43.3%;
+    }
+    .form-set--style .form-set:nth-child(3n) {
+        margin-right: 20px;
+    }
+}
+.form-content__form-table__box {
+    display: flex;
+}
+.mypage__body .form-content__form-table > tbody > tr > th{
+    width: 153px;
+    white-space: normal;
+}
+
+
+.form-group__select{
+    padding: 0 10px;
+}
+.form-set__input{
+    padding: 0 10px;
+}
+.request-price-cost--container{
+    width: 100px;
+}
+#request-price-cost{
+    width: 100px;
+}
+.request-price-number--container{
+    width: 80px;
+}
+#request-price-number{
+    width: 80px;
+}
+.form-set--inline .is-emphasis{
+    width: 170px;
+}
+.msg_err--form{
+    display: block;
+    clear: both;
+}
+
+@media (max-width: 767px){
+    .mypage__body .form-content__form-table > tbody > tr > th{
+        width: 100%;
+    }
+    .form-content__form-table tbody tr th{
+        padding:10px 0;
+    }
+}
+
+
+

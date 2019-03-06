@@ -1,0 +1,21 @@
+<section class="modal">
+    <div class="add">
+        <div class="modal__head">
+            <a [routerLink]="['/']"><h1 class="modal__logo"><img src="assets/top/img/logo_ico.png" alt="サイトロゴ" /></h1></a>
+        </div>
+        <div class="modal__body">
+            <h2 class="modal__title">{{'F10_新規登録'|ttrans}}</h2>
+            <div  class="modal__inner">
+                <p *ngIf="resent != 'true'">{{'F10_仮登録メールを送信しました。'|ttrans}}
+                    {{'F10_送信後、60分以内にメール内の認証ＵＲＬよりお進みください。'|ttrans}}
+
+                    {{'F10_＊メールが届かない場合は、迷惑フォルダもご確認ください。'|ttrans}}</p>
+                <p *ngIf="resent == 'true'">{{'F10_仮登録メールを再送信しました。'|ttrans}}
+                    {{'F10_送信後、60分以内にメール内の認証ＵＲＬよりお進みください。'|ttrans}}
+
+                    {{'F10_＊メールが届かない場合は、迷惑フォルダもご確認ください。'|ttrans}}</p>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="cboxClose" (click)="btnClose()">close</button>
+</section>

@@ -1,0 +1,38 @@
+<div class="inputupload" *ngIf="!confirm && front == '1'">
+    <div class="imagebox" *ngIf="filePath">
+        <img src="{{app.constant.FILE_URL+filePath}}" width="150"/>
+        <div class="clearfix"></div>
+        <br/>
+    </div>
+    <input class="form-control input-upload input_{{fieldName}}" id="{{fieldName}}" [attr.formControlName]="fieldName" (change)="changeInputFile($event)" type="file" />
+    <p style="padding-top: 20px;" class="note" *ngIf="app.top_lang_id != app.constant.JA_LANGUAGE_ID">{{'Identity documents must be'|ttrans}} {{extensions.replace('|', ', ')}} & {{'and no more than'|ttrans}} {{size/1024}}MB <br> {{'Please register images at 400px or more in height and 400px or more in sideways.'}}</p>
+    <p style="padding-top: 20px;" class="note" *ngIf="app.top_lang_id == app.constant.JA_LANGUAGE_ID">{{extensions.replace('|', ', ')}}ファイル＆最大{{size/1024}}MBまで <br> {{'イメージは縦が400px以上と横が400px以上で登録してください。'}}</p>
+    <div *ngIf="validateErrors && validateErrors.type">
+        <p class="help-block" ><span class="text-danger">{{validateErrors.message}}</span></p>
+    </div>
+</div>
+
+<!--upload image avatar member-->
+<div class="inputupload inputupload__member" *ngIf="!confirm && front == '2'">
+    <div class="imagebox" *ngIf="filePath">
+        <img src="{{app.constant.FILE_URL+filePath}}" width="150"/>
+        <div class="clearfix"></div>
+        <br/>
+    </div>
+    <div class="inputupload__overlay" title="{{'最適サイズ'|ttrans}}： 200x200">
+        <label style="width: 160px;" for="avatar" class="fa fa-camera">
+            <input  class="icon-camera form-control top-image input_{{fieldName}}" id="{{fieldName}}" [attr.formControlName]="fieldName" (change)="changeInputFile($event)" type="file" />
+        </label>
+        <p class="inputupload__text">{{'プロフィール画像を変更'|ttrans}}</p>
+    </div>
+    <div *ngIf="validateErrors && validateErrors.type">
+        <p class="help-block" ><span class="text-danger">{{validateErrors.message}}</span></p>
+    </div>
+</div>
+<!--upload image banner member-->
+<div class="mypage__head-bg" *ngIf="!confirm && front == '3'">
+    <label  title="{{'最適サイズ'|ttrans}}: 1000x350" for="banner" class="mypage__cover-btn fa fa-camera">
+        <input class="btn-upload form-control top-image input_{{fieldName}}" id="{{fieldName}}" [attr.formControlName]="fieldName" (change)="changeInputFile($event)" type="file" />
+        <span class="mypage-upload__text">{{'カバー写真を変更'|ttrans}}</span>
+    </label>
+</div>

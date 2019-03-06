@@ -1,0 +1,56 @@
+.loading {
+    width: 100vw;
+    height: 100%;
+    position: fixed;
+    background: #00a699;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+.loading__inner {
+    width: 117px;
+    height: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.animation__bar {
+    height: 20px;
+    width: 5px;
+    background-color: #fff;
+    display: inline-block;
+    margin-right: 5px;
+    -webkit-animation: animation5-bar 1s infinite;
+    animation: animation5-bar 1s infinite;
+}
+.animation__bar--1 {
+    -webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+}
+.animation__bar--2 {
+    -webkit-animation-delay: 0.6s;
+    animation-delay: 0.6s;
+}
+.animation__bar--3 {
+    -webkit-animation-delay: 0.7s;
+    animation-delay: 0.7s;
+}
+.animation__bar--4 {
+    -webkit-animation-delay: 0.8s;
+    animation-delay: 0.8s;
+}
+.animation__bar--5 {
+    -webkit-animation-delay: 0.9s;
+    animation-delay: 0.9s;
+}
+
+@keyframes animation5-bar {
+    30% {
+        transform: scaleY(2);
+    }
+}

@@ -1,0 +1,110 @@
+.guide-prof{
+	@include for-size(phone-only) {
+		@include flexbox(flex-start,center);
+	}
+	&__photo{
+		margin-bottom: 40px;
+		@include for-size(phone-only) {
+			margin: 0;
+			width: 30%;
+		}
+		figure{
+			text-align: center;
+			img{
+				@include border-radius(50%);
+				@include for-size(phone-only) {
+					width: 100%;
+					height: 100%;
+				}
+			}
+			figcaption{
+				margin-top: 40px;
+				display: block;
+				color: #222;
+				@include font-size(15,15);
+				@include for-size(phone-only) {
+					margin-top: 20px;
+					@include font-size(10,14);
+					text-align: center;
+				}
+				span{
+					margin-right: 10px;
+					font-weight: bold;
+					@include for-size(phone-only) {
+						display: block;
+						margin: 0;
+					}
+				}
+			}
+		}
+	}
+	&__comfirmation{
+		@include for-size(phone-only) {
+			width: 60%;
+			margin-left: auto;
+		}
+	}
+}
+.comfirmation-list{
+	width: 100%;
+	border: 1px solid #ccc;
+	border-collapse:separate;
+	@include border-radius(3px);
+	thead{
+		tr{
+			th{
+				background: #fafafa;
+				padding: 15px 0px;
+				color: #222;
+				text-align: center;
+				border-bottom: 1px solid #ccc;
+				@include for-size(phone-only) {
+					padding: 10px 0px;
+					@include font-size(14,14);
+				}
+			}
+		}
+	}
+	tbody{
+		tr{
+			td{
+				padding: 20px;
+				@include for-size(phone-only) {
+					padding: 10px 10px 5px 10px;
+				}
+				>div{
+					@include flexbox(flex-start,center);
+				}
+			}
+		}
+	}
+	&__item{
+		.label{
+			color: #333;
+			margin-bottom: 5px;
+			@include for-size(phone-only) {
+				margin-bottom: 3px;
+				@include font-size(14,14);
+			}
+		}
+		.certification{
+			color: #999;
+			@include font-size(13,13);
+			@include for-size(phone-only) {
+				@include font-size(10,10);
+			}
+		}
+	}
+	&__check{
+		margin-left: auto;
+		@include font-size(24,24);
+		color: $accent_color;
+		@include for-size(phone-only) {
+			@include font-size(14,14);
+		}
+		&--disabled{
+			@extend .comfirmation-list__check;
+			color: #999;
+		}
+	}
+}

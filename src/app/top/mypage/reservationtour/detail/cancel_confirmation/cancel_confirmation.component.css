@@ -1,0 +1,33 @@
+.msg_err {
+    display: block;
+    margin-top: 15px;
+    color: #b94a48;
+}
+.mypage__body__frame .mypage__body__text {
+    overflow: auto;
+    height: 200px;
+}
+.mypage__body__title a{
+    color: #333;
+    text-decoration: none;
+}
+.mypage__body__title a:hover {
+    color: #00a699;
+}
+.button-location span {
+    display: block;
+}
+.button-location button {
+    float: right;
+    text-align: center;
+    padding: 10px 5px;
+    line-height: 1;
+}
+.mypage__body__align--center p {
+    margin: 0;
+    line-height: 1!important;
+}
+
+.mypage__body__frame{
+    padding-bottom: 0px;
+}

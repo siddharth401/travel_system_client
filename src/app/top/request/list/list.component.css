@@ -1,0 +1,124 @@
+/*
+
+	font settings
+
+**************************************************/
+/*
+
+	view port settings
+
+**************************************************/
+/*
+
+	boxsizing settings
+
+**************************************************/
+/*
+
+	opacity settings
+
+**************************************************/
+/*
+
+	border-radius settings
+
+**************************************************/
+/*
+
+	drop shadow settings
+
+**************************************************/
+/*
+
+	vertical align setting
+
+**************************************************/
+/*
+
+	table layout setting
+
+**************************************************/
+/*
+
+	flexbox layout setting
+
+**************************************************/
+/*
+
+	scaling img
+
+**************************************************/
+/*
+
+	clearfix
+
+**************************************************/
+.request-list__visual {
+    background: url(../../../../assets/top/img/visual_request.png) no-repeat center top;
+    background-size: cover;
+}
+
+.request-list .content-list__item {
+    margin-right: 25px;
+}
+
+.request-list .content-list__item:nth-child(3n) {
+    margin-right: 0;
+}
+
+.content__aside .content__foot a {
+    display: block;
+    width: 600px;
+    margin: 0 auto;
+    height: 55px;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 3.4375;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .content__aside .content__foot a {
+        width: 100%;
+        height: 45px;
+        margin: 0 auto;
+        font-size: 16px;
+        font-size: 1.6rem;
+        line-height: 2.8125;
+    }
+}
+
+
+.easy-select {
+    height: 40px;
+    background-clip: padding-box;
+    padding: 0 10px;
+    width: 92%;
+}
+.easy-select:focus {
+    outline: none !important;
+}
+#input-date{
+    cursor: pointer;
+}
+.request-lineup__list {
+    flex-wrap: wrap;
+}
+.request-lineup__list li:nth-child(3n) {
+    margin-right: 0;
+}
+.request-lineup__list > li:nth-child(4n) {
+    margin-right: auto;
+}
+a {
+    cursor: pointer;
+}
+.category li:nth-child(3n) {
+    margin-right: 5px;
+}
+.custom-form:after {
+    content:none;
+}
+.request-lineup__title a {
+    word-break: break-all;
+}

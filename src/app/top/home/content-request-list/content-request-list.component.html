@@ -1,0 +1,61 @@
+<section class="request-list outer content">
+    <div class="content__head">
+        <h2 class="content__title">{{'旅ユーザーが募集している旅リクエスト'|ttrans}}</h2>
+        <a *ngIf="curMember" [routerLink]='["/" + app.language + "/mypage/request/add"]' class="btn--secondary">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            {{'F01_旅リクエストを作成する'|ttrans}}
+        </a>
+        <a *ngIf="!curMember" [routerLink]='["/" + app.language + "/member/login"]' [queryParams]="{is_page:app.constant.REQUEST_ADD}" class="btn--secondary">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            {{'F01_旅リクエストを作成する'|ttrans}}
+        </a>
+    </div>
+    <div class="content__body">
+        <div class="content__lead">
+            <p>{{'気に入ったプランがなかったら、行ってみたい場所や、旅行先で体験したいことなど、旅リクエストを作成してみましょう。現地に詳しい旅ガイドがあなたのリクエストに応えていろんな提案をしてをくれますよ!'|ttrans}}</p>
+        </div>
+        <div class="request-lineup outer__inner" *ngIf="listRequest.length > 0">
+            <ul class="request-lineup__list">
+                <li *ngFor="let item of listRequest">
+                    <div class="request-lineup__head">
+                        <ul class="pref-list">
+                            <li><a *ngIf="item.city" [routerLink]='["/" + app.language + "/request/search/city-" + item.city.prefix]'>{{item.city.name}}</a></li>
+                        </ul>
+                        <p class="request-time">{{item.date_plan|datex: "YYYY.MM.DD"}}</p>
+                    </div>
+                    <div class="request-lineup__body">
+                        <div class="request-lineup__flex">
+                            <div class="request-lineup__photo">
+                                <a [routerLink]='["/" + app.language + "/request/detail/" + item.id]'><img [attr.src]="item.members && item.members.avatar ? app.constant.FILE_URL+item.members.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></a>
+                            </div>
+                            <div class="request-lineup__text">
+                                <h3 class="word-break request-lineup__title"><a [routerLink]='["/" + app.language + "/request/detail/" + item.id]' data-toggle="tooltip" title="{{item.title}}">{{item.title}}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="request-lineup__foot">
+                        <a [routerLink]='["/" + app.language + "/request/detail/" + item.id]'>
+                            <div>
+                                <figure *ngIf="item.language_support"><img [attr.src]="item.language_support.icon ? app.constant.FILE_URL+item.language_support.icon : '/assets/top/img/flag03.svg'" alt="{{item.language_support.display_name}}" width="38" /></figure>
+                                <p>{{item.num_people}}{{'人'|ttrans}}</p>
+                            </div>
+                            <div>
+                                <p class="request-lineup__info--01">¥{{item.desire_price|numberFormat}}／{{'人'|ttrans}}</p>
+                                <p class="request-lineup__info--02">{{item.plan_hour|formatHour}}{{'h／所要時間'|ttrans}}</p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="request-lineup outer__inner" *ngIf="listRequest.length == 0">
+            <div class="content__lead">
+                <p>{{'データがありません。'|ttrans}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="request-list__footer content__footer" *ngIf="countData > 4">
+        <a class="request-list__button btn--default" [routerLink]='["/" + app.language + "/request/search"]'>{{'もっと見る'|ttrans}}</a>
+    </div>
+</section>
+<!-- /.request-list outer content -->

@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../scss/review.css",
+	"sources": [
+		"../scss/review.scss",
+		"../scss/foundation/_mixin.scss",
+		"../scss/foundation/_setting.scss"
+	],
+	"sourcesContent": [],
+	"mappings": "ACAA;;;;mDAImD;AASnD;;;;mDAImD;AAsBnD;;;;mDAImD;AAQnD;;;;mDAImD;AAOnD;;;;mDAImD;AA6BnD;;;;mDAImD;AAOnD;;;;mDAImD;AASnD;;;;mDAImD;AAkBnD;;;;mDAImD;AASnD;;;;mDAImD;AA4BnD;;;;mDAImD;AD3LjD,eAAe,CAAP;EACR,UAAU,EAAE,0BAAG,CAAwB,SAAS,CAAC,MAAM,CAAC,GAAG;EAC3D,eAAe,EAAE,KAAM;CAFd;;AAIV,OAAO,CAAC,YAAY,CAAR;EACX,WAAW,EAAE,IAAK;CADN;;AAGX,OAAO,CAAC,YAAY,CAAC,oBAAoB,CAAC,EAAE,CAA1C;ECFH,SAAS,EAAA,IAAC;EACV,SAAS,EAAA,MAAC;EACV,WAAW,EAHJ,CAAI;CDGP",
+	"names": []
+}

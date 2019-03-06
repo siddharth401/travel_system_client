@@ -1,0 +1,51 @@
+<footer class="footer outer">
+    <div class="outer__inner">
+        <div class="footer__block" *ngIf="app.listDataFormSearch">
+            <section class="footer__content">
+                <h2 class="footer__title">{{'プランカテゴリー'|ttrans}}</h2>
+                <div class="footer__flex">
+                    <ul class="footer__list" *ngIf="app.listDataFormSearch.categories">
+                        <li *ngFor="let category of app.listDataFormSearch.categories"><a [routerLink]="['/'+ app.language + '/search/category-' + category.prefix]">{{category.name}}{{'の旅プラン'|ttrans}}</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section class="footer__content">
+                <h2 class="footer__title">{{'観光地'|ttrans}}</h2>
+                <div class="footer__flex">
+                    <dl class="" *ngFor="let country of app.listDataFormSearch.cities">
+                        <dt class="footer__sub-title">{{country.display_name}}</dt>
+                        <div class="footer__list--02">
+                            <dd *ngFor="let item of country.cities"><a [routerLink]="['/'+ app.language + '/search/city-' + item.prefix]" class="footer__list__a">{{item.name}}</a></dd>
+                        </div>
+                    </dl>
+                </div>
+            </section>
+            <section class="footer__content">
+                <h2 class="footer__title">{{'マッチングガイドについて'|ttrans}}</h2>
+                <ul class="footer__list">
+                    <li><a [routerLink]='["/" + app.language + "/about"]'>{{'マッチングガイドとは'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/usage"]'>{{'マッチングガイドの使い方'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/safety"]'>{{'安心・安全のために'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/question"]'>{{'よくある質問'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/cancelpolicy"]'>{{'キャンセルポリシー'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/guide"]'>{{'ガイド一覧'|ttrans}}</a></li>
+                </ul>
+            </section>
+            <section class="footer__content">
+                <h2 class="footer__title">{{'サイト運営会社について'|ttrans}}</h2>
+                <ul class="footer__list">
+                    <li><a [routerLink]='["/" + app.language + "/company"]'>{{'サイト運営会社'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/policy"]'>{{'利用規約'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/article"]'>{{'特定商取引法に関する記載'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/privacypolicy"]'>{{'プライバシーポリシー'|ttrans}}</a></li>
+                    <li><a [routerLink]='["/" + app.language + "/legal"]'>{{'旅行業約款'|ttrans}}</a></li>
+                    <!--<li><a href="#">{{'お問い合わせ'|ttrans}}</a></li>-->
+                </ul>
+            </section>
+        </div>
+        <div class="footer__bottom">
+            <p><small>&copy; matching-guide.com</small></p>
+        </div>
+    </div>
+</footer>
+<!-- /.footer -->

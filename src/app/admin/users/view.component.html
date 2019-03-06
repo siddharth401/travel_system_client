@@ -1,0 +1,19 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['User', 'Detail']" icon="users" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+
+  <!-- widget grid -->
+  <section id="widget-grid" class="">
+    <!-- row -->
+    <div class="row">
+
+      <!-- NEW WIDGET START -->
+      <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+        <div *ngIf="user">
+	        <h1>{{user.email}}</h1>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>

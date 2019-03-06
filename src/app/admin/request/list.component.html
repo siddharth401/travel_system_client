@@ -1,0 +1,137 @@
+<div id="content">
+    <admin-flash></admin-flash>
+    <div class="row">
+        <sa-big-breadcrumbs [items]="[['Booking management'|trans],['Request list'|trans]]" icon="plus-square"
+                            class="col-xs-12 "></sa-big-breadcrumbs>
+    </div>
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        <!-- row -->
+        <div class="row">
+
+            <!-- NEW WIDGET START -->
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                <div class="jarviswidget jarviswidget-color-blueDark">
+                    <header role="heading">
+                        <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                        <h2>{{'Request search'|trans}}</h2>
+
+                        <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span>
+                    </header>
+                    <div>
+                        <form class="form-horizontal" (ngSubmit)="search(true)">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{'Experience date'|trans}}</label>
+                                <div class="col-md-2">
+                                    <input [(ngModel)]="params.date_plan_from" name="date_plan_from"
+                                           class="form-control datepicker" placeholder="{{'YYYY/MM/DD'}}" readonly="'readonly'"/>
+                                </div>
+                                <div class="col-md-1 control-label date-from-to">～</div>
+                                <div class="col-md-2">
+                                    <input [(ngModel)]="params.date_plan_to" name="date_plan_to" class="form-control datepicker"
+                                           placeholder="{{'YYYY/MM/DD'}}" readonly="'readonly'"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{'Request deadline'|trans}}</label>
+                                <div class="col-md-2">
+                                    <input [(ngModel)]="params.date_end_from" name="date_end_from" class="form-control datepicker"
+                                           placeholder="{{'YYYY/MM/DD'}}" readonly="'readonly'"/>
+                                </div>
+                                <div class="col-md-1 control-label date-from-to">～</div>
+                                <div class="col-md-2">
+                                    <input [(ngModel)]="params.date_end_to" name="date_end_to" class="form-control datepicker"
+                                           placeholder="{{'YYYY/MM/DD'}}" readonly="'readonly'"/>
+                                </div>
+                            </div>
+                            <div class="form-group form-group--input">
+                                <label class="col-md-2 control-label">{{'Status'|trans}}</label>
+                                <div class="col-md-10">
+                                    <label *ngFor="let item of app.constant.Request.status|list" class="checkbox-label div-status">
+                                        <input [value]="item.key" (change)="onChange($event);" class="checkbox checkbox-status"
+                                               type="checkbox"><span>{{item.value|trans}}</span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">{{'Member request'|trans}}</label>
+                                <div class="col-md-5">
+                                    <input [(ngModel)]="params.member_name" name="member_name"
+                                           class="form-control" placeholder="{{'Member request'|trans}}" (input)="app.suggesstionText(requests.data, 1)"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label"></label>
+                                <div class="col-md-8">
+                                    <a (click)="reset()" class="btn btn-reset">{{'Reset'|trans}}</a>
+                                    <button class="btn btn-approve">{{'Search'|trans}}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div role="content">
+                        <a class="btn btn-default btn-primary pull-right button-orange"
+                           (click)="downloadCsv()">{{'Download'|trans}}</a>
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div class="widget-body">
+                            <div class="table-scroll">
+                                <table class="table table-striped table-bordered table-hover" *ngIf="requests">
+                                    <thead>
+                                    <tr class="thead-table">
+                                        <th (click)="changeSort('id')"><a>{{'Request ID'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                        <th (click)="changeSort('member_id')"><a>{{'Member request'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                        <th (click)="changeSort('title')"><a>{{'Request title'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                        <th (click)="changeSort('date_end')"><a>{{'Request deadline'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                        <th (click)="changeSort('date_plan')"><a>{{'Experience date'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                        <th (click)="changeSort('num_suggestions')"><a>{{'Number suggestions'|trans}}</a><span class="arrow desc"></span></th>
+                                        <th (click)="changeSort('created_at')"><a>{{'Created request date'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                        <th (click)="changeSort('num_comments')"><a>{{'Message'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                        <th (click)="changeSort('status')"><a>{{'Status'|trans}}</a><span
+                                                class="arrow desc"></span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody *ngIf="requests.total == 0">
+                                    <tr>
+                                        <td colspan="9" class="text-center">
+                                            <span *ngIf="is_search == false">{{'No data'|trans}}</span>
+                                            <span *ngIf="is_search == true">{{'We can not find any matched data with provided requirements'|trans}}</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody *ngIf="requests.total > 0">
+                                        <tr *ngFor="let item of requests.data">
+                                            <td>{{item.id|addFixedId: 'R'}}</td>
+                                            <td>
+                                                <span>{{item.member_name}}</span>
+                                            </td>
+                                            <td class="td-title-request"><a [routerLink]='["/admin/requests/form/",item.id]'>{{item.title}}</a></td>
+                                            <td><span *ngIf="item.date_end">{{item.date_end|datex: 'YYYY/MM/DD'}}</span></td>
+                                            <td><span *ngIf="item.date_plan">{{item.date_plan|datex: 'YYYY/MM/DD'}}</span></td>
+                                            <td>{{item.num_suggestions}}</td>
+                                            <td><span *ngIf="item.created_at">{{item.created_at|datex: 'YYYY/MM/DD'}}</span></td>
+                                            <td><span *ngIf="item.num_comments" class="num_comments">{{item.num_comments}}</span></td>
+                                            <td>
+                                                <span *ngIf="app.constant.Request.status[item.status]">{{app.constant.Request.status[item.status]|trans}}</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <sa-paginator *ngIf="requests.total > 10" [data]="requests" url="/admin/requests"></sa-paginator>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

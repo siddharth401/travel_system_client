@@ -1,0 +1,205 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs [items]="[['Booking management'|trans], ['Request list'|trans, '/admin/requests'], [(fb.isNew?'Request ddd':'Request detail')|trans]]" icon="plus-square"
+                            class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    </div>
+
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-sm-12">
+                <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false"
+                     data-widget-editbutton="false" role="widget">
+                    <header role="heading">
+                        <div class="jarviswidget-ctrls" role="menu">
+                            <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip"
+                               title="" data-placement="bottom" data-original-title="Fullscreen"><i
+                                    class="fa fa-expand "></i></a>
+                        </div>
+                        <span class="widget-icon"> <i class="fa fa-pencil-square-o"></i> </span>
+                        <h2>{{'Request detail'|trans}}</h2>
+                    </header>
+
+                    <div role="content">
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body">
+                            <form [formGroup]="fb.form" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'RquestNO'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">{{fb.form.value['id']|addFixedId: "R"}}</label>
+                                        <input type="hidden" name="id" value="{{fb.form.value['id']}}" readonly="'readonly'">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label"><strong>{{'Request information'|trans}}</strong></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Request name'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label" *ngIf="listMembers[fb.form.value['member_id']]">
+                                            <a [routerLink]='["/admin/members/form/",fb.form.value["member_id"]]'
+                                               target="_blank">{{listMembers[fb.form.value['member_id']]}}</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'K019_Request date'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">{{fb.form.value['date_plan']|datex: 'YYYY/MM/DD'}} {{fb.form.value['time_start']}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Request title'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">{{fb.form.value['title']}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Meeting place'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">
+                                            <span *ngIf="fb.form.value.countries">{{fb.form.value.countries.display_name}}</span>&nbsp;&nbsp;&nbsp;
+                                            <span *ngIf="fb.form.value.city">{{fb.form.value.city.name}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Category request'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">
+                                            <span *ngFor="let item of fb.form.value['category_translates']"
+                                                  class="margin-right-text">{{item['name']}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Number people request'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">{{fb.form.value['num_people']}}{{' people'|trans}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Desired amount'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">
+                                            ¥{{fb.form.value.desire_price*fb.form.value['num_people']|numberFormat}}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Language request'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label">{{fb.form.value['language_support']['display_name']|trans}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Description request'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <label class="control-label" style="text-align: left;">{{fb.form.value['desc']|nl2br}}</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Application period'|trans}}</label>
+                                    <div class="col-md-8 div-deadline">
+                                        <input *ngIf="!fb.form.value['date_end']" value="{{fb.form.value['date_deadline_suggestion']|datex: 'YYYY/MM/DD'}}"
+                                               class="form-control datepicker" readonly="'readonly'" name="date_end"
+                                               style="width: 23%; float: left;">
+                                        <input *ngIf="fb.form.value['date_end']" value="{{fb.form.value['date_end']|datex: 'YYYY/MM/DD'}}"
+                                               class="form-control datepicker" readonly="'readonly'" name="date_end"
+                                               style="width: 23%; float: left;">
+                                        <span style="margin-left: 10px; margin-bottom: -20px;" *ngIf="app.backend_language_id == app.constant.JA_LANGUAGE_ID">まで</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">{{'Status request'|trans}}</label>
+                                    <div class="col-md-8">
+                                        <div class="text-status">
+                                            <span class="padding-top" *ngIf="fb.form.value['status'] == app.constant.CANCEL">{{app.constant.Request.status[fb.form.value['status']]|trans}}</span>
+                                            <select *ngIf="fb.form.value['status'] != app.constant.CANCEL" name="status" class="form-control">
+                                                <option *ngFor="let item of listStatus|list" [value]="item.key" [selected]="item.key == fb.form.value['status']" >{{item.value|trans}}</option>
+                                            </select>
+                                        </div>
+                                        <div *ngIf="app.constant.Request.status[fb.form.value['status']] && fb.form.value['status'] < app.constant.REQUEST_NO_SUGGESTIONS">
+                                            <a (click)="changeStatus(fb.form.value['id'], 'status', 'Request', app.constant.CANCEL)"
+                                               class="btn btn-cancel">{{'Cancel'|trans}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12" style="text-align: center; margin-left: 60px;">
+                                        <label class="control-label">
+                                            <a class="btn btn-approve" (click)="registerRequest()">{{'Register'|trans}}</a>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-11">
+                                        <div class="list-suggesstions">
+                                            <span>{{'Teian plan list'|trans}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-11 widget-body">
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>{{'Teian ID'|trans}}</th>
+                                                <th>{{'Teian plan title'|trans}}</th>
+                                                <th>{{'Travel Guide name (EN)'|trans}}</th>
+                                                <th>{{'Unit price'|trans}}</th>
+                                                <th>{{'K019_Amount'|trans}}</th>
+                                                <th>{{'Message'|trans}}</th>
+                                                <th>{{'Updated date'|trans}}</th>
+                                                <th>{{'Status'|trans}}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody *ngIf="fb.form.value['plans'] && !fb.form.value['plans'][0]">
+                                                <tr>
+                                                    <td colspan="8" class="text-center">{{'No data'|trans}}</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="fb.form.value['plans'] && fb.form.value['plans'][0]">
+                                                <tr *ngFor="let item of fb.form.value['plans']">
+                                                    <td>{{item.id|addFixedId: 'G'}}</td>
+                                                    <td>
+                                                        <a *ngIf="item['plan_translates']"
+                                                           [routerLink]='["/admin/requests/suggestion/",item.id]'>
+                                                            <span *ngFor="let itemP of item['plan_translates']"
+                                                                  style="margin-right: 10px;">
+                                                                {{itemP['proposal_title']}}
+                                                            </span>
+                                                        </a>
+                                                    </td>
+                                                    <td><span *ngIf="listGuiders[item['member_id']]">{{listGuiders[item['member_id']]}}</span>
+                                                    </td>
+                                                    <td>¥{{item['price']|numberFormat}}</td>
+                                                    <td>¥{{item['price']*fb.form.value['num_people']|numberFormat}}</td>
+                                                    <td>{{item['chats'].length}}</td>
+                                                    <td>{{item.created_at|datex: 'YYYY/MM/DD'}}</td>
+                                                    <td>
+                                                        <span *ngIf="app.constant.SuggestionPlanStatusJapan[item.status]">{{app.constant.SuggestionPlanStatusJapan[item.status]|trans}}</span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="form-group">
+                                            <div class="col-md-12" style="text-align: center; margin-top: 30px;">
+                                                <label class="control-label">
+                                                    <a [routerLink]='["/admin/requests"]' class="btn btn-back">{{'Back to request list'|trans}}</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,35 @@
+.star{
+    display: flex;
+    margin-left: 20px;
+    margin-top: 5px;
+    align-items: baseline;
+}
+@media (max-width: 767px) {
+    .star {
+        margin-left: 0;
+    }
+    .review .guide-score {
+        margin-left: 0;
+    }
+}
+.guide-plan-title a{
+    color: #333;
+}
+.guide-plan-title a:hover {
+    color: #00a699;
+}
+.review__photo {
+    word-break: break-all;
+}
+.review__photo .guide-name {
+    text-align: center;
+    margin-top: 10px;
+}
+.guide-name a {
+    color: #00a699;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+.guide-name a:hover {
+    opacity: 0.7;
+}

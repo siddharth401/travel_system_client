@@ -1,0 +1,10 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.msg_note{
+    display: block;
+    color: #1f496d;
+}

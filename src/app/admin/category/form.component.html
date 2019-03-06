@@ -1,0 +1,167 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[['Master management'|trans],['Category management'|trans],['Category List'|trans,'/admin/category'],[(fb.isNew?'Category Add':'Category Detail')|trans]]" icon="users" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+  </div>
+
+  <section id="widget-grid" class="">
+    <div class="row">
+      <article class="col-sm-12">
+        <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false" data-widget-editbutton="false" role="widget">
+          <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+              <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a>
+            </div>
+            <span class="widget-icon"> <i class="fa fa-pencil-square-o"></i> </span>
+              <h2 *ngIf="!fb.isNew">{{'Category Detail'|trans}}</h2>
+              <h2 *ngIf="fb.isNew">{{'Category Add'|trans}}</h2>
+          </header>
+
+          <div role="content">
+            <div class="jarviswidget-editbox">
+            </div>
+            <div class="widget-body">
+              <form [formGroup]="fb.form" class="form-horizontal" (ngSubmit)="save(true)">
+                <fieldset>
+                  <div class="form-group" *ngIf="!fb.isNew">
+                      <label class="col-md-2 control-label">{{'NO'|trans}} </label>
+                      <div class="col-md-8">
+                          <label class="control-label">{{fb.form.value['id']}}</label>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Category prefix'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                      <input formControlName="prefix" placeholder="{{'Category prefix'|trans}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Category Name'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-10">
+                      <div *ngIf="fb.form.value.category_translates.length > 0">
+                        <div formArrayName="category_translates">
+                          <div *ngFor="let item of fb.form.controls.category_translates.controls; let i = index;">
+                            <div [formGroupName]="i" class="form-group">
+                              <div [formGroup]="fb.form.controls.category_translates.controls[i]">
+                                <div [ngClass]="(data_error && data_error[i] && data_error[i].name_err)? 'col-md-6 has-error': 'col-md-6'">
+                                  <input formControlName="name"  type="text" placeholder="{{'Name category'|trans}}" class="form-control" />
+                                  <small class="msg_err" *ngIf="data_error && data_error[i] && data_error[i].name_err">{{data_error[i].name_err|trans}}</small>
+                                </div>
+                                <div [ngClass]="(data_error && data_error[i] && data_error[i].lang_err)? 'col-md-3 has-error': 'col-md-3'">
+                                  <select formControlName="language_id"  class="form-control">
+                                    <option value="">{{'Select Language' | trans}}</option>
+                                    <option *ngFor="let item of listLanguage|list" [value]="item.key" [selected]="item.key==fb.form.value.category_translates[i].language_id">{{item.value}}</option>
+                                  </select>
+                                  <small class="msg_err" *ngIf="data_error && data_error[i] && data_error[i].lang_err">{{data_error[i].lang_err|trans}}</small>
+                                </div>
+                                <div class="col-md-1">
+                                  <i class="fa fa-trash-o btn btn-danger" *ngIf="i!=0" (click)="fb.removeItem('category_translates',i)" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-1 control-label text-left">
+                          <i class="fa fa-plus btn btn-default" (click)="fb.addItem('category_translates')" aria-hidden="true"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Icon'|trans}}</label>
+                    <div class="col-md-4">
+                      <sa-file-upload fieldName="icon" filePath="{{fb.form.get('icon').value}}" extensions="jpg|jpeg|png" size="5120" id="icon"></sa-file-upload>
+                    </div><br>
+                    <div  class="col-md-4" *ngIf="!fb.isNew">
+                      <a class="btn btn-danger" type="button" id="deleteIcon" (click)="romoveIcon()">{{'Delete'|trans}}</a>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Order'|trans}} <span class="text-danger">*</span></label>
+                    <div class="col-md-4">
+                      <input formControlName="order" placeholder="{{'Category order'|trans}}" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Display top'|trans}}</label>
+                    <div class="col-md-2 text-left">
+                      <select formControlName="is_top"  class="form-control">
+                        <option *ngFor="let item of app.constant.display_top|list" [value]="item.key" [selected]="item.key=='1'" >{{item.value|trans}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-2 control-label">{{'Active'|trans}}</label>
+                    <div class="col-md-2 text-left">
+                      <select formControlName="active"  class="form-control">
+                        <option *ngFor="let item of app.constant.Active|list" [value]="item.key" [selected]="item.key=='1'" >{{item.value|trans}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-12">
+                       <a class="btn btn-default" [routerLink]='["/admin/category"]' type="button">{{'Cancel'|trans}}</a>
+                      <button class="btn btn-primary" type="submit">{{'Confirm'|trans}}</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
+<div class="modal fade" id="formConfirm" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Category prefix'|trans}}</strong></label>
+            <div class="col-md-8">{{fb.form.get('prefix').value}}</div>
+          </div>
+        </div>
+        <div *ngFor="let item of fb.form.get('category_translates').value">
+          <div class="row">
+            <div class="form-group">
+              <label class="col-md-4 control-label"><strong>{{'Category Name'|trans}}</strong></label>
+              <div class="col-md-8">{{item.name}}</div>
+            </div>
+          </div>
+        <div class="row">
+            <div class="form-group">
+              <label class="col-md-4 control-label"><strong>{{'Language'|trans}}</strong></label>
+              <div class="col-md-8">{{listLanguage[item.language_id]}}</div>
+            </div>
+        </div>
+        </div>
+        <div class="row" *ngIf="fb.form.get('icon').value">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Icon'|trans}}</strong></label>
+            <div class="col-md-8" id="show-icon">
+              <sa-file-upload fieldName="icon" confirm="1" filePath="{{fb.form.get('icon').value}}" id="confirm-icon" ></sa-file-upload>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <label class="col-md-4 control-label"><strong>{{'Active'|trans}}</strong></label>
+            <div class="col-md-8">{{app.constant.Active[fb.form.get('active').value]|trans}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+        <button type="button" class="btn btn-primary" (click)="save()">{{'Submit'|trans}}</button>
+      </div>
+    </div>
+  </div>
+</div>

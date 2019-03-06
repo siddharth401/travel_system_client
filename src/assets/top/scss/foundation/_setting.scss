@@ -1,0 +1,38 @@
+// ページ全体の横幅
+$base_width: 1200px;
+
+$font-size-base: 14px;
+$line-height-computed: 1.4;
+$lines-to-show: 2;
+
+
+// 要素の基本下マージン
+$base_margin: 30px;
+
+
+// メインカラー（ベースカラー）
+$main_color: #fff;
+
+// サブカラー
+$sub_color: #eee;
+
+// アクセントカラー
+$accent_color: #00a699;
+
+// ベーステキストカラー
+$font_color: #222;
+
+// ベースリンクカラー
+$link_color: #06f;
+$link_color_visited: #39f;
+$link_color_hover: #00f;
+$link_color_active: #00f;
+
+
+// font-family
+$font_family_jp : "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+$font_family_en : 'Oswald', sans-serif;
+$font_family_en_robot: 'Roboto', sans-serif;
+
+
+

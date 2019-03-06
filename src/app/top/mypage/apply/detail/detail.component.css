@@ -1,0 +1,71 @@
+.location-style {
+    display: flex;
+    justify-content: space-between;
+}
+.modal-content {
+    top:45%;
+}
+.modal-body__content {
+    padding:20px 10px;
+    border:1px solid #333;
+}
+.modal-footer__text {
+    margin-top: 15px;
+}
+.modal-title {
+    text-align: center;
+    padding: 20px;
+}
+.modal-body__p {
+    margin: 5px 0;
+}
+#content-reason{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border:1px solid #ccc;
+    font-size: 14px;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.guider-reason-cancel {
+    color: red;
+}
+.mypage__body__title a{
+    color: #333;
+    text-decoration: none;
+}
+.mypage__body__title a:hover {
+    color: #00a699;
+}
+.guider_languages{
+    margin-right: 10px;
+}
+.mypage__body__table-normal{
+    word-break: break-all;
+}
+.mypage__body__table-normal__pre {
+    white-space: pre-wrap;
+    line-height: 22px;
+}
+.button-location span {
+    display: block;
+}
+.button-location a {
+    text-align: center;
+    float: right;
+    padding: 10px;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1;
+}
+@media (max-width: 767px) {
+    .button-location a {
+        font-size: 80%;
+        padding: 10px 5px;
+    }
+}

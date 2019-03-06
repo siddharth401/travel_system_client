@@ -1,0 +1,50 @@
+<div id="sb-site">
+    <div class="mypage">
+        <div class="breadcrumb mypage__breadcrumb">
+            <i></i>
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/mypage"]'>{{'マイページTOP'|ttrans}}</a></li>
+                <li><a [routerLink]='["/" + app.language + "/mypage/profile"]'>{{'プロフィール'|ttrans}}</a></li>
+                <li><span>{{'プロフィール変更完了'|ttrans}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="mypage__container mypage__flex">
+
+            <top-mypage-menu></top-mypage-menu>
+            <div class="mypage__content">
+                <top-mypage-head></top-mypage-head>
+
+                <div class="mypage__body">
+
+
+
+                    <div class="mypage__body__section">
+
+                        <h2 class="mypage__body__title--02">{{'プロフィール変更登録完了'|ttrans}}</h2>
+
+                        <!--<h3 class="mypage__body__title">{{'プロフィールの変更登録が完了しました。'|ttrans}}</h3>-->
+
+                        <div class="mypage__body__block">
+
+                            <div class="mypage__body__block__caution">
+
+                                <h4 class="mypage__body__block__caution__title">{{'メッセージが送信しました。'|ttrans}}</h4>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <div class="mypage__foot">
+                    <a [routerLink]="['/'+languageName+'/mypage/profile/']" class="link--back"><i class="fa fa-angle-left" aria-hidden="true"></i>{{'プロフィールへ戻る'|ttrans}}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--#include virtual="/inc/footer.html" -->
+</div>

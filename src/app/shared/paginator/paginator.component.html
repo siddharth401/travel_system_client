@@ -1,0 +1,23 @@
+<div class="dt-toolbar-footer">
+    <div class="col-sm-6 col-xs-12 hidden-xs">
+        <div class="dataTables_info" id="datatable_fixed_column_info">
+            <div *ngIf="app.curLang == 'us'">
+                Showing <span class="txt-color-darken">{{data.from}}</span> to <span class="txt-color-darken">{{data.to}}</span> of <span class="text-primary">{{data.total}}</span> entries - {{data.current_page}} / {{data.last_page}} page(s)
+            </div>
+            <div *ngIf="app.curLang == 'jp'">
+                {{data.total}}件　{{data.from}}〜{{data.to}}件表示
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <ul class="pagination pagination-sm">
+                <li class="paginate_button previous {{data.current_page==1?'disabled':''}}"><a (click)="changeUrl(1)">{{'First'|trans}}</a></li>
+                <li *ngFor="let item of generatePages(data.current_page, data.last_page)" class="paginate_button {{data.current_page == item?'active':''}}">
+                    <a (click)="changeUrl(item)">{{item}}</a>
+                </li>
+                <li class="paginate_button next {{data.current_page==data.last_page?'disabled':''}}"><a (click)="changeUrl(data.last_page)">{{'Last'|trans}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

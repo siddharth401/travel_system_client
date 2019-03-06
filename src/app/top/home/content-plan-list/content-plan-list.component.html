@@ -1,0 +1,59 @@
+<section class="plan-list outer content">
+    <div class="content__head">
+        <h2 class="content__title">{{'プランを楽しむ'|ttrans}}</h2>
+        <a *ngIf="curMember && curMember.type == app.constant.MEMBER_GUIDER" [routerLink]='["/" + app.language + "/mypage/plan/create"]' class="btn--secondary">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            {{'旅プランをつくる'|ttrans}}
+        </a>
+        <a *ngIf="curMember && curMember.type == app.constant.MEMBER_USER" (click)="showMessage()" class="btn--secondary">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            {{'旅プランをつくる'|ttrans}}
+        </a>
+        <a *ngIf="!curMember" [routerLink]='["/" + app.language + "/member/login"]' [queryParams]="{is_page:app.constant.PLAN_ADD}" class="btn--secondary">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            {{'旅プランをつくる'|ttrans}}
+        </a>
+    </div>
+    <div class="content__body">
+        <div class="content__lead">
+            <p>{{'旅ガイドが作成した旅プランです。あなたのオリジナルの旅を見つけてください!'|ttrans}}</p>
+        </div>
+        <section class="plan-list__section" *ngFor="let category of listCategory">
+            <div class="outer__inner">
+                <h3 class="plan-list__title">{{category.name}}{{'の旅プラン'|ttrans}}</h3>
+                <div class="content-list" *ngIf="category.plans.length > 0">
+                    <ul class="content-list__wrap">
+                        <li class="content-list__item" *ngFor="let item of category.plans">
+                            <div>
+                                <div class="content-list__photo">
+                                    <a [routerLink]="['/'+app.language + '/tour/detail/'+item.id]">
+                                        <figure class="content-list__cover"><img [attr.src]="item.imagePlan != '' ? app.constant.FILE_URL+item.imagePlan : '/assets/top/img/noimage.png'" alt=""></figure>
+                                    </a>
+                                    <a *ngIf="item.guiders" [routerLink]="['/'+app.language + '/guide/detail/'+item.guiders.id]">
+                                        <figure class="content-list__person"><img [attr.src]="item.guiders.avatar ? app.constant.FILE_URL+item.guiders.avatar : 'assets/top/img/noimage_200x200.png'" alt=""></figure>
+                                    </a>
+                                </div>
+                                <div class="content-list__body">
+                                    <h4 class="content-list__title" *ngIf="item.title">
+                                        <a class="limit" [routerLink]='["/" + app.language + "/tour/detail/" + item.id]' data-toggle="tooltip" title="{{item.title}}">{{item.title|limit:50}}</a>
+                                    </h4>
+                                    <div class="content-list__utility">
+                                        <p class="price">¥{{item.price|numberFormat}}／{{'人'|ttrans}}</p>
+                                        <div class="content-list__flex">
+                                            <top-star  class="star" [point]="item.guiders && item.guiders.guider_ranking"></top-star>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <button *ngIf="category.count_plans > 4" class="content-list__button btn--default" [routerLink]='["/" + app.language + "/search/category-" + category.prefix]'>{{'もっと見る'|ttrans}}</button>
+                </div>
+                <div class="content__lead" *ngIf="category.plans.length == 0">
+                    <p>{{'データがありません。'|ttrans}}</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<!-- /.plan-list outer content -->

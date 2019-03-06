@@ -1,0 +1,172 @@
+.modal{
+	width: 100%;
+// 	margin: 0 auto;
+	height: 100vh;
+	position: relative;
+	@include for-size(phone-only) {
+		width: 100%;
+		background: #fff;
+	}
+	&__head{
+		text-align: center;
+		margin-bottom: 25px;
+		@include for-size(phone-only) {
+			margin-bottom: 10px;
+		}
+		img{
+			width: 80px;
+			height: 80px;
+			@include for-size(phone-only) {
+				width: 40px;
+				height: 40px;
+			}
+		}
+	}
+	&__body{
+		background: #fff;
+		padding: 0 30px;
+		@include border-radius(5px);
+		@include for-size(phone-only) {
+			padding: 0 15px;
+		}
+	}
+	&__title{
+		padding: 25px 0px;
+		border-bottom: 1px solid #ccc;
+		text-align: center;
+		@include font-size(22,22);
+		color: #333;
+		font-weight: bold;
+		@include for-size(phone-only) {
+			padding: 10px 0px;
+			@include font-size(14,20);
+		}
+	}
+	&__inner{
+		padding: 20px 0;
+		border-bottom: 1px solid #ccc;
+		@include for-size(phone-only) {
+			padding: 10px 0;
+		}
+		>p{
+			margin-bottom: 20px;
+			@include font-size(16,24);
+			text-align: center;
+			@include for-size(phone-only) {
+				margin-bottom: 10px;
+				@include font-size(12,20);
+			}
+		}
+	}
+	.btn--facebook{
+		height: 60px;
+		@include font-size(18,60);
+		@include border-radius(5px);
+		margin-bottom: 20px;
+		font-weight: bold;
+		@include for-size(phone-only) {
+			height: 45px;
+			@include font-size(16,45);
+			@include border-radius(5px);
+			margin-bottom: 10px;
+		}
+		&:after {
+			@include font-size(18,18);
+			@include for-size(phone-only) {
+				@include font-size(16,16);
+			}
+		}
+	}
+	&__foot{
+		padding: 25px 0px;
+		@include for-size(phone-only) {
+			padding: 10px 0px;
+		}
+		a{
+			display: block;
+			color: #666;
+			@include font-size(16,16);
+			text-decoration: none;
+			&:hover{
+				@include opacity(.7);
+			}
+			i{
+				color: $accent_color;
+				margin-right: 15px;
+			}
+		}
+		a+a{
+			margin-top: 10px;
+		}
+	}
+}
+
+.add{
+	position: absolute;
+	width: 450px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	@include for-size(phone-only) {
+		width: 100%;
+		background: #fff;
+		top: 10%;
+		transform: translateY(0%);
+		-webkit-transform: translateY(0%);
+		left: 0;
+	}
+	&__form{
+		&-item{
+			input{
+				border: 1px solid #ccc;
+				background: #fafafa;
+				@include border-radius(5px);
+				width: 100%;
+				box-sizing: border-box;
+				padding: 0 20px;
+				height: 55px;
+				@include font-size(16,55);
+				outline: none;
+			}
+		}
+		&-item+&-item{
+			margin-top: 15px;
+		}
+		&-button{
+			margin-top: 20px;
+			input{
+				width: 100%;
+				height: 55px;
+				@include font-size(18,55);
+			}
+		}
+	}
+}
+
+#cboxOverlay {
+	background: url(/img/bg_modal.png) no-repeat center top;
+	background-size: cover;
+	opacity: 1;
+	@include for-size(phone-only) {
+		background:#fff;
+	}
+}
+
+#cboxClose{
+	background: url(/img/close.svg) no-repeat 0 0;
+	width: 60px;
+	height: 60px;
+	background-size: 60px 60px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	outline: none;
+	@include for-size(phone-only) {
+		background: url(/img/close-black.svg) no-repeat 0 0;
+		width: 30px;
+		height: 30px;
+		background-size: 30px 30px;
+		fill: #ccc;
+	}
+}

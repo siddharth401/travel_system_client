@@ -1,0 +1,769 @@
+<div id="content">
+    <div class="row">
+        <sa-big-breadcrumbs
+                [items]="[['Member management'|trans],['Member List'|trans,'/admin/members'], [(fb.isNew?'List':'Member Detail')|trans]]"
+                icon="user"
+                class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+    </div>
+
+    <section id="widget-grid">
+        <div class="row">
+            <article class="col-sm-12">
+                <div class="jarviswidget jarviswidget-sortable" id="wid-id-0" data-widget-colorbutton="false"
+                     data-widget-editbutton="false" role="widget">
+                    <header role="heading">
+                        <div class="jarviswidget-ctrls" role="menu">
+                            <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip"
+                               title="" data-placement="bottom" data-original-title="Fullscreen"><i
+                                    class="fa fa-expand "></i></a>
+                        </div>
+                        <span class="widget-icon"> <i class="fa fa-user"></i> </span>
+                        <h2 *ngIf="!fb.isNew">{{'Member Detail'|trans}}</h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox">
+                        </div>
+                        <div class="widget-body" *ngIf="fb.isNew == false">
+                            <form [formGroup]="fb.form" class="form-horizontal" (ngSubmit)="save(true)">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'NO'|trans}} </label>
+                                        <div class="col-md-8">
+                                            <label class="control-label"> {{fb.form.value['id']}}</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 1">
+                                        <label class="col-md-2 type">{{'Member Type'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-2">
+                                        {{'Traveler'|trans}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2">
+                                        <label class="col-md-2 type">{{'Member Type'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-2">
+                                            {{'Travel Guide'|trans}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Name Member'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <input formControlName="name" placeholder="{{'Name'|trans}}" id="name"
+                                                   type="text" class="form-control"  autocomplete="false">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2">
+                                        <label class="col-md-2 control-label">{{'Nick Name'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <input formControlName="nick_name" placeholder="{{'Nick Name'|trans}}"
+                                                   id="nick_name" type="text" class="form-control" autocomplete="false">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.avatar">
+                                        <label class="col-md-2 control-label">{{'Avatar'|trans}}</label>
+                                        <div class="col-md-4">
+                                            <span>
+                                               <img width="220" height="250" border="0" align="center"
+                                                    [attr.src]="app.constant.FILE_URL + fb.form.value.avatar"/>
+                                             </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Gender'|trans}}</label>
+                                        <div class="row col-md-8">
+                                            <label style="margin-left: 10px;margin-top: 5px">
+                                                <input type="radio" name="gender" [value]="app.constant.Male"
+                                                       formControlName="gender"
+                                                       [checked]="fb.form.value.gender === app.constant.Male ||fb.form.value.gender == null"/>
+                                                <span>{{'Male'|trans}}</span>
+                                            </label>
+                                            <label style="margin-left: 10px">
+                                                <input type="radio" name="gender"
+                                                       [value]="app.constant.Female.toString()"
+                                                       formControlName="gender"
+                                                       [checked]="fb.form.value.gender === app.constant.Female"/>
+                                                <span>{{'Female'|trans}}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Phone'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-2">
+                                            <select  formControlName="phone_code" class="form-control">
+                                                <option *ngFor="let item of app.constant.CountryCallingCodes|list" [value]="item.key" [selected]="item.key==fb.form.value.phone_code" >{{item.value|trans}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input placeholder="000-0000-0000" name="phone"
+                                                   type="text" class="form-control" id="phone" autocomplete="off">
+                                            <small class="msg_err"
+                                                   *ngIf="msgPhoneErr">
+                                                {{msgPhoneErr[0]|trans}}
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 1">
+                                        <label class="col-md-2 control-label">{{'Country names'|trans}}</label>
+                                        <div class="col-md-8">
+                                            <select  formControlName="country_id" class="form-control" (change)="getListPre()">
+                                                <option value=""> {{'---Country Select---'|trans}}</option>
+                                                <option *ngFor="let item of listCountry|list" [value]="item.key" [selected]="item.key==fb.form.value.country_id" >{{item.value|trans}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 1">
+                                        <div class="row form-group__style">
+                                        <label class="col-md-2 control-label">{{'Address'|trans}}</label>
+                                        <div class="col-md-8">
+                                            <select  formControlName="prefecture_id" class="form-control" *ngIf="fb.form.value.country_id == app.constant.COUNTRY_DEFAULT">
+                                                <option value="" [selected]="fb.form.value.prefecture_id == '' || fb.form.value.prefecture_id == 0"> {{'---Prefecture Select---'|trans}}</option>
+                                                <option *ngFor="let item of listPre|list" [value]="item.key" [selected]="item.key == checkedPre">{{item.value|trans}}</option>
+                                            </select><br>
+                                        </div>
+                                        </div>
+                                        <div>
+                                            <label class="col-md-2 control-label"></label>
+                                            <div class="col-md-8">
+                                                <input placeholder="{{'Address'|trans}}" formControlName="address"
+                                                       name="address" type="text" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2">
+                                        <label class="col-md-2 control-label">{{'Country names'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <select *ngIf="listCountry" formControlName="country_id" class="form-control" (change)="getListPre()">
+                                                <option value=""> {{'---Country Select---'|trans}}</option>
+                                                <option *ngFor="let item of listCountry|list" [value]="item.key" [selected]="item.key == fb.form.value.country_id">{{item.value|trans}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2">
+                                        <div class="row form-group__style">
+                                            <label class="col-md-2 control-label">{{'Address'|trans}} <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-md-8">
+                                                <select formControlName="prefecture_id" class="form-control" *ngIf="fb.form.value.country_id == app.constant.COUNTRY_DEFAULT">
+                                                    <option value="" [selected]="fb.form.value.prefecture_id == '' || fb.form.value.prefecture_id == 0"> {{'---Prefecture Select---'|trans}}</option>
+                                                    <option *ngFor="let item of listPre|list" [value]="item.key" [selected]="item.key == fb.form.value.prefecture_id">{{item.value|trans}}</option>
+                                                </select><br>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="col-md-2 control-label"></label>
+                                            <div class="col-md-8">
+                                                <input placeholder="{{'Address'|trans}}" formControlName="address"
+                                                       name="address" type="text" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2">
+                                        <label class="col-md-2 control-label">{{'Specialty Category'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <div *ngIf="fb.form.value.categories.length > 0">
+                                                <div formArrayName="categories">
+                                                    <div *ngFor="let item of fb.form.controls.categories.controls; let i = index;">
+                                                        <div [formGroupName]="i" class="form-group">
+                                                            <div [formGroup]="fb.form.controls.categories.controls[i]">
+                                                                <div class="col-md-3">
+                                                                    <select formControlName="category_id"
+                                                                            class="form-control category-err">
+                                                                        <option value="">{{'Select Category' | trans}}
+                                                                        </option>
+                                                                        <option *ngFor="let item of listCategory|list"
+                                                                                [value]="item.key"
+                                                                                [selected]="item.key==''">{{item.value}}
+                                                                        </option>
+                                                                    </select>
+                                                                    <small class="msg_err"
+                                                                           *ngIf="categories_error && categories_error[i]">
+                                                                        {{categories_error[i][0]|trans}}
+                                                                    </small>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <i *ngIf="i>0" class="fa fa-trash-o btn btn-danger"
+                                                                       (click)="fb.removeItem('categories',i)"
+                                                                       aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1 control-label text-left">
+                                                    <i class="fa fa-plus btn btn-default"
+                                                       (click)="fb.addItem('categories')" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2">
+                                        <label class="col-md-2 control-label">{{'Member Places'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <div *ngIf="fb.form.value.member_places.length > 0">
+                                                <div formArrayName="member_places">
+                                                    <div *ngFor="let item of fb.form.controls.member_places.controls; let i = index;">
+                                                        <div [formGroupName]="i" class="form-group">
+                                                            <div [formGroup]="fb.form.controls.member_places.controls[i]">
+                                                                <div class="col-md-4">
+                                                                    <select  formControlName="country_id" class="form-control member_places_country_id country_places_name_{{i}}"  (change)="getListCity(fb.form.value.member_places[i].country_id,i)">
+                                                                        <option value="" [selected]="fb.form.value.member_places[i].country_id == '' || fb.form.value.member_places[i].country_id == 0"> {{'---Country Select---'|trans}}</option>
+                                                                        <option *ngFor="let item of listCountryMemberPlaces|list" [value]="item.key" [selected]="item.key==''" >{{item.value|trans}}</option>
+                                                                    </select>
+                                                                    <small class="msg_err" *ngIf="countryErr && countryErr[i]">{{countryErr[i]|ttrans}}</small>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    <select  formControlName="city_id" class="form-control member_places_city_id city_places_name_{{i}}">
+                                                                        <option value="" [selected]="fb.form.value.member_places[i].city_id == '' || fb.form.value.member_places[i].city_id == 0"> ---{{'City Select'|trans}}---</option>
+                                                                        <option *ngFor="let item of listCities[i]|list" [value]="item.key" [selected]="item.key==''" >{{item.value|trans}}</option>
+                                                                    </select>
+                                                                    <small class="msg_err" *ngIf="cityErr && cityErr[i]">{{cityErr[i]|ttrans}}</small>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <i *ngIf="i>0" class="fa fa-trash-o btn btn-danger"
+                                                                       (click)="fb.removeItem('member_places',i)"
+                                                                       aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1 control-label text-left">
+                                                    <i class="fa fa-plus btn btn-default"
+                                                       (click)="fb.addItem('member_places')" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 1">
+                                        <label class="col-md-2 control-label">{{'Introduce of User'|trans}}<span class="text-danger">*</span></label>
+                                        <div class="col-md-8"><textarea id="introduce"  formControlName="introduce" class="form-control"
+                                                                        rows="5">
+                                        </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2 && checkedIntroduce == ''">
+                                        <label class="col-md-2 control-label">{{'Introduce of Guide'|trans}}<span class="text-danger">*</span></label>
+                                        <div class="col-md-8"><textarea id="introduce_plan" formControlName="introduce_plan" class="form-control"
+                                                                        rows="5">
+                                        </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2 && checkedIntroduce != ''">
+                                        <label class="col-md-2 control-label">{{'Introduce of User'|trans}}</label>
+                                        <div class="col-md-8"><textarea id="introduce" formControlName="introduce" class="form-control"
+                                                                        rows="5">
+                                        </textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="fb.form.value.type == 2 && checkedIntroduce != ''">
+                                        <label class="col-md-2 control-label">{{'Introduce of Guide'|trans}}<span class="text-danger">*</span></label>
+                                        <div class="col-md-8"><textarea id="introduce_plan" formControlName="introduce_plan" class="form-control"
+                                                                        rows="5">
+                                        </textarea>
+                                        </div>
+                                    </div>
+                                    <!--language-->
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Language Member'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-10">
+                                            <div *ngIf="fb.form.value.languages.length > 0">
+                                                <div formArrayName="languages">
+                                                    <div *ngFor="let item of fb.form.controls.languages.controls; let i = index;">
+                                                        <div [formGroupName]="i" class="form-group">
+                                                            <div [formGroup]="fb.form.controls.languages.controls[i]">
+                                                                <div class="col-md-3">
+                                                                    <select formControlName="language_id"
+                                                                            class="form-control language-err">
+                                                                        <option value="">{{'Select Language' | trans}}
+                                                                        </option>
+                                                                        <option *ngFor="let item of listLanguage|list"
+                                                                                [value]="item.key"
+                                                                                [selected]="item.key==''">{{item.value|trans}}
+                                                                        </option>
+                                                                    </select>
+                                                                    <small class="msg_err"
+                                                                           *ngIf="language_error && language_error[i]">
+                                                                        {{language_error[i][0]|trans}}
+                                                                    </small>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <i *ngIf="i>0" class="fa fa-trash-o btn btn-danger"
+                                                                       (click)="fb.removeItem('languages',i)"
+                                                                       aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-1 control-label text-left">
+                                                    <i class="fa fa-plus btn btn-default"
+                                                       (click)="fb.addItem('languages')" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end language-->
+                                    <div class="form-group" id="facebook" *ngIf="!checkFacebook">
+                                        <label class="col-md-2 control-label">{{'Facebook token'|trans}}</label>
+                                        <div class="col-md-8 style-fb">
+                                            <label  class="control-label ">{{'未連携'|trans}}</label>
+                                            <!--<a class="btn btn-primary " type="button" (click)="signIn()">{{'Facebook 連携'|trans}}</a>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="facebook" *ngIf="checkFacebook">
+                                        <label class="col-md-2 control-label">{{'Facebook token'|trans}}</label>
+                                        <div class="col-md-8 style-fb">
+                                            <label class="control-label">{{'連携済み'|trans}}</label>
+                                        <a class="btn btn-danger" type="button" (click)="DeleteFb()">{{'Facebook解除'|trans}}</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Email'|trans}} <span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-md-8">
+                                            <input type="text" formControlName="email" placeholder="{{'Email'|trans}}"
+                                                   class="form-control" disabled/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Password'|trans}}</label>
+                                        <div class="col-md-3 form-set form-set--inline-l form-set--pw">
+                                            <input placeholder="••••••••" formControlName="password"
+                                                   id="password" name="password" type="password" class="form-control form-set__input password"
+                                                   autocomplete="off">
+                                            <a class="form-set__eye" href="javascript:void(0);"><span toggle="#password" (click)="app.showPassword()" class="fa fa-fw fa-eye field-icon toggle-password"></span></a>
+                                            <small class="help-block">{{'The length of password is into from 4 to 8 characters'|trans}}
+                                            </small>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Mail magazine'|trans}}</label>
+                                        <div class="row col-md-8">
+                                            <label style="margin-left: 10px;margin-top: 5px">
+                                                <input type="radio" name="mail_magazine_option"
+                                                       [value]="app.constant.Send"
+                                                       formControlName="mail_magazine_option"
+                                                       [checked]="fb.form.value.mail_magazine_option === app.constant.Send || fb.form.value.mail_magazine_option == null"/>
+                                                <span>{{'Receive via email'|trans}}</span>
+                                            </label>
+                                            <label style="margin-left: 10px">
+                                                <input type="radio" name="mail_magazine_option"
+                                                       [value]="app.constant.Not_Send"
+                                                       formControlName="mail_magazine_option"
+                                                       [checked]="fb.form.value.mail_magazine_option == app.constant.Not_Send"/>
+                                                <span>{{'No via email'|trans}}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="fb.form.value.type && fb.form.value.type == app.constant.MEMBER_IS_USER">
+                                        <div class="form-group" *ngIf="fb.form.value.approve_guide == 1">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8" style="margin-top: 7px">{{'Unsubmitted' | trans}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group" *ngIf="fb.form.value.approve_guide == 2 || fb.form.value.approve_guide == 4 || fb.form.value.approve_guide == 5">
+                                            <label class="col-md-2 control-label">{{'Personal information'|trans}}</label>
+                                            <div class="col-md-8">
+                                                <a (click)="changeImage()" class="text_image">{{'Personal information confirm'|trans}}</a>
+                                                <div class="modal fade" id="file-browser" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_0 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_0 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_1 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_1 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_2 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_2 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_3 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_3 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_4 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_4 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_5 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_5 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_6 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_6 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_7 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_7 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_8 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_8 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_9 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_9 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_NOT_CONFIRM">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8">
+                                                <div class="col-md-1">
+                                                    <a class="btn btn-approve"
+                                                       (click)="changeStatusApprove(fb.form.value['id'],app.constant.MEMBER_RECEIVED)">{{'Approved'|trans}}</a>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a class="btn btn-danger"
+                                                       (click)="changeStatusNonApprove(fb.form.value['id'],app.constant.MEMBER_REJECT)">{{'Non approved'|trans}}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_NOT_CARD">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8" style="margin-top: 7px">{{'Unsubmitted'|trans}}</div>
+                                        </div>
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_REJECT">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8">
+                                                <div class="col-md-1">
+                                                    {{'Non approved'|trans}}
+                                                </div>
+                                                <div class="col-md-2">
+                                                    {{fb.form.value.updated_at}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_RECEIVED">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8">
+                                                <div class="col-md-1">
+                                                    {{'Approved'|trans}}
+                                                </div>
+                                                <div class="col-md-2">
+                                                    {{fb.form.value.updated_at}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div *ngIf="fb.form.value.type && fb.form.value.type != app.constant.MEMBER_IS_USER">
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide != app.constant.MEMBER_NOT_CARD">
+                                            <label class="col-md-2 control-label">{{'Personal information'|trans}}</label>
+                                            <div class="col-md-8">
+                                                <a (click)="changeImage()" class="text_image">{{'Personal information confirm'|trans}}</a>
+                                                <div class="modal fade" id="file-browser" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_0 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_0 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_1 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_1 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_2 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_2 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_3 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_3 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_4 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_4 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_5 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_5 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_6 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_6 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_7 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_7 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_8 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_8 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                    <div class="col-md-6 img_information"
+                                                                         *ngIf="fb.form.value.identify_image_9 != null">
+                                                                        <img [attr.src]="app.constant.PRIVATE_URL + '?url=' + fb.form.value.identify_image_9 + '&token=' + auth_token"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_NOT_CARD">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8" style="margin-top: 7px">{{'Unsubmitted'|trans}}</div>
+                                        </div>
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_RECEIVED">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8">
+                                                <div class="col-md-1">
+                                                    {{'Approved'|trans}}
+                                                </div>
+                                                <div class="col-md-2">
+                                                    {{fb.form.value.updated_at}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"
+                                             *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_REJECT">
+                                            <label class="col-md-2 control-label">{{'Certain individual'|trans}}</label>
+                                            <div class="col-md-8">
+                                                {{'No Approve'|trans}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">{{'Status'|trans}}</label>
+                                        <div class="col-md-2 text-left">
+                                            <select formControlName="active" class="form-control">
+                                                <option *ngFor="let item of app.constant.Active|list" [value]="item.key"
+                                                        [selected]="item.key=='1'">{{item.value|trans}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-default" [routerLink]='["/admin/members"]' type="button">{{'Cancel'|trans}}</a>
+                                            <button class="btn btn-primary" type="submit">{{'Confirm'|trans}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div class="modal fade" id="formConfirm" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{'Confirmation'|trans}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Member Type'|trans}}</strong></label>
+                        <div class="col-md-8">{{app.constant.Member.type[fb.form.get('type').value]|trans}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Member name'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('name').value}}</div>
+                    </div>
+                </div>
+
+                <div class="row"  *ngIf="fb.form.value.type == app.constant.MEMBER_GUIDER">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Nick name'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('nick_name').value}}</div>
+                    </div>
+                </div>
+                <div class="row"  *ngIf="fb.form.value.avatar">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Avatar'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            <span>
+                                <img width="120" height="150" border="0" align="center" [attr.src]="app.constant.FILE_URL + fb.form.value.avatar"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Gender'|trans}}</strong></label>
+                        <div class="col-md-8">{{app.constant.User.gender[fb.form.get('gender').value]|trans}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Phone'|trans}}</strong></label>
+                        <div class="col-md-5">{{show_phone_code}}</div>
+                        <div class="col-md-3">{{show_phone}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Country names'|trans}}</strong></label>
+                        <div class="col-md-8">{{country_name}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Address'|trans}}</strong></label>
+                        <div *ngIf="fb.form.get('country_id').value == app.constant.COUNTRY_DEFAULT" class="col-md-8">{{listPre[fb.form.get('prefecture_id').value] + ' '+fb.form.get('address').value}}</div>
+                        <div *ngIf="fb.form.get('country_id').value != app.constant.COUNTRY_DEFAULT" class="col-md-8">{{fb.form.get('address').value}}</div>
+                    </div>
+                </div>
+                <br>
+                <div class="row"  *ngIf="fb.form.value.type == app.constant.MEMBER_GUIDER">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Specialty Category'|trans}}</strong></label>
+                        <ul class="col-md-8 list-item">
+                            <li *ngFor="let item of fb.form.get('categories').value">
+                                {{listCategory[item.category_id]}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <div class="row"  *ngIf="fb.form.value.type == app.constant.MEMBER_GUIDER">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Member Places'|trans}}</strong></label>
+                        <ul class="col-md-8 ">
+                            <li style="list-style: none" class="row" *ngFor="let item of showPlaces">
+                                <span class="col-md-6">{{item.country_name}}</span>
+                                <span class="col-md-6">{{item.city_name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Introduce of User'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            <textarea disabled style="background-color: #fff;margin-bottom: 10px;" class="form-control" rows="5">{{fb.form.get('introduce').value}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row"  *ngIf="fb.form.value.type == app.constant.MEMBER_GUIDER">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Introduce of Guide'|trans}}</strong></label>
+                        <div class="col-md-8">
+                            <textarea disabled style="background-color: #fff;margin-bottom: 10px;" class="form-control" rows="5"> {{fb.form.get('introduce_plan').value}}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Facebook token'|trans}}</strong></label>
+                        <div *ngIf="!checkFacebook" class="col-md-8">{{'未連携'|trans}}</div>
+                        <div *ngIf="checkFacebook" class="col-md-8">{{'連携済み'|trans}}</div>
+                    </div>
+                </div>
+
+
+                <!--<textarea id="introduce"  formControlName="introduce" class="form-control"-->
+                          <!--rows="5">-->
+                                        <!--</textarea>                -->
+
+                <div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label"><strong>{{'Language'|trans}}</strong></label>
+                            <ul class="col-md-8 list-item">
+                                <li *ngFor="let item of fb.form.get('languages').value">
+                                    {{listLanguage[item.language_id]}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Email'|trans}}</strong></label>
+                        <div class="col-md-8">{{fb.form.get('email').value}}</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Mail magazine'|trans}}</strong></label>
+                        <div *ngIf="fb.form.get('mail_magazine_option').value == app.constant.Send" class="col-md-8">{{'Receive via email'|trans}}</div>
+                        <div *ngIf="fb.form.get('mail_magazine_option').value != app.constant.Send" class="col-md-8">{{'No via email'|trans}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Certain individual'|trans}}</strong></label>
+                        <div *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_NOT_CARD" class="col-md-8">{{'Unsubmitted'|trans}}</div>
+                        <div *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_REJECT" class="col-md-8">
+                            <div class="col-md-8">
+                                <div>{{'Non approved'|trans}}  {{fb.form.value.updated_at}}</div></div>
+                        </div>
+                        <div *ngIf="fb.form.value.approve_guide == app.constant.MEMBER_RECEIVED" class="col-md-8">
+                            <div class="col-md-8">
+                                <div>{{'Approved'|trans}}  {{fb.form.value.updated_at}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"><strong>{{'Status'|trans}}</strong></label>
+                        <div class="col-md-8">{{app.constant.Active[fb.form.get('active').value]|trans}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{'Cancel'|trans}}</button>
+                <button type="button" class="btn btn-primary" (click)="save()">{{'Submit'|trans}}</button>
+            </div>
+        </div>
+    </div>
+</div>

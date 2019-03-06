@@ -1,0 +1,48 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.link{
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: bold;
+    display: inline-block;
+    color:#333;
+    padding-bottom: 3px;
+}
+.link:hover {
+    color:#00a699;
+}
+.day {
+    cursor: auto !important;
+}
+.disabled {
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1;
+    font-weight: bold;
+    display: inline-block;
+    padding-bottom: 3px;
+    color: #333;
+    cursor: default;
+}
+.link__pager--calendar {
+    padding: 0 40px;
+    font-size: 3rem;
+}
+.link__pager--calendar a {
+    padding: 0 !important;
+}
+.breadcrumb__list__item {
+     max-width: 300px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+ }
+.mypage__body__table-normal tr > td p{
+    word-break: break-all;
+}

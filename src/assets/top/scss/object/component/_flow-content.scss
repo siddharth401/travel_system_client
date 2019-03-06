@@ -1,0 +1,60 @@
+.flow-content{
+	@include for-size(phone-only) {
+		padding: 20px;
+	}
+	&__list{
+		width: $base_width;
+		margin: 0 auto $base_margin;
+		display: table;
+		table-layout: fixed;
+		background: #eee;
+		@include for-size(phone-only) {
+			width: 100%;
+			margin: 0;
+			box-sizing: border-box;
+		}
+	}
+	&__item{
+		display: table-cell;
+		vertical-align: middle;
+		height: 55px;
+		@include font-size(16,55);
+		color: #484848;
+		text-align: center;
+		position: relative;
+		border-right: 1px solid #fff;
+		@include for-size(phone-only) {
+			height: 45px;
+			@include font-size(12,16);
+			padding: 0 10px;
+		}
+		&:last-child{
+			border-right: none;
+		}
+		&--current{
+			color: #fff;
+			background: $accent_color;
+			&:after{
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 100%;
+				transform: translateY(-50%);
+				-webkit-transform: translateY(-50%);
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 27.5px 0 27.5px 15px;
+				border-color: transparent transparent transparent $accent_color;
+				content: "";
+				@include for-size(phone-only) {display: none;}
+			}
+			&--last{
+				@extend .flow-content__item--current;
+				&:after{
+					display: none;
+				}
+			}
+		}
+	}
+}

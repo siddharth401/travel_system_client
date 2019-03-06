@@ -1,0 +1,18 @@
+.padding-top{
+    padding-top: 20px !important;
+}
+.style-span span {
+    float: none !important;
+    padding-top: 13px !important;
+}
+.form-content__form-table p {
+    word-break: break-all;
+}
+.form-content__form-table tr th {
+    padding-right: 15px;
+}
+.pre-text{
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 22px;
+}

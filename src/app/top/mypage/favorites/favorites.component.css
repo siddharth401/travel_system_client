@@ -1,0 +1,30 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.request-lineup__list {
+    flex-wrap: wrap;
+}
+.request-lineup__list > li {
+    width: calc(25% - 19px) !important;
+}
+.content-list__person .content-list__person__img {
+    height: 170px !important;
+}
+.star {
+    display: flex;
+    align-items: baseline;
+}
+@media (max-width: 767px) {
+    .request-lineup__list > li {
+        width: 100% !important;
+    }
+
+    .content-list--guide .content-list__person img{
+        width: 110px;
+        height: 110px !important;
+        object-fit: cover;
+    }
+}

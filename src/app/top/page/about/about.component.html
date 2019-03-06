@@ -1,0 +1,68 @@
+<div id="sb-site">
+    <section class="about page-content outer">
+        <div class="about__visual page-content__visual">
+            <h2 class="page-content__title">{{'マッチングガイドとは'|ttrans}}</h2>
+        </div>
+        <!--/.search__visual -->
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a href="/">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a href="/about/">{{'F75_マッチングガイドとは'|ttrans}}</a></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div *ngIf="app.language == ''" class="outer__inner">
+            <div class="about__block">
+                <h3 class="about__title">マッチングガイドは<br class="is-sp">ありきたりな旅行ではなくオリジナルの<br class="is-sp">旅をしたい人と、<br />そんな旅行者を案内したい人が<br class="is-sp">出会うサイトです。</h3>
+                <p class="about__lead">旅行ってとってもワクワクしますよね。<br />有名な観光地に行くのも良いけれど、<br class="is-sp">本当はもっと見てみたいものがあったり、<br class="is-sp">してみたいことがあったりしませんか？<br /><br class="is-sp">
+                    パンフレットにのっているような<br class="is-sp">決まったツアーではなく、地元の人しか知らない<br class="is-sp">穴場スポットや、なかなか体験できない<br class="is-sp">アクティビティなどを、<br />あなたの専用ガイドが<br class="is-sp">案内してくれる、そんな旅行を<br class="is-sp">体験してもらいたいというのが<br class="is-sp">マッチングガイドの願いです。</p>
+                <h4 class="about__sub-title">マッチングガイドで出来る事</h4>
+                <ul class="about__list">
+                    <li>
+                        <div><img src="/assets/top/img/img_about01.png" alt="できること"></div>
+                        <p>ガイドが作ったプランを<br />探せる、申し込める</p>
+                    </li>
+                    <li>
+                        <div><img src="/assets/top/img/img_about02.png" alt="できること"></div>
+                        <p>自分が行きたいプランを<br />作ってリクエストできる</p>
+                    </li>
+                    <li>
+                        <div><img src="/assets/top/img/img_about03.png" alt="できること"></div>
+                        <p>ガイドになれる。<br />プランを販売できる</p>
+                    </li>
+                </ul>
+                <div class="about__banner">
+                    <img src="/assets/top/img/ban_about_pc.png" alt="旅行者としてガイドをしてもらうだけでなく、時にはガイドになってそんな旅行者をサポートしてみたり、みんなで楽しいオリジナルの旅が作っていきましょう。" class="is-pc">
+                    <img src="/assets/top/img/ban_about_sp.png" alt="旅行者としてガイドをしてもらうだけでなく、時にはガイドになってそんな旅行者をサポートしてみたり、みんなで楽しいオリジナルの旅が作っていきましょう。" class="is-sp">
+                </div>
+            </div>
+        </div>
+        <div *ngIf="app.language != ''" class="outer__inner">
+            <div class="about__block">
+                <h3 class="about__title">Matching guide offers courses that are different from regular vacations. Travelers can meet guides who offer such courses on this site.</h3>
+                <p class="about__lead">Travelling is fun isn't it?<br />Do you have a list of places you would like to visit? Or activities that you would like to try?<br /><br class="is-sp">
+                    The courses our guides may offer are not commonly seen in regular travel brochures. Get a chance to explore the lesser known hidden gems of the city and its surrounding areas!</p>
+                <h4 class="about__sub-title">Things you can do with matching guide:</h4>
+                <ul class="about__list">
+                    <li>
+                        <div><img src="/assets/top/img/img_about01.png" alt="できること"></div>
+                        <p>Find an existing travel plan made by a guide and apply for it</p>
+                    </li>
+                    <li>
+                        <div><img src="/assets/top/img/img_about02.png" alt="できること"></div>
+                        <p>Make a travel plan based on where you'd like to go and create a request</p>
+                    </li>
+                    <li>
+                        <div><img src="/assets/top/img/img_about03.png" alt="できること"></div>
+                        <p>Become a guide. Sell your travel plans!</p>
+                    </li>
+                </ul>
+                <div class="about__banner">
+                    <img src="/assets/top/img/ban_about_pc_en.png" alt="Rely on professional guides to take you around as per the plans they create or become a guide yourself to help travelers such as yourself. Let’s make travelling a lot more fun!" class="is-pc">
+                    <img src="/assets/top/img/ban_about_sp_en.png" alt="As for the payments, we will crosscheck all of the guide's documents for his/her credibility and only then transfer the amount to them. So, please don't worry about it." class="is-sp">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--#include virtual="/inc/footer.html" -->
+</div>

@@ -1,0 +1,68 @@
+.condition{
+	&__title{
+		margin-bottom: 40px;
+		@include font-size(22,22);
+		@include for-size(phone-only) {
+			margin-bottom: 20px;
+			@include font-size(18,18);
+		}
+	}
+	&__list{
+		dt{
+			@include font-size(18,18);
+			font-weight: bold;
+			margin-bottom: 30px;
+			@include for-size(phone-only) {
+				margin-bottom: 15px;
+				@include font-size(16,16);
+			}
+		}
+		dd{
+			margin-bottom: 50px;
+			@include font-size(16,28);
+			@include for-size(phone-only) {
+				margin-bottom: 25px;
+				@include font-size(14,24);
+			}
+			.list--num{
+				> li{
+					padding-left: 30px;
+					@include for-size(phone-only) {
+						padding-left: 20px;
+					}
+					&:before{
+						position: absolute;
+						top: 0;
+						left: 0;
+					}
+				}
+				> li+li{
+					margin-top: 20px;
+					@include for-size(phone-only) {
+						margin-top: 10px;
+					}
+				}
+			}
+			.list--num-parenthesis{
+				margin-top: 10px;
+				> li{
+					padding-left: 30px;
+					@include for-size(phone-only) {
+						padding-left: 20px;
+					}
+					&:before{
+						position: absolute;
+						top: 0;
+						left: 0;
+					}
+				}
+				> li+li{
+					margin-top: 10px;
+					@include for-size(phone-only) {
+						margin-top: 10px;
+					}
+				}
+			}
+		}
+	}
+}

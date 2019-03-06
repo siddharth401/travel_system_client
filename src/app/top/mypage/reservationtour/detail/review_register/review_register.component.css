@@ -1,0 +1,118 @@
+.star-rating{
+    color: #f9a825;
+    font-size: 14px;
+}
+.star-rating__item {
+    margin-right: 2px;
+}
+.star-rating__item span{
+    font-size: 1.2rem;
+    line-height: 1;
+}
+.rating-value {
+    border: none;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 3px;
+}
+.rating-value input{
+    font-size: 2.0rem;
+}
+.form-set__button input{
+    text-align: center;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+    text-align: left;
+}
+.u-text-center .msg_err{
+    text-align: center;
+    padding-top: 10px;
+}
+
+.modal-dialog {
+    display: none;
+}
+.modal-content {
+    top:45%;
+}
+@media (max-width: 767px){
+    .modal-content {
+        width: 70vw;
+        top: calc(50% - 10px);
+        max-height: 350px;
+        overflow-y: scroll;
+    }
+}
+
+@media (max-width: 767px){
+    .modal-footer .submit {
+        font-size: 1.4rem;
+        font-size: 14px;
+        line-height: 1.4rem;
+        line-height: 14px;
+    }
+}
+.modal-body__content {
+    padding:10px;
+    border:1px solid #ccc;
+    word-break: break-all;
+    white-space: pre-wrap;
+    font-size: 13px;
+    font-size: 1.3rem;
+    line-height: 18px;
+}
+.modal-footer__text {
+    margin-top: 15px;
+}
+@media (max-width: 767px){
+    .modal-footer__text {
+        font-size: 1.4rem;
+        font-size: 14px;
+    }
+}
+.modal-title {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.8rem;
+}
+.modal-body__p {
+    margin: 5px 0;
+}
+.location-style {
+    display: flex;
+    justify-content: space-between;
+}
+.location-style a {
+    display: inline-block;
+    padding: 12px;
+    text-align: center;
+}
+.rating-point{
+    font-size: 1.6rem;
+    font-size: 16px;
+    color: #333;
+    margin: 0 3px;
+}
+.disabled{
+    background: transparent !important;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+.border_top{
+    border-top: 0px !important;
+}
+.button-location span {
+    display: block;
+}
+.button-location a {
+    text-align: center;
+    float: right;
+    padding: 10px;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 1;
+}

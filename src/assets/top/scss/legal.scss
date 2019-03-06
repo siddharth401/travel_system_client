@@ -1,0 +1,8 @@
+@import "foundation/_mixin.scss";
+@import "foundation/_setting.scss";
+
+.legal{
+	&__visual{
+		background: url(../img/visual_legal.png) no-repeat center top;
+	}
+}

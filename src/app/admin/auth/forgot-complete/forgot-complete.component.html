@@ -1,0 +1,37 @@
+<header id="header" class="animated fadeInDown">
+
+    <div id="logo-group">
+        <span id="logo"> <img src="assets/admin/img/heisei_logo.png" alt="SmartAdmin"> </span>
+    </div>
+
+</header>
+<div id="main" role="main" class="animated fadeInDown">
+
+    <div class="container" style="display: flex; justify-content: center;">
+
+        <div id="content" class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+            <div class="well no-padding">
+                <form id="login-form" class="smart-form client-form">
+                    <header>
+                        {{'Forgot Password Complete'|trans}}
+                    </header>
+
+                    <fieldset>
+
+                        <section>
+                            {{'We sent a password reset email to the registered e-mail address. Please proceed to the procedure of the reconfiguration e-mail which is described in the e-mail.'|trans}}
+                        </section>
+
+                    </fieldset>
+                    <footer>
+                        <a class="btn btn-default" [routerLink]='["/admin/auth/login"]' type="button">{{'Back'|trans}}</a>
+                    </footer>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,81 @@
+.slide-list{
+	margin-bottom: 20px;
+	li{
+		img{
+			object-fit:cover;
+			width: 380px;
+			height: 380px;
+			vertical-align: bottom;
+			@include for-size(phone-only) {
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+}
+.thumb-list{
+	width: 320px;
+	margin: 0 auto;
+	@include for-size(phone-only) {
+		display: none !important;
+	}
+	li{
+		margin: 0 5px 0 5px;
+		outline: none;
+		img{
+			object-fit:cover;
+			width: 100px;
+			height: 100px;
+			vertical-align: bottom;
+		}
+	}
+}
+
+.slide-controller{
+	&__button{
+		position: absolute;
+		bottom: 15px;
+		height: 100px;
+		background: rgba(0,0,0,.2);
+		width: 20px;
+		color: #fff;
+		@include font-size(16,100);
+		text-align: center;
+		@include for-size(phone-only) {
+			bottom: auto;
+			top: 50%;
+			margin-top: -70px;
+			height: 100px;
+			background: rgba(0,0,0,.6);
+			width: 40px;
+			color: #fff;
+			@include font-size(24,100);
+		}
+		&--prev{
+			left: 0;
+		}
+		&--next{
+			right: 0;
+		}
+	}
+}
+
+.slick-dots{
+	margin-top: 10px;
+	text-align: center;
+	@include flexbox(center,center);
+	li{
+		text-indent: -9999px;
+		width: 10px;
+		height: 10px;
+		background: #f0f0f0;
+		@include border-radius(50%);
+		&.slick-active{
+			background: $accent_color;
+		}
+	}
+	li+li{
+		margin-left: 5px;
+	}
+}
+

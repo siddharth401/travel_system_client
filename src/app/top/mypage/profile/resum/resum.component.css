@@ -1,0 +1,227 @@
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+.title {
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+.hidden {
+    display: none;
+}
+.inner-upload {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.detail-img {
+    margin-right: 20px;
+}
+
+.mypage__body__block--style {
+    border-top: 1px solid #e0e0e0;
+}
+.mypage__body__block--style .mypage__body__block__caution {
+    background: #eef1f4;
+    margin-top: 30px;
+    padding: 20px 80px;
+    font-weight: bold;
+}
+.mypage__body__block--style__black {
+    color:#333 !important;
+}
+.mypage__body__block--style__blue {
+    color: #0f67f5 !important;
+    background: #d4e1f5 !important;
+}
+.mypage__body__block--style {
+    margin-top: 30px !important;
+}
+.mypage__body__block--style  .mypage__body__block__caution__title {
+    font-size: 1.7rem;
+}
+.mypage__body__block--style .mypage__body__block__caution__text {
+    margin-top: 15px;
+    font-weight: bold;
+}
+.mypage__body__block__caution__text--subtext {
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+.mypage__body__block__caution__text--date {
+    font-size: 1.2rem;
+    font-weight: normal;
+}
+.modal-dialog {
+    display: none;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+}
+.modal-dialog-01 {
+    display: none;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+}
+.modal-content {
+    width: 50vw;
+    background: #fff;
+    position:absolute;
+    top:40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 35px;
+}
+.modal-header {
+    position: relative;
+}
+.modal-header button {
+    position: absolute;
+    top: -9px;
+    right: -7px;
+    border: none;
+    background: no-repeat;
+    font-size: 20px;
+    cursor: pointer;
+}
+.modal-header button:hover {
+    color:#f00;
+}
+.modal-footer {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}
+.modal-footer button {
+    background: none;
+    border: none;
+    padding: 12px 0;
+    color: #333;
+    cursor: pointer;
+    min-width: 110px;
+}
+.modal-footer .submit {
+    background: #00a300;
+    color:#fff;
+    border-color:#00a300;
+    margin-right: 10px;
+}
+.modal-footer .close {
+    background: #81c784;
+    color:#fff;
+}
+.close{
+    margin-right: 5px;
+}
+.disable{
+    background-color: #cccccc !important;
+    box-shadow: 0px 3px 0px 0px #cccccc !important;
+    cursor: default;
+}
+.modal-body {
+    padding: 15px;
+    position: relative;
+}
+.modal-body__text--center {
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+.modal-dialog__title {
+    font-size: 2rem;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.modal-content {
+    position: relative;
+}
+.modal-dialog--close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    overflow: visible;
+    width: 35px;
+    height: 35px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-decoration: none;
+    color: #95979c;
+    border: 0;
+    outline: 0;
+    background: transparent;
+}
+
+.modal-dialog--close:before {
+    font-family: Arial, "Helvetica CY", "Nimbus Sans L", sans-serif !important;
+    font-size: 25px;
+    line-height: 35px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 35px;
+    content: "\00d7";
+    text-align: center;
+}
+.modal-body__list-img {
+    display: flex;
+    justify-content: space-around;
+}
+.modal-body__img {
+    width: 280px;
+    height: 250px;
+}
+.modal-body__img img {
+    width: 100%;
+    height: 100%;
+}
+.msg_err {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #b94a48;
+}
+@media (max-width: 767px)  {
+    .modal-dialog-01 .modal-content{
+        width: 70vw;
+        padding: 15px;
+    }
+    .modal-body {
+        padding: 15px 0 5px;
+    }
+    .modal-dialog__title {
+        font-size: 1.6rem;
+    }
+    .modal-body__list-img {
+        overflow-x: scroll;
+        display: -webkit-box;
+        padding-bottom: 20px;
+    }
+}
+.mypage__body__block__caution__bold {
+    font-weight: 700;
+}
+.form-set--02.form-set__upload {
+    padding: 0 10px;
+    margin-right: 10px !important;
+}
+@media (max-width: 767px) {
+    .form-set--02.form-set__upload {
+        width: calc(100% - 125px);
+    }
+}

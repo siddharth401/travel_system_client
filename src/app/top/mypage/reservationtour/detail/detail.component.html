@@ -1,0 +1,197 @@
+<div class="mypage">
+    <div class="breadcrumb mypage__breadcrumb">
+        <i></i>
+        <ul class="breadcrumb__list">
+            <li><a [routerLink]="['/' + language]">{{'マッチングガイドTOP'|ttrans}}</a></li>
+            <li><a [routerLink]="['/' + language + '/mypage']">{{'マイページTOP'|ttrans}}</a></li>
+            <li><a [routerLink]="['/' + language + '/mypage/reservationtour']">{{'プラン予約一覧'|ttrans}}</a></li>
+            <li>{{'旅プラン予約詳細'|ttrans}}</li>
+        </ul>
+    </div>
+    <!--/.breadcrumb -->
+    <div class="mypage__container mypage__flex">
+
+        <top-mypage-menu></top-mypage-menu>
+        <div class="mypage__content">
+            <top-mypage-head></top-mypage-head>
+
+            <div class="mypage__body" *ngIf="reservation_detail">
+                <div class="mypage__body__section">
+
+                    <div class="mypage__body__title--box">
+                        <div class="mypage__body__title--box-shoulder">
+                            <button type="button" class="btn--primary btn__mypage btn__mypage--contact" (click)="messageInput(reservation_detail.booking_detail.id)">{{'旅ガイドへ問合せ'|ttrans}}</button>
+                        </div>
+                        <h2 class="mypage__body__title--02">{{'予約内容'|ttrans}}</h2>
+                    </div>
+
+                    <h3 class="mypage__body__title"><a target="_blank" [routerLink]='["/" + app.language + "/tour/detail/" + reservation_detail.booking_detail.plan_id]'>{{reservation_detail.booking_detail.name}}</a></h3>
+
+                    <ul class="mypage__body__tab__list">
+                        <li><a [routerLink]='["/" + language + "/mypage/reservationtour/detail/" + reservation_detail.booking_detail.id]' class="is-current">{{'予約詳細'|ttrans}}</a></li>
+                        <li><a [routerLink]='["/" + language + "/mypage/reservationtour/detail/" + reservation_detail.booking_detail.id] + "/message_input"'>{{'問合せ履歴'|ttrans}}</a></li>
+                    </ul>
+
+                    <div class="mypage__body__frame">
+
+                        <p class="mypage__body__text--date">{{'予約日'|ttrans}}：{{reservation_detail.booking_detail.created_at|datex: "YYYY/MM/DD HH:mm:ss"}}</p>
+
+                        <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                            <tbody>
+                            <tr>
+                                <th scope="col">{{'ステータス'|ttrans}}</th>
+                                <td>
+                                    <p *ngIf="reservation_detail.booking_detail.status == app.constant.REQUESTING_GUIDER">{{'リクエスト未確定'|ttrans}}</p>
+                                    <p *ngIf="reservation_detail.booking_detail.status == app.constant.AFTER_EXECUTE
+                                    && reservation_detail.booking_detail.notify_one_day == false">{{'実施前'|ttrans}}</p>
+                                    <p *ngIf="reservation_detail.booking_detail.status == app.constant.AFTER_EXECUTE
+                                    && reservation_detail.booking_detail.notify_one_day == true
+                                    && reservation_detail.booking_detail.guider_status_not_go == app.constant.FALSE
+                                    && reservation_detail.booking_detail.traveler_status_go == app.constant.FALSE">{{'実施承認'|ttrans}}</p>
+                                    <p *ngIf="(reservation_detail.booking_detail.status == app.constant.AFTER_EXECUTE
+                                    && reservation_detail.booking_detail.traveler_status_go == app.constant.TRUE
+                                    && reservation_detail.booking_detail.guider_status_not_go == app.constant.FALSE) || reservation_detail.booking_detail.status == app.constant.REQUEST_REVIEW">{{'口コミ登録'|ttrans}}</p>
+                                    <p *ngIf="reservation_detail.booking_detail.status == app.constant.REVIEWED" >{{'口コミ済み'|ttrans}}</p>
+                                    <p *ngIf="reservation_detail.booking_detail.status == app.constant.CANCEL">{{'キャンセル'|ttrans}}</p>
+                                    <p *ngIf="reservation_detail.booking_detail.status != app.constant.REVIEWED && reservation_detail.booking_detail.guider_status_not_go == app.constant.TRUE" >{{'実施後キャンセル'|ttrans}}</p>
+                                    <p *ngIf="reservation_detail.booking_detail.status == app.constant.CANCEL && reservation_detail.booking_detail.guider_reason_cancel" class="guider-reason-cancel">{{reservation_detail.booking_detail.guider_reason_cancel}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'F18_実施日'|ttrans}}</th>
+                                <td><p *ngIf="reservation_detail.booking_detail.date_actual"><span *ngIf="app.language == app.constant.DEFAULT_LANGUAGE_URL">{{reservation_detail.booking_detail.date_actual|datex: "YYYY/MM/DD"}}</span><span *ngIf="app.language != app.constant.DEFAULT_LANGUAGE_URL">{{reservation_detail.booking_detail.date_actual|datex: "YYYY/MM/DD"}}</span>（{{day_str|ttrans}}）</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'開始時間'|ttrans}}</th>
+                                <td>
+                                    <p>{{reservation_detail.booking_detail.date_actual|datex: "HH:mm"}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'集合場所'|ttrans}}</th>
+                                <td>
+                                    <p *ngIf="reservation_detail.booking_detail.address" class="button-location">
+                                        <span>{{reservation_detail.booking_detail.address}}</span>
+                                        <a class="btn--primary btn__mypage btn__mypage--map btn__mypage--icon" href="{{addressMap}}" target="_blank">{{'地図表示'|ttrans}}</a>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'人数'|ttrans}}</th>
+                                <td><p>{{reservation_detail.booking_detail.number_people}}{{'人'|ttrans}}</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'単価'|ttrans}}</th>
+                                <td><p>￥{{reservation_detail.booking_detail.amount/reservation_detail.booking_detail.number_people|numberFormat}}</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'合計料金'|ttrans}}</th>
+                                <td><p>￥{{reservation_detail.booking_detail.amount|numberFormat}}</p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="mypage__body__text bolder-text">{{'予約代表者情報'|ttrans}}</p>
+                        <table border="0" cellspacing="0" cellpadding="0" class="mypage__body__table-normal">
+                            <tbody>
+                            <tr>
+                                <th scope="col">{{'予約代表者情報'|ttrans}}</th>
+                                <td><p>{{reservation_detail.booking_detail.customer_name}}</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'性別'|ttrans}}</th>
+                                <td><p>{{app.constant.User.gender[reservation_detail.booking_detail.gender]|ttrans}}</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'連絡先'|ttrans}}</th>
+                                <td><span *ngIf="app.constant.CountryCallingCodes[reservation_detail.booking_detail.phone_code]">{{app.constant.CountryCallingCodes[reservation_detail.booking_detail.phone_code]|ttrans}}</span> {{reservation_detail.booking_detail.phone}}</td>
+                            </tr>
+                            <tr>
+                                <th>{{'Other requirement to guider'|ttrans}}</th>
+                                <td>
+                                    <pre class="mypage__body__table-normal__pre">{{reservation_detail.booking_detail.request_guider}}</pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'メールアドレス'|ttrans}}</th>
+                                <td><p *ngIf="reservation_detail.booking_detail.members">{{reservation_detail.booking_detail.members.email}}</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'メールアドレス２'|ttrans}}</th>
+                                <td><p>{{reservation_detail.booking_detail.email}}</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'国'|ttrans}}</th>
+                                <td><p *ngIf="listCountry">{{listCountry[reservation_detail.booking_detail.country_id]}}</p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'住所'|ttrans}}</th>
+                                <td><p><span *ngIf="listPrefectures">{{listPrefectures[reservation_detail.booking_detail.prefecture_id]}}</span> <span>{{reservation_detail.booking_detail.customer_address}}</span></p></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">{{'話せる言語'|ttrans}}</th>
+                                <td><p *ngIf="listLanguages"><span *ngFor="let item of reservation_detail.booking_detail.customer_languages" class="guider_languages">{{listLanguages[item.language_id]|ttrans}}</span></p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mypage__body__tab__form">
+                            <ul>
+                                <li *ngIf="(reservation_detail.booking_detail.status == app.constant.REQUESTING_GUIDER || reservation_detail.booking_detail.status == app.constant.AFTER_EXECUTE) && reservation_detail.booking_detail.notify_one_day == false"><button type="button" class="btn--primary btn__mypage button-cancel" (click)="cancelBooking(reservation_detail.booking_detail.id)">{{'キャンセル'|ttrans}}</button></li>
+                                <li *ngIf="reservation_detail.booking_detail.status == app.constant.AFTER_EXECUTE
+                                && reservation_detail.booking_detail.traveler_status_go == app.constant.FALSE
+                                && reservation_detail.booking_detail.guider_status_not_go == app.constant.FALSE
+                                && reservation_detail.booking_detail.notify_one_day == true"><button type="button" class="btn--primary btn__mypage" (click)="implementBooking(reservation_detail.booking_detail.id)">{{'実施済'|ttrans}}</button></li>
+                                <li *ngIf="reservation_detail.booking_detail.status == app.constant.AFTER_EXECUTE
+                                && reservation_detail.booking_detail.traveler_status_go == app.constant.FALSE
+                                && reservation_detail.booking_detail.guider_status_not_go == app.constant.FALSE
+                                && reservation_detail.booking_detail.notify_one_day == true"><button type="button" class="btn--primary btn__mypage" (click)="notComeBooking(reservation_detail.booking_detail.id)">{{'実施キャンセル'|ttrans}}</button></li>
+                                <li *ngIf="(reservation_detail.booking_detail.status == app.constant.AFTER_EXECUTE
+                                && (reservation_detail.booking_detail.traveler_status_go == app.constant.TRUE || reservation_detail.booking_detail.guider_status_not_go == app.constant.TRUE) && reservation_detail.booking_detail.notify_one_day == true) || reservation_detail.booking_detail.status == app.constant.REQUEST_REVIEW"><button type="button" class="btn--primary btn__mypage" (click)="reviewBooking(reservation_detail.booking_detail.id)">{{'口コミ登録'|ttrans}}</button></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <p><a [routerLink]='["/" + language + "/mypage/reservationtour"]' class="content-list__button btn--default">{{'予約一覧へ戻る'|ttrans}}</a></p>
+
+                </div>
+
+                <div class="mypage__body__section" *ngIf="reservation_detail.booking_reviews.total > 0">
+
+                    <h2 class="mypage__body__title--02">{{'口コミ'|ttrans}}</h2>
+
+                    <div class="review__container">
+                        <ul class="review__list">
+                            <li *ngFor="let item of reservation_detail.booking_reviews.data">
+                                <div class="review__flex">
+                                    <div class="review__photo"><img [attr.src]="item.guider_avatar ? app.constant.FILE_URL+item.guider_avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                    <div class="review__text">
+                                        <div class="review__head">
+                                            <p class="guide-name"><span>{{'旅ユーザー'|ttrans}}：</span>{{item.guider_name}}</p>
+                                            <div class="flex-content">
+                                                <div class="flex-content-text">
+                                                    <p class="guide-date">{{'投稿日'|ttrans}}：<span *ngIf="item.booking_review">{{item.booking_review|datex: "YYYY年MM月DD日"}}</span></p>
+                                                    <h4 class="">{{item.booking_title}}</h4>
+                                                </div>
+                                                <top-star class="star" [point]="item.booking_point"></top-star>
+                                            </div>
+                                        </div>
+                                        <top-see-full [content]="item.review_content" [id]="item.review_id"></top-see-full>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <p *ngIf="reservation_detail.booking_reviews.total > 3 && reservation_detail.booking_reviews.last_page > reservation_detail.booking_reviews.current_page"><a (click)="loadMore(reservation_detail.booking_reviews)" class="content-list__button btn--default">{{'もっとみる'|ttrans}}</a></p>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

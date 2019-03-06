@@ -1,0 +1,7 @@
+<div class="header__select language">
+    <select #selectElem name="selsect-language" id="selsect-language" class="language__select" (change)="setLanguage(selectElem.value)" [disabled]="app.is_disabled_language">
+        <option *ngFor="let language of languages" [value]="language.key" [id]="language.id" [selected]="app.language == language.key">
+            {{language.title}}
+        </option>
+    </select>
+</div>

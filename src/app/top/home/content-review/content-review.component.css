@@ -1,0 +1,31 @@
+.star {
+    display: flex;
+}
+a.btn_see_full{
+    cursor: pointer;
+}
+.review__photo {
+    word-break: break-all;
+}
+@media (max-width: 767px){
+    .review__photo {width: 100%;text-align: center; }
+}
+.review__photo .guide-name {
+    text-align: center;
+    margin-top: 10px;
+}
+.guide-name a {
+    color: #00a699;
+    font-size: 1.6rem;
+    line-height: 1;
+}
+.guide-name a:hover {
+   opacity: 0.7;
+}
+.limit {
+    line-height: 22px;
+}
+.limit a {
+    text-decoration: underline;
+    color: #00a699;
+}

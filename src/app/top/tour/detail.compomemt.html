@@ -1,0 +1,391 @@
+<!--/.header-->
+<div id="sb-site" *ngIf="detailPlans">
+    <section class="detail-list page-content outer">
+        <div style="background-image: url(assets/top/img/visual_request-detail.png);" class="detail-list__visual page-content__visual">
+            <h2 class="page-content__title">{{detailPlans.title}}</h2>
+        </div>
+        <!--/.search__visual -->
+
+        <div class="breadcrumb">
+            <ul class="breadcrumb__list">
+                <li><a [routerLink]="['/']">{{'マッチングガイドTOP'|ttrans}}</a></li>
+                <li><a *ngIf="guiders" [routerLink]="['/'+languageName+'/guide/detail/'+guiders.id]">{{guiders.name}}</a></li>
+                <li><span>{{detailPlans.title}}</span></li>
+            </ul>
+        </div>
+        <!--/.breadcrumb -->
+        <div class="outer__inner">
+            <div class="detail">
+                <div class="detail__main">
+                    <section class="plan-detail">
+                        <div class="plan-detail__head">
+                            <ul class="pref-list">
+                                <li *ngIf="prefecture && prefecture.name"><a href="javascript:void(0);" (click)="backToSearchPrefecture()">{{prefecture.name}}</a></li>
+                            </ul>
+                            <ul class="category" *ngIf="categories != []">
+                                <li *ngFor="let item of categories"><a href="javascript:void(0);" (click)="backToSearch(item.prefix)" style="background: #7cb342">{{item.name}}</a></li>
+                            </ul>
+                        </div>
+                        <div class="plan-detail__body">
+                            <h3 class="plan-detail__title">{{detailPlans.title}}</h3>
+                            <div class="guide" *ngIf="guiders">
+                                <div class="guide__photo">
+                                    <a *ngIf="guiders" [routerLink]="['/'+languageName+'/guide/detail/'+guiders.id]">
+                                        <img [attr.src]="guiders.avatar ? app.constant.FILE_URL+guiders.avatar : '/assets/top/img/noimage_200x200.png'" alt="">
+                                    </a>
+                                    </div>
+                                <div class="guide__text">
+                                    <div class="guide__head">
+                                        <div>
+                                            <p class="guide-name"><span>{{'旅ガイド'|ttrans}}：</span>{{guiders.nick_name}}</p>
+                                            <!--<p *ngIf="detailPlans.date_plan" class="guide-date">{{'F03_体験日'|ttrans}}：{{detailPlans.date_plan |datex : 'YYYY'}}{{'F03_年'|ttrans}}{{detailPlans.date_plan |datex : 'MM'}}{{'F03_月'|ttrans}}{{detailPlans.date_plan |datex : 'DD'}}{{'F03_日'|ttrans}}</p>-->
+                                            <!--<p *ngIf="!detailPlans.date_plan" class="guide-date">{{'F03_体験日'|ttrans}}：</p>-->
+                                        </div>
+                                        <div class="guide-score">
+                                            <top-star class="star" [point]="guiders.guider_ranking"></top-star>
+                                        </div>
+                                    </div>
+                                    <div class="guide__body">
+                                        <div class="plan-review__info" *ngIf="guiders.introduce_plan != null">
+                                            <pre  class="limit-introduce pre-text">{{guiders.introduce_plan | limit:200}}<a href="javascript:void(0)" *ngIf="guiders.introduce_plan.length >200"  (click)="seeFullIntroduce()" class="btn_see_full">{{'続きを見る'|ttrans}}</a></pre>
+                                            <pre  class="full-introduce pre-text" style="display: none">{{guiders.introduce_plan}}</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="plan-detail__table">
+                                <tr>
+                                        <th>{{'F03_旅ガイド言語'|ttrans}}</th>
+                                    <td>
+                                        <ul class="flag-list--01 flag-list--inner" *ngIf="languageSupport">
+                                            <li *ngFor="let item of languageSupport" style="    margin-right: 10px"><img [attr.src]="item.icon ? app.constant.FILE_URL+item.icon : '/assets/top/img/noimage_200x200.png'" /></li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{'F03_所要時間'|ttrans}}</th>
+                                    <td>{{detailPlans.time_request|formatHour}}h</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'食事'|ttrans}}</th>
+                                    <td>{{detailPlans.meal}}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'人数'|ttrans}}</th>
+                                    <td>{{detailPlans.min_people}} ～ {{detailPlans.max_people}} {{'F03_人迄'|ttrans}}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{'参加条件'|ttrans}}</th>
+                                    <td><pre class="pre-text">{{detailPlans.participation_case}}</pre></td>
+                                </tr>
+                                <tr>
+                                    <th>{{'申込期限'|ttrans}}</th>
+                                    <td *ngIf="detailPlans.num_before_deadline == 1">{{'旅プランの{0}日前まで'|ttrans_replace:detailPlans.num_before_deadline}}</td>
+                                    <td *ngIf="detailPlans.num_before_deadline == 2">{{'F03_旅プランの{0}日前まで'|ttrans_replace:detailPlans.num_before_deadline}}</td>
+                                </tr>
+                            </table>
+                            <section class="plan-detail__section">
+                                <h4 class="plan-detail__sub-title">{{'旅プラン'|ttrans}}</h4>
+                                <pre class="pre-text">{{detailPlans.content}}</pre>
+                            </section>
+                            <section class="plan-detail__section">
+                                <h4 class="plan-detail__sub-title">{{'旅ガイド準備物'|ttrans}}</h4>
+                                <pre class="pre-text">{{detailPlans.guide_perparation}}</pre>
+                            </section>
+                            <section class="plan-detail__section">
+                                <h4 class="plan-detail__sub-title">{{'服装＆準備物'|ttrans}}</h4>
+                                <pre class="pre-text">{{detailPlans.guest_perparation}}</pre>
+                            </section>
+                            <section class="plan-detail__section">
+                                <h4 class="plan-detail__sub-title">{{'集合場所MAP'|ttrans}}</h4>
+                                <p *ngIf="country && country.name && prefecture && prefecture.name"> {{country.name}} , {{prefecture.name}} , {{detailPlans.address_meeting}}</p>
+                                <div class="plan-detail__map">
+                                    <iframe frameborder="0" style="border:0" [src]="addressMap|safe" allowfullscreen></iframe>
+                                </div>
+                            </section>
+                            <section class="plan-detail__section plan-review">
+                                <h4 class="plan-detail__sub-title">{{'レビュー'|ttrans}}</h4>
+                                <ul class="plan-review__list" *ngIf="detailPlanReviews && detailPlanReviews[0]">
+                                    <li>
+                                        <div class="plan-review__head">
+                                            <div class="plan-review__photo"><img [attr.src]="detailPlanReviews[0].member.avatar ? app.constant.FILE_URL+detailPlanReviews[0].member.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                            <div class="plan-review__info">
+                                                <p class="plan-review__name"><span>{{'旅ユーザー'|ttrans}}：</span>{{detailPlanReviews[0].member.name}}</p>
+                                                <p class="plan-review__date">{{'F07_投稿日'|ttrans}}：{{year_review_0}}{{'F03_年'|ttrans}}{{month_review_0}}{{'F03_月'|ttrans}}{{day_review_0}}{{'F03_日'|ttrans}}</p>
+                                            </div>
+                                            <div class="plan-review__score">
+                                                <top-star  class="star" [point]="detailPlanReviews[0].point"></top-star>
+                                            </div>
+                                        </div>
+                                        <div class="review__body"  *ngIf="detailPlanReviews[0].content">
+                                            <pre class="limit-0 pre-text">{{detailPlanReviews[0].content | limit:200}}<a *ngIf="detailPlanReviews[0].content.length >200" (click)="seeFull(0)" href="javascript:void(0);" class="btn_see_full" data-id="{{id}}">{{'続きを見る'|ttrans}}</a></pre>
+                                            <pre class="full-0 pre-text" style="display: none">{{detailPlanReviews[0].content}}</pre>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="plan-review__list" *ngIf="detailPlanReviews && detailPlanReviews[1]">
+                                    <li>
+                                        <div class="plan-review__head">
+                                            <div class="plan-review__photo"><img [attr.src]="detailPlanReviews[1].member.avatar ? app.constant.FILE_URL+detailPlanReviews[1].member.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                            <div class="plan-review__info">
+                                                <p class="plan-review__name"><span>{{'旅ユーザー'|ttrans}}：</span>{{detailPlanReviews[1].member.name}}</p>
+                                                <p class="plan-review__date">{{'F07_投稿日'|ttrans}}：{{year_review_1}}{{'F03_年'|ttrans}}{{month_review_1}}{{'F03_月'|ttrans}}{{day_review_1}}{{'F03_日'|ttrans}}</p>
+                                            </div>
+                                            <div class="plan-review__score">
+                                                <top-star  class="star" [point]="detailPlanReviews[1].point"></top-star>
+                                            </div>
+                                        </div>
+                                        <div class="review__body"  *ngIf="detailPlanReviews[1].content">
+                                            <pre class="limit-1 pre-text">{{detailPlanReviews[1].content | limit:200}}<a *ngIf="detailPlanReviews[1].content.length >200" (click)="seeFull(1)" href="javascript:void(0);" class="btn_see_full" data-id="{{id}}">{{'続きを見る'|ttrans}}</a></pre>
+                                            <pre class="full-1 pre-text" style="display: none">{{detailPlanReviews[1].content}}</pre>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="plan-review__list" *ngIf="detailPlanReviews && detailPlanReviews[2]">
+                                    <li>
+                                        <div class="plan-review__head">
+                                            <div class="plan-review__photo"><img [attr.src]="detailPlanReviews[2].member.avatar ? app.constant.FILE_URL+detailPlanReviews[2].member.avatar : '/assets/top/img/noimage_200x200.png'" alt=""></div>
+                                            <div class="plan-review__info">
+                                                <p class="plan-review__name"><span>{{'旅ユーザー'|ttrans}}：</span>{{detailPlanReviews[2].member.name}}</p>
+                                                <p class="plan-review__date">{{'F07_投稿日'|ttrans}}：{{year_review_2}}{{'F03_年'|ttrans}}{{month_review_2}}{{'F03_月'|ttrans}}{{day_review_2}}{{'F03_日'|ttrans}}</p>
+                                            </div>
+                                            <div class="plan-review__score">
+                                                <top-star  class="star" [point]="detailPlanReviews[2].point"></top-star>
+                                            </div>
+                                        </div>
+                                        <div class="review__body" id="post_{{id}}" *ngIf="detailPlanReviews[2].content">
+                                            <pre class="limit-2 pre-text">{{detailPlanReviews[2].content | limit:200}}<a *ngIf="detailPlanReviews[2].content.length >200" (click)="seeFull(2)" href="javascript:void(0);" class="btn_see_full" data-id="{{id}}">{{'続きを見る'|ttrans}}</a></pre>
+                                            <pre class="full-2 pre-text" style="display: none">{{detailPlanReviews[2].content}}</pre>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+                        </div>
+                        <div class="plan-detail__foot">
+                            <a *ngIf="countReview && countReview > 3" [routerLink]="['/'+languageName+'/review']" class="btn--default"><span>{{countReview-3}}</span>{{'件のレビューを見る'|ttrans}}</a>
+                        </div>
+                    </section>
+                </div>
+                <div class="detail__sub">
+                    <div class="plan-info">
+                        <div class="plan-info__slide plan-info__content">
+                            <ul class="slide-list">
+                                <li *ngFor="let item of images"><img [attr.src]="item.image ? app.constant.FILE_URL+item.image : '/assets/top/img/noimage.png'" alt=""></li>
+                            </ul>
+                            <ul id="thumb-list" class="thumb-list">
+                                <li *ngFor="let item of images"><img [attr.src]="item.image ? app.constant.FILE_URL+item.image : '/assets/top/img/noimage.png'" alt=""></li>
+                            </ul>
+                            <div class="slide-controller"></div>
+                        </div>
+
+
+                        <ul class="plan-info__sns plan-info__content sns-list">
+                            <li class="sns-list__line">
+                                <a *ngIf="languageName == ''" target="_blank" href="https://lineit.line.me/share/ui?url={{app.constant.BASE_WEB}}tour/detail/{{plan_id}}" >
+                                    <img src="{{lineImg}}" alt="" />
+                                </a>
+                                <a *ngIf="languageName != ''" target="_blank" href="https://lineit.line.me/share/ui?url={{app.constant.BASE_WEB+languageName}}/tour/detail/{{plan_id}}" >
+                                    <img src="{{lineImg}}" alt="" />
+                                </a>
+                            </li>
+                            <li class="sns-list__facebook">
+                                <a ceiboShare  [facebook]="{u: repoUrl}"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="sns-list__twitter">
+                                <a *ngIf="languageName == ''" target="_blank"
+                                   href="https://twitter.com/intent/tweet?url={{app.constant.BASE_WEB}}tour/detail/{{plan_id}}" >
+                                    <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                                </a>
+                                <a *ngIf="languageName != ''" target="_blank"
+                                   href="https://twitter.com/intent/tweet?url={{app.constant.BASE_WEB+languageName}}/tour/detail/{{plan_id}}" >
+                                    <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="sns-list__mail">
+                                <a href="javascript:void(0);" id="sendMail" (click)="sendMailAll()">
+                                    <i class="fa fa-envelope-square" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li *ngIf="curMember && detailPlans.hasFavorited == app.constant.FALSE" class="sns-list__favorite" class="favoried"><a  href="javascript:void(0)" class="favories-save" (click)="favories()">{{'F03_お気に入り保存'|ttrans}} <i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
+                            <li *ngIf="curMember && detailPlans.hasFavorited == app.constant.TRUE" class="sns-list__favorite"><a  href="javascript:void(0)"  (click)="favories()">{{'お気に入り済み'|ttrans}}<i class="fa fa-heart-o fa-red" aria-hidden="true"></i></a></li>
+                            <li *ngIf="!curMember" class="sns-list__favorite"><a  href="javascript:void(0)"  (click)="favories()" >{{'F03_お気に入り保存'|ttrans}}<i [ngClass]="detailPlans.hasFavorited == 0 ? 'fa fa-heart-o' : 'fa fa-heart-o'" aria-hidden="true"></i></a></li>
+                        </ul>
+                        <div class="plan-info__price plan-info__content">
+                            <p class="price">{{'¥'|ttrans}}{{detailPlans.price|numberFormat}}／{{'人'|ttrans}}</p>
+                            <!--<a *ngIf="curMember" [routerLink]="['/'+languageName+'/reservation/'+plan_id]"  class="btn&#45;&#45;primary plan-info__button">{{'予約リクエスト'|ttrans}}</a>-->
+                            <a href="javascript:void(0);" (click)="goToBookingF04();" class="btn--primary plan-info__button">{{'予約リクエスト'|ttrans}}</a>
+                        </div>
+                        <div  class="plan-info__review plan-info__content">
+                            <top-star  class="star" [point]="detailPlans.plan_ranking"></top-star>
+                            <p style="margin-left: 50px;" *ngIf="countReview > 0 && countReview == 1">{{countReview}} {{'F03_件のレビュー'|ttrans}}</p>
+                            <p style="margin-left: 50px;" *ngIf="countReview > 1">{{countReview}} {{'F03_件のレビュー1'|ttrans}}</p>
+                        </div>
+                        <div class="plan-info__calendar plan-info__content">
+                            <h2 class="plan-info__title">{{'予約可能日'|ttrans}}</h2>
+                            <div class="calendar">
+                                <table class=" table-calendar">
+                                    <thead>
+                                    <tr>
+                                        <th class="prev"><a href="javascript:void(0);" (click)="clickMonth(plan_month, plan_year, 'previous')">«</a></th>
+                                        <th colspan="5" class="datepicker-switch">{{plan_month+'月'|ttrans}} {{plan_year}}</th>
+                                        <th class="next"><a href="javascript:void(0);" (click)="clickMonth(plan_month, plan_year, 'next')">»</a></th>
+                                    </tr>
+                                    <tr>
+                                        <th class="dow">{{'日'|ttrans}}</th>
+                                        <th class="dow">{{'月'|ttrans}}</th>
+                                        <th class="dow">{{'火'|ttrans}}</th>
+                                        <th class="dow">{{'水'|ttrans}}</th>
+                                        <th class="dow">{{'木'|ttrans}}</th>
+                                        <th class="dow">{{'金'|ttrans}}</th>
+                                        <th class="dow">{{'土'|ttrans}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let item of modifyData.list" >
+                                        <td *ngIf="item.length >= 1" [ngClass]="item[0] && item[0].selected && item[0].selected == 1 ? 'day active-day' : 'day'" (click)="goToBooking((item[0].date))">
+                                            {{ item[0].date ? (item[0].date|datex:'D') : ''}}
+                                        </td>
+                                        <td *ngIf="item.length < 1" class="day" (click)="goToBooking('no_date')"></td>
+
+                                        <td *ngIf="item.length >= 2" [ngClass]="item[1] && item[1].selected && item[1].selected == 1 ? 'day active-day' : 'day'" (click)="goToBooking((item[1].date))">
+                                            {{ item[1].date ? (item[1].date|datex:'D') : ''}}
+                                        </td>
+                                        <td *ngIf="item.length < 2" class="day" (click)="goToBooking('no_date')"></td>
+
+                                        <td *ngIf="item.length >= 3" [ngClass]="item[2] && item[2].selected && item[2].selected == 1 ? 'day active-day' : 'day'"(click)="goToBooking((item[2].date))">
+                                            {{ item[2].date ? (item[2].date|datex:'D') : ''}}
+                                        </td>
+                                        <td *ngIf="item.length < 3" class="day" (click)="goToBooking('no_date')"></td>
+
+                                        <td *ngIf="item.length >= 4" [ngClass]="item[3] && item[3].selected && item[3].selected == 1 ? 'day active-day' : 'day'"(click)="goToBooking((item[3].date))">
+                                            {{ item[3].date ? (item[3].date|datex:'D') : ''}}
+                                        </td>
+                                        <td *ngIf="item.length < 4" class="day" (click)="goToBooking('no_date')"></td>
+
+                                        <td *ngIf="item.length >= 5" [ngClass]="item[4] && item[4].selected && item[4].selected == 1 ? 'day active-day' : 'day'"(click)="goToBooking((item[4].date))">
+                                            {{ item[4].date ? (item[4].date|datex:'D') : ''}}
+                                        </td>
+                                        <td *ngIf="item.length < 5" class="day" (click)="goToBooking('no_date')"></td>
+
+                                        <td *ngIf="item.length >= 6" [ngClass]="item[5] && item[5].selected && item[5].selected == 1 ? 'day active-day' : 'day'"(click)="goToBooking((item[5].date))">
+                                            {{ item[5].date ? (item[5].date|datex:'D') : ''}}
+                                        </td>
+                                        <td *ngIf="item.length < 6" class="day" (click)="goToBooking('no_date')"></td>
+
+                                        <td *ngIf="item.length >= 7" [ngClass]="item[6] && item[6].selected && item[6].selected == 1 ? 'day active-day' : 'day'"(click)="goToBooking((item[6].date))">
+                                            {{ item[6].date ? (item[6].date|datex:'D') : ''}}
+                                        </td>
+                                        <td *ngIf="item.length < 7" class="day" (click)="goToBooking('no_date')"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="plan-info__content">
+                            <h2 class="plan-info__title">{{'基本開始時間'|ttrans}}</h2>
+                            <ul class="list-item">
+                                <li *ngFor="let item of timeStart">{{item}}</li>
+                            </ul>
+                        </div>
+                        <div class="plan-info__content">
+                            <h2 class="plan-info__title">{{'キャンセルポリシー'|ttrans}}</h2>
+                            <p>
+                                {{'プランのキャンセルされる場合には、下記キャンセルポリシーが適用となります。'|ttrans}}<br>
+                                {{'プラン実施日の８日前まで：0％'|ttrans}}<br>
+                                {{'７日前～２日前まで：30％'|ttrans}}<br>
+                                {{'前日：40％'|ttrans}}<br>
+                                {{'当日プラン実施前まで：50％'|ttrans}}<br>
+                                {{'プラン実施時間後：100％'|ttrans}}<br><br>
+
+                                {{'※返金手数料はお客様のご負担になりますのでご了承ください。'|ttrans}}<br>
+                                {{'※キャンセル可能期間については、日本時間で計算されます。'|ttrans}}<br><br>
+
+                                {{'＜キャンセル方法＞'|ttrans}}<br>
+                                {{'マイページから、該当のプランの「詳細」ボタンを押し、ページ下部にある「キャンセルする」ボタンからキャンセルをすることができます。予約リクエストする際には、必ずキャンセル規定をご確認ください。'|ttrans}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content__aside">
+            <div class="outer__inner">
+                <h2 class="content__title--02">{{'類似の旅プラン'|ttrans}}</h2>
+                <div class="content-list">
+                    <ul class="content-list__wrap">
+                        <li *ngFor="let item of detailPlanOthers.data" class="content-list__item">
+                            <div>
+                                <div class="content-list__photo">
+                                    <a *ngIf="languageName == ''" href="{{app.constant.BASE_WEB+'tour/detail/'+item.id}}" >
+                                        <figure *ngIf="item.imagesContent != null" class="content-list__cover" ><img src="{{app.constant.FILE_URL+item.imagesContent}}"  alt=""></figure>
+                                        <figure *ngIf="item.imagesContent == null" class="content-list__cover" ><img src="/client/src/assets/top/img/noimage.png" alt=""></figure>
+                                    </a>
+                                    <a *ngIf="languageName != ''" href="{{app.constant.BASE_WEB+languageName+'/tour/detail/'+item.id}}" >
+                                        <figure *ngIf="item.imagesContent != null" class="content-list__cover" ><img src="{{app.constant.FILE_URL+item.imagesContent}}"  alt=""></figure>
+                                        <figure *ngIf="item.imagesContent == null" class="content-list__cover" ><img src="/client/src/assets/top/img/noimage.png" alt=""></figure>
+                                    </a>
+                                    <a *ngIf="guiders" [routerLink]="['/'+languageName+'/guide/detail/'+item.guiders.id]">
+                                        <figure *ngIf="item.avatarGuider != null" class="content-list__person" ><img src="{{app.constant.FILE_URL+item.avatarGuider}}"  alt=""></figure>
+                                        <figure *ngIf="item.avatarGuider == null" class="content-list__person" ><img src="/assets/top/img/noimage_200x200.png"  alt=""></figure>
+                                    </a>
+                                </div>
+                                <div class="content-list__body">
+                                    <ul class="category">
+                                        <li *ngFor="let category of item.categories"><a  href="javascript:void(0)" (click)="backToSearch(category.prefix)" style="background: #7cb342">{{category.name}}</a></li>
+                                        <!--<li *ngFor="let category of item.categories"><a *ngIf="languageName != ''" href="{{app.constant.BASE_WEB+languageName+'/tour/detail/'+item.id}}" style="background: #7cb342">{{category.name}}</a></li>-->
+                                        <!--<li><a href="#" style="background: #64b5f6">XXX体験</a></li>-->
+                                    </ul>
+                                    <h3 class="content-list__title">
+                                        <a *ngIf="languageName == ''" href="{{app.constant.BASE_WEB+'tour/detail/'+item.id}}">{{item.title}}</a>
+                                        <a *ngIf="languageName != ''" href="{{app.constant.BASE_WEB+languageName+'/tour/detail/'+item.id}}">{{item.title}}</a>
+                                    </h3>
+                                    <div class="content-list__utility">
+                                        <div class="content-list__flex">
+                                            <p class="price">{{'¥'|ttrans}}{{item.price|numberFormat}}／{{'人'|ttrans}}</p>
+                                            <p class="time">{{item.time_request|formatHour}}h／{{'所要時間'|ttrans}}</p>
+                                        </div>
+                                        <div class="content-list__flex">
+                                            <top-star  class="star" [point]="item.plan_ranking"></top-star>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="container__foot">
+                    <a *ngIf="detailPlanOthers.current_page * 1 < detailPlanOthers.last_page * 1" href="javascript:void(0);" class="btn--default" (click)="loadMore()">{{'もっと見る'|ttrans}}</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" style="margin-right: 10px;" class="btn btn-default close" (click)="close_modal()" id="close_modal" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <h2 style="text-align: center;margin: 10px auto;font-weight: bold;" class="modal-body__title">{{detailPlans.title}}</h2>
+                <p class="modal-body__title">{{'F03_送信先'|ttrans}}<sup style="color: red;">※</sup></p>
+                <div class="form-set form-set--block mail_to_user">
+                    <input style="font-size: 1.6rem;padding: 10px;" type="text" name="mail_to" id="mail_to" class="form-set__input is-required" placeholder="{{'F03_メルアドレスをコンマで区切ってご入力ください。'|ttrans}}">
+                    <small class='msg_err error-message-mail'></small>
+                </div>
+                <p class="modal-body__title">{{'F03_非公開メッセージ'|ttrans}}<sup style="color: red;">※</sup></p>
+                <div class="form-set form-set--block">
+                    <textarea type="textarea" style="height: 250px;font-size: 1.6rem;line-height: 2rem;padding: 10px; font-family: arial"  value="{{app.constant.BASE_WEB}}{{languageName}}/tour/detail/{{plan_id}}" name="mail_desc" id="mail_desc" class="form-set__input is-required" placeholder="{{'F03_シェアしたい内容を入力ください。'|ttrans}}">
+                    </textarea>
+                    <small class="msg_err error-message-des"></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="submit" data-dismiss="modal" (click)="sendMail()">{{'F03_メールを送信'|ttrans}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

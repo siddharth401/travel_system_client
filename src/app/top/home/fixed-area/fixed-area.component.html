@@ -1,0 +1,10 @@
+<div class="fixed-area">
+    <ul class="fixed-area__list" *ngIf="curMember">
+        <li><a (click)="createPlan()" class="btn__create">{{'旅プランをつくる'|ttrans}}</a></li>
+        <li><a [routerLink]='["/" + language + "/mypage/request/add"]' class="btn__request">{{'旅リクエストをつくる'|ttrans}}</a></li>
+    </ul>
+    <ul class="fixed-area__list" *ngIf="!curMember">
+        <li><a [routerLink]='["/" + language + "/member/login"]' [queryParams]="{is_page:app.constant.PLAN_ADD}" class="btn__create">{{'旅プランをつくる'|ttrans}}</a></li>
+        <li><a [routerLink]='["/" + language + "/member/login"]' [queryParams]="{is_page:app.constant.REQUEST_ADD}" class="btn__request">{{'旅リクエストをつくる'|ttrans}}</a></li>
+    </ul>
+</div>

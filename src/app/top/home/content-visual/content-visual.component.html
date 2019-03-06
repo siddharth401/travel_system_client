@@ -1,0 +1,38 @@
+<section class="visual">
+    <div class="visual__inner">
+        <h2 class="visual__title">{{'あなただけの旅とガイドを見つけよう'|ttrans}}!</h2>
+        <div *ngIf="app.listDataFormSearch" class="search">
+            <form action="{{language}}/tour" method="POST" [formGroup]="fb.form" class="form-horizontal" (ngSubmit)="search($event)">
+                <div class="search__box">
+                    <div class="search__item search__arrive" *ngIf="app.listDataFormSearch.cities">
+                        <select formControlName="city_prefix" id="search-area" id="city_prefix" class="easy-select">
+                            <option value="" selected>{{'旅先はどちらですか?'|ttrans}}</option>
+                            <optgroup *ngFor="let country of app.listDataFormSearch.cities" label="{{country.display_name}}">
+                                <option *ngFor="let item of country.cities" [value]="item.prefix" [selected]="item.prefix == ''">
+                                    <span>{{item.name}}</span>
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="search__item search__category" *ngIf="app.listDataFormSearch.categories">
+                        <select formControlName="category_prefix"  id="category_prefix" class="easy-select">
+                            <option value="" selected>{{'プラン内容'|ttrans}}</option>
+                            <option *ngFor="let item of app.listDataFormSearch.categories" [value]="item.prefix" [selected]="item.prefix == ''">{{item.name}}</option>
+                        </select>
+                    </div>
+                    <div class="search__item search__date">
+                        <input formControlName="date_plan" id="input-date" type="text" placeholder="{{'日付'|ttrans}}">
+                    </div>
+                    <div class="search__item search__lang" *ngIf="app.listDataFormSearch.languages">
+                        <select formControlName="language_prefix" id="language_prefix" class="easy-select" style="width: 170px;">
+                            <option value="" selected>{{'対応言語'|ttrans}}</option>
+                            <option *ngFor="let item of app.listDataFormSearch.languages" [value]="item.prefix" [selected]="item.prefix == ''">{{item.display_name|ttrans}}</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="search__button">{{'検索'|ttrans}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- /.visual -->

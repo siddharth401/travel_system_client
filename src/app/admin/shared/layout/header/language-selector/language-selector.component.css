@@ -1,0 +1,15 @@
+ul.dropdown-menu {
+    display: block;
+    z-index: 1000 !important;
+}
+.click {
+    padding-top: 16px;
+}
+.pull-right {
+    position: fixed;
+    top: 36px;
+    right: 33px;
+}
+a {
+    color: white;
+}

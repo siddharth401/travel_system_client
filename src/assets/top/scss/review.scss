@@ -1,0 +1,16 @@
+@import "foundation/_mixin.scss";
+@import "foundation/_setting.scss";
+.review{
+	&__visual{
+		background: url(/img/visual_reviw.png) no-repeat center top;
+		background-size: cover;
+	}
+	.guide-score{
+		margin-left: 20px;
+		.content-list__score{
+			li{
+				@include font-size(14,14);
+			}
+		}
+	}
+}

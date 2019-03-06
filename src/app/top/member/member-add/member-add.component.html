@@ -1,0 +1,39 @@
+<section class="modal">
+    <div class="add">
+        <div class="modal__head">
+            <h1 class="modal__logo"><a [routerLink]="['/']"><img src="assets/top/img/logo_ico.png" alt="サイトロゴ" /></a></h1>
+        </div>
+        <div class="modal__body">
+            <h2 class="modal__title">{{'新規会員登録'|ttrans}}</h2>
+            <div class="modal__inner">
+                <a href="javascript:void(0);" (click)="addFb()"  class="btn--facebook">{{'Facebookで会員登録'|ttrans}}</a>
+                <!--<small class="msg_err" *ngIf="Error">{{Error['message_facebook']|ttrans}}</small>-->
+                <small class="msg_err" *ngIf="Error">{{Error.message_facebook|ttrans}}</small>
+                <small class="msg_err" *ngIf="Error_Facebook">{{Error_Facebook|ttrans}}</small>
+
+                <p>{{'もしくは'|ttrans}}</p>
+                <form (keyup.enter)="saveData()" class="add__form">
+                    <div class="add__form-item">
+                        <input  class="email" id="email" type="text" placeholder="{{'F10_メールアドレス'|ttrans}}">
+                        <small class="msg_err" *ngIf="Error.email">{{Error.email[0]|ttrans}}</small>
+                    </div>
+                    <div class="add__form-item style-login" >
+                        <input type="password"  class="password" id="password" placeholder="{{'パスワード（4～8文字以内の英数字）'|ttrans}}">
+                        <a href="javascript:void(0);"><span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span></a>
+                        <small class="msg_err" *ngIf="Error.password">{{Error.password[0]|ttrans}}</small>
+                    </div>
+                    <div class="add__form-button">
+                        <input type="button" (click)="saveData()" value="{{'F10_仮登録メールを送る'|ttrans}}" class="btn--primary"/>
+                    </div>
+                    <small class="msg_err" *ngIf="Error && Error.message">{{Error.message|ttrans}}</small>
+
+                </form>
+
+            </div>
+            <div class="modal__foot">
+                <a [routerLink]='["/" + languageName + "/member/login"]'  class="link--forward"><i class="fa fa-angle-right" aria-hidden="true"></i>{{'F10_すでに登録済の方はこちら'|ttrans}}</a>
+            </div>
+        </div>
+    </div>
+    <button type="button" id="cboxClose" (click)="btnClose()">close</button>
+</section>

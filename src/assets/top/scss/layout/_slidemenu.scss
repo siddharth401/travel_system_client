@@ -1,0 +1,52 @@
+.slidemenu{
+	//display: none;
+	padding: 20px;
+	@include for-size(phone-only) {
+		background: #fff;
+		width: 70%;
+		position: fixed;
+		top: 0px;
+		left: 0;
+		height: 100vh;
+		&__list{
+			li{
+				a{
+					display: block;
+					text-decoration: none;
+					color: #484848;
+					padding: 20px 0px;
+				}
+			}
+		}
+	}
+	.custom-form{
+		margin-top: 10px;
+		border: 1px solid #ccc;
+		position: relative;
+		height: 35px;
+		@include border-radius(5px);
+		overflow: hidden;
+		&:after {
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 10px;
+			width: 7px;
+			height: 7px;
+			margin-top: -7px;
+			border-top: solid 2px #ccc;
+			border-right: solid 2px #ccc;
+			-webkit-transform: rotate(135deg);
+			transform: rotate(135deg);
+			content: "";
+		}
+		select{
+			width: 110%;
+			height: 35px;
+			@include font-size(16,35);
+			padding: 0 15px;
+			outline: none;
+			box-sizing: border-box;
+		}
+	}
+}

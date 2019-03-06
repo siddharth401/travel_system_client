@@ -1,0 +1,102 @@
+<section class="about outer content">
+    <div class="content__head">
+        <h2 class="content__title">{{'あなただけの旅を演出してくれる'|ttrans}}<br/>{{'ガイドやプランが探せる、作れる、提案してもらえる！'|ttrans}}</h2>
+    </div>
+    <div class="content__lead">
+        <p>{{'このサイトはありきたりの旅ではなく、オリジナルの旅がしたい旅行者（旅ユーザー）と、旅行者を案内したいガイド（旅ガイド）を結びつける'|ttrans}}<br/>{{'マッチングサイトです。旅ユーザーは登録されている旅プランから選んで参加したり、行きたいところやしたいことを旅リクエストとして登録すれば、'|ttrans}}<br/>{{'旅ガイドからすてきな提案がもらえます。'|ttrans}}</p>
+    </div>
+    <div class="about__tab tab">
+        <ul class="tab__list">
+            <li><a (click)="searchPlan()" id="target-search-plan"  class="is-current">{{'旅プランを探す'|ttrans}}</a></li>
+            <li><a (click)="requestPlan()" id="target-request-plan">{{'旅リクエストをつくる'|ttrans}}</a></li>
+        </ul>
+        <div class="tab__content">
+            <div class="outer__inner">
+                <div id="search-plan" class="tab__section show-target">
+                    <ul class="about__flow flows">
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-search-plan01.png" alt="プランを探す" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step1 -</span>{{'旅プランを探す'|ttrans}}</h3>
+                                </div>
+                                <p>{{'自分が行きたい場所、したいことから旅プランを探そう'|ttrans}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-search-plan02.png" alt="プランをリクエスト" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step2 -</span>{{'旅プランを予約'|ttrans}}</h3>
+                                </div>
+                                <p>{{'気に入った、行きたいプランがあったら予約してみよう'|ttrans}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-search-plan03.png" alt="プラン確定" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step3 -</span>{{'旅プランの予約確定'|ttrans}}</h3>
+                                </div>
+                                <p>{{'旅ガイドに予約が承認されたら確定です。'|ttrans}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-search-plan04.png" alt="プラン体験" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step4 -</span>{{'旅プランを楽しむ'|ttrans}}</h3>
+                                </div>
+                                <p>{{'いよいよ旅の始まり。思いっきり楽しみましょう！！'|ttrans}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="about__footer"><a [routerLink]='["/" + app.language + "/search"]' class="about__button btn--primary">{{'現在、募集しているプランを見る'|ttrans}}</a></div>
+                </div>
+                <div id="request-plan" class="tab__section hide-target">
+                    <ul class="about__flow flows">
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-reserve-plan01.png" alt="プランを探す" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step1 -</span>{{'F01_旅リクエストの作成'|ttrans}}</h3>
+                                </div>
+                                <p>{{'登録されている旅プランで目的のプランがなかったら、希望の旅をリクエストできます。'|ttrans}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-reserve-plan02.png" alt="プランをリクエスト" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step2 -</span>{{'旅リクエストへの提案'|ttrans}}</h3>
+                                </div>
+                                <p>{{'あなたの旅リクエストを見て、旅ガイドからベストな提案がもらえます。'|ttrans}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-reserve-plan03.png" alt="プラン確定" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step3 -</span>{{'提案への予約'|ttrans}}</h3>
+                                </div>
+                                <p>{{'旅ガイドからの提案を見て色々質問してみてください。もし気に入ったらぜひ予約してみてくださいね。'|ttrans}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <div>
+                                    <figure><img src="/assets/top/img/img-reserve-plan04.png" alt="プラン体験" width="210" height="210"></figure>
+                                    <h3 class="flows__title"><span>- Step4 -</span>{{'希望の旅を楽しむ'|ttrans}}</h3>
+                                </div>
+                                <p>{{'いよいよ旅の始まり。思いっきり楽しみましょう！！'|ttrans}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="about__footer"><a [routerLink]='["/" + app.language + "/request/search"]' class="about__button btn--primary">{{'現在、募集している旅リクエストを見る'|ttrans}}</a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- /.about outer content -->

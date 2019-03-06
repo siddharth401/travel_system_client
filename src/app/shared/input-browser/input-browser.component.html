@@ -1,0 +1,8 @@
+<div class="input-group">
+    <ng-content></ng-content>
+    <div class="input-group-btn">
+        <button (click)="browser()" class="btn btn-default" type="button">{{'Browse'|trans}}</button>
+        <button (click)="show()" [disabled]="tbInput && !tbInput.val()" class="btn btn-default" type="button">{{'View'|trans}}</button>
+        <button (click)="delete()" [disabled]="tbInput && !tbInput.val()" class="btn btn-default" type="button">{{'Delete'|trans}}</button>
+    </div>
+</div>

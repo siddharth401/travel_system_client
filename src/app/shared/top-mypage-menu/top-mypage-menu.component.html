@@ -1,0 +1,97 @@
+<nav class="mypage__menu mypage__menu__acc" *ngIf="curMember">
+  <ul class="mypage__menu-list" *ngIf="curMember.type == app.constant.MEMBER_USER">
+    <li>
+      <a href="javascript:void(0)"  class="js-acc-trigger"><i class="fa fa-user" aria-hidden="true"></i>{{'マイページ'|ttrans}}</a>
+      <ul>
+        <li>
+          <p>{{'旅ユーザー活動状況'|ttrans}}</p>
+          <ul>
+            <li><a>{{'承認待ちの旅プラン'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_waiting == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_waiting}}</i></a></li>
+            <li><a>{{'実施前'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_exist == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_exist}}</i></a></li>
+            <li><a>{{'実施後未処理'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_confirm_execute}}</i></a></li>
+            <li><a>{{'口コミ未登録'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_request_review == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_request_review}}</i></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0)" class="js-acc-trigger"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'予約したプラン'|ttrans}}</a>
+      <ul>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/reservationtour')" style="cursor: pointer">{{'プラン一覧'|ttrans}}</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0)" class="js-acc-trigger"><i class="fa fa-pencil-square" aria-hidden="true"></i>{{'リクエストしたプラン'|ttrans}} </a>
+      <ul>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/request/add')">{{'リクエスト作成'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)"  (click)="redirect('/mypage/request')">{{'リクエスト一覧'|ttrans}}</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0)" class="js-acc-trigger"><i class="fa fa-heart-o" aria-hidden="true"></i>{{'お気に入り'|ttrans}}</a>
+      <ul>
+        <li><a href="{{language}}/mypage/favorites#plan">{{'旅プランのお気に入り一覧'|ttrans}}</a></li>
+        <li><a href="{{language}}/mypage/favorites#request">{{'旅リクエストのお気に入り一覧'|ttrans}}</a></li>
+        <li><a href="{{language}}/mypage/favorites#guide">{{'旅ガイドのお気に入り一覧'|ttrans}}</a></li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="mypage__menu-list" *ngIf="curMember.type == app.constant.MEMBER_GUIDER">
+    <li>
+      <a href="javascript:void(0)"  class="js-acc-trigger"><i class="fa fa-user" aria-hidden="true"></i>{{'マイページ'|ttrans}}</a>
+      <ul>
+        <li>
+          <p>{{'旅ユーザー活動状況'|ttrans}}</p>
+          <ul>
+            <li><a>{{'承認待ちの旅プラン'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_waiting == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_waiting}}</i></a></li>
+            <li><a>{{'実施前'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_exist == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_exist}}</i></a></li>
+            <li><a>{{'実施後未処理'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_confirm_execute == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_confirm_execute}}</i></a></li>
+            <li><a>{{'口コミ未登録'|ttrans}}<i [ngClass]="app.number_on_header.booking_member.booking_request_review == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_member.booking_request_review}}</i></a></li>
+          </ul>
+        </li>
+        <li>
+          <p>{{'旅ガイド活動状況'|ttrans}}</p>
+          <ul>
+            <li><a>{{'承認待ちの旅プラン'|ttrans}}<i [ngClass]="app.number_on_header.booking_guide.booking_waiting == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_guide.booking_waiting}}</i></a></li>
+            <li><a>{{'実施前'|ttrans}}<i [ngClass]="app.number_on_header.booking_guide.booking_exist == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_guide.booking_exist}}</i></a></li>
+            <li><a>{{'実施後未処理'|ttrans}}<i [ngClass]="app.number_on_header.booking_guide.booking_confirm_execute == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_guide.booking_confirm_execute}}</i></a></li>
+            <li><a>{{'口コミ未登録'|ttrans}}<i [ngClass]="app.number_on_header.booking_guide.booking_request_review == 0 ? 'ct ct-zero' : 'ct'">{{app.number_on_header.booking_guide.booking_request_review}}</i></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0)" class="js-acc-trigger"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>{{'予約したプラン'|ttrans}}</a>
+      <ul>
+        <li><a (click)="redirect('/mypage/reservationtour')" style="cursor: pointer">{{'プラン一覧'|ttrans}}</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0)" class="js-acc-trigger"><i class="fa fa-pencil-square" aria-hidden="true"></i>{{'リクエストしたプラン'|ttrans}}</a>
+      <ul>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/request/add')">{{'リクエスト作成'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/request')">{{'リクエスト一覧'|ttrans}}</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0)" class="js-acc-trigger"><i class="fa fa-heart-o" aria-hidden="true"></i>{{'お気に入り'|ttrans}}</a>
+      <ul>
+        <li><a href="{{language}}/mypage/favorites#plan">{{'旅プランのお気に入り一覧'|ttrans}}</a></li>
+        <li><a href="{{language}}/mypage/favorites#request">{{'旅リクエストのお気に入り一覧'|ttrans}}</a></li>
+        <li><a href="{{language}}/mypage/favorites#guide">{{'旅ガイドのお気に入り一覧'|ttrans}}</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="javascript:void(0);" class="js-acc-trigger"><i class="fa fa-cog" aria-hidden="true"></i>{{'旅ガイド管理画面'|ttrans}}</a>
+      <ul>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/profile')">{{'プロフィール変更'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/profile/resume')">{{'本人確認証明書'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/plan/create')">{{'ガイドプラン作成'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/plan')">{{'作成したプラン一覧'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/apply')">{{'応募一覧'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/proposal_plan')">{{'提案プラン一覧'|ttrans}}</a></li>
+        <li><a href="javascript:void(0)" (click)="redirect('/mypage/money')">{{'売上情報'|ttrans}}</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

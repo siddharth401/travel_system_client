@@ -1,0 +1,35 @@
+@import "foundation/_mixin.scss";
+@import "foundation/_setting.scss";
+
+.suggest{
+	&__visual{
+		background: url(/img/visual_suggest.png) no-repeat center top;
+		background-size: cover;
+	}
+	&__section{
+		background: #fafafa;
+		padding: 75px 0px;
+		@include for-size(phone-only) {
+			padding: 20px;
+		}
+	}
+}
+
+#plan-name{width: 100%;}
+#plan-time{width: 200px;}
+#plan-date{width: 200px;}
+#plan-hour{width: 100px;}
+#plan-min{width: 100px;}
+#plan-location-pref{width: 200px; margin-bottom: 25px;}
+#plan-location-address{width: 100%;}
+#plan-detail{
+	width: 100%;
+	height: 170px;
+}
+#plan-note{
+	width: 100%;
+	height: 170px;
+}
+#plan-price{width: 200px;}
+#plan-number{width: 100px; @include font-size(24,24); text-align: center; font-weight: bold;}
+#plan-total{width: 200px; @include font-size(24,24); text-align: center; font-weight: bold;}

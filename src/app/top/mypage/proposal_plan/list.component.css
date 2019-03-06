@@ -1,0 +1,89 @@
+.list--style {
+    max-width: 180px;
+    overflow: hidden;
+}
+.list--style a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+.list--style span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+}
+.search-date-plan.form-set__input{
+    height: 36px;
+    padding: 0 10px;
+    width: 100px;
+}
+
+.mypage__body__table-compact[_ngcontent-c6]   tr[_ngcontent-c6]    > th[_ngcontent-c6]{
+    padding: 15px;
+}
+.list--style[_ngcontent-c6]{
+    max-width: 120px;
+}
+.form-set--02{
+    margin-right: 0;
+    width: 100%;
+    background: #fff;
+    line-height: 0;
+}
+.form-set__select select{
+    height: 36px;
+    line-height: 2;
+    padding: 0 10px;
+}
+.add__form-button{
+    margin-top: 0;
+}
+.btn__filter{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    margin-left: 5px;
+}
+.btn__filter:before{
+    content: "\f0b0";
+    font-size: 18px;
+    line-height: 36px;
+}
+.ng-untouched{
+    display: flex;
+    align-items: center;
+}
+
+.mypage__body__table-compact .btn__mypage{
+    width: 110px;
+    min-width: 110px;
+}
+@media (max-width:767px) {
+    .mypage__body__table-compact .btn__mypage{
+        width: auto
+    }
+}
+
+.mypage__body__table-compact .list--style{
+    max-width: 150px;
+    overflow: hidden;
+}
+@media (max-width:767px) {
+    .mypage__body__table-compact .list--style{
+        max-width: 100%;
+    }
+
+    .mypage__body__table-compact>tbody>tr td:before{
+        width: 35%;
+    }
+
+    .mypage__body__table-compact>tbody>tr td.not-data:before{
+        width: 0;
+    }
+}
